@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "enterprise-ap-automation"
 version = "0.1.0"
 description = "AI-powered Enterprise Accounts Payable (AP) Invoice Automation Platform"
-readme = "CLAUDE.md"
+readme = "docs/CLAUDE.md"
 requires-python = ">=3.11"
 authors = [
     { name = "Enterprise AP Solution Team" }

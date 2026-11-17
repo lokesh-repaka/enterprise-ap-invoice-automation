@@ -14,8 +14,9 @@ build/
 *.sqlite
 /data/enterprise.db
 
-# Temporary scratch scripts
+# Temporary scratch scripts & course materials
 scratch/
+AI_Solution_Architect_Masterclass_Slides.pdf
 
 # Antigravity artifacts & logs
 /.agents/agent-calls.jsonl
