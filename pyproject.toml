@@ -45,6 +45,9 @@ include = ["src*"]
 minversion = "8.0"
 addopts = "-ra -q -p no:logfire"
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore:ImportError while loading the `logfire-plugin`:UserWarning",
+]
 
 [tool.ruff]
 line-length = 100

@@ -44,3 +44,4 @@ All unit and integration tests run **100% offline** with zero external network o
 ```bash
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 USE_LOCAL_SQLITE=true USE_FAKE_REDIS=true USE_MOCK_AOAI=true pytest -v tests/unit/
 ```
+
