@@ -8,12 +8,12 @@
 ## 1. Honest Status
 
 - **Current Active Phase:** Phase 2 — Persistence and Vendor Master
-- **Latest Completed Subtask:** P2-1 · SQLAlchemy 2 async models — `Vendors`, `Invoices`, `InvoiceLines`, `AuditLogs`, `ExchangeRates`
-- **Total Completed Tasks:** 11 / 68 (16%)
-- **Test Suite Pass Count:** **31 / 31 passing (100%)**
-- **Test Execution Latency:** **0.31 seconds** (strict offline isolation mode)
+- **Latest Completed Subtask:** P2-2 · Database schema DDL (`schema.sql`) and Alembic migration baseline
+- **Total Completed Tasks:** 12 / 68 (18%)
+- **Test Suite Pass Count:** **36 / 36 passing (100%)**
+- **Test Execution Latency:** **0.48 seconds** (strict offline isolation mode)
 - **Code Quality & Linter:** Ruff 0.3.3 passing with 0 warnings, 0 errors
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs; dynamic Alembic connection strings
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -29,7 +29,8 @@
 | `tests/unit/test_harness.py` | Offline fixtures (FakeRedis, Mock AOAI, Mock Blob) | 5 | 0.01s |
 | `tests/unit/test_ci_workflow.py` | GitHub Actions CI workflow triggers & job graph | 4 | 0.02s |
 | `tests/unit/test_models.py` | SQLAlchemy 2 async models, relationships, and CRUD | 6 | 0.22s |
-| **Total** | **All Modules Offline** | **31** | **0.31s** |
+| `tests/unit/test_schema_migrations.py` | Schema DDL, table integrity, and Alembic migrations | 5 | 0.17s |
+| **Total** | **All Modules Offline** | **36** | **0.48s** |
 
 ---
 
