@@ -19,7 +19,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 |------|--------|--------|
 | P1-1 · Project structure, `pyproject.toml`, and `.env.example` | `feature/project-bootstrap` | Completed ✅ |
 | P1-2 · Centralised settings (`src/core/config.py`) and JSON logging | `feature/core-config-logging` | Completed ✅ |
-| P1-3 · Makefile with `run-api`, `run-ui`, `test`, `lint` targets | `feature/makefile-dev-commands` | Pending ❌ |
+| P1-3 · Makefile with `run-api`, `run-ui`, `test`, `lint` targets | `feature/makefile-dev-commands` | Completed ✅ |
 | P1-4 · FastAPI app skeleton — health routes and `request_id` middleware | `feature/api-health-middleware` | Pending ❌ |
 | P1-5 · Offline pytest harness (`conftest.py`, SQLite fixture, fake Redis, mock AOAI) | `feature/test-harness-offline` | Pending ❌ |
 | P1-6 · GitHub Actions CI pipeline — lint → unit test → build | `feature/ci-pipeline-github-actions` | Pending ❌ |
@@ -258,7 +258,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 
 | Phase | Name | Tasks | Completed |
 |-------|------|-------|-----------|
-| 1 | Runtime Skeleton | 6 | 2 ✅ |
+| 1 | Runtime Skeleton | 6 | 3 ✅ |
 | 2 | Persistence and Vendor Master | 5 | 0 ❌ |
 | 3 | Identity and Security | 5 | 0 ❌ |
 | 4 | Azure Storage Layer | 4 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **6 (9%)** |
+| **Total** | | **68** | **7 (10%)** |
 
