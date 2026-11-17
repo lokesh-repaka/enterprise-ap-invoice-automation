@@ -4,6 +4,7 @@ Centralised Application Configuration.
 Single source of truth for platform settings, Azure East US 2 resource parameters,
 business thresholds, and offline test switches (CLAUDE.md §11.1).
 """
+
 from functools import lru_cache
 from pathlib import Path
 

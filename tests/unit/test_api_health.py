@@ -3,6 +3,7 @@ Unit tests for FastAPI Application Skeleton, Health Routes, and Middleware.
 
 Tests: N3, N5, FR-01
 """
+
 from fastapi.testclient import TestClient
 
 from src.api.main import app

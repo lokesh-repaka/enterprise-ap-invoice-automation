@@ -3,6 +3,7 @@ Unit tests for Project Structure and Environment Contract.
 
 Tests: N1, N8, FR-01
 """
+
 import tomllib
 from pathlib import Path
 

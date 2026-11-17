@@ -4,6 +4,7 @@ FastAPI Request Tracing and Diagnostic Middleware.
 Injects unique request_id into ContextVar, logs structured JSON request lifecycle,
 and ensures X-Request-ID response header propagation (CLAUDE.md §11).
 """
+
 import time
 import uuid
 from collections.abc import Callable
@@ -50,4 +51,3 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
             return response
         finally:
             request_id_ctx.reset(token)
-

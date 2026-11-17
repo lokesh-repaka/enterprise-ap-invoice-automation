@@ -4,6 +4,7 @@ FastAPI Application Entrypoint.
 Initialises the HTTP API server, health routes, request_id middleware,
 and lifespan event management per CLAUDE.md §11 and LLD §2.
 """
+
 from contextlib import asynccontextmanager
 from typing import Any
 
@@ -95,4 +96,3 @@ async def http_exception_handler(request, exc: HTTPException):
         content={"detail": exc.detail},
         headers=getattr(exc, "headers", None),
     )
-
