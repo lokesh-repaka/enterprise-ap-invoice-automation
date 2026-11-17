@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1053",
+    "composite_hash": "a559c97da68e4bd4e6d184058f01f6f9aeb9d09c05d0f4bf7fd818dc8836ec75",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1053",
+    "invoice_date": "02/01/2026",
+    "due_date": "03/03/2026",
+    "po_number": "PO-9000-2053",
+    "subtotal": 8557.0,
+    "tax_amount": 598.99,
+    "total_amount": 9155.99,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 10,
+      "unit_price": 850.0,
+      "line_total": 8500.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

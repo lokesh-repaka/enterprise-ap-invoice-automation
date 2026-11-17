@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1243",
+    "composite_hash": "45486c905e6e84665d83ee82fbcca5a7f099ee4866295a983bcdfa4c1dd242ad",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1243",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2243",
+    "subtotal": 4880.35,
+    "tax_amount": 976.07,
+    "total_amount": 5856.42,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 9,
+      "unit_price": 12.5,
+      "line_total": 112.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 7,
+      "unit_price": 38.8,
+      "line_total": 271.6,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 5,
+      "unit_price": 75.25,
+      "line_total": 376.25,
+      "tax_rate": 0.2
+    }
+  ]
+}

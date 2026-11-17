@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1168",
+    "composite_hash": "02bdfcf694ac705d77142ec5a2ea97747388f4aa3017f25ab677cbfc8b3e4df1",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1168",
+    "invoice_date": "02/16/2026",
+    "due_date": "03/18/2026",
+    "po_number": "PO-9000-2168",
+    "subtotal": 244.5,
+    "tax_amount": 20.17,
+    "total_amount": 264.67,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 1,
+      "unit_price": 125.0,
+      "line_total": 125.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

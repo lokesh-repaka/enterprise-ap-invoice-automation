@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1083",
+    "composite_hash": "7af2af430a1b3de9517a3930b727cbb9d0a94a529c6eb6cf885cae93fddd7dcb",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1083",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2083",
+    "subtotal": 2205.0,
+    "tax_amount": 441.0,
+    "total_amount": 2646.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 7,
+      "unit_price": 28.5,
+      "line_total": 199.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 5,
+      "unit_price": 125.0,
+      "line_total": 625.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 10,
+      "unit_price": 38.8,
+      "line_total": 388.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 1,
+      "unit_price": 240.0,
+      "line_total": 240.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

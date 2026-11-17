@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1016",
+    "composite_hash": "532fd9ecb4873f34111d26ce4947de68fa5e9735bc031d3c19b9a19659adb617",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1016",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2016",
+    "subtotal": 1712.5,
+    "tax_amount": 325.38,
+    "total_amount": 2037.88,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

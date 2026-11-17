@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1094",
+    "composite_hash": "cc9364a8a121821f2b2bd1284ff3440fa13d40732dc02bfe578571ccb9d2a1c9",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "BlueRidge Cloud Services",
+    "vendor_tax_id": "US-33-2198745",
+    "invoice_number": "INV-2026-1094",
+    "invoice_date": "02/12/2026",
+    "due_date": "03/14/2026",
+    "po_number": "PO-9000-2094",
+    "subtotal": 7978.5,
+    "tax_amount": 0.0,
+    "total_amount": 7978.5,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 3,
+      "unit_price": 28.5,
+      "line_total": 85.5,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 8,
+      "unit_price": 850.0,
+      "line_total": 6800.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 8,
+      "unit_price": 110.0,
+      "line_total": 880.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 2,
+      "unit_price": 75.25,
+      "line_total": 150.5,
+      "tax_rate": 0.0
+    }
+  ]
+}

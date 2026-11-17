@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1297
+Invoice Date:          06/02/2026
+Due Date:              08/03/2026
+Purchase Order Ref:    PO-9000-2297
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     9      75.25        677.25    
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+Pneumatic Valve Assembly            3      240.00       720.00    
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1918.85
+Tax (21.0%):                                            EUR   402.96
+TOTAL DUE:                                              EUR  2321.81
+=================================================================

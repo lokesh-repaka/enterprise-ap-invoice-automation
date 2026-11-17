@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1006",
+    "composite_hash": "fcc00b4d8695856d14ec5f03dc2cd2eac626a0416307424ede6a3742b8f524db",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1006",
+    "invoice_date": "02/02/2026",
+    "due_date": "04/03/2026",
+    "po_number": "PO-9000-2006",
+    "subtotal": 2308.8,
+    "tax_amount": 461.76,
+    "total_amount": 2770.56,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 5,
+      "unit_price": 240.0,
+      "line_total": 1200.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 6,
+      "unit_price": 38.8,
+      "line_total": 232.8,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 10,
+      "unit_price": 12.5,
+      "line_total": 125.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1011
+Invoice Date:          02/03/2026
+Due Date:              03/05/2026
+Purchase Order Ref:    PO-9000-2011
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+Corrugated Shipping Cartons (Bundle 100) 7      62.00        434.00    
+Laser Calibration Service           8      850.00       6800.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  8234.00
+Tax (8.2%):                                             USD   679.31
+TOTAL DUE:                                              USD  8913.31
+=================================================================

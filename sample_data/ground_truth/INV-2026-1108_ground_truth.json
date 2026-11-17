@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1108",
+    "composite_hash": "c9d160cddc46a6502e8ceb78e187a30854a8812b9bad66f0d2784458a16c1c3e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Mediterraneo Quimica SA",
+    "vendor_tax_id": "ESA98765432",
+    "invoice_number": "INV-2026-1108",
+    "invoice_date": "01/02/2026",
+    "due_date": "03/03/2026",
+    "po_number": "PO-9000-2108",
+    "subtotal": 7739.0,
+    "tax_amount": 1625.19,
+    "total_amount": 9364.19,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 10,
+      "unit_price": 240.0,
+      "line_total": 2400.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 5,
+      "unit_price": 850.0,
+      "line_total": 4250.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

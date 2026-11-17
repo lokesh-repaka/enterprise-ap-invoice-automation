@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1196",
+    "composite_hash": "90abc0d99a463ab109f23ff81ff8d657c970ce327d3dac5e14e9fbc896bd6027",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1196",
+    "invoice_date": "02/12/2026",
+    "due_date": "03/14/2026",
+    "po_number": "PO-9000-2196",
+    "subtotal": 2196.0,
+    "tax_amount": 153.72,
+    "total_amount": 2349.72,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 2,
+      "unit_price": 850.0,
+      "line_total": 1700.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

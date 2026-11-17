@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1058",
+    "composite_hash": "45a1f208d672e83e82f6761f019d8538b3054a395d5183e126677b3ad6ad9189",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1058",
+    "invoice_date": "02/11/2026",
+    "due_date": "03/13/2026",
+    "po_number": "PO-9000-2058",
+    "subtotal": 2105.0,
+    "tax_amount": 173.66,
+    "total_amount": 2278.66,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 7,
+      "unit_price": 45.0,
+      "line_total": 315.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 4,
+      "unit_price": 125.0,
+      "line_total": 500.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

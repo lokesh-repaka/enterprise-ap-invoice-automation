@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1005
+Invoice Date:          05/06/2026
+Due Date:              03/09/2026
+Purchase Order Ref:    PO-9000-2005
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 6      45.00        270.00    
+Preventative Maintenance Inspection (Hours) 6      125.00       750.00    
+High-Tensile Wire Coil 50m          10     38.80        388.00    
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+-----------------------------------------------------------------
+Subtotal:                                               USD  1470.50
+Tax (7.0%):                                             USD   102.94
+TOTAL DUE:                                              USD  1573.44
+=================================================================

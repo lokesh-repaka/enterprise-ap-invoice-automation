@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1253",
+    "composite_hash": "53be5309103dc8cb1b72ad7ed03b48a1eed8b29514a18b8c782ff55f0cbff707",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1253",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2253",
+    "subtotal": 492.5,
+    "tax_amount": 34.48,
+    "total_amount": 526.98,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 2,
+      "unit_price": 240.0,
+      "line_total": 480.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 1,
+      "unit_price": 12.5,
+      "line_total": 12.5,
+      "tax_rate": 0.07
+    }
+  ]
+}

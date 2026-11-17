@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1071",
+    "composite_hash": "24361023d1c7534f042be2c24ab6528d6fbac5e48ab281248508c33554298b4a",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1071",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2071",
+    "subtotal": 5356.0,
+    "tax_amount": 374.92,
+    "total_amount": 5730.92,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 10,
+      "unit_price": 110.0,
+      "line_total": 1100.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

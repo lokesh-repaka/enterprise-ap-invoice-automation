@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1285
+Invoice Date:          14/02/2026
+Due Date:              16/03/2026
+Purchase Order Ref:    PO-9000-2285
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+Laser Calibration Service           10     850.00       8500.00   
+Pneumatic Valve Assembly            2      240.00       480.00    
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+Corrugated Shipping Cartons (Bundle 100) 3      62.00        186.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR 10181.00
+Tax (21.0%):                                            EUR  2138.01
+TOTAL DUE:                                              EUR 12319.01
+=================================================================

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1276",
+    "composite_hash": "a0672e300cacccc6bff6b782640daca0ab69ce1b1e89ef292ba054d885b180e3",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1276",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2276",
+    "subtotal": 3392.25,
+    "tax_amount": 678.45,
+    "total_amount": 4070.7,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 3,
+      "unit_price": 28.5,
+      "line_total": 85.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 7,
+      "unit_price": 110.0,
+      "line_total": 770.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 2,
+      "unit_price": 45.0,
+      "line_total": 90.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 8,
+      "unit_price": 240.0,
+      "line_total": 1920.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1093",
+    "composite_hash": "ce08ab2485febd3bb4c709603628e4e3de4e6c94db616bf0dc4ff739533c94de",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1093",
+    "invoice_date": "02/13/2026",
+    "due_date": "03/15/2026",
+    "po_number": "PO-9000-2093",
+    "subtotal": 1708.5,
+    "tax_amount": 140.95,
+    "total_amount": 1849.45,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 1,
+      "unit_price": 28.5,
+      "line_total": 28.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

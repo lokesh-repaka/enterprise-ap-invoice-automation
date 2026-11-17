@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1113",
+    "composite_hash": "f2023eb81b72a78b5f2629524b713eb497f4a413b53e58d0019a23a78258d113",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1113",
+    "invoice_date": "12/02/2026",
+    "due_date": "14/03/2026",
+    "po_number": "PO-9000-2113",
+    "subtotal": 788.75,
+    "tax_amount": 165.64,
+    "total_amount": 954.39,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 7,
+      "unit_price": 45.0,
+      "line_total": 315.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 3,
+      "unit_price": 75.25,
+      "line_total": 225.75,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 4,
+      "unit_price": 62.0,
+      "line_total": 248.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

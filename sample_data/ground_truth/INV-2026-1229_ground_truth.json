@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1229",
+    "composite_hash": "0f24020290bdc7308dd8127f74d9b997d90bf02357db07eccb738e05bd14c5d7",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1229",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2229",
+    "subtotal": 1369.0,
+    "tax_amount": 260.11,
+    "total_amount": 1629.11,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 2,
+      "unit_price": 62.0,
+      "line_total": 124.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 10,
+      "unit_price": 28.5,
+      "line_total": 285.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1284
+Invoice Date:          06/02/2026
+Due Date:              08/03/2026
+Purchase Order Ref:    PO-9000-2284
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          10     38.80        388.00    
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   988.00
+Tax (21.0%):                                            EUR   207.48
+TOTAL DUE:                                              EUR  1195.48
+=================================================================

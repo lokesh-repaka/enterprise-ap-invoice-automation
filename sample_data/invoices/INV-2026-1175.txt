@@ -1,0 +1,21 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1175
+Invoice Date:          07/02/2026
+Due Date:              09/03/2026
+Purchase Order Ref:    PO-9000-2175
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 9      62.00        558.00    
+Digital Temperature Sensor Pack     7      75.25        526.75    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  1084.75
+Tax (20.0%):                                            GBP   216.95
+TOTAL DUE:                                              GBP  1301.70
+=================================================================

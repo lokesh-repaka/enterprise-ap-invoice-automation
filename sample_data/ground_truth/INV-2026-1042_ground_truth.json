@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1042",
+    "composite_hash": "d76534f525862b77d2a351eec8585aab86260dd911dae702cc9fba848f6c0755",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1042",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2042",
+    "subtotal": 650.3,
+    "tax_amount": 130.06,
+    "total_amount": 780.36,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 6,
+      "unit_price": 38.8,
+      "line_total": 232.8,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.2
+    }
+  ]
+}

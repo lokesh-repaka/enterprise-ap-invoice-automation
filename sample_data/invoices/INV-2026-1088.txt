@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1088
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2088
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Preventative Maintenance Inspection (Hours) 5      125.00       625.00    
+Corrugated Shipping Cartons (Bundle 100) 9      62.00        558.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  1640.50
+Tax (20.0%):                                            GBP   328.10
+TOTAL DUE:                                              GBP  1968.60
+=================================================================

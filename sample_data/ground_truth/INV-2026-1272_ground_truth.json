@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1272",
+    "composite_hash": "cf1cc8e85cb4068ffa238563f1c188743c4517fce860a43b5349159c1810261b",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1272",
+    "invoice_date": "07/02/2026",
+    "due_date": "09/03/2026",
+    "po_number": "PO-9000-2272",
+    "subtotal": 8771.75,
+    "tax_amount": 1842.07,
+    "total_amount": 10613.82,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 6,
+      "unit_price": 45.0,
+      "line_total": 270.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 10,
+      "unit_price": 110.0,
+      "line_total": 1100.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 6,
+      "unit_price": 12.5,
+      "line_total": 75.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 8,
+      "unit_price": 850.0,
+      "line_total": 6800.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

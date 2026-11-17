@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1286
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2286
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+Digital Temperature Sensor Pack     6      75.25        451.50    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1084.50
+Tax (19.0%):                                            EUR   206.06
+TOTAL DUE:                                              EUR  1290.56
+=================================================================

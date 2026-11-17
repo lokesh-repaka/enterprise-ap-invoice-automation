@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1193",
+    "composite_hash": "cad9ba6afcf4ba22bd6828c798e793bc60ad74a6fda9de36cc6a57e64d592329",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1193",
+    "invoice_date": "02/07/2026",
+    "due_date": "03/09/2026",
+    "po_number": "PO-9000-2193",
+    "subtotal": 1690.25,
+    "tax_amount": 139.45,
+    "total_amount": 1829.7,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 5,
+      "unit_price": 125.0,
+      "line_total": 625.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 8,
+      "unit_price": 28.5,
+      "line_total": 228.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 4,
+      "unit_price": 62.0,
+      "line_total": 248.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.0825
+    }
+  ]
+}

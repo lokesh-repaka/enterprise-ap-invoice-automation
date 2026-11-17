@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1220",
+    "composite_hash": "1c02dd726c52a206d0761611fc0d75f9e722eb05d77a3058a15a449912793e87",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1220",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2220",
+    "subtotal": 2285.25,
+    "tax_amount": 479.9,
+    "total_amount": 2765.15,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 9,
+      "unit_price": 75.25,
+      "line_total": 677.25,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 8,
+      "unit_price": 28.5,
+      "line_total": 228.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 5,
+      "unit_price": 240.0,
+      "line_total": 1200.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 4,
+      "unit_price": 45.0,
+      "line_total": 180.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

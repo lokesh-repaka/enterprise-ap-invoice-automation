@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1247
+Invoice Date:          02/01/2026
+Due Date:              03/03/2026
+Purchase Order Ref:    PO-9000-2247
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           4      850.00       3400.00   
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Safety Goggles & Gloves Kit         4      28.50        114.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  3964.00
+Tax (8.2%):                                             USD   327.03
+TOTAL DUE:                                              USD  4291.03
+=================================================================

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1255",
+    "composite_hash": "0edb1048f833218e4f23e0b7bce312956c310a66a09340a2064dc35521dfc5ac",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1255",
+    "invoice_date": "02/16/2026",
+    "due_date": "03/18/2026",
+    "po_number": "PO-9000-2255",
+    "subtotal": 2315.2,
+    "tax_amount": 185.22,
+    "total_amount": 2500.42,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 9,
+      "unit_price": 12.5,
+      "line_total": 112.5,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 5,
+      "unit_price": 125.0,
+      "line_total": 625.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 9,
+      "unit_price": 38.8,
+      "line_total": 349.2,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 5,
+      "unit_price": 240.0,
+      "line_total": 1200.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 1,
+      "unit_price": 28.5,
+      "line_total": 28.5,
+      "tax_rate": 0.08
+    }
+  ]
+}

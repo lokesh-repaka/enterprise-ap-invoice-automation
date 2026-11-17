@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1109",
+    "composite_hash": "f51ec324aab2ff18ed37198783a57d94bba2031384b0ac7aaf760c07911b9662",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1109",
+    "invoice_date": "10/02/2026",
+    "due_date": "12/03/2026",
+    "po_number": "PO-9000-2109",
+    "subtotal": 804.7,
+    "tax_amount": 56.33,
+    "total_amount": 861.03,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 7,
+      "unit_price": 28.5,
+      "line_total": 199.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

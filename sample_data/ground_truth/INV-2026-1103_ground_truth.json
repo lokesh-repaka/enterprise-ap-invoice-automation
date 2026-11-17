@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1103",
+    "composite_hash": "26b9231052a40d255b4763275d3aad95bec3846ed6b3a3cc2fd52d8eefab0c5e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1103",
+    "invoice_date": "09/02/2026",
+    "due_date": "11/03/2026",
+    "po_number": "PO-9000-2103",
+    "subtotal": 2854.2,
+    "tax_amount": 199.79,
+    "total_amount": 3053.99,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 6,
+      "unit_price": 125.0,
+      "line_total": 750.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 9,
+      "unit_price": 38.8,
+      "line_total": 349.2,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 7,
+      "unit_price": 45.0,
+      "line_total": 315.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

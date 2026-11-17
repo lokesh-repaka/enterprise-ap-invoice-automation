@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1104",
+    "composite_hash": "b9e7f1210aad6d2c54b3c58eb1a272f49972da077cb04cfc7257b828f35835de",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Mediterraneo Quimica SA",
+    "vendor_tax_id": "ESA98765432",
+    "invoice_number": "INV-2026-1104",
+    "invoice_date": "16/02/2026",
+    "due_date": "18/03/2026",
+    "po_number": "PO-9000-2104",
+    "subtotal": 725.0,
+    "tax_amount": 152.25,
+    "total_amount": 877.25,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 4,
+      "unit_price": 125.0,
+      "line_total": 500.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 5,
+      "unit_price": 45.0,
+      "line_total": 225.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

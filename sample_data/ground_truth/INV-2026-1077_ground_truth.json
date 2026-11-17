@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1077",
+    "composite_hash": "fa364014be6bf9fe50c014fd55ade0d796c4942aa3c4aeefbae55cf3ff76a787",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1077",
+    "invoice_date": "02/10/2026",
+    "due_date": "03/12/2026",
+    "po_number": "PO-9000-2077",
+    "subtotal": 3851.5,
+    "tax_amount": 317.75,
+    "total_amount": 4169.25,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1040",
+    "composite_hash": "52b0d44c102093a8b1b968cdeca0785b9ef95540fc6de3e3934871b0a990df3f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1040",
+    "invoice_date": "02/02/2026",
+    "due_date": "04/03/2026",
+    "po_number": "PO-9000-2040",
+    "subtotal": 6265.0,
+    "tax_amount": 1190.35,
+    "total_amount": 7455.35,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 3,
+      "unit_price": 125.0,
+      "line_total": 375.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 1,
+      "unit_price": 240.0,
+      "line_total": 240.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 6,
+      "unit_price": 850.0,
+      "line_total": 5100.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1162",
+    "composite_hash": "f8efad497d34cfbe1c8ae3515ca7324b26fbd8ce0dc537b37aa395baa2672f72",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1162",
+    "invoice_date": "10/02/2026",
+    "due_date": "12/03/2026",
+    "po_number": "PO-9000-2162",
+    "subtotal": 7198.0,
+    "tax_amount": 1511.58,
+    "total_amount": 8709.58,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 10,
+      "unit_price": 125.0,
+      "line_total": 1250.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 8,
+      "unit_price": 110.0,
+      "line_total": 880.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 8,
+      "unit_price": 28.5,
+      "line_total": 228.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

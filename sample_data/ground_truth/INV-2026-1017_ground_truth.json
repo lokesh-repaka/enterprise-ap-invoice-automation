@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1017",
+    "composite_hash": "c61479272a8b64d046ca0454e744565b06e7f1cd705ee8397606d83daa8b0aee",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1017",
+    "invoice_date": "02/12/2026",
+    "due_date": "03/14/2026",
+    "po_number": "PO-9000-2017",
+    "subtotal": 3250.0,
+    "tax_amount": 227.5,
+    "total_amount": 3477.5,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 10,
+      "unit_price": 240.0,
+      "line_total": 2400.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 6,
+      "unit_price": 125.0,
+      "line_total": 750.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1198
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2198
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 3      62.00        186.00    
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+Laser Calibration Service           9      850.00       7650.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8836.00
+Tax (19.0%):                                            EUR  1678.84
+TOTAL DUE:                                              EUR 10514.84
+=================================================================

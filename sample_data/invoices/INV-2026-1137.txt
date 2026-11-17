@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1137
+Invoice Date:          01/02/2026
+Due Date:              03/03/2026
+Purchase Order Ref:    PO-9000-2137
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+Digital Temperature Sensor Pack     6      75.25        451.50    
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+-----------------------------------------------------------------
+Subtotal:                                               GBP  1236.00
+Tax (20.0%):                                            GBP   247.20
+TOTAL DUE:                                              GBP  1483.20
+=================================================================

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1056
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2056
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+Pneumatic Valve Assembly            3      240.00       720.00    
+High-Tensile Wire Coil 50m          8      38.80        310.40    
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Digital Temperature Sensor Pack     5      75.25        376.25    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2634.65
+Tax (21.0%):                                            EUR   553.28
+TOTAL DUE:                                              EUR  3187.93
+=================================================================

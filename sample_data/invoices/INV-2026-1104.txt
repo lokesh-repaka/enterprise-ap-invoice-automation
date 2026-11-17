@@ -1,0 +1,21 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1104
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2104
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   725.00
+Tax (21.0%):                                            EUR   152.25
+TOTAL DUE:                                              EUR   877.25
+=================================================================

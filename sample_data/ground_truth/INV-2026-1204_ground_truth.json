@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1204",
+    "composite_hash": "a37e9ad8fc29210b3591ae9b301d5115d9d4c539167aeba46fe2df385012a571",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1204",
+    "invoice_date": "11/02/2026",
+    "due_date": "13/03/2026",
+    "po_number": "PO-9000-2204",
+    "subtotal": 1224.55,
+    "tax_amount": 244.91,
+    "total_amount": 1469.46,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 1,
+      "unit_price": 110.0,
+      "line_total": 110.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 1,
+      "unit_price": 850.0,
+      "line_total": 850.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 3,
+      "unit_price": 75.25,
+      "line_total": 225.75,
+      "tax_rate": 0.2
+    }
+  ]
+}

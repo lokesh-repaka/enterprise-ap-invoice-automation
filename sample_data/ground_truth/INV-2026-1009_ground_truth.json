@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1009",
+    "composite_hash": "6f8859625c10e30ce6ecfac31d2672f1e5d87364cf13e7a17099762412813a31",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Mediterraneo Quimica SA",
+    "vendor_tax_id": "ESA98765432",
+    "invoice_number": "INV-2026-1009",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2009",
+    "subtotal": 961.7,
+    "tax_amount": 201.96,
+    "total_amount": 1163.66,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 9,
+      "unit_price": 28.5,
+      "line_total": 256.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.21
+    }
+  ]
+}

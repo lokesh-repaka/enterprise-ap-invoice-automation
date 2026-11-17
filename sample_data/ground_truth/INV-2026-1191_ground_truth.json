@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1191",
+    "composite_hash": "8a148356b75027c986fd1754a22de757baaa023c020c202db6f1d7fc6c82baac",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1191",
+    "invoice_date": "02/07/2026",
+    "due_date": "03/09/2026",
+    "po_number": "PO-9000-2191",
+    "subtotal": 2252.5,
+    "tax_amount": 185.83,
+    "total_amount": 2438.33,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

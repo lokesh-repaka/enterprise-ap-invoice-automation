@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1149",
+    "composite_hash": "eaf7a446e68e0953d21ae70217cf43a6fed29ba03b9da3a49fce7d56c2d1a36d",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1149",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2149",
+    "subtotal": 1581.0,
+    "tax_amount": 316.2,
+    "total_amount": 1897.2,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 8,
+      "unit_price": 110.0,
+      "line_total": 880.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 5,
+      "unit_price": 28.5,
+      "line_total": 142.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.2
+    }
+  ]
+}

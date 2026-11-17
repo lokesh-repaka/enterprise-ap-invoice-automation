@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1153",
+    "composite_hash": "9da10e4b3dd38fb82b65b4f9e60732d4f8958241987a3d3d3f0f7610c6f51954",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1153",
+    "invoice_date": "11/02/2026",
+    "due_date": "13/03/2026",
+    "po_number": "PO-9000-2153",
+    "subtotal": 680.0,
+    "tax_amount": 136.0,
+    "total_amount": 816.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 1,
+      "unit_price": 240.0,
+      "line_total": 240.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 4,
+      "unit_price": 110.0,
+      "line_total": 440.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

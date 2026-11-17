@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1048",
+    "composite_hash": "74429f2ce1895ec294eb3b8df38d9007b18777c8ab5a762784e92065ed4e80be",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1048",
+    "invoice_date": "07/02/2026",
+    "due_date": "09/03/2026",
+    "po_number": "PO-9000-2048",
+    "subtotal": 1310.05,
+    "tax_amount": 248.91,
+    "total_amount": 1558.96,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 6,
+      "unit_price": 38.8,
+      "line_total": 232.8,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 2,
+      "unit_price": 45.0,
+      "line_total": 90.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 5,
+      "unit_price": 62.0,
+      "line_total": 310.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 9,
+      "unit_price": 75.25,
+      "line_total": 677.25,
+      "tax_rate": 0.19
+    }
+  ]
+}

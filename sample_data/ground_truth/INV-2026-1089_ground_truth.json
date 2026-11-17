@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1089",
+    "composite_hash": "c099dddee0e6d45fffcb5ec61490c0437bba35add4ecf69f64ddc7826d4e2f5c",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1089",
+    "invoice_date": "16/02/2026",
+    "due_date": "18/03/2026",
+    "po_number": "PO-9000-2089",
+    "subtotal": 1115.3,
+    "tax_amount": 211.91,
+    "total_amount": 1327.21,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 2,
+      "unit_price": 62.0,
+      "line_total": 124.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 4,
+      "unit_price": 110.0,
+      "line_total": 440.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

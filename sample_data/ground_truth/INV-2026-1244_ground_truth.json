@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1244",
+    "composite_hash": "1c79c24c35776ba03752f684a80480a2f5516a1a11338f8da061df36cca210cd",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "BlueRidge Cloud Services",
+    "vendor_tax_id": "US-33-2198745",
+    "invoice_number": "INV-2026-1244",
+    "invoice_date": "02/11/2026",
+    "due_date": "03/13/2026",
+    "po_number": "PO-9000-2244",
+    "subtotal": 615.0,
+    "tax_amount": 0.0,
+    "total_amount": 615.0,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 9,
+      "unit_price": 62.0,
+      "line_total": 558.0,
+      "tax_rate": 0.0
+    }
+  ]
+}

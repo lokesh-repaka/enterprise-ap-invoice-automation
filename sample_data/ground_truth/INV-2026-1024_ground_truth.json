@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1024",
+    "composite_hash": "07a182bbbcf322e2c84e5ccd4e0413e6bc4d3ed458040ac60b66ba712bd49ccf",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1024",
+    "invoice_date": "16/02/2026",
+    "due_date": "18/03/2026",
+    "po_number": "PO-9000-2024",
+    "subtotal": 6084.6,
+    "tax_amount": 608.46,
+    "total_amount": 6693.06,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 7,
+      "unit_price": 850.0,
+      "line_total": 5950.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1270",
+    "composite_hash": "47c4c165b175939765b120e139327d8990f9fe4d9dfba0613776b5133a480ec7",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Mediterraneo Quimica SA",
+    "vendor_tax_id": "ESA98765432",
+    "invoice_number": "INV-2026-1270",
+    "invoice_date": "13/02/2026",
+    "due_date": "15/03/2026",
+    "po_number": "PO-9000-2270",
+    "subtotal": 1872.0,
+    "tax_amount": 393.12,
+    "total_amount": 2265.12,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 8,
+      "unit_price": 75.25,
+      "line_total": 602.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

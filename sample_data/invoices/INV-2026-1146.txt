@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1146
+Invoice Date:          02/14/2026
+Due Date:              03/16/2026
+Purchase Order Ref:    PO-9000-2146
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            6      240.00       1440.00   
+Industrial Conveyor Belting (meters) 4      45.00        180.00    
+High-Tensile Wire Coil 50m          6      38.80        232.80    
+Safety Goggles & Gloves Kit         3      28.50        85.50     
+Hydraulic Fluid 20L Drum            2      110.00       220.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  2158.30
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  2158.30
+=================================================================

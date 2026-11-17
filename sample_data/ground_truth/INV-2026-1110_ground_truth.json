@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1110",
+    "composite_hash": "1f66ecce01bc2f676da77c925002a814c01d56bab0fee71a013a9cbd30812e67",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1110",
+    "invoice_date": "10/02/2026",
+    "due_date": "12/03/2026",
+    "po_number": "PO-9000-2110",
+    "subtotal": 1916.3,
+    "tax_amount": 364.1,
+    "total_amount": 2280.4,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 10,
+      "unit_price": 12.5,
+      "line_total": 125.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 8,
+      "unit_price": 125.0,
+      "line_total": 1000.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

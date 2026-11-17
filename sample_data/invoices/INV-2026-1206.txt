@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1206
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2206
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            10     240.00       2400.00   
+Preventative Maintenance Inspection (Hours) 5      125.00       625.00    
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3315.00
+Tax (19.0%):                                            EUR   629.85
+TOTAL DUE:                                              EUR  3944.85
+=================================================================

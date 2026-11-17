@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1248",
+    "composite_hash": "104e6d6f773f9164b756fb26e283896152d47b89dd29267c630eb83355731dd7",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1248",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2248",
+    "subtotal": 1538.0,
+    "tax_amount": 292.22,
+    "total_amount": 1830.22,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 5,
+      "unit_price": 38.8,
+      "line_total": 194.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 5,
+      "unit_price": 28.5,
+      "line_total": 142.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 6,
+      "unit_price": 125.0,
+      "line_total": 750.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

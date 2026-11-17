@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1194",
+    "composite_hash": "84fb95adcfe21ec505388b803491c268d3b70dc1eb01da8dd0093d7f19ea09ae",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1194",
+    "invoice_date": "02/15/2026",
+    "due_date": "03/17/2026",
+    "po_number": "PO-9000-2194",
+    "subtotal": 870.0,
+    "tax_amount": 71.78,
+    "total_amount": 941.78,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 7,
+      "unit_price": 110.0,
+      "line_total": 770.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

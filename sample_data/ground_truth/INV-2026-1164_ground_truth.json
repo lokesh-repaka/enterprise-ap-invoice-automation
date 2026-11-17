@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1164",
+    "composite_hash": "c034bc0ccba0b441655118b8a6ea579ca51b99af29df3f5be1e270389007f028",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1164",
+    "invoice_date": "12/02/2026",
+    "due_date": "14/03/2026",
+    "po_number": "PO-9000-2164",
+    "subtotal": 1290.0,
+    "tax_amount": 258.0,
+    "total_amount": 1548.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 5,
+      "unit_price": 240.0,
+      "line_total": 1200.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 2,
+      "unit_price": 45.0,
+      "line_total": 90.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

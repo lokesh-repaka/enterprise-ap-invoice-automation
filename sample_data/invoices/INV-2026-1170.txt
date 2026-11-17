@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1170
+Invoice Date:          02/04/2026
+Due Date:              03/06/2026
+Purchase Order Ref:    PO-9000-2170
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 10     125.00       1250.00   
+Pneumatic Valve Assembly            4      240.00       960.00    
+Heavy Duty Steel Fasteners          3      12.50        37.50     
+Corrugated Shipping Cartons (Bundle 100) 5      62.00        310.00    
+Digital Temperature Sensor Pack     7      75.25        526.75    
+-----------------------------------------------------------------
+Subtotal:                                               USD  3084.25
+Tax (8.2%):                                             USD   254.45
+TOTAL DUE:                                              USD  3338.70
+=================================================================

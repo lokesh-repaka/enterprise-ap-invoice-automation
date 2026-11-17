@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1072",
+    "composite_hash": "4be173de87d4f4ac4dd2cd93fc86835e2736bc348eb46c9134872871cd599ab9",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1072",
+    "invoice_date": "13/02/2026",
+    "due_date": "15/03/2026",
+    "po_number": "PO-9000-2072",
+    "subtotal": 811.0,
+    "tax_amount": 170.31,
+    "total_amount": 981.31,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 4,
+      "unit_price": 28.5,
+      "line_total": 114.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 6,
+      "unit_price": 62.0,
+      "line_total": 372.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 5,
+      "unit_price": 45.0,
+      "line_total": 225.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

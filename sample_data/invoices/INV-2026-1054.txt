@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1054
+Invoice Date:          14/02/2026
+Due Date:              16/03/2026
+Purchase Order Ref:    PO-9000-2054
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          4      38.80        155.20    
+Safety Goggles & Gloves Kit         3      28.50        85.50     
+Preventative Maintenance Inspection (Hours) 1      125.00       125.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   365.70
+Tax (7.0%):                                             EUR    25.60
+TOTAL DUE:                                              EUR   391.30
+=================================================================

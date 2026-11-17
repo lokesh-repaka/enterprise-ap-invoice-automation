@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1218",
+    "composite_hash": "6df17bf50e8c76f710ad798c9df089c9070246ccdf954c6e0ed5f11c1664c991",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1218",
+    "invoice_date": "10/02/2026",
+    "due_date": "12/03/2026",
+    "po_number": "PO-9000-2218",
+    "subtotal": 1255.0,
+    "tax_amount": 238.45,
+    "total_amount": 1493.45,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 9,
+      "unit_price": 45.0,
+      "line_total": 405.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 1,
+      "unit_price": 850.0,
+      "line_total": 850.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

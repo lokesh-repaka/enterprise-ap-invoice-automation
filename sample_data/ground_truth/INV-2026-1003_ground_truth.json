@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1003",
+    "composite_hash": "d661e0abaf79c302074e53c07e1f488fd94826fb86c30a8db433d5d745423f53",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1003",
+    "invoice_date": "02/07/2026",
+    "due_date": "03/09/2026",
+    "po_number": "PO-9000-2003",
+    "subtotal": 5647.5,
+    "tax_amount": 465.92,
+    "total_amount": 6113.42,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 9,
+      "unit_price": 240.0,
+      "line_total": 2160.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

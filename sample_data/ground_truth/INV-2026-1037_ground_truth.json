@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1037",
+    "composite_hash": "1baa98aee745e37f428b2f66ee21ad9e58138062c43f399a95c3bdbbceae7e46",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1037",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2037",
+    "subtotal": 8747.25,
+    "tax_amount": 874.73,
+    "total_amount": 9621.98,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 5,
+      "unit_price": 75.25,
+      "line_total": 376.25,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 5,
+      "unit_price": 45.0,
+      "line_total": 225.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

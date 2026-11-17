@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1215
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2215
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           9      850.00       7650.00   
+Pneumatic Valve Assembly            5      240.00       1200.00   
+Digital Temperature Sensor Pack     3      75.25        225.75    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  9075.75
+Tax (10.0%):                                            EUR   907.58
+TOTAL DUE:                                              EUR  9983.33
+=================================================================

@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1175",
+    "composite_hash": "59a74a5f9ea776602d5e2f5c6aa7c4d0f1f8e318fe4eb33b4861f8aa8f806a98",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1175",
+    "invoice_date": "07/02/2026",
+    "due_date": "09/03/2026",
+    "po_number": "PO-9000-2175",
+    "subtotal": 1084.75,
+    "tax_amount": 216.95,
+    "total_amount": 1301.7,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 9,
+      "unit_price": 62.0,
+      "line_total": 558.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.2
+    }
+  ]
+}

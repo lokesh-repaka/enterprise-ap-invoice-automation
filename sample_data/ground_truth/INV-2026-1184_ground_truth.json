@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1184",
+    "composite_hash": "ff47e888110ff4966aac147609a3dd457898f080e005a0b3dd7c84224ebd4f63",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1184",
+    "invoice_date": "09/02/2026",
+    "due_date": "11/03/2026",
+    "po_number": "PO-9000-2184",
+    "subtotal": 3163.5,
+    "tax_amount": 632.7,
+    "total_amount": 3796.2,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 3,
+      "unit_price": 850.0,
+      "line_total": 2550.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 2,
+      "unit_price": 75.25,
+      "line_total": 150.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 8,
+      "unit_price": 28.5,
+      "line_total": 228.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 3,
+      "unit_price": 45.0,
+      "line_total": 135.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

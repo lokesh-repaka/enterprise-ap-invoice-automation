@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1028
+Invoice Date:          02/14/2026
+Due Date:              03/16/2026
+Purchase Order Ref:    PO-9000-2028
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Laser Calibration Service           1      850.00       850.00    
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1743.60
+Tax (7.0%):                                             USD   122.05
+TOTAL DUE:                                              USD  1865.65
+=================================================================

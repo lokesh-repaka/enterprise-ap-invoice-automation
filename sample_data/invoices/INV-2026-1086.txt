@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1086
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2086
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1141.50
+Tax (8.0%):                                             USD    91.32
+TOTAL DUE:                                              USD  1232.82
+=================================================================

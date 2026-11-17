@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1032",
+    "composite_hash": "f301915d005b66a194c6fbc84c0b0c8897a866eeaa77321893c5a95c91f0c8e0",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1032",
+    "invoice_date": "09/02/2026",
+    "due_date": "11/03/2026",
+    "po_number": "PO-9000-2032",
+    "subtotal": 3360.25,
+    "tax_amount": 672.05,
+    "total_amount": 4032.3,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 7,
+      "unit_price": 62.0,
+      "line_total": 434.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 3,
+      "unit_price": 850.0,
+      "line_total": 2550.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 5,
+      "unit_price": 75.25,
+      "line_total": 376.25,
+      "tax_rate": 0.2
+    }
+  ]
+}

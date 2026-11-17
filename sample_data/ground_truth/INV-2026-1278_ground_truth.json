@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1278",
+    "composite_hash": "1bdf4819612fc21b26c7cc4b071fe82429b92647bb925e996ebcdcbb8fd5c594",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1278",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2278",
+    "subtotal": 853.6,
+    "tax_amount": 170.72,
+    "total_amount": 1024.32,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 1,
+      "unit_price": 28.5,
+      "line_total": 28.5,
+      "tax_rate": 0.2
+    }
+  ]
+}

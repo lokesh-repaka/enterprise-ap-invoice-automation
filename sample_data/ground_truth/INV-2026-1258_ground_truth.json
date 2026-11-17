@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1258",
+    "composite_hash": "976be9830297cc78601d8c91212c86f82e42f3c044e600d65aa884d522393e2e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1258",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2258",
+    "subtotal": 8327.5,
+    "tax_amount": 832.75,
+    "total_amount": 9160.25,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 7,
+      "unit_price": 45.0,
+      "line_total": 315.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 9,
+      "unit_price": 125.0,
+      "line_total": 1125.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 8,
+      "unit_price": 850.0,
+      "line_total": 6800.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

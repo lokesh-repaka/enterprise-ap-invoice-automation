@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1049",
+    "composite_hash": "bac5d553862f54ee27fc00bcc78a562a48275ebca9cf8bf76685b4d0a70ee887",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1049",
+    "invoice_date": "02/14/2026",
+    "due_date": "03/16/2026",
+    "po_number": "PO-9000-2049",
+    "subtotal": 1578.35,
+    "tax_amount": 130.21,
+    "total_amount": 1708.56,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 7,
+      "unit_price": 38.8,
+      "line_total": 271.6,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

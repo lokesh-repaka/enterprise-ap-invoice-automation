@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1091",
+    "composite_hash": "aabdb5114f5f9b13a01c1f479ad447346d692d548ee5ff840d170d0e5f52510b",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1091",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2091",
+    "subtotal": 6383.0,
+    "tax_amount": 1340.43,
+    "total_amount": 7723.43,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 6,
+      "unit_price": 45.0,
+      "line_total": 270.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 3,
+      "unit_price": 62.0,
+      "line_total": 186.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 6,
+      "unit_price": 850.0,
+      "line_total": 5100.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 7,
+      "unit_price": 110.0,
+      "line_total": 770.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

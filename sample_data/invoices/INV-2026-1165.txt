@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1165
+Invoice Date:          06/02/2026
+Due Date:              08/03/2026
+Purchase Order Ref:    PO-9000-2165
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Pneumatic Valve Assembly            2      240.00       480.00    
+Hydraulic Fluid 20L Drum            4      110.00       440.00    
+High-Tensile Wire Coil 50m          8      38.80        310.40    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  1429.90
+Tax (20.0%):                                            GBP   285.98
+TOTAL DUE:                                              GBP  1715.88
+=================================================================

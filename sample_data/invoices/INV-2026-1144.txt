@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1144
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2144
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          10     12.50        125.00    
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Hydraulic Fluid 20L Drum            7      110.00       770.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1816.10
+Tax (19.0%):                                            EUR   345.06
+TOTAL DUE:                                              EUR  2161.16
+=================================================================

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1222
+Invoice Date:          07/02/2026
+Due Date:              09/03/2026
+Purchase Order Ref:    PO-9000-2222
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 9      125.00       1125.00   
+High-Tensile Wire Coil 50m          6      38.80        232.80    
+Pneumatic Valve Assembly            2      240.00       480.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1837.80
+Tax (21.0%):                                            EUR   385.94
+TOTAL DUE:                                              EUR  2223.74
+=================================================================

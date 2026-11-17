@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1051",
+    "composite_hash": "ef90eb6e6e037c50659504b579d07231c0f58fb09023a6d30269ac8045d8f89f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1051",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2051",
+    "subtotal": 1612.5,
+    "tax_amount": 112.88,
+    "total_amount": 1725.38,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 2,
+      "unit_price": 240.0,
+      "line_total": 480.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 5,
+      "unit_price": 28.5,
+      "line_total": 142.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

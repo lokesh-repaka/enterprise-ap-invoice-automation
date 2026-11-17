@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1103
+Invoice Date:          09/02/2026
+Due Date:              11/03/2026
+Purchase Order Ref:    PO-9000-2103
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 6      125.00       750.00    
+High-Tensile Wire Coil 50m          9      38.80        349.20    
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Pneumatic Valve Assembly            6      240.00       1440.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2854.20
+Tax (7.0%):                                             EUR   199.79
+TOTAL DUE:                                              EUR  3053.99
+=================================================================

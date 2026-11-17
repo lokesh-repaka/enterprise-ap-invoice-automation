@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1171",
+    "composite_hash": "fa9c7f6fa1cc3ba9a76d0be861e6cb45c7aab0b379d41817112f3569dd1e02d9",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1171",
+    "invoice_date": "02/12/2026",
+    "due_date": "03/14/2026",
+    "po_number": "PO-9000-2171",
+    "subtotal": 1259.2,
+    "tax_amount": 100.74,
+    "total_amount": 1359.94,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 2,
+      "unit_price": 125.0,
+      "line_total": 250.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 9,
+      "unit_price": 38.8,
+      "line_total": 349.2,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.08
+    }
+  ]
+}

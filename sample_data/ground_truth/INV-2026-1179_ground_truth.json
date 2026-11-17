@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1179",
+    "composite_hash": "0808d7e2977cee55c298a25885081f49afb2e4ae1ea21cbaf3a5543a7d5b76b5",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1179",
+    "invoice_date": "02/15/2026",
+    "due_date": "03/17/2026",
+    "po_number": "PO-9000-2179",
+    "subtotal": 5641.5,
+    "tax_amount": 465.42,
+    "total_amount": 6106.92,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 10,
+      "unit_price": 28.5,
+      "line_total": 285.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 7,
+      "unit_price": 62.0,
+      "line_total": 434.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 5,
+      "unit_price": 850.0,
+      "line_total": 4250.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 1,
+      "unit_price": 12.5,
+      "line_total": 12.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

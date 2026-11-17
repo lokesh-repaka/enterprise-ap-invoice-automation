@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1067",
+    "composite_hash": "45468c31bf7e02d3c66ae34dda7450b1457dc9f85df64b4bb56d69d7ac18b80b",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1067",
+    "invoice_date": "09/02/2026",
+    "due_date": "11/03/2026",
+    "po_number": "PO-9000-2067",
+    "subtotal": 937.5,
+    "tax_amount": 93.75,
+    "total_amount": 1031.25,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 2,
+      "unit_price": 110.0,
+      "line_total": 220.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 1,
+      "unit_price": 125.0,
+      "line_total": 125.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 5,
+      "unit_price": 28.5,
+      "line_total": 142.5,
+      "tax_rate": 0.1
+    }
+  ]
+}

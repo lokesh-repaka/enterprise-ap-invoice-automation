@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1019",
+    "composite_hash": "2620e12ab33bde9c23bd97b0ccd9decdd23402f7acb909e963c4e0982979a42e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1019",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2019",
+    "subtotal": 2056.5,
+    "tax_amount": 411.3,
+    "total_amount": 2467.8,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 9,
+      "unit_price": 28.5,
+      "line_total": 256.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 10,
+      "unit_price": 125.0,
+      "line_total": 1250.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

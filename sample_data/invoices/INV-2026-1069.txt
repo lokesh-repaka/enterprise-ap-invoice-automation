@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1069
+Invoice Date:          14/02/2026
+Due Date:              16/03/2026
+Purchase Order Ref:    PO-9000-2069
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Pneumatic Valve Assembly            8      240.00       1920.00   
+Corrugated Shipping Cartons (Bundle 100) 2      62.00        124.00    
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2446.50
+Tax (19.0%):                                            EUR   464.83
+TOTAL DUE:                                              EUR  2911.33
+=================================================================

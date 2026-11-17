@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1250",
+    "composite_hash": "6d90bd4889a2f8a1004692f90e2ba228795f991b7dec63a7f58a2608877c130e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1250",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2250",
+    "subtotal": 3152.5,
+    "tax_amount": 315.25,
+    "total_amount": 3467.75,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 10,
+      "unit_price": 240.0,
+      "line_total": 2400.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

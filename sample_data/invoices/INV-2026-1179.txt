@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1179
+Invoice Date:          02/15/2026
+Due Date:              03/17/2026
+Purchase Order Ref:    PO-9000-2179
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+Safety Goggles & Gloves Kit         10     28.50        285.00    
+Corrugated Shipping Cartons (Bundle 100) 7      62.00        434.00    
+Laser Calibration Service           5      850.00       4250.00   
+Heavy Duty Steel Fasteners          1      12.50        12.50     
+-----------------------------------------------------------------
+Subtotal:                                               USD  5641.50
+Tax (8.2%):                                             USD   465.42
+TOTAL DUE:                                              USD  6106.92
+=================================================================

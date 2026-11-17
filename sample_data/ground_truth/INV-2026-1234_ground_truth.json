@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1234",
+    "composite_hash": "8133897feff64aa755ab03f30ba349d02b542ad3dc4f6dca24737cb499a6d719",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1234",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2234",
+    "subtotal": 1863.0,
+    "tax_amount": 353.97,
+    "total_amount": 2216.97,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 9,
+      "unit_price": 62.0,
+      "line_total": 558.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 7,
+      "unit_price": 45.0,
+      "line_total": 315.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

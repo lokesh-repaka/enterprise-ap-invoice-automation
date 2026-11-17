@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1099",
+    "composite_hash": "cc22671103be5df6bd31c4ef537fe91919b7ea6cff07eea4682e3170c00ebc90",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Mediterraneo Quimica SA",
+    "vendor_tax_id": "ESA98765432",
+    "invoice_number": "INV-2026-1099",
+    "invoice_date": "16/02/2026",
+    "due_date": "18/03/2026",
+    "po_number": "PO-9000-2099",
+    "subtotal": 2736.0,
+    "tax_amount": 574.56,
+    "total_amount": 3310.56,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 6,
+      "unit_price": 28.5,
+      "line_total": 171.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 9,
+      "unit_price": 125.0,
+      "line_total": 1125.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

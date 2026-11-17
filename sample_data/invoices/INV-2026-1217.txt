@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1217
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2217
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Preventative Maintenance Inspection (Hours) 5      125.00       625.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2221.00
+Tax (19.0%):                                            EUR   421.99
+TOTAL DUE:                                              EUR  2642.99
+=================================================================

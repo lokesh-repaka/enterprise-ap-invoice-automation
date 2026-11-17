@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1195
+Invoice Date:          15/02/2026
+Due Date:              17/03/2026
+Purchase Order Ref:    PO-9000-2195
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+Preventative Maintenance Inspection (Hours) 7      125.00       875.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1907.00
+Tax (7.0%):                                             EUR   133.49
+TOTAL DUE:                                              EUR  2040.49
+=================================================================

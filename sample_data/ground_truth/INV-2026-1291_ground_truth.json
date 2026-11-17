@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1291",
+    "composite_hash": "0896c11929207fdf3328e41a470be06dbcf7704db4e9e29a58b5ade799582227",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1291",
+    "invoice_date": "02/02/2026",
+    "due_date": "04/03/2026",
+    "po_number": "PO-9000-2291",
+    "subtotal": 1694.0,
+    "tax_amount": 355.74,
+    "total_amount": 2049.74,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 9,
+      "unit_price": 28.5,
+      "line_total": 256.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

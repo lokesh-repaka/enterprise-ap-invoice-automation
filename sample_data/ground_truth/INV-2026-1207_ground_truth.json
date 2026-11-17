@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1207",
+    "composite_hash": "d097df3cb1a1a72eb695fe746ddd01d051bd55f6d33b71e2e2293dfbe4044ea6",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1207",
+    "invoice_date": "11/02/2026",
+    "due_date": "13/03/2026",
+    "po_number": "PO-9000-2207",
+    "subtotal": 791.3,
+    "tax_amount": 150.35,
+    "total_amount": 941.65,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.19
+    }
+  ]
+}

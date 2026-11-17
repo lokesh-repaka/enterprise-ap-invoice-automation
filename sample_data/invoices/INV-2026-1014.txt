@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1014
+Invoice Date:          02/06/2026
+Due Date:              03/08/2026
+Purchase Order Ref:    PO-9000-2014
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+High-Tensile Wire Coil 50m          5      38.80        194.00    
+Laser Calibration Service           9      850.00       7650.00   
+Digital Temperature Sensor Pack     1      75.25        75.25     
+-----------------------------------------------------------------
+Subtotal:                                               USD  9324.25
+Tax (7.0%):                                             USD   652.70
+TOTAL DUE:                                              USD  9976.95
+=================================================================

@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1245",
+    "composite_hash": "4dd1ca28ad52d875374f086d9770585c9a949c1b2a6c43e89e8d89002b3c32c1",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1245",
+    "invoice_date": "07/02/2026",
+    "due_date": "09/03/2026",
+    "po_number": "PO-9000-2245",
+    "subtotal": 1140.5,
+    "tax_amount": 114.05,
+    "total_amount": 1254.55,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 10,
+      "unit_price": 38.8,
+      "line_total": 388.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

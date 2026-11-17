@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1072
+Invoice Date:          13/02/2026
+Due Date:              15/03/2026
+Purchase Order Ref:    PO-9000-2072
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+Safety Goggles & Gloves Kit         4      28.50        114.00    
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   811.00
+Tax (21.0%):                                            EUR   170.31
+TOTAL DUE:                                              EUR   981.31
+=================================================================

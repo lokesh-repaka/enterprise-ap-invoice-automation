@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1170",
+    "composite_hash": "d722c49dda52b5a8c087a830682475611cdf30b24d940bb3e9efa13b62ff012f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1170",
+    "invoice_date": "02/04/2026",
+    "due_date": "03/06/2026",
+    "po_number": "PO-9000-2170",
+    "subtotal": 3084.25,
+    "tax_amount": 254.45,
+    "total_amount": 3338.7,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 10,
+      "unit_price": 125.0,
+      "line_total": 1250.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 3,
+      "unit_price": 12.5,
+      "line_total": 37.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 5,
+      "unit_price": 62.0,
+      "line_total": 310.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.0825
+    }
+  ]
+}

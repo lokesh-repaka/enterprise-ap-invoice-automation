@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1030
+Invoice Date:          02/16/2026
+Due Date:              03/18/2026
+Purchase Order Ref:    PO-9000-2030
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          3      12.50        37.50     
+Pneumatic Valve Assembly            2      240.00       480.00    
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD   967.50
+Tax (8.0%):                                             USD    77.40
+TOTAL DUE:                                              USD  1044.94
+=================================================================

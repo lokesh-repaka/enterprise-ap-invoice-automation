@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1131",
+    "composite_hash": "69bca4d4faaf9abd64aee5009127dd71e1a3d6014fffa7e072669b53ee91474d",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1131",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2131",
+    "subtotal": 1860.0,
+    "tax_amount": 353.4,
+    "total_amount": 2213.4,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 4,
+      "unit_price": 45.0,
+      "line_total": 180.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

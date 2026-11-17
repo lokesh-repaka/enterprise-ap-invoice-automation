@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1139",
+    "composite_hash": "4a81dc4f7c188043a75ebf2faafe25a1d6ff67ad9289d42d9849cfa78a2fce33",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1139",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2139",
+    "subtotal": 874.25,
+    "tax_amount": 166.11,
+    "total_amount": 1040.36,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 3,
+      "unit_price": 75.25,
+      "line_total": 225.75,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 3,
+      "unit_price": 62.0,
+      "line_total": 186.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 1,
+      "unit_price": 12.5,
+      "line_total": 12.5,
+      "tax_rate": 0.19
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1046",
+    "composite_hash": "ecb7b3932e4ec392b1ba54430b5480fc4eb09e03c5c135fed82557e77275cbb6",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1046",
+    "invoice_date": "09/02/2026",
+    "due_date": "11/03/2026",
+    "po_number": "PO-9000-2046",
+    "subtotal": 1090.0,
+    "tax_amount": 218.0,
+    "total_amount": 1308.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 2,
+      "unit_price": 125.0,
+      "line_total": 250.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.2
+    }
+  ]
+}

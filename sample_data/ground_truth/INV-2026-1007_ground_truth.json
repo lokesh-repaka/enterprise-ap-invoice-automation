@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1007",
+    "composite_hash": "05b0d2ee38e062589b13a553db64a13dfe005c1905d39ee0a01be3d48d9b6758",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1007",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2007",
+    "subtotal": 2001.0,
+    "tax_amount": 200.1,
+    "total_amount": 2201.1,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 2,
+      "unit_price": 850.0,
+      "line_total": 1700.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

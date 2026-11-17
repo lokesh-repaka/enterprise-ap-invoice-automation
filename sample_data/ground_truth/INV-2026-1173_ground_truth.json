@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1173",
+    "composite_hash": "73881e881f31f2ea2e9b7502647afe1cb6b6fa42d588e548e7ec8e5293e4e26e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1173",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2173",
+    "subtotal": 1795.5,
+    "tax_amount": 179.55,
+    "total_amount": 1975.05,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 3,
+      "unit_price": 12.5,
+      "line_total": 37.5,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 8,
+      "unit_price": 75.25,
+      "line_total": 602.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

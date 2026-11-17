@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1094
+Invoice Date:          02/12/2026
+Due Date:              03/14/2026
+Purchase Order Ref:    PO-9000-2094
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         3      28.50        85.50     
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+Laser Calibration Service           8      850.00       6800.00   
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Digital Temperature Sensor Pack     2      75.25        150.50    
+-----------------------------------------------------------------
+Subtotal:                                               USD  7978.50
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  7978.50
+=================================================================

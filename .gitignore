@@ -1,0 +1,23 @@
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Local database and environment secrets (Strict Security: ADR-007)
+.env
+*.db
+*.sqlite
+/data/enterprise.db
+
+# Temporary scratch scripts
+scratch/
+
+# Antigravity artifacts & logs
+/.agents/agent-calls.jsonl
+/.agents.bak-*/
+/GEMINI.local.md

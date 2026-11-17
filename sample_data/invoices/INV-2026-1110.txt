@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1110
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2110
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          10     12.50        125.00    
+High-Tensile Wire Coil 50m          1      38.80        38.80     
+Digital Temperature Sensor Pack     10     75.25        752.50    
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1916.30
+Tax (19.0%):                                            EUR   364.10
+TOTAL DUE:                                              EUR  2280.40
+=================================================================

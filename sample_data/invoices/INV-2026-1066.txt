@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1066
+Invoice Date:          05/02/2026
+Due Date:              07/03/2026
+Purchase Order Ref:    PO-9000-2066
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+Safety Goggles & Gloves Kit         4      28.50        114.00    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1574.00
+Tax (21.0%):                                            EUR   330.54
+TOTAL DUE:                                              EUR  1904.54
+=================================================================

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1047
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2047
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Pneumatic Valve Assembly            5      240.00       1200.00   
+Industrial Conveyor Belting (meters) 1      45.00        45.00     
+Laser Calibration Service           7      850.00       5950.00   
+Digital Temperature Sensor Pack     1      75.25        75.25     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  7770.25
+Tax (19.0%):                                            EUR  1476.35
+TOTAL DUE:                                              EUR  9246.60
+=================================================================

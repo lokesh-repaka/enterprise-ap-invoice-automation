@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1198",
+    "composite_hash": "fa22b50524d829286f822763cc80cc3cf721f2a6a70a1e2fbe76db106d8e946b",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1198",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2198",
+    "subtotal": 8836.0,
+    "tax_amount": 1678.84,
+    "total_amount": 10514.84,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 3,
+      "unit_price": 62.0,
+      "line_total": 186.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 8,
+      "unit_price": 125.0,
+      "line_total": 1000.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

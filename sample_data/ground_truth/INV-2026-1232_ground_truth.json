@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1232",
+    "composite_hash": "4103b664c8cdbad4759134772e173ac7f683c230feb86b62319bd1535034fa04",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1232",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2232",
+    "subtotal": 635.6,
+    "tax_amount": 133.48,
+    "total_amount": 769.08,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 9,
+      "unit_price": 62.0,
+      "line_total": 558.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

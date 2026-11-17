@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Albion Safety Supplies Ltd
+Tax ID / CIF / USt-ID: GB555666777
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1261
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2261
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 10     62.00        620.00    
+Heavy Duty Steel Fasteners          3      12.50        37.50     
+Laser Calibration Service           7      850.00       5950.00   
+-----------------------------------------------------------------
+Subtotal:                                               GBP  6607.50
+Tax (20.0%):                                            GBP  1321.50
+TOTAL DUE:                                              GBP  7929.00
+=================================================================

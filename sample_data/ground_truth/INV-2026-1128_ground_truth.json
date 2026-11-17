@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1128",
+    "composite_hash": "a34a4bc93c189653253d32dbd1b4ad112837d10842b29038680e9183ed0796fd",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1128",
+    "invoice_date": "01/02/2026",
+    "due_date": "03/03/2026",
+    "po_number": "PO-9000-2128",
+    "subtotal": 277.1,
+    "tax_amount": 19.4,
+    "total_amount": 296.5,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 7,
+      "unit_price": 28.5,
+      "line_total": 199.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.07
+    }
+  ]
+}

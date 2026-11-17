@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1065",
+    "composite_hash": "95b15afef284b98cfeabf827790410098c1c9ea31318b9ea21e5b556a930ec91",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "BlueRidge Cloud Services",
+    "vendor_tax_id": "US-33-2198745",
+    "invoice_number": "INV-2026-1065",
+    "invoice_date": "02/03/2026",
+    "due_date": "03/05/2026",
+    "po_number": "PO-9000-2065",
+    "subtotal": 900.0,
+    "tax_amount": 0.0,
+    "total_amount": 900.0,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 4,
+      "unit_price": 12.5,
+      "line_total": 50.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 1,
+      "unit_price": 850.0,
+      "line_total": 850.0,
+      "tax_rate": 0.0
+    }
+  ]
+}

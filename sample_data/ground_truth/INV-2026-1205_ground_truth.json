@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1205",
+    "composite_hash": "d3ac81bfd32ceb4195aa754bef651e0ddd89d8aa2d54afc293e712bfa2e32754",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1205",
+    "invoice_date": "11/02/2026",
+    "due_date": "13/03/2026",
+    "po_number": "PO-9000-2205",
+    "subtotal": 2558.9,
+    "tax_amount": 255.89,
+    "total_amount": 2814.79,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 6,
+      "unit_price": 28.5,
+      "line_total": 171.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 10,
+      "unit_price": 110.0,
+      "line_total": 1100.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 3,
+      "unit_price": 38.8,
+      "line_total": 116.4,
+      "tax_rate": 0.1
+    }
+  ]
+}

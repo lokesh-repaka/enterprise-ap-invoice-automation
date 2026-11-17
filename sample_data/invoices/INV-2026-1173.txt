@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1173
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2173
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+Heavy Duty Steel Fasteners          3      12.50        37.50     
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+Digital Temperature Sensor Pack     8      75.25        602.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1795.50
+Tax (10.0%):                                            EUR   179.55
+TOTAL DUE:                                              EUR  1975.05
+=================================================================

@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1122",
+    "composite_hash": "79b596271a52c7a116003cd9c987b23210af0aa99d176fd57c8776accf94ca14",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1122",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2122",
+    "subtotal": 925.0,
+    "tax_amount": 185.0,
+    "total_amount": 1110.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 1,
+      "unit_price": 850.0,
+      "line_total": 850.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 6,
+      "unit_price": 12.5,
+      "line_total": 75.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

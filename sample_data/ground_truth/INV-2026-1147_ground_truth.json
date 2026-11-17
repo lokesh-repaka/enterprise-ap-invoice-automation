@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1147",
+    "composite_hash": "09dde9cfd9914cbce803f02100a51d8bd716bb6443837c0a7dbd3c4702301ac9",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1147",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2147",
+    "subtotal": 828.0,
+    "tax_amount": 157.32,
+    "total_amount": 985.32,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 4,
+      "unit_price": 62.0,
+      "line_total": 248.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 2,
+      "unit_price": 125.0,
+      "line_total": 250.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

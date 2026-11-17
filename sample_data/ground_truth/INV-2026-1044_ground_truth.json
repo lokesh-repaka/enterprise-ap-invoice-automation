@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1044",
+    "composite_hash": "900e90af916537519c45f8cd8ef4d184a54c428d403adc45bc45fbc0ad4d5334",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1044",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2044",
+    "subtotal": 7753.5,
+    "tax_amount": 1550.7,
+    "total_amount": 9304.2,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 7,
+      "unit_price": 850.0,
+      "line_total": 5950.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.2
+    }
+  ]
+}

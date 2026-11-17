@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1006
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2006
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            5      240.00       1200.00   
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+High-Tensile Wire Coil 50m          6      38.80        232.80    
+Heavy Duty Steel Fasteners          10     12.50        125.00    
+Digital Temperature Sensor Pack     4      75.25        301.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  2308.80
+Tax (20.0%):                                            GBP   461.76
+TOTAL DUE:                                              GBP  2770.56
+=================================================================

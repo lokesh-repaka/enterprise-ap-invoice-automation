@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1142",
+    "composite_hash": "ef1a3569d390ebbea54382320f25da47ea10bb8d47d9ffde48f3259642dd44d2",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1142",
+    "invoice_date": "02/08/2026",
+    "due_date": "03/10/2026",
+    "po_number": "PO-9000-2142",
+    "subtotal": 2622.5,
+    "tax_amount": 209.8,
+    "total_amount": 2832.3,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 4,
+      "unit_price": 125.0,
+      "line_total": 500.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 3,
+      "unit_price": 12.5,
+      "line_total": 37.5,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 5,
+      "unit_price": 240.0,
+      "line_total": 1200.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 5,
+      "unit_price": 45.0,
+      "line_total": 225.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.08
+    }
+  ]
+}

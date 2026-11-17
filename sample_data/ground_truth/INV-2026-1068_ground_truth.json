@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1068",
+    "composite_hash": "e63482575faf534cac81b52996cdc4accf49d6af4e8d1b72136b55eadb75adc7",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1068",
+    "invoice_date": "13/02/2026",
+    "due_date": "15/03/2026",
+    "po_number": "PO-9000-2068",
+    "subtotal": 5137.0,
+    "tax_amount": 1078.77,
+    "total_amount": 6215.77,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 5,
+      "unit_price": 850.0,
+      "line_total": 4250.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 2,
+      "unit_price": 125.0,
+      "line_total": 250.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 10,
+      "unit_price": 12.5,
+      "line_total": 125.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 1,
+      "unit_price": 62.0,
+      "line_total": 62.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

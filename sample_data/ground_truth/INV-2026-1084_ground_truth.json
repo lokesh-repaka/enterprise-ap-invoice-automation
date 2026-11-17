@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1084",
+    "composite_hash": "7d66dc1fd9b769ee6eaf11330d6cf526a5a4177a0a15edb14e16b97dea111cf0",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1084",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2084",
+    "subtotal": 2986.0,
+    "tax_amount": 627.06,
+    "total_amount": 3613.06,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 3,
+      "unit_price": 850.0,
+      "line_total": 2550.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 3,
+      "unit_price": 45.0,
+      "line_total": 135.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

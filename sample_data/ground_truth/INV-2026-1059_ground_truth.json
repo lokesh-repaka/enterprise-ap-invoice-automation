@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1059",
+    "composite_hash": "05e9b0a2df1a1367aeb4b6e4023c7289e96696be02c9b7a43c1db1cbf66fa5bf",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1059",
+    "invoice_date": "02/14/2026",
+    "due_date": "03/16/2026",
+    "po_number": "PO-9000-2059",
+    "subtotal": 10640.0,
+    "tax_amount": 877.8,
+    "total_amount": 11517.8,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 4,
+      "unit_price": 62.0,
+      "line_total": 248.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 7,
+      "unit_price": 28.5,
+      "line_total": 199.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 10,
+      "unit_price": 850.0,
+      "line_total": 8500.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 1,
+      "unit_price": 12.5,
+      "line_total": 12.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

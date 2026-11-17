@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1139
+Invoice Date:          06/02/2026
+Due Date:              08/03/2026
+Purchase Order Ref:    PO-9000-2139
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     3      75.25        225.75    
+Corrugated Shipping Cartons (Bundle 100) 3      62.00        186.00    
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Heavy Duty Steel Fasteners          1      12.50        12.50     
+-----------------------------------------------------------------
+Subtotal:                                               EUR   874.25
+Tax (19.0%):                                            EUR   166.11
+TOTAL DUE:                                              EUR  1040.36
+=================================================================

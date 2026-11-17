@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1121",
+    "composite_hash": "e564c8223896bc5e3d4c4cdb32ec216714f2851eb7dacab3efa5c40afc7b8dd9",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1121",
+    "invoice_date": "12/02/2026",
+    "due_date": "14/03/2026",
+    "po_number": "PO-9000-2121",
+    "subtotal": 305.7,
+    "tax_amount": 58.08,
+    "total_amount": 363.78,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 2,
+      "unit_price": 75.25,
+      "line_total": 150.5,
+      "tax_rate": 0.19
+    }
+  ]
+}

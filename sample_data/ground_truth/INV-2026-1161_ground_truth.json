@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1161",
+    "composite_hash": "090bd4e06d50f291067bdca7f5fe988ffd2d3e18564044acd09a466bedfaf39e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1161",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2161",
+    "subtotal": 651.2,
+    "tax_amount": 65.12,
+    "total_amount": 716.32,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

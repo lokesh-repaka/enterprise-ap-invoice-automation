@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1274
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2274
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+Laser Calibration Service           7      850.00       5950.00   
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Pneumatic Valve Assembly            2      240.00       480.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  6944.50
+Tax (19.0%):                                            EUR  1319.45
+TOTAL DUE:                                              EUR  8263.95
+=================================================================

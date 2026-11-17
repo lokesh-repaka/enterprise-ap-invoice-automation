@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1222",
+    "composite_hash": "53c2e9b308b72ab74372da2cb3cd92d7040e3b72fb38b214d7235fb7f674eb32",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1222",
+    "invoice_date": "07/02/2026",
+    "due_date": "09/03/2026",
+    "po_number": "PO-9000-2222",
+    "subtotal": 1837.8,
+    "tax_amount": 385.94,
+    "total_amount": 2223.74,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 9,
+      "unit_price": 125.0,
+      "line_total": 1125.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 6,
+      "unit_price": 38.8,
+      "line_total": 232.8,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 2,
+      "unit_price": 240.0,
+      "line_total": 480.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

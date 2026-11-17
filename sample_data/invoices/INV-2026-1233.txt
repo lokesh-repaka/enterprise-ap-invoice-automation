@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1233
+Invoice Date:          02/03/2026
+Due Date:              03/05/2026
+Purchase Order Ref:    PO-9000-2233
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Digital Temperature Sensor Pack     6      75.25        451.50    
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1370.10
+Tax (8.0%):                                             USD   109.61
+TOTAL DUE:                                              USD  1479.71
+=================================================================

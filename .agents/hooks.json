@@ -1,0 +1,31 @@
+{
+  "pre-commit-gate": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash hooks/pre-commit.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "agent-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "invoke_subagent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 hooks/agent_guard.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+

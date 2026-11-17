@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1159",
+    "composite_hash": "bc7cfcafdc2ae30741415602195d98750536097f5d0c3107b96338f66ff0b4ce",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1159",
+    "invoice_date": "16/02/2026",
+    "due_date": "18/03/2026",
+    "po_number": "PO-9000-2159",
+    "subtotal": 2730.0,
+    "tax_amount": 518.7,
+    "total_amount": 3248.7,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 2,
+      "unit_price": 850.0,
+      "line_total": 1700.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 2,
+      "unit_price": 240.0,
+      "line_total": 480.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

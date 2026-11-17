@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1114",
+    "composite_hash": "b0ae27093ecf42dfbf43c05610983c0289a751301c982a6d65d130a14c2bcfbd",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1114",
+    "invoice_date": "02/12/2026",
+    "due_date": "03/14/2026",
+    "po_number": "PO-9000-2114",
+    "subtotal": 1368.9,
+    "tax_amount": 95.82,
+    "total_amount": 1464.72,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 5,
+      "unit_price": 110.0,
+      "line_total": 550.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 8,
+      "unit_price": 38.8,
+      "line_total": 310.4,
+      "tax_rate": 0.07
+    }
+  ]
+}

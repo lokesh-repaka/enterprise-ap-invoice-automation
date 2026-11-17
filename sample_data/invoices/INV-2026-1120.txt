@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1120
+Invoice Date:          02/12/2026
+Due Date:              03/14/2026
+Purchase Order Ref:    PO-9000-2120
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+Laser Calibration Service           6      850.00       5100.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  5521.00
+Tax (8.0%):                                             USD   441.68
+TOTAL DUE:                                              USD  5962.68
+=================================================================

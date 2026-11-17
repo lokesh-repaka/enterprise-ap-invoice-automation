@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1106
+Invoice Date:          02/12/2026
+Due Date:              03/14/2026
+Purchase Order Ref:    PO-9000-2106
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+Laser Calibration Service           3      850.00       2550.00   
+Digital Temperature Sensor Pack     3      75.25        225.75    
+-----------------------------------------------------------------
+Subtotal:                                               USD  4147.35
+Tax (8.2%):                                             USD   342.16
+TOTAL DUE:                                              USD  4489.51
+=================================================================

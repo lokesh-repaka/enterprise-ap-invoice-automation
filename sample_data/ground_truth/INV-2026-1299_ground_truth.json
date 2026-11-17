@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1299",
+    "composite_hash": "5ae2e6645e6257af5616393d2dfa854f73f2b6ab66586fb12e3fd1b8495ed0fc",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1299",
+    "invoice_date": "02/09/2026",
+    "due_date": "03/11/2026",
+    "po_number": "PO-9000-2299",
+    "subtotal": 1225.1,
+    "tax_amount": 85.76,
+    "total_amount": 1310.86,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 7,
+      "unit_price": 38.8,
+      "line_total": 271.6,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 9,
+      "unit_price": 28.5,
+      "line_total": 256.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 5,
+      "unit_price": 45.0,
+      "line_total": 225.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 6,
+      "unit_price": 62.0,
+      "line_total": 372.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

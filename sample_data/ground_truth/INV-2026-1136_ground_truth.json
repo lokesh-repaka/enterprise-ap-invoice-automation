@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1136",
+    "composite_hash": "4227468b471bcc3a9f755b22129408ff7a461a579cf633901437836bd1fc4089",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Caledonian Heavy Freight Ltd",
+    "vendor_tax_id": "GB987654321",
+    "invoice_number": "INV-2026-1136",
+    "invoice_date": "12/02/2026",
+    "due_date": "14/03/2026",
+    "po_number": "PO-9000-2136",
+    "subtotal": 8176.75,
+    "tax_amount": 1635.35,
+    "total_amount": 9812.1,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 7,
+      "unit_price": 75.25,
+      "line_total": 526.75,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

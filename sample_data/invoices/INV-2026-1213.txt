@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1213
+Invoice Date:          07/02/2026
+Due Date:              09/03/2026
+Purchase Order Ref:    PO-9000-2213
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 5      62.00        310.00    
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+Digital Temperature Sensor Pack     10     75.25        752.50    
+Pneumatic Valve Assembly            9      240.00       2160.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3615.00
+Tax (10.0%):                                            EUR   361.50
+TOTAL DUE:                                              EUR  3976.50
+=================================================================

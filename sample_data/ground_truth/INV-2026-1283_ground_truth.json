@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1283",
+    "composite_hash": "14e2868c4591107b56f0f989e8bd798a2ebede72bbcaddf2de1b9e1dd330f566",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1283",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2283",
+    "subtotal": 1727.6,
+    "tax_amount": 328.24,
+    "total_amount": 2055.84,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 8,
+      "unit_price": 62.0,
+      "line_total": 496.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 7,
+      "unit_price": 38.8,
+      "line_total": 271.6,
+      "tax_rate": 0.19
+    }
+  ]
+}

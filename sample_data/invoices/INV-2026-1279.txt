@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1279
+Invoice Date:          02/09/2026
+Due Date:              03/11/2026
+Purchase Order Ref:    PO-9000-2279
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            8      240.00       1920.00   
+Preventative Maintenance Inspection (Hours) 6      125.00       750.00    
+Laser Calibration Service           7      850.00       5950.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  8620.00
+Tax (8.2%):                                             USD   711.15
+TOTAL DUE:                                              USD  9331.15
+=================================================================

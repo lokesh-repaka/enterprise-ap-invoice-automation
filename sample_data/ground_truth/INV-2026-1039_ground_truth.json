@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1039",
+    "composite_hash": "d2f9b3a0e2eca1fe966dd4c55865a5db32c45b88d7822109e3d369b4a4b4a0d4",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1039",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2039",
+    "subtotal": 470.35,
+    "tax_amount": 89.37,
+    "total_amount": 559.72,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 1,
+      "unit_price": 110.0,
+      "line_total": 110.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 3,
+      "unit_price": 75.25,
+      "line_total": 225.75,
+      "tax_rate": 0.19
+    }
+  ]
+}

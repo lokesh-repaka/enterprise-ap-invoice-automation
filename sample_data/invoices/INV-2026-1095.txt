@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1095
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2095
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     9      75.25        677.25    
+Pneumatic Valve Assembly            7      240.00       1680.00   
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+-----------------------------------------------------------------
+Subtotal:                                               USD  2382.25
+Tax (8.0%):                                             USD   190.58
+TOTAL DUE:                                              USD  2572.83
+=================================================================

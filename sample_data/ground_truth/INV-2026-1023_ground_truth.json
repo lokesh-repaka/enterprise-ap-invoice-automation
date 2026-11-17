@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1023",
+    "composite_hash": "509473f7be2658c26dad993d71726d56ae6e4a81a09415258d76078e3751addc",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1023",
+    "invoice_date": "02/02/2026",
+    "due_date": "04/03/2026",
+    "po_number": "PO-9000-2023",
+    "subtotal": 9300.0,
+    "tax_amount": 1860.0,
+    "total_amount": 11160.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

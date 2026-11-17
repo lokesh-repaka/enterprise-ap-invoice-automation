@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1197
+Invoice Date:          02/15/2026
+Due Date:              03/17/2026
+Purchase Order Ref:    PO-9000-2197
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Heavy Duty Steel Fasteners          10     12.50        125.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD   990.00
+Tax (8.2%):                                             USD    81.67
+TOTAL DUE:                                              USD  1071.67
+=================================================================

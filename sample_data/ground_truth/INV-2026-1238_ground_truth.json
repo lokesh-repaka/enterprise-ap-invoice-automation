@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1238",
+    "composite_hash": "6b4e61f4bcb4c284ae249383664af4b26c8d4c09706fa18609a3251f192aa3bd",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1238",
+    "invoice_date": "02/04/2026",
+    "due_date": "03/06/2026",
+    "po_number": "PO-9000-2238",
+    "subtotal": 126.5,
+    "tax_amount": 10.44,
+    "total_amount": 136.94,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 4,
+      "unit_price": 28.5,
+      "line_total": 114.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 1,
+      "unit_price": 12.5,
+      "line_total": 12.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

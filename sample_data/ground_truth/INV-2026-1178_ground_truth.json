@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1178",
+    "composite_hash": "8274f42a8b106d2c36274ce89500f702eb927cec20d7fd2507a16e2349b76851",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1178",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2178",
+    "subtotal": 1161.6,
+    "tax_amount": 232.32,
+    "total_amount": 1393.92,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 6,
+      "unit_price": 45.0,
+      "line_total": 270.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 2,
+      "unit_price": 110.0,
+      "line_total": 220.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 5,
+      "unit_price": 28.5,
+      "line_total": 142.5,
+      "tax_rate": 0.2
+    }
+  ]
+}

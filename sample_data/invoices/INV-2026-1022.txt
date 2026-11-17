@@ -1,0 +1,21 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1022
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2022
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 4      45.00        180.00    
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+-----------------------------------------------------------------
+Subtotal:                                               EUR   205.00
+Tax (21.0%):                                            EUR    43.05
+TOTAL DUE:                                              EUR   248.05
+=================================================================

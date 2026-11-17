@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1011",
+    "composite_hash": "a64bf76eb33c4f81e9a335e548211e8c528a2b82f7cb8f0d20d0b556e6b02838",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1011",
+    "invoice_date": "02/03/2026",
+    "due_date": "03/05/2026",
+    "po_number": "PO-9000-2011",
+    "subtotal": 8234.0,
+    "tax_amount": 679.31,
+    "total_amount": 8913.31,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 8,
+      "unit_price": 125.0,
+      "line_total": 1000.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 7,
+      "unit_price": 62.0,
+      "line_total": 434.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 8,
+      "unit_price": 850.0,
+      "line_total": 6800.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

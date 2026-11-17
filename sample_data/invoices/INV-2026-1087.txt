@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1087
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2087
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            2      110.00       220.00    
+Digital Temperature Sensor Pack     1      75.25        75.25     
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   670.25
+Tax (19.0%):                                            EUR   127.35
+TOTAL DUE:                                              EUR   797.60
+=================================================================

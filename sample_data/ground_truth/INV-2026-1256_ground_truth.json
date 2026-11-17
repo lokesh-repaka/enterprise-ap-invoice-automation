@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1256",
+    "composite_hash": "5601c93a16a143b273cd4e3b2d80f6c913b273367eacfece4692a6c9f370d85f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1256",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2256",
+    "subtotal": 1780.0,
+    "tax_amount": 338.2,
+    "total_amount": 2118.2,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 4,
+      "unit_price": 45.0,
+      "line_total": 180.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 4,
+      "unit_price": 125.0,
+      "line_total": 500.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 10,
+      "unit_price": 110.0,
+      "line_total": 1100.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

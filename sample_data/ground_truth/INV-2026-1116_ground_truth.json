@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1116",
+    "composite_hash": "888c009a08628f3ff74252b1e66f1609e62afab143849bba388dca69bca0a099",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1116",
+    "invoice_date": "02/04/2026",
+    "due_date": "03/06/2026",
+    "po_number": "PO-9000-2116",
+    "subtotal": 1030.7,
+    "tax_amount": 85.03,
+    "total_amount": 1115.73,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 6,
+      "unit_price": 62.0,
+      "line_total": 372.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 2,
+      "unit_price": 75.25,
+      "line_total": 150.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 8,
+      "unit_price": 28.5,
+      "line_total": 228.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 1,
+      "unit_price": 125.0,
+      "line_total": 125.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

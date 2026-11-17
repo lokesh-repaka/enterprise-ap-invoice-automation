@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1185
+Invoice Date:          02/11/2026
+Due Date:              03/13/2026
+Purchase Order Ref:    PO-9000-2185
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 3      45.00        135.00    
+Pneumatic Valve Assembly            3      240.00       720.00    
+Digital Temperature Sensor Pack     6      75.25        451.50    
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  2296.50
+Tax (8.2%):                                             USD   189.46
+TOTAL DUE:                                              USD  2485.96
+=================================================================

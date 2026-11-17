@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1234
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2234
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 9      62.00        558.00    
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1863.00
+Tax (19.0%):                                            EUR   353.97
+TOTAL DUE:                                              EUR  2216.97
+=================================================================

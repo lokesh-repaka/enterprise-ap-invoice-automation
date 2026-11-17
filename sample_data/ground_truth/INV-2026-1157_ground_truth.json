@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1157",
+    "composite_hash": "5511266c90fa152ed78cc7acba37dec606d171b50679f11654b8ce676c8cfbf4",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1157",
+    "invoice_date": "02/03/2026",
+    "due_date": "03/05/2026",
+    "po_number": "PO-9000-2157",
+    "subtotal": 2068.2,
+    "tax_amount": 144.77,
+    "total_amount": 2212.97,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 9,
+      "unit_price": 38.8,
+      "line_total": 349.2,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 2,
+      "unit_price": 62.0,
+      "line_total": 124.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 7,
+      "unit_price": 125.0,
+      "line_total": 875.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1269",
+    "composite_hash": "e50731e7ea4daa2688767be2fc8e22114c2d9df60486f50d6d7a3dd7ca6e9b4b",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1269",
+    "invoice_date": "02/11/2026",
+    "due_date": "03/13/2026",
+    "po_number": "PO-9000-2269",
+    "subtotal": 8826.5,
+    "tax_amount": 728.19,
+    "total_amount": 9554.69,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 9,
+      "unit_price": 12.5,
+      "line_total": 112.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 10,
+      "unit_price": 38.8,
+      "line_total": 388.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 3,
+      "unit_price": 125.0,
+      "line_total": 375.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

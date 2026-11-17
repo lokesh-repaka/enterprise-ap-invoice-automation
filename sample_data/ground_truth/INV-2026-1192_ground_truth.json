@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1192",
+    "composite_hash": "c4f7a82c1520163f81d07593d41e1b93afddbcfd6a2d6705b0bd24e50dd3a1af",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1192",
+    "invoice_date": "02/11/2026",
+    "due_date": "03/13/2026",
+    "po_number": "PO-9000-2192",
+    "subtotal": 462.5,
+    "tax_amount": 32.38,
+    "total_amount": 494.88,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 1,
+      "unit_price": 12.5,
+      "line_total": 12.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

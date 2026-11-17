@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1015
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2015
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 3      62.00        186.00    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+Digital Temperature Sensor Pack     1      75.25        75.25     
+Laser Calibration Service           5      850.00       4250.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  4871.25
+Tax (21.0%):                                            EUR  1022.96
+TOTAL DUE:                                              EUR  5894.21
+=================================================================

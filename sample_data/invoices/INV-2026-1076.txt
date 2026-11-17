@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1076
+Invoice Date:          02/04/2026
+Due Date:              03/06/2026
+Purchase Order Ref:    PO-9000-2076
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+Industrial Conveyor Belting (meters) 4      45.00        180.00    
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1308.00
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  1308.00
+=================================================================

@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1236",
+    "composite_hash": "15041c05426be2f10ba148f9b6c1d6b86ef7668172ce46cf8a3acef763cb20ec",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1236",
+    "invoice_date": "13/02/2026",
+    "due_date": "15/03/2026",
+    "po_number": "PO-9000-2236",
+    "subtotal": 2940.5,
+    "tax_amount": 558.7,
+    "total_amount": 3499.2,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 3,
+      "unit_price": 850.0,
+      "line_total": 2550.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 5,
+      "unit_price": 28.5,
+      "line_total": 142.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 4,
+      "unit_price": 62.0,
+      "line_total": 248.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

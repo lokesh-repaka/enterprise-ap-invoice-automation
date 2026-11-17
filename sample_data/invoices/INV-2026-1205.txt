@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1205
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2205
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            3      240.00       720.00    
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+Digital Temperature Sensor Pack     6      75.25        451.50    
+High-Tensile Wire Coil 50m          3      38.80        116.40    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2558.90
+Tax (10.0%):                                            EUR   255.89
+TOTAL DUE:                                              EUR  2814.79
+=================================================================

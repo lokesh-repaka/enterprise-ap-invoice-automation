@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Caledonian Heavy Freight Ltd
+Tax ID / CIF / USt-ID: GB987654321
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1276
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2276
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         3      28.50        85.50     
+Hydraulic Fluid 20L Drum            7      110.00       770.00    
+Digital Temperature Sensor Pack     7      75.25        526.75    
+Industrial Conveyor Belting (meters) 2      45.00        90.00     
+Pneumatic Valve Assembly            8      240.00       1920.00   
+-----------------------------------------------------------------
+Subtotal:                                               GBP  3392.25
+Tax (20.0%):                                            GBP   678.45
+TOTAL DUE:                                              GBP  4070.70
+=================================================================

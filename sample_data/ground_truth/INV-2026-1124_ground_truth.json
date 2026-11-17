@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1124",
+    "composite_hash": "02324c7a63a0f607b4b7d0b25dc2202ae40c5f41313eb59cd846c076f1ccc22d",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1124",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2124",
+    "subtotal": 1215.75,
+    "tax_amount": 230.99,
+    "total_amount": 1446.74,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 3,
+      "unit_price": 75.25,
+      "line_total": 225.75,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1143",
+    "composite_hash": "ca680f6d2bf60f6c4597338e8c1ae6f59bf7839d4038c58f8c0566c22d606dcf",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1143",
+    "invoice_date": "02/01/2026",
+    "due_date": "03/03/2026",
+    "po_number": "PO-9000-2143",
+    "subtotal": 8555.7,
+    "tax_amount": 705.85,
+    "total_amount": 9261.55,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 9,
+      "unit_price": 240.0,
+      "line_total": 2160.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 6,
+      "unit_price": 850.0,
+      "line_total": 5100.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 2,
+      "unit_price": 75.25,
+      "line_total": 150.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

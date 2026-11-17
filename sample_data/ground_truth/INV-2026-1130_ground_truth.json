@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1130",
+    "composite_hash": "8deaf45654206ace2b99a88d3a6b25c23dfa69e6a46cef8f7b6400e44a1e2e4f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1130",
+    "invoice_date": "02/05/2026",
+    "due_date": "03/07/2026",
+    "po_number": "PO-9000-2130",
+    "subtotal": 10520.0,
+    "tax_amount": 867.9,
+    "total_amount": 11387.9,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 10,
+      "unit_price": 125.0,
+      "line_total": 1250.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 9,
+      "unit_price": 240.0,
+      "line_total": 2160.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 5,
+      "unit_price": 62.0,
+      "line_total": 310.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 8,
+      "unit_price": 850.0,
+      "line_total": 6800.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

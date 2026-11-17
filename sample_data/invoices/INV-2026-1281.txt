@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1281
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2281
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Laser Calibration Service           2      850.00       1700.00   
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3808.00
+Tax (19.0%):                                            EUR   723.52
+TOTAL DUE:                                              EUR  4531.52
+=================================================================

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1115
+Invoice Date:          02/05/2026
+Due Date:              03/07/2026
+Purchase Order Ref:    PO-9000-2115
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          2      38.80        77.60     
+Pneumatic Valve Assembly            7      240.00       1680.00   
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+-----------------------------------------------------------------
+Subtotal:                                               USD  1819.60
+Tax (8.2%):                                             USD   150.12
+TOTAL DUE:                                              USD  1969.72
+=================================================================

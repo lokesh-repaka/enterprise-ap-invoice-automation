@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1246
+Invoice Date:          02/03/2026
+Due Date:              03/05/2026
+Purchase Order Ref:    PO-9000-2246
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+Pneumatic Valve Assembly            4      240.00       960.00    
+Laser Calibration Service           6      850.00       5100.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  7060.00
+Tax (8.0%):                                             USD   564.80
+TOTAL DUE:                                              USD  7624.80
+=================================================================

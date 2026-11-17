@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1050",
+    "composite_hash": "261d4511bb199d907509facdf2f753410f3c1893a23fe395bba509237f8619a7",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1050",
+    "invoice_date": "10/02/2026",
+    "due_date": "12/03/2026",
+    "po_number": "PO-9000-2050",
+    "subtotal": 3577.5,
+    "tax_amount": 751.27,
+    "total_amount": 4328.77,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 10,
+      "unit_price": 12.5,
+      "line_total": 125.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

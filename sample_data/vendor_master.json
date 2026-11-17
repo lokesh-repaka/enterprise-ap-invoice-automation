@@ -1,0 +1,152 @@
+[
+  {
+    "VendorID": "VEND-1001",
+    "VendorName": "Apex Global Logistics Inc",
+    "TaxID_VAT": "US-12-3456789",
+    "CountryCode": "US",
+    "DateLocalePreference": "MM/DD/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "USD",
+    "StandardTaxRate": 0.08
+  },
+  {
+    "VendorID": "VEND-1002",
+    "VendorName": "CyberCore Solutions LLC",
+    "TaxID_VAT": "US-98-7654321",
+    "CountryCode": "US",
+    "DateLocalePreference": "MM/DD/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "USD",
+    "StandardTaxRate": 0.0825
+  },
+  {
+    "VendorID": "VEND-1003",
+    "VendorName": "Precision Machine Parts Co",
+    "TaxID_VAT": "US-45-8921345",
+    "CountryCode": "US",
+    "DateLocalePreference": "MM/DD/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "USD",
+    "StandardTaxRate": 0.07
+  },
+  {
+    "VendorID": "VEND-1004",
+    "VendorName": "BlueRidge Cloud Services",
+    "TaxID_VAT": "US-33-2198745",
+    "CountryCode": "US",
+    "DateLocalePreference": "MM/DD/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "USD",
+    "StandardTaxRate": 0.0
+  },
+  {
+    "VendorID": "VEND-1005",
+    "VendorName": "OmniPackaging Direct",
+    "TaxID_VAT": "US-77-6543210",
+    "CountryCode": "US",
+    "DateLocalePreference": "MM/DD/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "USD",
+    "StandardTaxRate": 0.0825
+  },
+  {
+    "VendorID": "VEND-2001",
+    "VendorName": "Bavaria Werkzeuge GmbH",
+    "TaxID_VAT": "DE123456789",
+    "CountryCode": "DE",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.19
+  },
+  {
+    "VendorID": "VEND-2002",
+    "VendorName": "Nordic Sensorik AG",
+    "TaxID_VAT": "DE987654321",
+    "CountryCode": "DE",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.19
+  },
+  {
+    "VendorID": "VEND-2003",
+    "VendorName": "Berlin Druck & Medien KG",
+    "TaxID_VAT": "DE456123789",
+    "CountryCode": "DE",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.07
+  },
+  {
+    "VendorID": "VEND-2004",
+    "VendorName": "Hanseatic Spedition GmbH",
+    "TaxID_VAT": "DE321654987",
+    "CountryCode": "DE",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.19
+  },
+  {
+    "VendorID": "VEND-3001",
+    "VendorName": "Iberia Componentes Industriales SL",
+    "TaxID_VAT": "ESB12345678",
+    "CountryCode": "ES",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.21
+  },
+  {
+    "VendorID": "VEND-3002",
+    "VendorName": "Mediterraneo Quimica SA",
+    "TaxID_VAT": "ESA98765432",
+    "CountryCode": "ES",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.21
+  },
+  {
+    "VendorID": "VEND-3003",
+    "VendorName": "Castilla Logistica Integral SL",
+    "TaxID_VAT": "ESB45678912",
+    "CountryCode": "ES",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "COMMA",
+    "DefaultCurrency": "EUR",
+    "StandardTaxRate": 0.1
+  },
+  {
+    "VendorID": "VEND-4001",
+    "VendorName": "Thames River Tech Solutions Ltd",
+    "TaxID_VAT": "GB123456789",
+    "CountryCode": "GB",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "GBP",
+    "StandardTaxRate": 0.2
+  },
+  {
+    "VendorID": "VEND-4002",
+    "VendorName": "Caledonian Heavy Freight Ltd",
+    "TaxID_VAT": "GB987654321",
+    "CountryCode": "GB",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "GBP",
+    "StandardTaxRate": 0.2
+  },
+  {
+    "VendorID": "VEND-4003",
+    "VendorName": "Albion Safety Supplies Ltd",
+    "TaxID_VAT": "GB555666777",
+    "CountryCode": "GB",
+    "DateLocalePreference": "DD/MM/YYYY",
+    "NumberFormatPreference": "PERIOD",
+    "DefaultCurrency": "GBP",
+    "StandardTaxRate": 0.2
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1052",
+    "composite_hash": "7ec77b3155729ce4856956d14ba80fb37c87eab32f272f6f641a5b87bc11716d",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Mediterraneo Quimica SA",
+    "vendor_tax_id": "ESA98765432",
+    "invoice_number": "INV-2026-1052",
+    "invoice_date": "11/02/2026",
+    "due_date": "13/03/2026",
+    "po_number": "PO-9000-2052",
+    "subtotal": 3701.0,
+    "tax_amount": 777.21,
+    "total_amount": 4478.21,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

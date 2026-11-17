@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1063",
+    "composite_hash": "5ff5f08e2685003000d51f43c8c44bd01ac80a9683a656aa74a117d9b7a898d0",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1063",
+    "invoice_date": "02/15/2026",
+    "due_date": "03/17/2026",
+    "po_number": "PO-9000-2063",
+    "subtotal": 686.4,
+    "tax_amount": 48.05,
+    "total_amount": 734.45,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 6,
+      "unit_price": 12.5,
+      "line_total": 75.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 4,
+      "unit_price": 75.25,
+      "line_total": 301.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 8,
+      "unit_price": 38.8,
+      "line_total": 310.4,
+      "tax_rate": 0.07
+    }
+  ]
+}

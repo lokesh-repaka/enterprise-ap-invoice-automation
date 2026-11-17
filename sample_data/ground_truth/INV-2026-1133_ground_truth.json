@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1133",
+    "composite_hash": "b0c1a88596f4ce3ae0545a51493165c02edd500a7800d243c0b2240f2ef0200d",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1133",
+    "invoice_date": "05/02/2026",
+    "due_date": "07/03/2026",
+    "po_number": "PO-9000-2133",
+    "subtotal": 2522.5,
+    "tax_amount": 479.27,
+    "total_amount": 3001.77,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 2,
+      "unit_price": 45.0,
+      "line_total": 90.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 6,
+      "unit_price": 125.0,
+      "line_total": 750.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 9,
+      "unit_price": 12.5,
+      "line_total": 112.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 1,
+      "unit_price": 850.0,
+      "line_total": 850.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

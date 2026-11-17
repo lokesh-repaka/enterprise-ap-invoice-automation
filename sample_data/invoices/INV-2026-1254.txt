@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1254
+Invoice Date:          01/02/2026
+Due Date:              03/03/2026
+Purchase Order Ref:    PO-9000-2254
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            1      110.00       110.00    
+Laser Calibration Service           4      850.00       3400.00   
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  4582.00
+Tax (20.0%):                                            GBP   916.40
+TOTAL DUE:                                              GBP  5498.40
+=================================================================

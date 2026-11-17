@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1118",
+    "composite_hash": "d6f53993a65ce8501619321df7f9976b6e7ee5628a63dc04383045595df2e58c",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1118",
+    "invoice_date": "02/02/2026",
+    "due_date": "03/04/2026",
+    "po_number": "PO-9000-2118",
+    "subtotal": 3071.5,
+    "tax_amount": 245.72,
+    "total_amount": 3317.22,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 9,
+      "unit_price": 28.5,
+      "line_total": 256.5,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 3,
+      "unit_price": 45.0,
+      "line_total": 135.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 8,
+      "unit_price": 125.0,
+      "line_total": 1000.0,
+      "tax_rate": 0.08
+    }
+  ]
+}

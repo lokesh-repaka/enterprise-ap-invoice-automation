@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1127
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2127
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         4      28.50        114.00    
+Corrugated Shipping Cartons (Bundle 100) 10     62.00        620.00    
+Industrial Conveyor Belting (meters) 1      45.00        45.00     
+Laser Calibration Service           9      850.00       7650.00   
+Digital Temperature Sensor Pack     5      75.25        376.25    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8805.25
+Tax (10.0%):                                            EUR   880.53
+TOTAL DUE:                                              EUR  9685.78
+=================================================================

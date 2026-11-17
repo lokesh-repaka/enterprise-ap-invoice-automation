@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1099
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2099
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+Pneumatic Valve Assembly            6      240.00       1440.00   
+Preventative Maintenance Inspection (Hours) 9      125.00       1125.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2736.00
+Tax (21.0%):                                            EUR   574.56
+TOTAL DUE:                                              EUR  3310.56
+=================================================================

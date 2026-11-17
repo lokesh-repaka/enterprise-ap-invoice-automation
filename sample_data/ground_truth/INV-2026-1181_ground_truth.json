@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1181",
+    "composite_hash": "48c84656eb3977e60427b22baf964bb0b1c864c93e496720eca130e0322e02e0",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1181",
+    "invoice_date": "02/08/2026",
+    "due_date": "03/10/2026",
+    "po_number": "PO-9000-2181",
+    "subtotal": 1022.9,
+    "tax_amount": 84.39,
+    "total_amount": 1107.29,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 3,
+      "unit_price": 62.0,
+      "line_total": 186.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 8,
+      "unit_price": 38.8,
+      "line_total": 310.4,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 6,
+      "unit_price": 12.5,
+      "line_total": 75.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

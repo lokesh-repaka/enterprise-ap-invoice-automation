@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1239",
+    "composite_hash": "2d89898788d562a141a102fdce92c60afc4228e4f31c5634b40aa8aeaaad5293",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1239",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2239",
+    "subtotal": 8432.5,
+    "tax_amount": 1602.17,
+    "total_amount": 10034.67,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.19
+    }
+  ]
+}

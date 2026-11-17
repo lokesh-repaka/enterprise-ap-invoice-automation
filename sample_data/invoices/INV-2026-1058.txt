@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1058
+Invoice Date:          02/11/2026
+Due Date:              03/13/2026
+Purchase Order Ref:    PO-9000-2058
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            4      240.00       960.00    
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Hydraulic Fluid 20L Drum            3      110.00       330.00    
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  2105.00
+Tax (8.2%):                                             USD   173.66
+TOTAL DUE:                                              USD  2278.66
+=================================================================

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1031",
+    "composite_hash": "7206146cb9215dffd3cbc8e12a03a8fe2bbeb7a09d52e3dcd8c9a2f2c0cae1b2",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1031",
+    "invoice_date": "02/08/2026",
+    "due_date": "03/10/2026",
+    "po_number": "PO-9000-2031",
+    "subtotal": 9788.25,
+    "tax_amount": 807.53,
+    "total_amount": 10595.78,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 7,
+      "unit_price": 45.0,
+      "line_total": 315.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 10,
+      "unit_price": 850.0,
+      "line_total": 8500.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 10,
+      "unit_price": 12.5,
+      "line_total": 125.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 9,
+      "unit_price": 75.25,
+      "line_total": 677.25,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 6,
+      "unit_price": 28.5,
+      "line_total": 171.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

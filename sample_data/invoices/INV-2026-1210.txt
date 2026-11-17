@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1210
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2210
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+High-Tensile Wire Coil 50m          8      38.80        310.40    
+Laser Calibration Service           1      850.00       850.00    
+Safety Goggles & Gloves Kit         3      28.50        85.50     
+Digital Temperature Sensor Pack     9      75.25        677.25    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3023.15
+Tax (7.0%):                                             EUR   211.62
+TOTAL DUE:                                              EUR  3234.77
+=================================================================

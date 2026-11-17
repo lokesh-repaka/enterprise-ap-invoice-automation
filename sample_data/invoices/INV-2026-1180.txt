@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1180
+Invoice Date:          02/13/2026
+Due Date:              03/15/2026
+Purchase Order Ref:    PO-9000-2180
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            10     240.00       2400.00   
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Heavy Duty Steel Fasteners          1      12.50        12.50     
+Industrial Conveyor Belting (meters) 3      45.00        135.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  3427.50
+Tax (8.2%):                                             USD   282.77
+TOTAL DUE:                                              USD  3710.27
+=================================================================

@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1156",
+    "composite_hash": "7aca46c4ae97f4bef81fbd633a132e9e68db5fc4ae691bde2b9f986b465c3931",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1156",
+    "invoice_date": "02/09/2026",
+    "due_date": "03/11/2026",
+    "po_number": "PO-9000-2156",
+    "subtotal": 1367.0,
+    "tax_amount": 112.78,
+    "total_amount": 1479.78,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 6,
+      "unit_price": 62.0,
+      "line_total": 372.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 5,
+      "unit_price": 45.0,
+      "line_total": 225.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 7,
+      "unit_price": 110.0,
+      "line_total": 770.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

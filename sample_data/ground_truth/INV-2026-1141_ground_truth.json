@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1141",
+    "composite_hash": "78eb1c173f997efc0f6563b37ba8079c3db1f268722a28b61a91aa5d2add88fd",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1141",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2141",
+    "subtotal": 1735.25,
+    "tax_amount": 347.05,
+    "total_amount": 2082.3,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 10,
+      "unit_price": 38.8,
+      "line_total": 388.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 9,
+      "unit_price": 75.25,
+      "line_total": 677.25,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 5,
+      "unit_price": 62.0,
+      "line_total": 310.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

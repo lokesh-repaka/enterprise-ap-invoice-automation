@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Caledonian Heavy Freight Ltd
+Tax ID / CIF / USt-ID: GB987654321
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1044
+Invoice Date:          15/02/2026
+Due Date:              17/03/2026
+Purchase Order Ref:    PO-9000-2044
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Laser Calibration Service           7      850.00       5950.00   
+Pneumatic Valve Assembly            6      240.00       1440.00   
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+-----------------------------------------------------------------
+Subtotal:                                               GBP  7753.50
+Tax (20.0%):                                            GBP  1550.70
+TOTAL DUE:                                              GBP  9304.20
+=================================================================

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1220
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2220
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     9      75.25        677.25    
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Pneumatic Valve Assembly            5      240.00       1200.00   
+Industrial Conveyor Belting (meters) 4      45.00        180.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2285.25
+Tax (21.0%):                                            EUR   479.90
+TOTAL DUE:                                              EUR  2765.15
+=================================================================

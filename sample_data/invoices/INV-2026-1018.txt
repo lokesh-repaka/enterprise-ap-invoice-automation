@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1018
+Invoice Date:          02/04/2026
+Due Date:              03/06/2026
+Purchase Order Ref:    PO-9000-2018
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     10     75.25        752.50    
+Laser Calibration Service           2      850.00       1700.00   
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  2837.50
+Tax (8.0%):                                             USD   227.00
+TOTAL DUE:                                              USD  3064.50
+=================================================================

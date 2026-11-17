@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1193
+Invoice Date:          02/07/2026
+Due Date:              03/09/2026
+Purchase Order Ref:    PO-9000-2193
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 5      125.00       625.00    
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+Digital Temperature Sensor Pack     7      75.25        526.75    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1690.25
+Tax (8.2%):                                             USD   139.45
+TOTAL DUE:                                              USD  1829.70
+=================================================================

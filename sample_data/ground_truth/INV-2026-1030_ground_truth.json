@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1030",
+    "composite_hash": "f7144f056be8c447a49ae00bf77926e448105a225f5c290dead0216cb57c9372",
+    "test_case_type": "rounding_within_tolerance"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1030",
+    "invoice_date": "02/16/2026",
+    "due_date": "03/18/2026",
+    "po_number": "PO-9000-2030",
+    "subtotal": 967.5,
+    "tax_amount": 77.4,
+    "total_amount": 1044.94,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 3,
+      "unit_price": 12.5,
+      "line_total": 37.5,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 2,
+      "unit_price": 240.0,
+      "line_total": 480.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.08
+    }
+  ]
+}

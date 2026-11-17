@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1116
+Invoice Date:          02/04/2026
+Due Date:              03/06/2026
+Purchase Order Ref:    PO-9000-2116
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Digital Temperature Sensor Pack     2      75.25        150.50    
+High-Tensile Wire Coil 50m          4      38.80        155.20    
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Preventative Maintenance Inspection (Hours) 1      125.00       125.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1030.70
+Tax (8.2%):                                             USD    85.03
+TOTAL DUE:                                              USD  1115.73
+=================================================================

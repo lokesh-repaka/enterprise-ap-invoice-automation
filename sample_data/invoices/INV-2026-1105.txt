@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1105
+Invoice Date:          02/03/2026
+Due Date:              03/05/2026
+Purchase Order Ref:    PO-9000-2105
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+Preventative Maintenance Inspection (Hours) 1      125.00       125.00    
+Safety Goggles & Gloves Kit         1      28.50        28.50     
+Pneumatic Valve Assembly            6      240.00       1440.00   
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+-----------------------------------------------------------------
+Subtotal:                                               USD  1880.50
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  1880.50
+=================================================================

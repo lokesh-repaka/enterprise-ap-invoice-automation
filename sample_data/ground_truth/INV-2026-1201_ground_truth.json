@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1201",
+    "composite_hash": "07ecfdf945d02681841726eade38473d0b9967b7147022fe64a0a815dc7e1094",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1201",
+    "invoice_date": "16/02/2026",
+    "due_date": "18/03/2026",
+    "po_number": "PO-9000-2201",
+    "subtotal": 7002.5,
+    "tax_amount": 1400.5,
+    "total_amount": 8403.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 6,
+      "unit_price": 45.0,
+      "line_total": 270.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 7,
+      "unit_price": 850.0,
+      "line_total": 5950.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

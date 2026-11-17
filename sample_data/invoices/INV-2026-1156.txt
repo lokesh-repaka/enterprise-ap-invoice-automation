@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1156
+Invoice Date:          02/09/2026
+Due Date:              03/11/2026
+Purchase Order Ref:    PO-9000-2156
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+Hydraulic Fluid 20L Drum            7      110.00       770.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1367.00
+Tax (8.2%):                                             USD   112.78
+TOTAL DUE:                                              USD  1479.78
+=================================================================

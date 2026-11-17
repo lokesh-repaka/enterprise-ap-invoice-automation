@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1224",
+    "composite_hash": "a148ff6ca47cc34d9f6c7652a1ffb82651ac85393c2d595950781f26008f1a33",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1224",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2224",
+    "subtotal": 2570.5,
+    "tax_amount": 488.39,
+    "total_amount": 3058.89,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 1,
+      "unit_price": 62.0,
+      "line_total": 62.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 5,
+      "unit_price": 125.0,
+      "line_total": 625.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 6,
+      "unit_price": 28.5,
+      "line_total": 171.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

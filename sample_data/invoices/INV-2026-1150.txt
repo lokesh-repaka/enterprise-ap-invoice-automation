@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1150
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2150
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            8      240.00       1920.00   
+Industrial Conveyor Belting (meters) 1      45.00        45.00     
+Digital Temperature Sensor Pack     1      75.25        75.25     
+Laser Calibration Service           6      850.00       5100.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  7140.25
+Tax (21.0%):                                            EUR  1499.45
+TOTAL DUE:                                              EUR  8639.70
+=================================================================

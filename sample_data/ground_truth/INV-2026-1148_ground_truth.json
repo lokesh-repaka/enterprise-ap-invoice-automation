@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1148",
+    "composite_hash": "9dd9fbca7cdff71864aaab9c80c3870940319731b872595ebec3fdcf2a9d9c9d",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1148",
+    "invoice_date": "02/07/2026",
+    "due_date": "03/09/2026",
+    "po_number": "PO-9000-2148",
+    "subtotal": 1615.0,
+    "tax_amount": 133.24,
+    "total_amount": 1748.24,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 3,
+      "unit_price": 125.0,
+      "line_total": 375.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 8,
+      "unit_price": 110.0,
+      "line_total": 880.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

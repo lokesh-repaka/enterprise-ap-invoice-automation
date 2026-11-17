@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1219",
+    "composite_hash": "93d3595bbcd076258eb91bcfe6efb160e6020c112b8b5d39f6e668a511b76cc8",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1219",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2219",
+    "subtotal": 4709.8,
+    "tax_amount": 941.96,
+    "total_amount": 5651.76,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 3,
+      "unit_price": 110.0,
+      "line_total": 330.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 5,
+      "unit_price": 12.5,
+      "line_total": 62.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 1,
+      "unit_price": 28.5,
+      "line_total": 28.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 5,
+      "unit_price": 850.0,
+      "line_total": 4250.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

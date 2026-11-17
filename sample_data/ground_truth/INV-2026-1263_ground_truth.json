@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1263",
+    "composite_hash": "4eed19b740760b23ad2faa4642254318729cf0b8477a0af2b4ebfd66146e3b10",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1263",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2263",
+    "subtotal": 3083.0,
+    "tax_amount": 616.6,
+    "total_amount": 3699.6,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 2,
+      "unit_price": 12.5,
+      "line_total": 25.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 6,
+      "unit_price": 45.0,
+      "line_total": 270.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 10,
+      "unit_price": 38.8,
+      "line_total": 388.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 10,
+      "unit_price": 240.0,
+      "line_total": 2400.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1107
+Invoice Date:          02/03/2026
+Due Date:              03/05/2026
+Purchase Order Ref:    PO-9000-2107
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Laser Calibration Service           8      850.00       6800.00   
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+Digital Temperature Sensor Pack     8      75.25        602.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  8269.50
+Tax (7.0%):                                             USD   578.87
+TOTAL DUE:                                              USD  8848.37
+=================================================================

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1132
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2132
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 2      62.00        124.00    
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Laser Calibration Service           6      850.00       5100.00   
+Preventative Maintenance Inspection (Hours) 5      125.00       625.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  6291.60
+Tax (7.0%):                                             EUR   440.41
+TOTAL DUE:                                              EUR  6732.01
+=================================================================

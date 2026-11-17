@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1055",
+    "composite_hash": "b5385529f4534ac1795efcb0c06aefd3bbf601dd4dce534c05c57cd3ce1014e2",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1055",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2055",
+    "subtotal": 4487.5,
+    "tax_amount": 897.5,
+    "total_amount": 5385.0,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 4,
+      "unit_price": 850.0,
+      "line_total": 3400.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 2,
+      "unit_price": 110.0,
+      "line_total": 220.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 8,
+      "unit_price": 28.5,
+      "line_total": 228.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 3,
+      "unit_price": 12.5,
+      "line_total": 37.5,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 8,
+      "unit_price": 75.25,
+      "line_total": 602.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

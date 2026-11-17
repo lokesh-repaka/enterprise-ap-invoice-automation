@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1029
+Invoice Date:          02/14/2026
+Due Date:              03/16/2026
+Purchase Order Ref:    PO-9000-2029
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+Laser Calibration Service           9      850.00       7650.00   
+Digital Temperature Sensor Pack     1      75.25        75.25     
+Industrial Conveyor Belting (meters) 6      45.00        270.00    
+Heavy Duty Steel Fasteners          1      12.50        12.50     
+-----------------------------------------------------------------
+Subtotal:                                               USD  9107.75
+Tax (8.2%):                                             USD   751.39
+TOTAL DUE:                                              USD  9859.14
+=================================================================

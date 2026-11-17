@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1268",
+    "composite_hash": "50602b04d22d799f8341cec5307e8fccbcf6cc546dc5c939dfb6a7bcd7832dc8",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Hanseatic Spedition GmbH",
+    "vendor_tax_id": "DE321654987",
+    "invoice_number": "INV-2026-1268",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2268",
+    "subtotal": 480.0,
+    "tax_amount": 91.2,
+    "total_amount": 571.2,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 6,
+      "unit_price": 12.5,
+      "line_total": 75.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 9,
+      "unit_price": 45.0,
+      "line_total": 405.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

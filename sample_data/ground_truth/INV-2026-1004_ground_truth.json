@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1004",
+    "composite_hash": "0555b1f8e05cb64f6c49fe273475e73e1fa8940b0a8b04790402d3ebf445f8cc",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1004",
+    "invoice_date": "09/02/2026",
+    "due_date": "11/03/2026",
+    "po_number": "PO-9000-2004",
+    "subtotal": 854.0,
+    "tax_amount": 59.78,
+    "total_amount": 913.78,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 5,
+      "unit_price": 38.8,
+      "line_total": 194.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

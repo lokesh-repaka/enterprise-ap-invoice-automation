@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1057
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2057
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            8      240.00       1920.00   
+Safety Goggles & Gloves Kit         2      28.50        57.00     
+Laser Calibration Service           5      850.00       4250.00   
+Hydraulic Fluid 20L Drum            4      110.00       440.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  6667.00
+Tax (20.0%):                                            GBP  1333.40
+TOTAL DUE:                                              GBP  8000.40
+=================================================================

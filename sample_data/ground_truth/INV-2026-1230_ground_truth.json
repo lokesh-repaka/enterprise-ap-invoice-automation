@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1230",
+    "composite_hash": "b5f64cc7c81c615d11fe8c142f0d115c9de87c71bf599ae9a3e867396ae938c3",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1230",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2230",
+    "subtotal": 7972.25,
+    "tax_amount": 558.06,
+    "total_amount": 8530.31,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 8,
+      "unit_price": 12.5,
+      "line_total": 100.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 10,
+      "unit_price": 28.5,
+      "line_total": 285.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 1,
+      "unit_price": 110.0,
+      "line_total": 110.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 9,
+      "unit_price": 75.25,
+      "line_total": 677.25,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 8,
+      "unit_price": 850.0,
+      "line_total": 6800.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

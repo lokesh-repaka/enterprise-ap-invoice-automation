@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1182",
+    "composite_hash": "5075e59cb9d77e5cb42444459aa888395f3bb78900a93e942759d1e3acb90b3f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1182",
+    "invoice_date": "03/02/2026",
+    "due_date": "05/03/2026",
+    "po_number": "PO-9000-2182",
+    "subtotal": 1905.2,
+    "tax_amount": 133.36,
+    "total_amount": 2038.56,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 5,
+      "unit_price": 62.0,
+      "line_total": 310.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.07
+    }
+  ]
+}

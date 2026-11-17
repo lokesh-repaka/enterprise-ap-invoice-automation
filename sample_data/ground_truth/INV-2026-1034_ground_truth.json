@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1034",
+    "composite_hash": "eaecee8a213faa7b7730f3c2d3d28dcecbdb97c543f6e425444315ec7e270b16",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1034",
+    "invoice_date": "02/03/2026",
+    "due_date": "03/05/2026",
+    "po_number": "PO-9000-2034",
+    "subtotal": 2030.5,
+    "tax_amount": 167.52,
+    "total_amount": 2198.02,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 2,
+      "unit_price": 75.25,
+      "line_total": 150.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 4,
+      "unit_price": 110.0,
+      "line_total": 440.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

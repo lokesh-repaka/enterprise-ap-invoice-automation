@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1172
+Invoice Date:          02/01/2026
+Due Date:              03/03/2026
+Purchase Order Ref:    PO-9000-2172
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         1      28.50        28.50     
+Heavy Duty Steel Fasteners          6      12.50        75.00     
+High-Tensile Wire Coil 50m          2      38.80        77.60     
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1341.10
+Tax (8.2%):                                             USD   110.64
+TOTAL DUE:                                              USD  1451.74
+=================================================================

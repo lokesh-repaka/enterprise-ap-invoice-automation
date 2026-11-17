@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1266
+Invoice Date:          13/02/2026
+Due Date:              15/03/2026
+Purchase Order Ref:    PO-9000-2266
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 5      62.00        310.00    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+Pneumatic Valve Assembly            6      240.00       1440.00   
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2172.50
+Tax (10.0%):                                            EUR   217.25
+TOTAL DUE:                                              EUR  2389.75
+=================================================================

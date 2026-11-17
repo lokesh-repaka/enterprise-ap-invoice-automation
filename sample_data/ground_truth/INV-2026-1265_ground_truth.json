@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1265",
+    "composite_hash": "7ceec14ec7adbf395cfa664fe6ec659e40c59bd926dd3b3dc177ba0b7429f1e6",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1265",
+    "invoice_date": "06/02/2026",
+    "due_date": "08/03/2026",
+    "po_number": "PO-9000-2265",
+    "subtotal": 3487.75,
+    "tax_amount": 662.67,
+    "total_amount": 4150.42,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 2,
+      "unit_price": 45.0,
+      "line_total": 90.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 5,
+      "unit_price": 75.25,
+      "line_total": 376.25,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 3,
+      "unit_price": 850.0,
+      "line_total": 2550.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 7,
+      "unit_price": 62.0,
+      "line_total": 434.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 3,
+      "unit_price": 12.5,
+      "line_total": 37.5,
+      "tax_rate": 0.19
+    }
+  ]
+}

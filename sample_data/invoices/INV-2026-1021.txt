@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1021
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2021
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Corrugated Shipping Cartons (Bundle 100) 9      62.00        558.00    
+Heavy Duty Steel Fasteners          4      12.50        50.00     
+-----------------------------------------------------------------
+Subtotal:                                               USD  1058.00
+Tax (8.2%):                                             USD    87.29
+TOTAL DUE:                                              USD  1145.29
+=================================================================

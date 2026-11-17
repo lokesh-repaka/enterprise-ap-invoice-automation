@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1285",
+    "composite_hash": "8b3421e891e0b0edcb7ae469d7360c57c9419f37050135bd28499e39205470fa",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1285",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2285",
+    "subtotal": 10181.0,
+    "tax_amount": 2138.01,
+    "total_amount": 12319.01,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 2,
+      "unit_price": 12.5,
+      "line_total": 25.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 10,
+      "unit_price": 850.0,
+      "line_total": 8500.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 2,
+      "unit_price": 240.0,
+      "line_total": 480.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 3,
+      "unit_price": 62.0,
+      "line_total": 186.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1258
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2258
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Preventative Maintenance Inspection (Hours) 9      125.00       1125.00   
+Laser Calibration Service           8      850.00       6800.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8327.50
+Tax (10.0%):                                            EUR   832.75
+TOTAL DUE:                                              EUR  9160.25
+=================================================================

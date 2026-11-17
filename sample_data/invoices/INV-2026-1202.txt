@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1202
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2202
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+Pneumatic Valve Assembly            2      240.00       480.00    
+Laser Calibration Service           7      850.00       5950.00   
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+Digital Temperature Sensor Pack     8      75.25        602.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8084.50
+Tax (19.0%):                                            EUR  1536.06
+TOTAL DUE:                                              EUR  9620.56
+=================================================================

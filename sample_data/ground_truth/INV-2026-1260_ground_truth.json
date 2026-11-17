@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1260",
+    "composite_hash": "1f68e3e4af82263278e7344619ede69b4439187e3f37a77728456a487ead876b",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1260",
+    "invoice_date": "02/02/2026",
+    "due_date": "04/03/2026",
+    "po_number": "PO-9000-2260",
+    "subtotal": 1283.25,
+    "tax_amount": 256.65,
+    "total_amount": 1539.9,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 1,
+      "unit_price": 850.0,
+      "line_total": 850.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 2,
+      "unit_price": 28.5,
+      "line_total": 57.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 5,
+      "unit_price": 75.25,
+      "line_total": 376.25,
+      "tax_rate": 0.2
+    }
+  ]
+}

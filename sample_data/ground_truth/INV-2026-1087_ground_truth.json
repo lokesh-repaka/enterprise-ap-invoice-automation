@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1087",
+    "composite_hash": "34ff152fdf277d5140b60f99a14f887f5d05cf2d032e75af66feed31808820d4",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Nordic Sensorik AG",
+    "vendor_tax_id": "DE987654321",
+    "invoice_number": "INV-2026-1087",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2087",
+    "subtotal": 670.25,
+    "tax_amount": 127.35,
+    "total_amount": 797.6,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 2,
+      "unit_price": 110.0,
+      "line_total": 220.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 1,
+      "unit_price": 75.25,
+      "line_total": 75.25,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 3,
+      "unit_price": 125.0,
+      "line_total": 375.0,
+      "tax_rate": 0.19
+    }
+  ]
+}

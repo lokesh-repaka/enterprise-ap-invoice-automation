@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1279",
+    "composite_hash": "898dad230b009f85f64eba411d3f543c83a6e19b4d5ac06b34d95030b8e3a80a",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1279",
+    "invoice_date": "02/09/2026",
+    "due_date": "03/11/2026",
+    "po_number": "PO-9000-2279",
+    "subtotal": 8620.0,
+    "tax_amount": 711.15,
+    "total_amount": 9331.15,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 8,
+      "unit_price": 240.0,
+      "line_total": 1920.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 6,
+      "unit_price": 125.0,
+      "line_total": 750.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 7,
+      "unit_price": 850.0,
+      "line_total": 5950.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

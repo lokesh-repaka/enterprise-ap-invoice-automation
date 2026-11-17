@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Hanseatic Spedition GmbH
+Tax ID / CIF / USt-ID: DE321654987
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1048
+Invoice Date:          07/02/2026
+Due Date:              09/03/2026
+Purchase Order Ref:    PO-9000-2048
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          6      38.80        232.80    
+Industrial Conveyor Belting (meters) 2      45.00        90.00     
+Corrugated Shipping Cartons (Bundle 100) 5      62.00        310.00    
+Digital Temperature Sensor Pack     9      75.25        677.25    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1310.05
+Tax (19.0%):                                            EUR   248.91
+TOTAL DUE:                                              EUR  1558.96
+=================================================================

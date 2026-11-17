@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1259",
+    "composite_hash": "b2d07ae8489073e15169758c9a3aeb78e9ba0d19f8190ae18f8274996aa25007",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1259",
+    "invoice_date": "02/01/2026",
+    "due_date": "03/03/2026",
+    "po_number": "PO-9000-2259",
+    "subtotal": 632.6,
+    "tax_amount": 50.61,
+    "total_amount": 683.21,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 6,
+      "unit_price": 45.0,
+      "line_total": 270.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 10,
+      "unit_price": 28.5,
+      "line_total": 285.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 2,
+      "unit_price": 38.8,
+      "line_total": 77.6,
+      "tax_rate": 0.08
+    }
+  ]
+}

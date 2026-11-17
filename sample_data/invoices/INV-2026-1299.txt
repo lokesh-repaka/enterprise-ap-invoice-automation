@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1299
+Invoice Date:          02/09/2026
+Due Date:              03/11/2026
+Purchase Order Ref:    PO-9000-2299
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Safety Goggles & Gloves Kit         9      28.50        256.50    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1225.10
+Tax (7.0%):                                             USD    85.76
+TOTAL DUE:                                              USD  1310.86
+=================================================================

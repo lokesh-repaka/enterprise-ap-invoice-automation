@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1296
+Invoice Date:          02/12/2026
+Due Date:              03/14/2026
+Purchase Order Ref:    PO-9000-2296
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            1      110.00       110.00    
+Preventative Maintenance Inspection (Hours) 10     125.00       1250.00   
+Laser Calibration Service           6      850.00       5100.00   
+High-Tensile Wire Coil 50m          9      38.80        349.20    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  7034.20
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  7034.20
+=================================================================

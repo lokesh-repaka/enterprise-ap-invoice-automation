@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1073
+Invoice Date:          09/02/2026
+Due Date:              11/03/2026
+Purchase Order Ref:    PO-9000-2073
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            4      240.00       960.00    
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Laser Calibration Service           8      850.00       6800.00   
+Preventative Maintenance Inspection (Hours) 9      125.00       1125.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8972.50
+Tax (19.0%):                                            EUR  1704.78
+TOTAL DUE:                                              EUR 10677.28
+=================================================================

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1211
+Invoice Date:          02/11/2026
+Due Date:              03/13/2026
+Purchase Order Ref:    PO-9000-2211
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            9      240.00       2160.00   
+High-Tensile Wire Coil 50m          6      38.80        232.80    
+Corrugated Shipping Cartons (Bundle 100) 9      62.00        558.00    
+Industrial Conveyor Belting (meters) 6      45.00        270.00    
+Laser Calibration Service           5      850.00       4250.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  7470.80
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  7470.80
+=================================================================

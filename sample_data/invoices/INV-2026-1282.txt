@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1282
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2282
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          6      12.50        75.00     
+Industrial Conveyor Belting (meters) 2      45.00        90.00     
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+High-Tensile Wire Coil 50m          4      38.80        155.20    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   695.20
+Tax (19.0%):                                            EUR   132.09
+TOTAL DUE:                                              EUR   827.29
+=================================================================

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1080
+Invoice Date:          15/02/2026
+Due Date:              17/03/2026
+Purchase Order Ref:    PO-9000-2080
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+Digital Temperature Sensor Pack     2      75.25        150.50    
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1327.10
+Tax (7.0%):                                             EUR    92.90
+TOTAL DUE:                                              EUR  1420.00
+=================================================================

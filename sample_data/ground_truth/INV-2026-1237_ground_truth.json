@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1237",
+    "composite_hash": "117c908bdfadafe0e485d127a6de47414c0fec483a160b2f0c4dbae049f2847c",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Albion Safety Supplies Ltd",
+    "vendor_tax_id": "GB555666777",
+    "invoice_number": "INV-2026-1237",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2237",
+    "subtotal": 205.2,
+    "tax_amount": 41.04,
+    "total_amount": 246.24,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 4,
+      "unit_price": 12.5,
+      "line_total": 50.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

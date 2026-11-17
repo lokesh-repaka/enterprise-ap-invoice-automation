@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1251",
+    "composite_hash": "311a12fd44a34214b21ee2581c2850f938b6dfd5cd4b29be4c035ae9ab900b86",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1251",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2251",
+    "subtotal": 9878.0,
+    "tax_amount": 987.8,
+    "total_amount": 10865.8,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 7,
+      "unit_price": 110.0,
+      "line_total": 770.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 10,
+      "unit_price": 850.0,
+      "line_total": 8500.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 4,
+      "unit_price": 62.0,
+      "line_total": 248.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.1
+    }
+  ]
+}

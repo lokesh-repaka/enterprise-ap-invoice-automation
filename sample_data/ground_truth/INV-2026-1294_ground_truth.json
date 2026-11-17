@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1294",
+    "composite_hash": "9634e7412f6fb1641121ed30d0bb02a370f004b4343cef50d42e9b385515b1f1",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Thames River Tech Solutions Ltd",
+    "vendor_tax_id": "GB123456789",
+    "invoice_number": "INV-2026-1294",
+    "invoice_date": "12/02/2026",
+    "due_date": "14/03/2026",
+    "po_number": "PO-9000-2294",
+    "subtotal": 1794.0,
+    "tax_amount": 358.8,
+    "total_amount": 2152.8,
+    "currency": "GBP"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 4,
+      "unit_price": 28.5,
+      "line_total": 114.0,
+      "tax_rate": 0.2
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.2
+    }
+  ]
+}

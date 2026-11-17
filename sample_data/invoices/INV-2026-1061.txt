@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1061
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2061
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          6      38.80        232.80    
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Heavy Duty Steel Fasteners          3      12.50        37.50     
+Laser Calibration Service           8      850.00       6800.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  7269.80
+Tax (7.0%):                                             EUR   508.89
+TOTAL DUE:                                              EUR  7778.69
+=================================================================

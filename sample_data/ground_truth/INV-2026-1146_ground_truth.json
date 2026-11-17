@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1146",
+    "composite_hash": "9a934ce9bb9c0d17e416414f1a95dbe7672122ec581e4aa1b9cc277b9d6835e4",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "BlueRidge Cloud Services",
+    "vendor_tax_id": "US-33-2198745",
+    "invoice_number": "INV-2026-1146",
+    "invoice_date": "02/14/2026",
+    "due_date": "03/16/2026",
+    "po_number": "PO-9000-2146",
+    "subtotal": 2158.3,
+    "tax_amount": 0.0,
+    "total_amount": 2158.3,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 4,
+      "unit_price": 45.0,
+      "line_total": 180.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 6,
+      "unit_price": 38.8,
+      "line_total": 232.8,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 3,
+      "unit_price": 28.5,
+      "line_total": 85.5,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 2,
+      "unit_price": 110.0,
+      "line_total": 220.0,
+      "tax_rate": 0.0
+    }
+  ]
+}

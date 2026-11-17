@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1108
+Invoice Date:          01/02/2026
+Due Date:              03/03/2026
+Purchase Order Ref:    PO-9000-2108
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     6      75.25        451.50    
+Pneumatic Valve Assembly            10     240.00       2400.00   
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Laser Calibration Service           5      850.00       4250.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  7739.00
+Tax (21.0%):                                            EUR  1625.19
+TOTAL DUE:                                              EUR  9364.19
+=================================================================

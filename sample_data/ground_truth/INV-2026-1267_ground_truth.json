@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1267",
+    "composite_hash": "fd8db67fdad5dc253b89c41295476b244d360e7db0037826677f5ddf835a625f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1267",
+    "invoice_date": "02/05/2026",
+    "due_date": "03/07/2026",
+    "po_number": "PO-9000-2267",
+    "subtotal": 1229.2,
+    "tax_amount": 101.41,
+    "total_amount": 1330.61,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 8,
+      "unit_price": 110.0,
+      "line_total": 880.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 9,
+      "unit_price": 38.8,
+      "line_total": 349.2,
+      "tax_rate": 0.0825
+    }
+  ]
+}

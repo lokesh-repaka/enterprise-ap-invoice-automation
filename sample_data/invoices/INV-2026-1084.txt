@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1084
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2084
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           3      850.00       2550.00   
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Industrial Conveyor Belting (meters) 3      45.00        135.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2986.00
+Tax (21.0%):                                            EUR   627.06
+TOTAL DUE:                                              EUR  3613.06
+=================================================================

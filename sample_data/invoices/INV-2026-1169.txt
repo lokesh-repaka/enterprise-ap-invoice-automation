@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1169
+Invoice Date:          02/05/2026
+Due Date:              03/07/2026
+Purchase Order Ref:    PO-9000-2169
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 1      45.00        45.00     
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Laser Calibration Service           7      850.00       5950.00   
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  7496.00
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  7496.00
+=================================================================

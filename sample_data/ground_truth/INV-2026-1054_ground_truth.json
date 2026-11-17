@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1054",
+    "composite_hash": "421de1de7e31e0924ba010b5ad1481b033267664ec2cefcf2f0d567f7b7b263a",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1054",
+    "invoice_date": "14/02/2026",
+    "due_date": "16/03/2026",
+    "po_number": "PO-9000-2054",
+    "subtotal": 365.7,
+    "tax_amount": 25.6,
+    "total_amount": 391.3,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 4,
+      "unit_price": 38.8,
+      "line_total": 155.2,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 3,
+      "unit_price": 28.5,
+      "line_total": 85.5,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 1,
+      "unit_price": 125.0,
+      "line_total": 125.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

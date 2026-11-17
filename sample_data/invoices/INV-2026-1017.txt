@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1017
+Invoice Date:          02/12/2026
+Due Date:              03/14/2026
+Purchase Order Ref:    PO-9000-2017
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            10     240.00       2400.00   
+Preventative Maintenance Inspection (Hours) 6      125.00       750.00    
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  3250.00
+Tax (7.0%):                                             USD   227.50
+TOTAL DUE:                                              USD  3477.50
+=================================================================

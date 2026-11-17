@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Berlin Druck & Medien KG
+Tax ID / CIF / USt-ID: DE456123789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1199
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2199
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         9      28.50        256.50    
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+Industrial Conveyor Belting (meters) 4      45.00        180.00    
+Laser Calibration Service           4      850.00       3400.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3936.50
+Tax (7.0%):                                             EUR   275.56
+TOTAL DUE:                                              EUR  4212.06
+=================================================================

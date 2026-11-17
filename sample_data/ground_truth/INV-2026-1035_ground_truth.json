@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1035",
+    "composite_hash": "6c1e2078c586e8a6b404128b325e4020483f21c4ea0a2bcc0e9340a27291e970",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Bavaria Werkzeuge GmbH",
+    "vendor_tax_id": "DE123456789",
+    "invoice_number": "INV-2026-1035",
+    "invoice_date": "10/02/2026",
+    "due_date": "12/03/2026",
+    "po_number": "PO-9000-2035",
+    "subtotal": 2520.25,
+    "tax_amount": 478.85,
+    "total_amount": 2999.1,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 10,
+      "unit_price": 28.5,
+      "line_total": 285.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 9,
+      "unit_price": 240.0,
+      "line_total": 2160.0,
+      "tax_rate": 0.19
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 1,
+      "unit_price": 75.25,
+      "line_total": 75.25,
+      "tax_rate": 0.19
+    }
+  ]
+}

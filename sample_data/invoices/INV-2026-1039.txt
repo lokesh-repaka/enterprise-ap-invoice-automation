@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1039
+Invoice Date:          05/02/2026
+Due Date:              07/03/2026
+Purchase Order Ref:    PO-9000-2039
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            1      110.00       110.00    
+Safety Goggles & Gloves Kit         2      28.50        57.00     
+High-Tensile Wire Coil 50m          2      38.80        77.60     
+Digital Temperature Sensor Pack     3      75.25        225.75    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   470.35
+Tax (19.0%):                                            EUR    89.37
+TOTAL DUE:                                              EUR   559.72
+=================================================================

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1096
+Invoice Date:          02/04/2026
+Due Date:              03/06/2026
+Purchase Order Ref:    PO-9000-2096
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+Pneumatic Valve Assembly            8      240.00       1920.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  3570.50
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  3570.50
+=================================================================

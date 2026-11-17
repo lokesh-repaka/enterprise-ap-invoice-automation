@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1150",
+    "composite_hash": "74b3d952d85e542862846685ca5751b91216de1093b4ad4e65f336dc8bb033a2",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1150",
+    "invoice_date": "02/02/2026",
+    "due_date": "04/03/2026",
+    "po_number": "PO-9000-2150",
+    "subtotal": 7140.25,
+    "tax_amount": 1499.45,
+    "total_amount": 8639.7,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 8,
+      "unit_price": 240.0,
+      "line_total": 1920.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "line_total": 45.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 1,
+      "unit_price": 75.25,
+      "line_total": 75.25,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 6,
+      "unit_price": 850.0,
+      "line_total": 5100.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

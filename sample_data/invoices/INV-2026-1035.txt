@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1035
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2035
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         10     28.50        285.00    
+Pneumatic Valve Assembly            9      240.00       2160.00   
+Digital Temperature Sensor Pack     1      75.25        75.25     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2520.25
+Tax (19.0%):                                            EUR   478.85
+TOTAL DUE:                                              EUR  2999.10
+=================================================================

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Mediterraneo Quimica SA
+Tax ID / CIF / USt-ID: ESA98765432
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1270
+Invoice Date:          13/02/2026
+Due Date:              15/03/2026
+Purchase Order Ref:    PO-9000-2270
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Digital Temperature Sensor Pack     8      75.25        602.00    
+Pneumatic Valve Assembly            3      240.00       720.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1872.00
+Tax (21.0%):                                            EUR   393.12
+TOTAL DUE:                                              EUR  2265.12
+=================================================================

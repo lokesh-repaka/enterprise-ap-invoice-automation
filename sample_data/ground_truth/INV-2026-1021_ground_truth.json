@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1021",
+    "composite_hash": "e8a188885f9309bb08aabe9ea707a9364e2a0c3b2d5dca15fe3e4a0b872e4c32",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1021",
+    "invoice_date": "02/08/2026",
+    "due_date": "03/10/2026",
+    "po_number": "PO-9000-2021",
+    "subtotal": 1058.0,
+    "tax_amount": 87.29,
+    "total_amount": 1145.29,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 10,
+      "unit_price": 45.0,
+      "line_total": 450.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 9,
+      "unit_price": 62.0,
+      "line_total": 558.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 4,
+      "unit_price": 12.5,
+      "line_total": 50.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1135",
+    "composite_hash": "d3cbda5f89ef7e3c5c0aa05d0375d93d296e3b754876b29dcc24e8a6c1b5b5bd",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1135",
+    "invoice_date": "02/10/2026",
+    "due_date": "03/12/2026",
+    "po_number": "PO-9000-2135",
+    "subtotal": 3770.0,
+    "tax_amount": 311.03,
+    "total_amount": 4081.03,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 4,
+      "unit_price": 240.0,
+      "line_total": 960.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 2,
+      "unit_price": 850.0,
+      "line_total": 1700.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 6,
+      "unit_price": 125.0,
+      "line_total": 750.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

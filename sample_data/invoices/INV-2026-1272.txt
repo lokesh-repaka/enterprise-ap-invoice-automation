@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1272
+Invoice Date:          07/02/2026
+Due Date:              09/03/2026
+Purchase Order Ref:    PO-9000-2272
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 6      45.00        270.00    
+Hydraulic Fluid 20L Drum            10     110.00       1100.00   
+Digital Temperature Sensor Pack     7      75.25        526.75    
+Heavy Duty Steel Fasteners          6      12.50        75.00     
+Laser Calibration Service           8      850.00       6800.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8771.75
+Tax (21.0%):                                            EUR  1842.07
+TOTAL DUE:                                              EUR 10613.82
+=================================================================

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1291
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2291
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Safety Goggles & Gloves Kit         9      28.50        256.50    
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1694.00
+Tax (21.0%):                                            EUR   355.74
+TOTAL DUE:                                              EUR  2049.74
+=================================================================

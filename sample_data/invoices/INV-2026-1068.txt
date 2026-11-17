@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1068
+Invoice Date:          13/02/2026
+Due Date:              15/03/2026
+Purchase Order Ref:    PO-9000-2068
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           5      850.00       4250.00   
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+Heavy Duty Steel Fasteners          10     12.50        125.00    
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  5137.00
+Tax (21.0%):                                            EUR  1078.77
+TOTAL DUE:                                              EUR  6215.77
+=================================================================

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1265
+Invoice Date:          06/02/2026
+Due Date:              08/03/2026
+Purchase Order Ref:    PO-9000-2265
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 2      45.00        90.00     
+Digital Temperature Sensor Pack     5      75.25        376.25    
+Laser Calibration Service           3      850.00       2550.00   
+Corrugated Shipping Cartons (Bundle 100) 7      62.00        434.00    
+Heavy Duty Steel Fasteners          3      12.50        37.50     
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3487.75
+Tax (19.0%):                                            EUR   662.67
+TOTAL DUE:                                              EUR  4150.42
+=================================================================

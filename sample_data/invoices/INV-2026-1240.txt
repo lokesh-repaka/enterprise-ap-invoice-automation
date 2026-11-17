@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1240
+Invoice Date:          02/11/2026
+Due Date:              03/13/2026
+Purchase Order Ref:    PO-9000-2240
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           9      850.00       7650.00   
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Hydraulic Fluid 20L Drum            7      110.00       770.00    
+Corrugated Shipping Cartons (Bundle 100) 5      62.00        310.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  9031.00
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  9031.00
+=================================================================

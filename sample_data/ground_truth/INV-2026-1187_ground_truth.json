@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1187",
+    "composite_hash": "6632e7a8c76b768fe443ae8256407f4db1c4af4807ec72b4740c69f09d28fe1e",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1187",
+    "invoice_date": "12/02/2026",
+    "due_date": "14/03/2026",
+    "po_number": "PO-9000-2187",
+    "subtotal": 3927.5,
+    "tax_amount": 824.77,
+    "total_amount": 4752.27,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 8,
+      "unit_price": 110.0,
+      "line_total": 880.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 9,
+      "unit_price": 45.0,
+      "line_total": 405.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 7,
+      "unit_price": 12.5,
+      "line_total": 87.5,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 7,
+      "unit_price": 125.0,
+      "line_total": 875.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

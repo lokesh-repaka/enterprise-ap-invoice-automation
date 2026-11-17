@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1002",
+    "composite_hash": "8d2ba2f17a0ccbe2fc03c119cf84d8fe04ad7ed645d9f196e3d63443af0e39fa",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Castilla Logistica Integral SL",
+    "vendor_tax_id": "ESB45678912",
+    "invoice_number": "INV-2026-1002",
+    "invoice_date": "04/02/2026",
+    "due_date": "06/03/2026",
+    "po_number": "PO-9000-2002",
+    "subtotal": 163.8,
+    "tax_amount": 16.38,
+    "total_amount": 180.18,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 1,
+      "unit_price": 125.0,
+      "line_total": 125.0,
+      "tax_rate": 0.1
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.1
+    }
+  ]
+}

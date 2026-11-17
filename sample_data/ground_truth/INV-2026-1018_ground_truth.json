@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1018",
+    "composite_hash": "7e12b0e3c716227ee831017ca885547a3cee48c205f6433aecc864038ae0dc9c",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Apex Global Logistics Inc",
+    "vendor_tax_id": "US-12-3456789",
+    "invoice_number": "INV-2026-1018",
+    "invoice_date": "02/04/2026",
+    "due_date": "03/06/2026",
+    "po_number": "PO-9000-2018",
+    "subtotal": 2837.5,
+    "tax_amount": 227.0,
+    "total_amount": 3064.5,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 2,
+      "unit_price": 850.0,
+      "line_total": 1700.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 2,
+      "unit_price": 12.5,
+      "line_total": 25.0,
+      "tax_rate": 0.08
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 8,
+      "unit_price": 45.0,
+      "line_total": 360.0,
+      "tax_rate": 0.08
+    }
+  ]
+}

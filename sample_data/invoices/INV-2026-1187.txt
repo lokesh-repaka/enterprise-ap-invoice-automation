@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1187
+Invoice Date:          12/02/2026
+Due Date:              14/03/2026
+Purchase Order Ref:    PO-9000-2187
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            7      240.00       1680.00   
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Preventative Maintenance Inspection (Hours) 7      125.00       875.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3927.50
+Tax (21.0%):                                            EUR   824.77
+TOTAL DUE:                                              EUR  4752.27
+=================================================================

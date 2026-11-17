@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Caledonian Heavy Freight Ltd
+Tax ID / CIF / USt-ID: GB987654321
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1188
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2188
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  1072.00
+Tax (20.0%):                                            GBP   214.40
+TOTAL DUE:                                              GBP  1286.40
+=================================================================

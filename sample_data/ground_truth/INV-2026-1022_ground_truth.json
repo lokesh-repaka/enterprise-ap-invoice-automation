@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1022",
+    "composite_hash": "98be34dfb35c778e6079fcff3745e7a63f716336a570df740a71d02bf94ea433",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Iberia Componentes Industriales SL",
+    "vendor_tax_id": "ESB12345678",
+    "invoice_number": "INV-2026-1022",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2022",
+    "subtotal": 205.0,
+    "tax_amount": 43.05,
+    "total_amount": 248.05,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 4,
+      "unit_price": 45.0,
+      "line_total": 180.0,
+      "tax_rate": 0.21
+    },
+    {
+      "description": "Heavy Duty Steel Fasteners",
+      "quantity": 2,
+      "unit_price": 12.5,
+      "line_total": 25.0,
+      "tax_rate": 0.21
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1132",
+    "composite_hash": "a32259d3e42c833af0676a9c132e450824aab50ebac95d8bd7da8b0528b8a5ab",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1132",
+    "invoice_date": "08/02/2026",
+    "due_date": "10/03/2026",
+    "po_number": "PO-9000-2132",
+    "subtotal": 6291.6,
+    "tax_amount": 440.41,
+    "total_amount": 6732.01,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 2,
+      "unit_price": 62.0,
+      "line_total": 124.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 6,
+      "unit_price": 28.5,
+      "line_total": 171.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 7,
+      "unit_price": 38.8,
+      "line_total": 271.6,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 6,
+      "unit_price": 850.0,
+      "line_total": 5100.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 5,
+      "unit_price": 125.0,
+      "line_total": 625.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

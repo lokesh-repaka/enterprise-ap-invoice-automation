@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1149
+Invoice Date:          15/02/2026
+Due Date:              17/03/2026
+Purchase Order Ref:    PO-9000-2149
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+-----------------------------------------------------------------
+Subtotal:                                               GBP  1581.00
+Tax (20.0%):                                            GBP   316.20
+TOTAL DUE:                                              GBP  1897.20
+=================================================================

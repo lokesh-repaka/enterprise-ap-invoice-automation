@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1148
+Invoice Date:          02/07/2026
+Due Date:              03/09/2026
+Purchase Order Ref:    PO-9000-2148
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1615.00
+Tax (8.2%):                                             USD   133.24
+TOTAL DUE:                                              USD  1748.24
+=================================================================

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Hanseatic Spedition GmbH
+Tax ID / CIF / USt-ID: DE321654987
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1040
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2040
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+Pneumatic Valve Assembly            1      240.00       240.00    
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Laser Calibration Service           6      850.00       5100.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  6265.00
+Tax (19.0%):                                            EUR  1190.35
+TOTAL DUE:                                              EUR  7455.35
+=================================================================

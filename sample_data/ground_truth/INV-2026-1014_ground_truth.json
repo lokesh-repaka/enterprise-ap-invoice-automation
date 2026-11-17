@@ -1,0 +1,56 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1014",
+    "composite_hash": "89cede2b5b5367c048f3abe6b5291a483a760fcc043caaa4bc2c32c51f5ac2b4",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1014",
+    "invoice_date": "02/06/2026",
+    "due_date": "03/08/2026",
+    "po_number": "PO-9000-2014",
+    "subtotal": 9324.25,
+    "tax_amount": 652.7,
+    "total_amount": 9976.95,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 8,
+      "unit_price": 125.0,
+      "line_total": 1000.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 9,
+      "unit_price": 45.0,
+      "line_total": 405.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 5,
+      "unit_price": 38.8,
+      "line_total": 194.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 9,
+      "unit_price": 850.0,
+      "line_total": 7650.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 1,
+      "unit_price": 75.25,
+      "line_total": 75.25,
+      "tax_rate": 0.07
+    }
+  ]
+}

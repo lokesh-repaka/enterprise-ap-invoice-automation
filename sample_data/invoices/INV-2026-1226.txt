@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1226
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2226
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         10     28.50        285.00    
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+Preventative Maintenance Inspection (Hours) 7      125.00       875.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1820.00
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  1820.00
+=================================================================

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1135
+Invoice Date:          02/10/2026
+Due Date:              03/12/2026
+Purchase Order Ref:    PO-9000-2135
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+Pneumatic Valve Assembly            4      240.00       960.00    
+Laser Calibration Service           2      850.00       1700.00   
+Preventative Maintenance Inspection (Hours) 6      125.00       750.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  3770.00
+Tax (8.2%):                                             USD   311.03
+TOTAL DUE:                                              USD  4081.03
+=================================================================

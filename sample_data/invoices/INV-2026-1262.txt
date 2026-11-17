@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Albion Safety Supplies Ltd
+Tax ID / CIF / USt-ID: GB555666777
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1262
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2262
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+Laser Calibration Service           6      850.00       5100.00   
+High-Tensile Wire Coil 50m          7      38.80        271.60    
+Corrugated Shipping Cartons (Bundle 100) 3      62.00        186.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  6547.60
+Tax (20.0%):                                            GBP  1309.52
+TOTAL DUE:                                              GBP  7857.12
+=================================================================

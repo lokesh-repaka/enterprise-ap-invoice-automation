@@ -1,0 +1,21 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1002
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2002
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 1      125.00       125.00    
+High-Tensile Wire Coil 50m          1      38.80        38.80     
+-----------------------------------------------------------------
+Subtotal:                                               EUR   163.80
+Tax (10.0%):                                            EUR    16.38
+TOTAL DUE:                                              EUR   180.18
+=================================================================

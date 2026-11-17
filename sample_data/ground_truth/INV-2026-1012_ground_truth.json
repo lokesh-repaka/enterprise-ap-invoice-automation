@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1012",
+    "composite_hash": "50643d95374103a2c656aab858a665272d9ea1678f5a86fe3f4a5a357d6d4874",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1012",
+    "invoice_date": "02/09/2026",
+    "due_date": "03/11/2026",
+    "po_number": "PO-9000-2012",
+    "subtotal": 10932.5,
+    "tax_amount": 765.28,
+    "total_amount": 11697.78,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 10,
+      "unit_price": 850.0,
+      "line_total": 8500.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 7,
+      "unit_price": 240.0,
+      "line_total": 1680.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 10,
+      "unit_price": 75.25,
+      "line_total": 752.5,
+      "tax_rate": 0.07
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     OmniPackaging Direct
+Tax ID / CIF / USt-ID: US-77-6543210
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1191
+Invoice Date:          02/07/2026
+Due Date:              03/09/2026
+Purchase Order Ref:    PO-9000-2191
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            3      110.00       330.00    
+Digital Temperature Sensor Pack     10     75.25        752.50    
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Pneumatic Valve Assembly            3      240.00       720.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  2252.50
+Tax (8.2%):                                             USD   185.83
+TOTAL DUE:                                              USD  2438.33
+=================================================================

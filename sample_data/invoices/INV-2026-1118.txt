@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1118
+Invoice Date:          02/02/2026
+Due Date:              03/04/2026
+Purchase Order Ref:    PO-9000-2118
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         9      28.50        256.50    
+Industrial Conveyor Belting (meters) 3      45.00        135.00    
+Pneumatic Valve Assembly            7      240.00       1680.00   
+Preventative Maintenance Inspection (Hours) 8      125.00       1000.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  3071.50
+Tax (8.0%):                                             USD   245.72
+TOTAL DUE:                                              USD  3317.22
+=================================================================

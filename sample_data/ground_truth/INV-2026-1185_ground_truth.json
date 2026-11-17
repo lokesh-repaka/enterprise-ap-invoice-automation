@@ -1,0 +1,49 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1185",
+    "composite_hash": "7405e091ee4f6f8e10c0cf1a1ae5472d29619ca3a62f7c4aa7c22e88f60b033a",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "CyberCore Solutions LLC",
+    "vendor_tax_id": "US-98-7654321",
+    "invoice_number": "INV-2026-1185",
+    "invoice_date": "02/11/2026",
+    "due_date": "03/13/2026",
+    "po_number": "PO-9000-2185",
+    "subtotal": 2296.5,
+    "tax_amount": 189.46,
+    "total_amount": 2485.96,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 3,
+      "unit_price": 45.0,
+      "line_total": 135.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 3,
+      "unit_price": 240.0,
+      "line_total": 720.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Digital Temperature Sensor Pack",
+      "quantity": 6,
+      "unit_price": 75.25,
+      "line_total": 451.5,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 9,
+      "unit_price": 110.0,
+      "line_total": 990.0,
+      "tax_rate": 0.0825
+    }
+  ]
+}

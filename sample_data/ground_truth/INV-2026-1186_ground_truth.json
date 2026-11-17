@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1186",
+    "composite_hash": "0e29ad08ba1a954c5750adde93ee8c254d0d0711434a6e7b9ffc186461d4f206",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "BlueRidge Cloud Services",
+    "vendor_tax_id": "US-33-2198745",
+    "invoice_number": "INV-2026-1186",
+    "invoice_date": "02/04/2026",
+    "due_date": "03/06/2026",
+    "po_number": "PO-9000-2186",
+    "subtotal": 5466.5,
+    "tax_amount": 0.0,
+    "total_amount": 5466.5,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 1,
+      "unit_price": 110.0,
+      "line_total": 110.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Laser Calibration Service",
+      "quantity": 6,
+      "unit_price": 850.0,
+      "line_total": 5100.0,
+      "tax_rate": 0.0
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 9,
+      "unit_price": 28.5,
+      "line_total": 256.5,
+      "tax_rate": 0.0
+    }
+  ]
+}

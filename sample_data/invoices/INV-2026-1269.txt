@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1269
+Invoice Date:          02/11/2026
+Due Date:              03/13/2026
+Purchase Order Ref:    PO-9000-2269
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          9      12.50        112.50    
+Digital Temperature Sensor Pack     4      75.25        301.00    
+High-Tensile Wire Coil 50m          10     38.80        388.00    
+Laser Calibration Service           9      850.00       7650.00   
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  8826.50
+Tax (8.2%):                                             USD   728.19
+TOTAL DUE:                                              USD  9554.69
+=================================================================

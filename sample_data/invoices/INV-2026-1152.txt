@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1152
+Invoice Date:          02/02/2026
+Due Date:              04/03/2026
+Purchase Order Ref:    PO-9000-2152
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 9      125.00       1125.00   
+Laser Calibration Service           3      850.00       2550.00   
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+Digital Temperature Sensor Pack     8      75.25        602.00    
+Pneumatic Valve Assembly            2      240.00       480.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  4819.00
+Tax (21.0%):                                            EUR  1011.99
+TOTAL DUE:                                              EUR  5830.99
+=================================================================

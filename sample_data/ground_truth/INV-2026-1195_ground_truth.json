@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1195",
+    "composite_hash": "ab3136ee74ee08aca112572eb65feaf21f84c900f2759236776e502fdc87895f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Berlin Druck & Medien KG",
+    "vendor_tax_id": "DE456123789",
+    "invoice_number": "INV-2026-1195",
+    "invoice_date": "15/02/2026",
+    "due_date": "17/03/2026",
+    "po_number": "PO-9000-2195",
+    "subtotal": 1907.0,
+    "tax_amount": 133.49,
+    "total_amount": 2040.49,
+    "currency": "EUR"
+  },
+  "line_items": [
+    {
+      "description": "Corrugated Shipping Cartons (Bundle 100)",
+      "quantity": 6,
+      "unit_price": 62.0,
+      "line_total": 372.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 6,
+      "unit_price": 110.0,
+      "line_total": 660.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 7,
+      "unit_price": 125.0,
+      "line_total": 875.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

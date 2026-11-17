@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1264
+Invoice Date:          13/02/2026
+Due Date:              15/03/2026
+Purchase Order Ref:    PO-9000-2264
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          4      12.50        50.00     
+Digital Temperature Sensor Pack     6      75.25        451.50    
+Safety Goggles & Gloves Kit         9      28.50        256.50    
+Laser Calibration Service           7      850.00       5950.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  6708.00
+Tax (21.0%):                                            EUR  1408.68
+TOTAL DUE:                                              EUR  8116.68
+=================================================================

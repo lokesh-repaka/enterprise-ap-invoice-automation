@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1177
+Invoice Date:          12/02/2026
+Due Date:              14/03/2026
+Purchase Order Ref:    PO-9000-2177
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          8      38.80        310.40    
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Preventative Maintenance Inspection (Hours) 6      125.00       750.00    
+Hydraulic Fluid 20L Drum            9      110.00       990.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  2503.40
+Tax (20.0%):                                            GBP   500.68
+TOTAL DUE:                                              GBP  3004.08
+=================================================================

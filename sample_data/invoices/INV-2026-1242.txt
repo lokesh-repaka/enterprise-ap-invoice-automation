@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1242
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2242
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          9      38.80        349.20    
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Digital Temperature Sensor Pack     4      75.25        301.00    
+Laser Calibration Service           4      850.00       3400.00   
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  5155.20
+Tax (20.0%):                                            GBP  1031.04
+TOTAL DUE:                                              GBP  6186.24
+=================================================================

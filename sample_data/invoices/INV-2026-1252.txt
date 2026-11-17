@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Hanseatic Spedition GmbH
+Tax ID / CIF / USt-ID: DE321654987
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1252
+Invoice Date:          11/02/2026
+Due Date:              13/03/2026
+Purchase Order Ref:    PO-9000-2252
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+Pneumatic Valve Assembly            3      240.00       720.00    
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1671.00
+Tax (19.0%):                                            EUR   317.49
+TOTAL DUE:                                              EUR  1988.49
+=================================================================

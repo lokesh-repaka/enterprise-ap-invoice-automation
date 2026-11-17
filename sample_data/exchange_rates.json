@@ -1,0 +1,20 @@
+[
+  {
+    "RateDate": "2026-02-15",
+    "FromCurrency": "EUR",
+    "ToCurrency": "USD",
+    "ExchangeRate": 1.085
+  },
+  {
+    "RateDate": "2026-02-15",
+    "FromCurrency": "GBP",
+    "ToCurrency": "USD",
+    "ExchangeRate": 1.272
+  },
+  {
+    "RateDate": "2026-02-15",
+    "FromCurrency": "USD",
+    "ToCurrency": "USD",
+    "ExchangeRate": 1.0
+  }
+]

@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Hanseatic Spedition GmbH
+Tax ID / CIF / USt-ID: DE321654987
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1089
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2089
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Heavy Duty Steel Fasteners          5      12.50        62.50     
+High-Tensile Wire Coil 50m          1      38.80        38.80     
+Corrugated Shipping Cartons (Bundle 100) 2      62.00        124.00    
+Hydraulic Fluid 20L Drum            4      110.00       440.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1115.30
+Tax (19.0%):                                            EUR   211.91
+TOTAL DUE:                                              EUR  1327.21
+=================================================================

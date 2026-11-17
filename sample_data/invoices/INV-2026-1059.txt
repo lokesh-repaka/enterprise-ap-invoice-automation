@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1059
+Invoice Date:          02/14/2026
+Due Date:              03/16/2026
+Purchase Order Ref:    PO-9000-2059
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+Pneumatic Valve Assembly            7      240.00       1680.00   
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Laser Calibration Service           10     850.00       8500.00   
+Heavy Duty Steel Fasteners          1      12.50        12.50     
+-----------------------------------------------------------------
+Subtotal:                                               USD 10640.00
+Tax (8.2%):                                             USD   877.80
+TOTAL DUE:                                              USD 11517.80
+=================================================================

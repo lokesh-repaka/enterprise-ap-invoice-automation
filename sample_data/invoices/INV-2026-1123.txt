@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     BlueRidge Cloud Services
+Tax ID / CIF / USt-ID: US-33-2198745
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1123
+Invoice Date:          02/05/2026
+Due Date:              03/07/2026
+Purchase Order Ref:    PO-9000-2123
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Pneumatic Valve Assembly            4      240.00       960.00    
+Laser Calibration Service           4      850.00       3400.00   
+-----------------------------------------------------------------
+Subtotal:                                               USD  4810.00
+Tax (0.0%):                                             USD     0.00
+TOTAL DUE:                                              USD  4810.00
+=================================================================

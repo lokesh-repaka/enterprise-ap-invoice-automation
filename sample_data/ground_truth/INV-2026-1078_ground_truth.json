@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1078",
+    "composite_hash": "0216200e9adf38077a515a616d260560b13d15046c6b0982bdef51bcc203c52f",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1078",
+    "invoice_date": "02/10/2026",
+    "due_date": "03/12/2026",
+    "po_number": "PO-9000-2078",
+    "subtotal": 1310.0,
+    "tax_amount": 91.7,
+    "total_amount": 1401.7,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 5,
+      "unit_price": 240.0,
+      "line_total": 1200.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Hydraulic Fluid 20L Drum",
+      "quantity": 1,
+      "unit_price": 110.0,
+      "line_total": 110.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

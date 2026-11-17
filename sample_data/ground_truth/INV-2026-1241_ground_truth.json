@@ -1,0 +1,42 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1241",
+    "composite_hash": "e4a45e76d900c67283b1c48ffa26ef27c9add6f957029acc6b654f63a3c120e6",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "OmniPackaging Direct",
+    "vendor_tax_id": "US-77-6543210",
+    "invoice_number": "INV-2026-1241",
+    "invoice_date": "02/02/2026",
+    "due_date": "03/04/2026",
+    "po_number": "PO-9000-2241",
+    "subtotal": 1678.3,
+    "tax_amount": 138.46,
+    "total_amount": 1816.76,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "High-Tensile Wire Coil 50m",
+      "quantity": 1,
+      "unit_price": 38.8,
+      "line_total": 38.8,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Pneumatic Valve Assembly",
+      "quantity": 6,
+      "unit_price": 240.0,
+      "line_total": 1440.0,
+      "tax_rate": 0.0825
+    },
+    {
+      "description": "Safety Goggles & Gloves Kit",
+      "quantity": 7,
+      "unit_price": 28.5,
+      "line_total": 199.5,
+      "tax_rate": 0.0825
+    }
+  ]
+}

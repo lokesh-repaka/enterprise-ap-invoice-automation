@@ -1,0 +1,9 @@
+CountryCode,TaxType,ApplicableRate
+US,SalesTax_Standard,0.0825
+US,Exempt,0.0
+DE,Standard_VAT,0.19
+DE,Reduced_VAT,0.07
+ES,General_IVA,0.21
+ES,Reducido_IVA,0.1
+GB,Standard_VAT,0.2
+GB,Zero_VAT,0.0

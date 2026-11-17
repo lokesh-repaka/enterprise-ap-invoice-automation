@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1079
+Invoice Date:          02/10/2026
+Due Date:              03/12/2026
+Purchase Order Ref:    PO-9000-2079
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         10     28.50        285.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+Heavy Duty Steel Fasteners          8      12.50        100.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD   610.00
+Tax (8.0%):                                             USD    48.80
+TOTAL DUE:                                              USD   658.80
+=================================================================

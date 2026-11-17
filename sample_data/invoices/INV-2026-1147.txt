@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Hanseatic Spedition GmbH
+Tax ID / CIF / USt-ID: DE321654987
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1147
+Invoice Date:          04/02/2026
+Due Date:              06/03/2026
+Purchase Order Ref:    PO-9000-2147
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+Hydraulic Fluid 20L Drum            3      110.00       330.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   828.00
+Tax (19.0%):                                            EUR   157.32
+TOTAL DUE:                                              EUR   985.32
+=================================================================

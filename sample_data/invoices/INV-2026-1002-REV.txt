@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1002-REV
+Invoice Date:          07/02/2026
+Due Date:              09/03/2026
+Purchase Order Ref:    PO-9000-2020
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     8      75.25        602.00    
+High-Tensile Wire Coil 50m          9      38.80        349.20    
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1447.20
+Tax (19.0%):                                            EUR   274.97
+TOTAL DUE:                                              EUR  1722.17
+=================================================================

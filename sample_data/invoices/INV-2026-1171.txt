@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1171
+Invoice Date:          02/12/2026
+Due Date:              03/14/2026
+Purchase Order Ref:    PO-9000-2171
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+High-Tensile Wire Coil 50m          9      38.80        349.20    
+Hydraulic Fluid 20L Drum            6      110.00       660.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1259.20
+Tax (8.0%):                                             USD   100.74
+TOTAL DUE:                                              USD  1359.94
+=================================================================

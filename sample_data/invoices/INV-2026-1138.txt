@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1138
+Invoice Date:          02/05/2026
+Due Date:              03/07/2026
+Purchase Order Ref:    PO-9000-2138
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 9      45.00        405.00    
+Hydraulic Fluid 20L Drum            4      110.00       440.00    
+Heavy Duty Steel Fasteners          7      12.50        87.50     
+Safety Goggles & Gloves Kit         7      28.50        199.50    
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  1628.00
+Tax (7.0%):                                             USD   113.96
+TOTAL DUE:                                              USD  1741.96
+=================================================================

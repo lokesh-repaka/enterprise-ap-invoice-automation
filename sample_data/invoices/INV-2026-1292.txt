@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1292
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2292
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         1      28.50        28.50     
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Heavy Duty Steel Fasteners          1      12.50        12.50     
+Digital Temperature Sensor Pack     5      75.25        376.25    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1467.25
+Tax (19.0%):                                            EUR   278.78
+TOTAL DUE:                                              EUR  1746.03
+=================================================================

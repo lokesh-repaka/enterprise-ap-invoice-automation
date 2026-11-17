@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1162
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2162
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           4      850.00       3400.00   
+Pneumatic Valve Assembly            6      240.00       1440.00   
+Preventative Maintenance Inspection (Hours) 10     125.00       1250.00   
+Hydraulic Fluid 20L Drum            8      110.00       880.00    
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  7198.00
+Tax (21.0%):                                            EUR  1511.58
+TOTAL DUE:                                              EUR  8709.58
+=================================================================

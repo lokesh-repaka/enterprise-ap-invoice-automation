@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1037
+Invoice Date:          05/02/2026
+Due Date:              07/03/2026
+Purchase Order Ref:    PO-9000-2037
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     5      75.25        376.25    
+Laser Calibration Service           9      850.00       7650.00   
+Corrugated Shipping Cartons (Bundle 100) 8      62.00        496.00    
+Industrial Conveyor Belting (meters) 5      45.00        225.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  8747.25
+Tax (10.0%):                                            EUR   874.73
+TOTAL DUE:                                              EUR  9621.98
+=================================================================

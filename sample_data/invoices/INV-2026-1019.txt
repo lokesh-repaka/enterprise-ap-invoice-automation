@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Caledonian Heavy Freight Ltd
+Tax ID / CIF / USt-ID: GB987654321
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1019
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2019
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+Safety Goggles & Gloves Kit         9      28.50        256.50    
+Preventative Maintenance Inspection (Hours) 10     125.00       1250.00   
+-----------------------------------------------------------------
+Subtotal:                                               GBP  2056.50
+Tax (20.0%):                                            GBP   411.30
+TOTAL DUE:                                              GBP  2467.80
+=================================================================

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1012
+Invoice Date:          02/09/2026
+Due Date:              03/11/2026
+Purchase Order Ref:    PO-9000-2012
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Laser Calibration Service           10     850.00       8500.00   
+Pneumatic Valve Assembly            7      240.00       1680.00   
+Digital Temperature Sensor Pack     10     75.25        752.50    
+-----------------------------------------------------------------
+Subtotal:                                               USD 10932.50
+Tax (7.0%):                                             USD   765.28
+TOTAL DUE:                                              USD 11697.78
+=================================================================

@@ -1,0 +1,21 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Precision Machine Parts Co
+Tax ID / CIF / USt-ID: US-45-8921345
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1209
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2209
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Industrial Conveyor Belting (meters) 1      45.00        45.00     
+-----------------------------------------------------------------
+Subtotal:                                               USD   545.00
+Tax (7.0%):                                             USD    38.15
+TOTAL DUE:                                              USD   583.15
+=================================================================

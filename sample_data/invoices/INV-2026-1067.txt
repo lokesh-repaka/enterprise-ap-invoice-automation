@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1067
+Invoice Date:          09/02/2026
+Due Date:              11/03/2026
+Purchase Order Ref:    PO-9000-2067
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            2      110.00       220.00    
+Industrial Conveyor Belting (meters) 10     45.00        450.00    
+Preventative Maintenance Inspection (Hours) 1      125.00       125.00    
+Safety Goggles & Gloves Kit         5      28.50        142.50    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   937.50
+Tax (10.0%):                                            EUR    93.75
+TOTAL DUE:                                              EUR  1031.25
+=================================================================

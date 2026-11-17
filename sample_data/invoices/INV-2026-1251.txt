@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Castilla Logistica Integral SL
+Tax ID / CIF / USt-ID: ESB45678912
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1251
+Invoice Date:          14/02/2026
+Due Date:              16/03/2026
+Purchase Order Ref:    PO-9000-2251
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Hydraulic Fluid 20L Drum            7      110.00       770.00    
+Laser Calibration Service           10     850.00       8500.00   
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+Industrial Conveyor Belting (meters) 8      45.00        360.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  9878.00
+Tax (10.0%):                                            EUR   987.80
+TOTAL DUE:                                              EUR 10865.80
+=================================================================

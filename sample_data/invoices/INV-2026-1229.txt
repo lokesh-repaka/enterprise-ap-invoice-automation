@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Hanseatic Spedition GmbH
+Tax ID / CIF / USt-ID: DE321654987
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1229
+Invoice Date:          05/02/2026
+Due Date:              07/03/2026
+Purchase Order Ref:    PO-9000-2229
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 2      62.00        124.00    
+Pneumatic Valve Assembly            4      240.00       960.00    
+Safety Goggles & Gloves Kit         10     28.50        285.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  1369.00
+Tax (19.0%):                                            EUR   260.11
+TOTAL DUE:                                              EUR  1629.11
+=================================================================

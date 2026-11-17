@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1295
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2295
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+Digital Temperature Sensor Pack     2      75.25        150.50    
+Hydraulic Fluid 20L Drum            4      110.00       440.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD   843.50
+Tax (8.2%):                                             USD    69.59
+TOTAL DUE:                                              USD   913.09
+=================================================================

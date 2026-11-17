@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Caledonian Heavy Freight Ltd
+Tax ID / CIF / USt-ID: GB987654321
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1045
+Invoice Date:          03/02/2026
+Due Date:              05/03/2026
+Purchase Order Ref:    PO-9000-2045
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 9      62.00        558.00    
+Pneumatic Valve Assembly            6      240.00       1440.00   
+High-Tensile Wire Coil 50m          1      38.80        38.80     
+Preventative Maintenance Inspection (Hours) 2      125.00       250.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  2286.80
+Tax (20.0%):                                            GBP   457.36
+TOTAL DUE:                                              GBP  2744.16
+=================================================================

@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1273
+Invoice Date:          14/02/2026
+Due Date:              16/03/2026
+Purchase Order Ref:    PO-9000-2273
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     8      75.25        602.00    
+Corrugated Shipping Cartons (Bundle 100) 6      62.00        372.00    
+Laser Calibration Service           3      850.00       2550.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  3524.00
+Tax (19.0%):                                            EUR   669.56
+TOTAL DUE:                                              EUR  4193.56
+=================================================================

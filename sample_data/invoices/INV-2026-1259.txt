@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Apex Global Logistics Inc
+Tax ID / CIF / USt-ID: US-12-3456789
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1259
+Invoice Date:          02/01/2026
+Due Date:              03/03/2026
+Purchase Order Ref:    PO-9000-2259
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 6      45.00        270.00    
+Safety Goggles & Gloves Kit         10     28.50        285.00    
+High-Tensile Wire Coil 50m          2      38.80        77.60     
+-----------------------------------------------------------------
+Subtotal:                                               USD   632.60
+Tax (8.0%):                                             USD    50.61
+TOTAL DUE:                                              USD   683.21
+=================================================================

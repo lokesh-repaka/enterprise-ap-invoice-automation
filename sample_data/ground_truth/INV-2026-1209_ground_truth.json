@@ -1,0 +1,35 @@
+{
+  "invoice_metadata": {
+    "invoice_number": "INV-2026-1209",
+    "composite_hash": "94b27a26c001486fb98c6fd802479adf02555f400069dd1322faab5a49ca7326",
+    "test_case_type": "standard"
+  },
+  "header": {
+    "vendor_name": "Precision Machine Parts Co",
+    "vendor_tax_id": "US-45-8921345",
+    "invoice_number": "INV-2026-1209",
+    "invoice_date": "02/08/2026",
+    "due_date": "03/10/2026",
+    "po_number": "PO-9000-2209",
+    "subtotal": 545.0,
+    "tax_amount": 38.15,
+    "total_amount": 583.15,
+    "currency": "USD"
+  },
+  "line_items": [
+    {
+      "description": "Preventative Maintenance Inspection (Hours)",
+      "quantity": 4,
+      "unit_price": 125.0,
+      "line_total": 500.0,
+      "tax_rate": 0.07
+    },
+    {
+      "description": "Industrial Conveyor Belting (meters)",
+      "quantity": 1,
+      "unit_price": 45.0,
+      "line_total": 45.0,
+      "tax_rate": 0.07
+    }
+  ]
+}

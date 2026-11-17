@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Albion Safety Supplies Ltd
+Tax ID / CIF / USt-ID: GB555666777
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1032
+Invoice Date:          09/02/2026
+Due Date:              11/03/2026
+Purchase Order Ref:    PO-9000-2032
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Corrugated Shipping Cartons (Bundle 100) 7      62.00        434.00    
+Laser Calibration Service           3      850.00       2550.00   
+Digital Temperature Sensor Pack     5      75.25        376.25    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  3360.25
+Tax (20.0%):                                            GBP   672.05
+TOTAL DUE:                                              GBP  4032.30
+=================================================================

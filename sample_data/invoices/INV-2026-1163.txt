@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Thames River Tech Solutions Ltd
+Tax ID / CIF / USt-ID: GB123456789
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1163
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2163
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Pneumatic Valve Assembly            10     240.00       2400.00   
+Preventative Maintenance Inspection (Hours) 3      125.00       375.00    
+High-Tensile Wire Coil 50m          5      38.80        194.00    
+Industrial Conveyor Belting (meters) 1      45.00        45.00     
+Safety Goggles & Gloves Kit         8      28.50        228.00    
+-----------------------------------------------------------------
+Subtotal:                                               GBP  3242.00
+Tax (20.0%):                                            GBP   648.40
+TOTAL DUE:                                              GBP  3890.40
+=================================================================

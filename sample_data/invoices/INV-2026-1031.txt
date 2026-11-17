@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     CyberCore Solutions LLC
+Tax ID / CIF / USt-ID: US-98-7654321
+Country of Origin:     US
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1031
+Invoice Date:          02/08/2026
+Due Date:              03/10/2026
+Purchase Order Ref:    PO-9000-2031
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Laser Calibration Service           10     850.00       8500.00   
+Heavy Duty Steel Fasteners          10     12.50        125.00    
+Digital Temperature Sensor Pack     9      75.25        677.25    
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+-----------------------------------------------------------------
+Subtotal:                                               USD  9788.25
+Tax (8.2%):                                             USD   807.53
+TOTAL DUE:                                              USD 10595.78
+=================================================================

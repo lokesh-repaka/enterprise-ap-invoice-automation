@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Caledonian Heavy Freight Ltd
+Tax ID / CIF / USt-ID: GB987654321
+Country of Origin:     GB
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1111
+Invoice Date:          10/02/2026
+Due Date:              12/03/2026
+Purchase Order Ref:    PO-9000-2111
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Preventative Maintenance Inspection (Hours) 4      125.00       500.00    
+Corrugated Shipping Cartons (Bundle 100) 10     62.00        620.00    
+Laser Calibration Service           5      850.00       4250.00   
+-----------------------------------------------------------------
+Subtotal:                                               GBP  5370.00
+Tax (20.0%):                                            GBP  1074.00
+TOTAL DUE:                                              GBP  6444.00
+=================================================================

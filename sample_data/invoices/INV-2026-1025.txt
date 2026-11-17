@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1025
+Invoice Date:          14/02/2026
+Due Date:              16/03/2026
+Purchase Order Ref:    PO-9000-2025
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Safety Goggles & Gloves Kit         -6     28.50        -171.00   
+Heavy Duty Steel Fasteners          2      12.50        25.00     
+Industrial Conveyor Belting (meters) 4      45.00        180.00    
+Pneumatic Valve Assembly            4      240.00       960.00    
+Laser Calibration Service           4      850.00       3400.00   
+-----------------------------------------------------------------
+Subtotal:                                               EUR  4394.00
+Tax (19.0%):                                            EUR   834.86
+TOTAL DUE:                                              EUR  5228.86
+=================================================================

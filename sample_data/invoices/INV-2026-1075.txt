@@ -1,0 +1,23 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Bavaria Werkzeuge GmbH
+Tax ID / CIF / USt-ID: DE123456789
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1075
+Invoice Date:          16/02/2026
+Due Date:              18/03/2026
+Purchase Order Ref:    PO-9000-2075
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+High-Tensile Wire Coil 50m          8      38.80        310.40    
+Pneumatic Valve Assembly            5      240.00       1200.00   
+Corrugated Shipping Cartons (Bundle 100) 5      62.00        310.00    
+Hydraulic Fluid 20L Drum            5      110.00       550.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2370.40
+Tax (19.0%):                                            EUR   450.38
+TOTAL DUE:                                              EUR  2820.78
+=================================================================

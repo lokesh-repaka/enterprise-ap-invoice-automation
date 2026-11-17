@@ -1,0 +1,22 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Iberia Componentes Industriales SL
+Tax ID / CIF / USt-ID: ESB12345678
+Country of Origin:     ES
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1113
+Invoice Date:          12/02/2026
+Due Date:              14/03/2026
+Purchase Order Ref:    PO-9000-2113
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Industrial Conveyor Belting (meters) 7      45.00        315.00    
+Digital Temperature Sensor Pack     3      75.25        225.75    
+Corrugated Shipping Cartons (Bundle 100) 4      62.00        248.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR   788.75
+Tax (21.0%):                                            EUR   165.64
+TOTAL DUE:                                              EUR   954.39
+=================================================================

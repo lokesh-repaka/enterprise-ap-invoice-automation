@@ -1,0 +1,24 @@
+=================================================================
+                     INVOICE / FACTURA / RECHNUNG
+=================================================================
+Supplier / Emisor:     Nordic Sensorik AG
+Tax ID / CIF / USt-ID: DE987654321
+Country of Origin:     DE
+-----------------------------------------------------------------
+Invoice Number:        INV-2026-1224
+Invoice Date:          08/02/2026
+Due Date:              10/03/2026
+Purchase Order Ref:    PO-9000-2224
+-----------------------------------------------------------------
+Description                         Qty    Unit Price   Total     
+-----------------------------------------------------------------
+Digital Temperature Sensor Pack     10     75.25        752.50    
+Corrugated Shipping Cartons (Bundle 100) 1      62.00        62.00     
+Preventative Maintenance Inspection (Hours) 5      125.00       625.00    
+Safety Goggles & Gloves Kit         6      28.50        171.00    
+Pneumatic Valve Assembly            4      240.00       960.00    
+-----------------------------------------------------------------
+Subtotal:                                               EUR  2570.50
+Tax (19.0%):                                            EUR   488.39
+TOTAL DUE:                                              EUR  3058.89
+=================================================================
