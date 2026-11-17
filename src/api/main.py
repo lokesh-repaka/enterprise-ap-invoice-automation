@@ -95,3 +95,4 @@ async def http_exception_handler(request, exc: HTTPException):
         content={"detail": exc.detail},
         headers=getattr(exc, "headers", None),
     )
+
