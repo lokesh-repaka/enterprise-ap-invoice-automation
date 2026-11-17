@@ -1,6 +1,6 @@
 You have access to the project's root specification files: `CLAUDE.md` (authoritative single source of truth), `GEMINI.md` (workspace rules & layer contracts), and `TASKS.md` (development roadmap & branch mappings).
 
-Go ahead and complete **P1-2 · Centralised settings (src/core/config.py) and JSON logging** as defined in `TASKS.md`.
+Go ahead and complete **P1-3 (feature/makefile-dev-commands) and P1-4 (feature/api-health-middleware)** as defined in `TASKS.md`.
 
 ---
 

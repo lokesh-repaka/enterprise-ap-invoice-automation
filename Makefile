@@ -31,16 +31,16 @@ run-ui: ## Run Streamlit UI dashboard on port 8501
 	streamlit run src/ui/app.py --server.port $(PORT_UI)
 
 test: ## Run all tests offline (100% mocked Azure services)
-	$(OFFLINE_ENV) pytest -v
+	$(OFFLINE_ENV) pytest -p pytest_asyncio -v
 
 test-unit: ## Run fast unit tests offline
-	$(OFFLINE_ENV) pytest -v tests/unit/
+	$(OFFLINE_ENV) pytest -p pytest_asyncio -v tests/unit/
 
 test-integration: ## Run integration tests with mocked Azure services
-	$(OFFLINE_ENV) pytest -v tests/integration/
+	$(OFFLINE_ENV) pytest -p pytest_asyncio -v tests/integration/
 
 test-eval: ## Run automated evaluation suite against ground truth
-	$(OFFLINE_ENV) pytest -v tests/evaluation/
+	$(OFFLINE_ENV) pytest -p pytest_asyncio -v tests/evaluation/
 
 lint: ## Run ruff linter
 	ruff check src/ tests/
