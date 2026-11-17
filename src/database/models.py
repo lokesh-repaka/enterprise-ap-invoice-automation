@@ -79,9 +79,7 @@ class Vendor(Base):
     def __repr__(self) -> str:
         # Security: mask tax_id in string representations to prevent PII log leaks (N3, N8)
         masked_tax_id = (
-            f"***-**-{self.vendor_tax_id[-4:]}"
-            if len(self.vendor_tax_id) >= 4
-            else "***"
+            f"***-**-{self.vendor_tax_id[-4:]}" if len(self.vendor_tax_id) >= 4 else "***"
         )
         return (
             f"<Vendor(name='{self.vendor_name}', country='{self.country_code}', "
@@ -118,9 +116,7 @@ class Invoice(Base):
     confidence_macro_avg: Mapped[Decimal] = mapped_column(
         Numeric(5, 2), nullable=False, default=Decimal("0.00")
     )
-    status: Mapped[str] = mapped_column(
-        String(50), nullable=False, default="UPLOADED", index=True
-    )
+    status: Mapped[str] = mapped_column(String(50), nullable=False, default="UPLOADED", index=True)
     composite_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     blob_raw_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     blob_json_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
@@ -193,9 +189,7 @@ class InvoiceLine(Base):
     # Bidirectional relationship to parent invoice
     invoice: Mapped["Invoice"] = relationship("Invoice", back_populates="lines")
 
-    __table_args__ = (
-        Index("IX_invoice_lines_invoice_num", "invoice_id", "line_number"),
-    )
+    __table_args__ = (Index("IX_invoice_lines_invoice_num", "invoice_id", "line_number"),)
 
     def __repr__(self) -> str:
         return (
@@ -235,9 +229,7 @@ class AuditLog(Base):
     # Relationship to invoice
     invoice: Mapped["Invoice"] = relationship("Invoice", back_populates="audit_logs")
 
-    __table_args__ = (
-        Index("IX_audit_logs_invoice_timestamp", "invoice_id", "timestamp"),
-    )
+    __table_args__ = (Index("IX_audit_logs_invoice_timestamp", "invoice_id", "timestamp"),)
 
     def __repr__(self) -> str:
         return (

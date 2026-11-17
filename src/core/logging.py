@@ -4,6 +4,7 @@ Structured JSON Logging and PII Masking.
 Provides ISO 8601 timestamps, request_id propagation, and automatic masking
 of sensitive financial identifiers (Tax IDs, SSNs) per CLAUDE.md §8 and N3.
 """
+
 import json
 import logging
 import re

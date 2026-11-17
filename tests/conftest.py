@@ -4,6 +4,7 @@ Root test configuration and offline fixtures for Enterprise AP Automation.
 Enforces zero-network offline isolation per CLAUDE.md §13:
   USE_LOCAL_SQLITE=true, USE_FAKE_REDIS=true, USE_MOCK_AOAI=true
 """
+
 import json
 import os
 from pathlib import Path
