@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 14 — Infrastructure and Delivery (In Progress — 2 / 5 Tasks Done)
-- **Latest Completed Subtask:** P14-2 · `Dockerfile.ui` — Streamlit image
-- **Total Completed Tasks:** 65 / 68 (96%)
-- **Test Suite Pass Count:** **718 / 718 passing (100% — 681 unit + 30 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **~31 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (144 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (232 findings audited & mitigated; `SEC-232` closed in P14-2); created hardened multi-stage `Dockerfile.ui` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/opt/venv` & `/app/src`, XSRF/CORS enabled, telemetry disabled for East US 2 `N2`, `showErrorDetails=false`, 25 MB `FR-01` upload cap, `fileWatcherType=none`, stdlib `/_stcore/health` `HEALTHCHECK`, and zero backend datastore credentials)
+- **Current Active Phase:** Phase 14 — Infrastructure and Delivery (In Progress — 4 / 5 Tasks Done)
+- **Latest Completed Subtask:** P14-3 · `docker-compose.yml` & P14-4 · `infrastructure/main.bicep` (Parallel Delivery)
+- **Total Completed Tasks:** 67 / 68 (98%)
+- **Test Suite Pass Count:** **731 / 731 passing (100% — 694 unit + 30 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **~24 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (146 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (234 findings audited & mitigated; `SEC-233` and `SEC-234` closed); delivered root `docker-compose.yml` (loopback-only bindings `127.0.0.1:*`, `no-new-privileges:true`, `cap_drop: [ALL]`, `mem_limit`, `pids_limit`, `service_healthy` dependencies, internal `ap_network` bridge) and enterprise Bicep template `infrastructure/main.bicep` (East US 2 regional lockdown `ADR-001`/`N2`, NSG Internet deny `0.0.0.0/0`, 7-year WORM `raw-invoices-immutable` `2557` days, Key Vault RBAC, Azure SQL Entra ID auth, Redis TLS, OpenAI Model Gateway `gpt-4o-vision`/`gpt-4o-mini`, Container Apps `ca-api`/`ca-ui`, and keyless SystemAssigned Managed Identity RBAC role assignments)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -79,6 +79,8 @@
 | `tests/unit/test_evaluator_cli.py` | P13-4 Evaluation CLI unit suite (`src/evaluation/cli.py`): `--report` printable ASCII scorecard, `--json` & `--output-json` (`0o600`), exit codes `0`/`1`/`2` & `--no-fail-on-threshold`, symlink/dotfile/dot-dir/non-JSON output blocking (`SEC-228`), and path/traceback-free error sanitization (`SEC-229`) | 5 | 0.16s |
 | `tests/unit/test_dockerfile_api.py` | P14-1 Hardened multi-stage `Dockerfile.api` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/app/src` & `/opt/venv`, stdlib `/health` `HEALTHCHECK`, exec-form `uvicorn --no-server-header`, zero secrets/dev deps: `SEC-231`) & `.dockerignore` hygiene (`SEC-230`) | 5 | 0.01s |
 | `tests/unit/test_dockerfile_ui.py` | P14-2 Hardened multi-stage `Dockerfile.ui` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/app/src` & `/opt/venv`, XSRF/CORS on, telemetry/error-details/watcher off, 25 MB `FR-01` cap, stdlib `/_stcore/health`, zero backend datastore creds: `SEC-232`) | 5 | 0.01s |
+| `tests/unit/test_docker_compose.py` | P14-3 Root `docker-compose.yml` local stack: 4 services (`api`, `ui`, `redis`, `azurite`), loopback port pinning (`127.0.0.1:*`), `service_healthy` dependencies, `no-new-privileges:true`, `cap_drop: [ALL]`, resource limits, `ap_network` bridge & dev configs (`SEC-233`) | 5 | 0.02s |
+| `tests/unit/test_bicep_infrastructure.py` | P14-4 Azure Bicep template (`infrastructure/main.bicep`): East US 2 regional lockdown (`ADR-001`/`N2`), VNet `10.0.0.0/16`, NSG Internet deny `0.0.0.0/0`, 7-year WORM `raw-invoices-immutable` (`2557` days: `ADR-005`/`N6`), Key Vault RBAC, Azure SQL Entra ID, Redis TLS, OpenAI Model Gateway (`gpt-4o-vision`/`gpt-4o-mini`), Container Apps `ca-api`/`ca-ui`, and keyless Managed Identity role assignments (`SEC-234`) | 8 | 0.03s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
@@ -94,7 +96,7 @@
 | `tests/integration/test_evaluation_metrics_integration.py` | P13-2 Full 300-invoice pilot metric reporting (`InvoiceBatchEvaluator` → `compute_evaluation_metrics()`): verifies all contractual pilot gates (≥95% header, ≥92% critical floor, ≥90% line, ≥65% STP, 0 crashes), P/R/F1 bounds, and PII/path-free JSON & ASCII scorecards | 1 | 0.56s |
 | `tests/integration/test_evaluator_cli_integration.py` | P13-4 Subprocess execution of `python -m src.evaluation.evaluator --report` over all 300 pilot invoices: verifies exit `0`, printable `[PASS]` scorecard, zero PII/host paths, zero `RuntimeWarning` | 1 | 1.24s |
 | `tests/evaluation/test_pilot_evaluation_thresholds.py` | P13-3 Evaluation CI threshold pytest suite (`pytest tests/evaluation/`): 300-invoice batch stability (0 crashes), ≥95% header macro, ≥92% critical field hard floor each, ≥90% line-item, ≥65% STP, unified `assert_evaluation_thresholds()` P/R/F1 & non-approval check, and negative breach/weakening/NaN tests (`SEC-226`) | 7 | 0.44s |
-| **Total** | **All Modules Offline** | **718** | **~31s** |
+| **Total** | **All Modules Offline** | **731** | **~24s** |
 
 ---
 
