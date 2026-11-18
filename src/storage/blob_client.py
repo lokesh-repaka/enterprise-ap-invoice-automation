@@ -13,7 +13,6 @@ Enforces:
 - Zero business logic in ``src/storage/`` per CLAUDE.md §4.2.
 """
 
-import hashlib
 import json
 import re
 import threading
@@ -22,10 +21,11 @@ from typing import Any, Protocol, runtime_checkable
 
 from azure.core.exceptions import AzureError, ResourceExistsError, ResourceNotFoundError
 from azure.storage.blob import BlobServiceClient, ContentSettings, ImmutabilityPolicy
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from src.core.config import Settings, get_settings
 from src.core.logging import get_logger
+from src.storage.metadata import parse_invoice_blob_metadata, prepare_upload_metadata
 
 logger = get_logger("ap.storage.blob_client")
 
@@ -53,11 +53,6 @@ CONTAINER_NAME_PATTERN = re.compile(r"^[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])$")
 INVOICE_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 SAFE_FILENAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 SAFE_BLOB_SEGMENT_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
-
-# Azure Blob metadata key rules (valid C# identifier) and printable ASCII value bounds (CWE-113)
-METADATA_KEY_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,63}$")
-METADATA_VALUE_PATTERN = re.compile(r"^[\x20-\x7e]{0,256}$")
-MAX_METADATA_ENTRIES: int = 32
 
 # Strict Content-Type syntax & active web-script MIME denylist (CWE-113 / CWE-434)
 CONTENT_TYPE_PATTERN = re.compile(
@@ -111,6 +106,7 @@ class BlobUploadResult(BaseModel):
     sha256_hash: str
     etag: str
     uploaded_at: datetime
+    metadata: dict[str, str] = Field(default_factory=dict)
 
 
 def validate_blob_account_url(url: str, *, allow_local_emulator: bool = False) -> str:
@@ -206,25 +202,6 @@ def _validate_content_type(content_type: str) -> str:
     return normalized
 
 
-def _sanitize_metadata(metadata: dict[str, str] | None) -> dict[str, str] | None:
-    """Validate Azure Blob metadata keys and printable ASCII values (prevents CRLF injection: CWE-113)."""
-    if metadata is None:
-        return None
-    if not isinstance(metadata, dict):
-        raise ValueError("Invalid metadata: expected dict[str, str]")
-    if len(metadata) > MAX_METADATA_ENTRIES:
-        raise ValueError(f"Invalid metadata: exceeds maximum of {MAX_METADATA_ENTRIES} entries")
-
-    clean: dict[str, str] = {}
-    for key, val in metadata.items():
-        if not isinstance(key, str) or not METADATA_KEY_PATTERN.match(key):
-            raise ValueError(f"Invalid metadata key: {key!r}")
-        if not isinstance(val, str) or not METADATA_VALUE_PATTERN.match(val):
-            raise ValueError(f"Invalid metadata value for key {key!r}")
-        clean[key] = val
-    return clean
-
-
 @runtime_checkable
 class BlobWORMClientProtocol(Protocol):
     """Strict Write-Once, Read-Many storage protocol (zero delete/overwrite operations)."""
@@ -243,6 +220,8 @@ class BlobWORMClientProtocol(Protocol):
         *,
         content_type: str = "application/octet-stream",
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult: ...
 
     def upload_extraction_json(
@@ -251,9 +230,13 @@ class BlobWORMClientProtocol(Protocol):
         payload: dict[str, Any],
         *,
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult: ...
 
     def download_blob(self, blob_name: str) -> bytes: ...
+
+    def get_blob_metadata(self, blob_name: str) -> dict[str, str]: ...
 
     def blob_exists(self, blob_name: str) -> bool: ...
 
@@ -321,12 +304,19 @@ class AzureBlobWORMClient:
         *,
         content_type: str,
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult:
         valid_blob = validate_blob_name(blob_name)
         _validate_blob_bytes(data)
         valid_content_type = _validate_content_type(content_type)
-        clean_metadata = _sanitize_metadata(metadata)
-        sha256_hex = hashlib.sha256(data).hexdigest()
+        clean_metadata = prepare_upload_metadata(
+            data,
+            vendor_id=vendor_id,
+            upload_timestamp=upload_timestamp,
+            extra_metadata=metadata,
+        )
+        sha256_hex = clean_metadata["FileHash"]
 
         container_client = self._get_service_client().get_container_client(self._container_name)
         blob_client = container_client.get_blob_client(valid_blob)
@@ -334,10 +324,9 @@ class AzureBlobWORMClient:
         upload_kwargs: dict[str, Any] = {
             "overwrite": False,  # Non-negotiable WORM write-once guard (ADR-005)
             "content_settings": ContentSettings(content_type=valid_content_type),
+            "metadata": clean_metadata,
             "timeout": BLOB_OPERATION_TIMEOUT_SECONDS,
         }
-        if clean_metadata:
-            upload_kwargs["metadata"] = clean_metadata
         if self._enable_blob_immutability_policy:
             expiry = datetime.now(UTC) + timedelta(days=self._retention_days)
             upload_kwargs["immutability_policy"] = ImmutabilityPolicy(
@@ -363,13 +352,14 @@ class AzureBlobWORMClient:
             raise BlobStorageError("Failed to upload immutable blob") from None
 
         etag = str(response.get("etag", "")) if isinstance(response, dict) else ""
-        uploaded_at = datetime.now(UTC)
+        uploaded_at = parse_invoice_blob_metadata(clean_metadata).upload_timestamp
         logger.info(
             "Uploaded immutable WORM blob",
             extra={
                 "blob_name": valid_blob,
                 "size_bytes": len(data),
                 "sha256_prefix": sha256_hex[:12],
+                "vendor_id": clean_metadata["VendorID"],
             },
         )
         return BlobUploadResult(
@@ -381,6 +371,7 @@ class AzureBlobWORMClient:
             sha256_hash=sha256_hex,
             etag=etag,
             uploaded_at=uploaded_at,
+            metadata=dict(clean_metadata),
         )
 
     def upload_raw_invoice(
@@ -391,11 +382,18 @@ class AzureBlobWORMClient:
         *,
         content_type: str = "application/octet-stream",
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult:
         """Upload raw invoice bytes once under ``raw-invoices/{invoice_id}/{filename}``."""
         blob_name = build_raw_invoice_blob_name(invoice_id, filename)
         return self._upload_worm_bytes(
-            blob_name, data, content_type=content_type, metadata=metadata
+            blob_name,
+            data,
+            content_type=content_type,
+            metadata=metadata,
+            vendor_id=vendor_id,
+            upload_timestamp=upload_timestamp,
         )
 
     def upload_extraction_json(
@@ -404,12 +402,19 @@ class AzureBlobWORMClient:
         payload: dict[str, Any],
         *,
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult:
         """Upload structured extraction JSON once under ``json-extractions/{invoice_id}/extraction.json``."""
         blob_name = build_extraction_json_blob_name(invoice_id)
         serialized = json.dumps(payload, sort_keys=True, default=str).encode("utf-8")
         return self._upload_worm_bytes(
-            blob_name, serialized, content_type="application/json", metadata=metadata
+            blob_name,
+            serialized,
+            content_type="application/json",
+            metadata=metadata,
+            vendor_id=vendor_id,
+            upload_timestamp=upload_timestamp,
         )
 
     def download_blob(self, blob_name: str) -> bytes:
@@ -451,6 +456,25 @@ class AzureBlobWORMClient:
             extra={"blob_name": valid_blob, "size_bytes": len(raw_bytes)},
         )
         return raw_bytes
+
+    def get_blob_metadata(self, blob_name: str) -> dict[str, str]:
+        """Read immutable blob metadata dictionary via ``get_blob_properties`` (zero mutation)."""
+        valid_blob = validate_blob_name(blob_name)
+        container_client = self._get_service_client().get_container_client(self._container_name)
+        blob_client = container_client.get_blob_client(valid_blob)
+        try:
+            props = blob_client.get_blob_properties(timeout=BLOB_EXISTS_TIMEOUT_SECONDS)
+        except ResourceNotFoundError:
+            raise BlobNotFoundError(f"Blob not found: {valid_blob}") from None
+        except AzureError as exc:
+            logger.error(
+                "Azure Blob metadata read failed",
+                extra={"blob_name": valid_blob, "error_type": type(exc).__name__},
+            )
+            raise BlobStorageError("Failed to read blob metadata") from None
+
+        raw_meta = getattr(props, "metadata", None)
+        return dict(raw_meta) if isinstance(raw_meta, dict) else {}
 
     def blob_exists(self, blob_name: str) -> bool:
         """Return True if a blob exists at ``blob_name`` inside the WORM container."""
@@ -496,12 +520,19 @@ class InMemoryWORMBlobClient:
         *,
         content_type: str,
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult:
         valid_blob = validate_blob_name(blob_name)
         _validate_blob_bytes(data)
         valid_content_type = _validate_content_type(content_type)
-        clean_metadata = _sanitize_metadata(metadata)
-        sha256_hex = hashlib.sha256(data).hexdigest()
+        clean_metadata = prepare_upload_metadata(
+            data,
+            vendor_id=vendor_id,
+            upload_timestamp=upload_timestamp,
+            extra_metadata=metadata,
+        )
+        sha256_hex = clean_metadata["FileHash"]
 
         with self._lock:
             if valid_blob in self._blobs:
@@ -510,7 +541,7 @@ class InMemoryWORMBlobClient:
                 )
             if len(self._blobs) >= MAX_IN_MEMORY_BLOBS:
                 raise BlobStorageError("In-memory mock WORM store capacity exceeded")
-            self._blobs[valid_blob] = (bytes(data), clean_metadata)
+            self._blobs[valid_blob] = (bytes(data), dict(clean_metadata))
 
         logger.info(
             "Uploaded immutable WORM blob (in-memory mock)",
@@ -518,6 +549,7 @@ class InMemoryWORMBlobClient:
                 "blob_name": valid_blob,
                 "size_bytes": len(data),
                 "sha256_prefix": sha256_hex[:12],
+                "vendor_id": clean_metadata["VendorID"],
             },
         )
         return BlobUploadResult(
@@ -528,7 +560,8 @@ class InMemoryWORMBlobClient:
             size_bytes=len(data),
             sha256_hash=sha256_hex,
             etag=f'"mem-{sha256_hex[:16]}"',
-            uploaded_at=datetime.now(UTC),
+            uploaded_at=parse_invoice_blob_metadata(clean_metadata).upload_timestamp,
+            metadata=dict(clean_metadata),
         )
 
     def upload_raw_invoice(
@@ -539,9 +572,18 @@ class InMemoryWORMBlobClient:
         *,
         content_type: str = "application/octet-stream",
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult:
         blob_name = build_raw_invoice_blob_name(invoice_id, filename)
-        return self._store_once(blob_name, data, content_type=content_type, metadata=metadata)
+        return self._store_once(
+            blob_name,
+            data,
+            content_type=content_type,
+            metadata=metadata,
+            vendor_id=vendor_id,
+            upload_timestamp=upload_timestamp,
+        )
 
     def upload_extraction_json(
         self,
@@ -549,11 +591,18 @@ class InMemoryWORMBlobClient:
         payload: dict[str, Any],
         *,
         metadata: dict[str, str] | None = None,
+        vendor_id: str | None = None,
+        upload_timestamp: datetime | None = None,
     ) -> BlobUploadResult:
         blob_name = build_extraction_json_blob_name(invoice_id)
         serialized = json.dumps(payload, sort_keys=True, default=str).encode("utf-8")
         return self._store_once(
-            blob_name, serialized, content_type="application/json", metadata=metadata
+            blob_name,
+            serialized,
+            content_type="application/json",
+            metadata=metadata,
+            vendor_id=vendor_id,
+            upload_timestamp=upload_timestamp,
         )
 
     def download_blob(self, blob_name: str) -> bytes:
@@ -567,6 +616,14 @@ class InMemoryWORMBlobClient:
             extra={"blob_name": valid_blob, "size_bytes": len(entry[0])},
         )
         return entry[0]
+
+    def get_blob_metadata(self, blob_name: str) -> dict[str, str]:
+        valid_blob = validate_blob_name(blob_name)
+        with self._lock:
+            entry = self._blobs.get(valid_blob)
+        if entry is None:
+            raise BlobNotFoundError(f"Blob not found: {valid_blob}")
+        return dict(entry[1]) if entry[1] else {}
 
     def blob_exists(self, blob_name: str) -> bool:
         valid_blob = validate_blob_name(blob_name)

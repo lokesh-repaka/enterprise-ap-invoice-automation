@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 4 — Azure Storage Layer (3 / 4 Tasks Complete — P4-1, P4-2 & P4-3 Done)
-- **Latest Completed Subtask:** P4-3 · File validator — MIME type guard, 25 MB limit, password-protected PDF rejection
-- **Total Completed Tasks:** 23 / 68 (34%)
-- **Test Suite Pass Count:** **140 / 140 passing (100% — 139 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **3.06 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (56 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (70 findings audited & mitigated); keyless Managed Identity WORM Blob client, loopback-only hardened Azurite emulator (`127.0.0.1:10000`, `cap_drop: ALL`, triple prod gate), and deep magic-byte file intake validator (25 MB limit, TIFF/GAP-004 block, encrypted & active-script PDF rejection, pre-decode pixel-bomb & XLSX Zip-Slip/ZIP-bomb/UTF-16 XXE/macro defenses) active
+- **Current Active Phase:** Phase 4 — Azure Storage Layer (4 / 4 Tasks Complete — 100% ✅)
+- **Latest Completed Subtask:** P4-4 · Blob metadata tagging — `VendorID`, `UploadTimestamp`, `FileHash`
+- **Total Completed Tasks:** 24 / 68 (35%)
+- **Test Suite Pass Count:** **150 / 150 passing (100% — 149 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **3.02 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (58 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (76 findings audited & mitigated); Phase 4 storage layer complete with keyless Managed Identity WORM Blob client, hardened loopback Azurite emulator (`127.0.0.1:10000`, `cap_drop: ALL`), deep magic-byte file intake validator (25 MB cap, TIFF/GAP-004 block, encrypted/active-script PDF & XLSX XXE/ZIP-bomb guards), and immutable canonical `VendorID`/`UploadTimestamp`/`FileHash` metadata tagging with constant-time SHA-256 verification and key+value PII guards
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -41,8 +41,9 @@
 | `tests/unit/test_blob_client.py` | Keyless Azure Blob WORM client, `overwrite=False`, bounded 25 MB download, SSRF/path/MIME guards | 10 | 0.15s |
 | `tests/unit/test_azurite_local.py` | Azurite triple prod gate, loopback URL pin, container bootstrap, compose security hygiene | 6 | 0.08s |
 | `tests/unit/test_file_validator.py` | Magic-byte MIME guard, 25 MB cap, TIFF block (GAP-004), password/active-script PDF & XLSX XXE/ZIP-bomb/Zip-Slip defenses | 13 | 0.32s |
+| `tests/unit/test_blob_metadata.py` | Canonical `VendorID`/`UploadTimestamp`/`FileHash` tagging, Azure REST lowercase parsing, constant-time integrity check, key+value PII & 8 KB header guards | 10 | 0.19s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **140** | **3.06s** |
+| **Total** | **All Modules Offline** | **150** | **3.02s** |
 
 ---
 
