@@ -11,12 +11,32 @@ from src.database.models import (
     InvoiceLine,
     Vendor,
 )
+from src.database.repositories import (
+    AuditLogRepository,
+    ExchangeRateRepository,
+    InvoiceLineRepository,
+    InvoiceRepository,
+    VendorRepository,
+)
+from src.database.session import (
+    create_db_engine,
+    create_session_factory,
+    get_async_session,
+)
 
 __all__ = [
     "AuditLog",
+    "AuditLogRepository",
     "Base",
     "ExchangeRate",
+    "ExchangeRateRepository",
     "Invoice",
     "InvoiceLine",
+    "InvoiceLineRepository",
+    "InvoiceRepository",
     "Vendor",
+    "VendorRepository",
+    "create_db_engine",
+    "create_session_factory",
+    "get_async_session",
 ]
