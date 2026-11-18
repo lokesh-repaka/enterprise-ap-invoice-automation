@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (43% Complete — 3 / 7 Tasks Done ⏳)
-- **Latest Completed Subtask:** P11-3 · Review Workbench (`/workbench/{invoice_id}`) — split-screen PDF viewer + editable fields table, reason code dropdown, Re-Validate button
-- **Total Completed Tasks:** 50 / 68 (74%)
-- **Test Suite Pass Count:** **616 / 616 passing (100% — 613 unit + 3 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **25.79 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (113 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (197 findings audited & mitigated; `SEC-195`–`SEC-197` closed in P11-3); Review Workbench (`src/ui/review_workbench.py`) enforces SSRF/unsafe-URI filtering (`extract_safe_document_url()`), strict local PDF/image preview allowlist (`pdf`/`png`/`jpg`/`jpeg`, explicit GAP-004 TIFF block, finite zoom `[0.5, 3.0]`, 25 MB / 200-page / 4096px anti-bomb caps, encrypted PDF rejection — `SEC-195`), allowlisted editable header/line fields with client-side smart-diff no-op & duplicate-line prevention plus role-aware Approve button hiding for `ap_clerk` on `>$10k` or unknown-FX non-USD invoices (`SEC-196`), and Vendor Tax ID PII masking (`***-**-XXXX`), CSV formula/XSS sanitization, zero `unsafe_allow_html=True`, and cross-user workbench session purge on sign-out/persona-switch (`SEC-197`)
+- **Current Active Phase:** Phase 11 — Streamlit UI (57% Complete — 4 / 7 Tasks Done ⏳)
+- **Latest Completed Subtask:** P11-4 · Human Exception Queue (`/exceptions`) — filtered queue by exception type, confidence colour coding, bulk actions
+- **Total Completed Tasks:** 51 / 68 (75%)
+- **Test Suite Pass Count:** **626 / 626 passing (100% — 622 unit + 4 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **24.03 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (116 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (200 findings audited & mitigated; `SEC-198`–`SEC-200` closed in P11-4); Human Exception Queue (`src/ui/exception_queue.py`) enforces fail-closed `finance_manager`-only bulk approval skipping non-approvable statuses (`DUPLICATE_INVOICE`/`CREDIT_NOTE`/`REJECTED_TAX_MISMATCH`/`FLAGGED_POTENTIAL_REVISION`), hidden Bulk Manager Approve for `ap_clerk`, and alphanumeric-start assignee handles blocking formula prefixes (`SEC-198`), XSS/CSV-formula/Bearer sanitization and `^[A-Za-z0-9_-]{1,64}$` route allowlist validation with zero `unsafe_allow_html=True` (`SEC-199`), and `MAX_BULK_SELECTION=50`, `MAX_STORED_ASSIGNMENTS=1000`, `MAX_PAGE_LIMIT=100`, immediate HTTP `429` halt, and cross-user `exception_assignments` purge on sign-out/persona-switch (`SEC-200`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -68,10 +68,12 @@
 | `tests/unit/test_ui_api_client.py` | P11-1 Typed `httpx` API client (`src/ui/api_client.py`): all 11 FastAPI routes end-to-end, typed error hierarchy (`401`/`403`/`404`/`409`/`422`/`429`/`503`), SSRF/redirect/path-traversal/CRLF/token-redaction/10MB-response/25MB-upload/timeout guards, AST `src/ui/` layering check | 7 | 0.50s |
 | `tests/unit/test_ui_ingestion_dashboard.py` | P11-2 Ingestion Dashboard (`/`): multi-file drag-and-drop validation (FR-01/GAP-004), deterministic SHA-256 idempotency dedup, batch summary metrics, live status table, bounded live polling & 429 backoff, RBAC/batch-bytes/session/XSS/CSV-formula/route/layering guards, headless Streamlit renderer smoke | 10 | 0.12s |
 | `tests/unit/test_ui_review_workbench.py` | P11-3 Review Workbench (`/workbench/{id}`): split-screen PyMuPDF viewer (zoom/page/25MB/TIFF/NaN guards), confidence color cues & Tax ID masking, smart-diff no-op prevention, ReasonCode/tax-override/RBAC/hidden-Approve >$10k, SSRF/URL/CSV-formula/duplicate-line/layering guards, headless renderer smoke | 8 | 0.15s |
+| `tests/unit/test_ui_exception_queue.py` | P11-4 Human Exception Queue (`/exceptions`): PRD Screen 3 exception presets & strict filter validation, confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`), urgency & elapsed time, bulk assign/refresh (429 backoff)/manager-only bulk approve, XSS/CSV-formula/route/layering guards, headless renderer smoke | 9 | 0.12s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
-| **Total** | **All Modules Offline** | **616** | **25.79s** |
+| `tests/integration/test_ui_exception_queue_integration.py` | P11-4 End-to-end offline integration test: real FastAPI `/exceptions` preset filtering + `finance_manager` bulk approval on `$15k` escalated invoice skipping `DUPLICATE_INVOICE` | 1 | 0.27s |
+| **Total** | **All Modules Offline** | **626** | **24.03s** |
 
 ---
 
