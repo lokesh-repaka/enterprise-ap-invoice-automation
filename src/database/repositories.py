@@ -16,11 +16,11 @@ Security & Layering Rules (CLAUDE.md §4.2, §6):
 """
 
 import hashlib
-from datetime import date
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import asc, delete, desc, func, select
+from sqlalchemy import asc, delete, desc, func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -46,6 +46,29 @@ EXCEPTION_QUEUE_STATUSES: frozenset[str] = frozenset(
         "FLAGGED_POTENTIAL_REVISION",
         "CREDIT_NOTE",
         "REQUIRES_MANAGER_APPROVAL",
+    }
+)
+
+# Complete canonical Invoice status allowlist (CLAUDE.md §5, LLD §3.1 & §4)
+VALID_INVOICE_STATUSES: frozenset[str] = frozenset(
+    {
+        "UPLOADED",
+        "EXTRACTING",
+        "VALIDATED",
+        "REQUIRES_REVIEW",
+        "REQUIRES_APPROVAL",
+        "REJECTED_TAX_MISMATCH",
+        "REVALIDATING",
+        "DUPLICATE_INVOICE",
+        "FLAGGED_POTENTIAL_REVISION",
+        "CREDIT_NOTE",
+        "APPROVED_CLERK",
+        "REQUIRES_MANAGER_APPROVAL",
+        "APPROVED_MANAGER",
+        "REJECTED",
+        "STAGED_FOR_EXPORT",
+        "REJECTED_DUPLICATE",
+        "VOID",
     }
 )
 
@@ -388,6 +411,43 @@ class InvoiceRepository:
     async def update_status(self, invoice_id: str, new_status: str) -> Invoice | None:
         """Transition an invoice's persisted workflow status."""
         return await self.update_fields(invoice_id, status=new_status)
+
+    async def compare_and_update_status(
+        self,
+        invoice_id: str,
+        *,
+        expected_status: str,
+        new_status: str,
+    ) -> Invoice | None:
+        """
+        Atomically transition an invoice's status only if persisted status == expected_status
+        (optimistic locking CAS guard against concurrent TOCTOU races: CWE-362).
+
+        Returns the refreshed ``Invoice`` if the conditional UPDATE modified 1 row, or ``None``
+        if the invoice does not exist or its current status no longer equals ``expected_status``.
+        """
+        if expected_status not in VALID_INVOICE_STATUSES:
+            raise ValueError(f"Unknown expected_status: {expected_status!r}")
+        if new_status not in VALID_INVOICE_STATUSES:
+            raise ValueError(f"Unknown new_status: {new_status!r}")
+        if expected_status == new_status:
+            raise ValueError("compare_and_update_status forbids no-op self-transitions")
+
+        stmt = (
+            update(Invoice)
+            .where(
+                Invoice.invoice_id == invoice_id,
+                Invoice.status == expected_status,
+            )
+            .values(status=new_status, updated_at=datetime.now(UTC))
+        )
+        result = await self._session.execute(stmt)
+        if result.rowcount != 1:
+            await self._session.rollback()
+            return None
+        await self._session.commit()
+        self._session.expire_all()
+        return await self.get_by_id(invoice_id, include_relations=False)
 
     async def update_fields(self, invoice_id: str, /, **fields: Any) -> Invoice | None:
         """Update allowed mutable fields on an existing Invoice."""

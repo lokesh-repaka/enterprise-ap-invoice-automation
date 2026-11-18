@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 8 — Confidence Routing and State Machine (In Progress — 1 / 3 Tasks Done 🟡)
-- **Latest Completed Subtask:** P8-1 · Confidence router (`src/validation/confidence_router.py`) — ≥90% → VALIDATED, 80–89% → REQUIRES_REVIEW, <80% → REQUIRES_APPROVAL
-- **Total Completed Tasks:** 41 / 68 (60%)
-- **Test Suite Pass Count:** **398 / 398 passing (100% — 397 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **7.14 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (92 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (164 findings audited & mitigated; `SEC-161`–`SEC-164` closed in P8-1); deterministic `ConfidenceRouter` (`src/validation/confidence_router.py`) enforces tri-tier FR-04/BR-007 routing (`≥90%` → `VALIDATED` `#22c55e`, `80–89.99%` → `REQUIRES_REVIEW` `#fef08a`, `<80%` → `REQUIRES_APPROVAL` `#ef4444`) with worst-field-wins aggregation, unrounded exact `Decimal` boundary checks, Rules-First precedence across all 300 ground-truth pilot invoices (zero crashes), clerk re-validation semantics preserving immutable model confidence, unconditional credit-note safety (`SEC-161`), percentage-scale threshold floor guards (`SEC-162`), canonical field-key deduplication (`SEC-163`), contradictory `RulesEngineResult` integrity verification + non-approval allowlist (`SEC-164`), and zero LLM/SQLAlchemy imports
+- **Current Active Phase:** Phase 8 — Confidence Routing and State Machine (In Progress — 2 / 3 Tasks Done 🟡)
+- **Latest Completed Subtask:** P8-2 · Invoice state machine — 10-state FSM, legal transitions only, status written via repository
+- **Total Completed Tasks:** 42 / 68 (62%)
+- **Test Suite Pass Count:** **511 / 511 passing (100% — 510 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **8.57 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (94 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (168 findings audited & mitigated; `SEC-165`–`SEC-168` closed in P8-2); deterministic `InvoiceStateMachine` (`src/validation/state_machine.py`) enforces the full 10-core / 17-status LLD §4 lifecycle via deeply immutable `MappingProxyType` transition graph, persists status strictly through `InvoiceRepository.compare_and_update_status()` atomic CAS optimistic locking (CWE-362), blocks high-value & unconverted foreign-currency clerk approval (`SEC-165`), blocks negative-balance credit-note promotion to regular invoice states (`SEC-166`), confines `ActorRole.SYSTEM` to automated pipeline transitions only (`SEC-167`), enforces canonical status allowlist at repository CAS boundary (`SEC-168`), and maintains zero LLM/SQLAlchemy imports in `src/validation/`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -59,8 +59,9 @@
 | `tests/unit/test_date_normalizer.py` | P7-5 date normaliser (Vendor Master US `MM/DD/YYYY` vs EU `DD/MM/YYYY`, ISO 8601, ambiguous flagging): 299/300 GT pass + `INV-2026-1005` chronological conflict caught, cross-locale inversion/homograph/2-digit-year/SQLi/year-bounds/frozen guards | 21 | 0.47s |
 | `tests/unit/test_rules_engine.py` | P7-6 `RulesEngine` orchestrator: chains P7-1..P7-5 across all 300 ground-truth files (zero crashes, exact 4 problem routes), SQLite duplicate + multi-failure precedence, clerk re-validation, unconditional credit-note/partial-tax/exponent/bool/frozen/layer guards | 7 | 0.61s |
 | `tests/unit/test_confidence_router.py` | P8-1 `ConfidenceRouter`: FR-04/BR-007 tri-tier thresholds (≥90% `VALIDATED`, 80–89.99% `REQUIRES_REVIEW`, <80% `REQUIRES_APPROVAL`), sub-cent precision, worst-field-wins, 300 GT batch + Rules-First precedence, re-validation, settings-driven thresholds, credit-note/fraction-floor/key-alias/forged-rules/non-approval/layer guards | 38 | 0.26s |
+| `tests/unit/test_state_machine.py` | P8-2 `InvoiceStateMachine`: 10-core / 17-status LLD §4 FSM, deeply immutable graph, 45 legal & 36 illegal transition guards, RBAC + system allowlist, SQLite `InvoiceRepository` atomic CAS persistence, high-value/FX clerk cap, credit-note/CAS/PII/layer guards | 113 | 0.25s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **398** | **7.14s** |
+| **Total** | **All Modules Offline** | **511** | **8.57s** |
 
 ---
 
