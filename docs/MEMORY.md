@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (100% Complete — 7 / 7 Tasks Done ✅)
-- **Latest Completed Subtask:** P11-7 · Confidence colour coding and role-aware UI — hide Approve button for `ap_clerk` when total > \$10,000
-- **Total Completed Tasks:** 54 / 68 (79%)
-- **Test Suite Pass Count:** **650 / 650 passing (100% — 643 unit + 7 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **23.84 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (125 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (208 findings audited & mitigated; `SEC-207`–`SEC-208` closed in P11-7); **Phase 11 complete**: centralized `src/ui/theme_rbac.py` enforces exact `CANONICAL_ROLES` allowlist, conservative `max(total_amount, total_amount_usd)` USD threshold evaluation preventing stale-column clerk bypass, fail-closed hiding of Approve button for `ap_clerk` on `>$10k` (from `get_settings()`), missing non-USD FX, PO variance `>5%`, credit notes, `<90%` confidence, and `NaN`/negative thresholds (`SEC-207`), fail-closed `[0, 100]` confidence colour coding (`#22c55e` / `#fef08a` / `#ef4444`) across all 5 Streamlit screens, and a full-directory AST audit proving zero backend/SDK imports and zero `unsafe_allow_html=True` across all `src/ui/*.py` modules (`SEC-208`)
+- **Current Active Phase:** Phase 12 — Integration Tests (In Progress — 1 / 5 Tasks Done)
+- **Latest Completed Subtask:** P12-1 · Unit tests — line arithmetic, invoice total, tax (all countries + reverse-charge), date locale, duplicate hash, confidence router, reason code enum
+- **Total Completed Tasks:** 55 / 68 (81%)
+- **Test Suite Pass Count:** **660 / 660 passing (100% — 653 unit + 7 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **~24 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (126 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (211 findings audited & mitigated; `SEC-209`–`SEC-211` closed in P12-1); hardened `src/core/audit.py` with public strict-ASCII `parse_reason_code()` & `validate_reason_code()`, dotted line-item financial/sensitive leaf-field enforcement (`line[1].line_total`, `unit_price`, `quantity`, `line_tax_rate`: `SEC-209`), control-char & invisible bidi/zero-width stripping before mandatory `ReasonCode.OTHER` comment verification (`SEC-210`), and anti-Unicode Long-S (`\u017f`) homoglyph spoofing guard (`SEC-211`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -73,6 +73,7 @@
 | `tests/unit/test_ui_revision_screen.py` | P11-5 Revision Comparison (`/revision/{id}`): `-REV`/`v2`/`AMENDED` marker detection, yellow/red header & line-item diff engine, financial/tax/percentage deltas, exact duplicate & cross-vendor/`UNKNOWN` spoofing guards, original APPROVE audit provenance, fail-closed decision RBAC, XSS/CSV-formula/layering guards, headless renderer smoke | 8 | 0.14s |
 | `tests/unit/test_ui_audit_viewer.py` | P11-6 Audit Trail Viewer (`/audit/{id}`): 3-role RBAC & 9-action filter allowlist, oldest-to-newest chronological timeline & KPI summary, flat/dotted PII & inline SSN/IBAN/Bearer redaction, formula-safe CSV/JSON exports, AST read-only immutability (zero `data_editor`) & layering check, headless renderer smoke | 6 | 0.12s |
 | `tests/unit/test_ui_confidence_colours_rbac.py` | P11-7 Confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`) & role-aware UI (`src/ui/theme_rbac.py`): exact boundaries & fail-closed NaN/bool parsing, hidden Approve for `ap_clerk` `>$10k`/PO-variance/credit-note/stale-USD/missing-FX, dynamic `get_settings()` thresholds, headless Workbench hiding proof, full-directory `src/ui/*.py` AST layering & zero-HTML audit | 7 | 0.15s |
+| `tests/unit/test_validation_unit_suite.py` | P12-1 Consolidated validation & reason-code unit suite: line arithmetic (FR-05), invoice total (FR-06), multi-country tax + reverse-charge/exempt (FR-07), date locale disambiguation (FR-08), duplicate SHA-256 hash/revision/credit-note (FR-09..11), tri-tier confidence router (FR-04), `ReasonCode` enum/UI parity/strict ASCII & dotted-field `AuditLogger` guards (FR-12, `SEC-209`–`SEC-211`), and `src/validation/` AST layering audit | 10 | 0.18s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
@@ -80,7 +81,7 @@
 | `tests/integration/test_ui_revision_screen_integration.py` | P11-5 End-to-end offline integration test: real FastAPI `APPROVED_CLERK` original + `FLAGGED_POTENTIAL_REVISION` `-REV` side-by-side comparison & immutable `APPROVE` audit provenance | 1 | 0.29s |
 | `tests/integration/test_ui_audit_viewer_integration.py` | P11-6 End-to-end offline integration test: real FastAPI Re-Validate -> Approve -> `AuditTrailViewerController` chronological inspection as `system_admin` | 1 | 0.30s |
 | `tests/integration/test_ui_confidence_colours_rbac_integration.py` | P11-7 End-to-end offline integration test: UI-backend RBAC parity (`$15k` hidden in UI + HTTP 403 on FastAPI for `ap_clerk`, approved by `finance_manager`; `$2.5k` approved by `ap_clerk`) | 1 | 0.30s |
-| **Total** | **All Modules Offline** | **650** | **23.84s** |
+| **Total** | **All Modules Offline** | **660** | **~24s** |
 
 ---
 
