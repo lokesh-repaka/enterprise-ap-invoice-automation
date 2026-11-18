@@ -17,6 +17,7 @@ from src.ui.api_client import (
     validate_api_base_url,
 )
 from src.ui.ingestion_dashboard import render_ingestion_dashboard, sanitize_display_text
+from src.ui.review_workbench import render_review_workbench
 
 DEFAULT_DEMO_PERSONAS: tuple[str, ...] = (
     "sarah.clerk",
@@ -55,8 +56,14 @@ def build_ui_api_client(*, access_token: str | None = None) -> APInvoiceAPIClien
 
 
 def _clear_session_batch_state(session_state: dict[str, Any]) -> None:
-    """Purge cached batch rows on sign-out or identity switch (SEC-193, CWE-200/384)."""
-    for key in ("batch_items", "poll_cycles"):
+    """Purge cached batch & workbench rows on sign-out or identity switch (SEC-193, CWE-200/384)."""
+    for key in (
+        "batch_items",
+        "poll_cycles",
+        "selected_workbench_invoice_id",
+        "workbench_invoice",
+        "workbench_last_revalidation",
+    ):
         session_state.pop(key, None)
 
 
@@ -161,15 +168,22 @@ def render_app(
         selected_page = st.sidebar.radio("Navigation", options=list(NAVIGATION_PAGES), index=0)
 
         # --- Main Page Router ---
+        effective_roles = active_roles if active_roles is not None else []
         if selected_page == PAGE_INGESTION:
             render_ingestion_dashboard(
                 client,
                 st_module=st,
-                user_roles=active_roles if active_roles is not None else [],
+                user_roles=effective_roles,
+            )
+        elif selected_page == PAGE_WORKBENCH:
+            render_review_workbench(
+                client,
+                st_module=st,
+                user_roles=effective_roles,
             )
         else:
             st.title(selected_page)
-            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-3 through P11-7).")
+            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-4 through P11-7).")
     finally:
         if owns_client:
             client.close()
