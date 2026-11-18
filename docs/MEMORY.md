@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (29% Complete — 2 / 7 Tasks Done ⏳)
-- **Latest Completed Subtask:** P11-2 · Ingestion Dashboard (`/`) — drag-and-drop upload, batch status table, live polling
-- **Total Completed Tasks:** 49 / 68 (72%)
-- **Test Suite Pass Count:** **607 / 607 passing (100% — 605 unit + 2 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **23.42 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (110 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (194 findings audited & mitigated; `SEC-191`–`SEC-194` closed in P11-2); Ingestion Dashboard (`src/ui/ingestion_dashboard.py`) and main Streamlit shell (`src/ui/app.py`) enforce XSS/unclosed-HTML/bidi/Bearer-redaction/CSV-formula sanitization and `invoice_id` route allowlist validation with zero `unsafe_allow_html=True` (`SEC-191`), 50-file / 100 MB cumulative batch & 500-row session memory caps plus GAP-004 TIFF rejection (`SEC-192`), cross-user session batch purge on sign-out/persona-switch and fail-closed unauthenticated upload gating (`SEC-193`), and bounded `[1, 30]s` / 50-item-per-cycle / 60-cycle auto-polling with immediate HTTP `429` backoff (`SEC-194`), while preserving AST-enforced `src/ui/` layering isolation
+- **Current Active Phase:** Phase 11 — Streamlit UI (43% Complete — 3 / 7 Tasks Done ⏳)
+- **Latest Completed Subtask:** P11-3 · Review Workbench (`/workbench/{invoice_id}`) — split-screen PDF viewer + editable fields table, reason code dropdown, Re-Validate button
+- **Total Completed Tasks:** 50 / 68 (74%)
+- **Test Suite Pass Count:** **616 / 616 passing (100% — 613 unit + 3 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **25.79 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (113 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (197 findings audited & mitigated; `SEC-195`–`SEC-197` closed in P11-3); Review Workbench (`src/ui/review_workbench.py`) enforces SSRF/unsafe-URI filtering (`extract_safe_document_url()`), strict local PDF/image preview allowlist (`pdf`/`png`/`jpg`/`jpeg`, explicit GAP-004 TIFF block, finite zoom `[0.5, 3.0]`, 25 MB / 200-page / 4096px anti-bomb caps, encrypted PDF rejection — `SEC-195`), allowlisted editable header/line fields with client-side smart-diff no-op & duplicate-line prevention plus role-aware Approve button hiding for `ap_clerk` on `>$10k` or unknown-FX non-USD invoices (`SEC-196`), and Vendor Tax ID PII masking (`***-**-XXXX`), CSV formula/XSS sanitization, zero `unsafe_allow_html=True`, and cross-user workbench session purge on sign-out/persona-switch (`SEC-197`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -67,9 +67,11 @@
 | `tests/unit/test_noop_edit_guard.py` | P9-4 No-op edit guard (`previous_value == new_value` -> 422): empty payload/containers, text/date/decimal-scale/mixed header & line no-ops, LLD §2.2 full-row diff compatibility, `-0.00`/Unicode NFD/NBSP homoglyph/explicit-null/replayed-flag/service-fast-fail/oracle-ordering guards | 11 | 1.99s |
 | `tests/unit/test_ui_api_client.py` | P11-1 Typed `httpx` API client (`src/ui/api_client.py`): all 11 FastAPI routes end-to-end, typed error hierarchy (`401`/`403`/`404`/`409`/`422`/`429`/`503`), SSRF/redirect/path-traversal/CRLF/token-redaction/10MB-response/25MB-upload/timeout guards, AST `src/ui/` layering check | 7 | 0.50s |
 | `tests/unit/test_ui_ingestion_dashboard.py` | P11-2 Ingestion Dashboard (`/`): multi-file drag-and-drop validation (FR-01/GAP-004), deterministic SHA-256 idempotency dedup, batch summary metrics, live status table, bounded live polling & 429 backoff, RBAC/batch-bytes/session/XSS/CSV-formula/route/layering guards, headless Streamlit renderer smoke | 10 | 0.12s |
+| `tests/unit/test_ui_review_workbench.py` | P11-3 Review Workbench (`/workbench/{id}`): split-screen PyMuPDF viewer (zoom/page/25MB/TIFF/NaN guards), confidence color cues & Tax ID masking, smart-diff no-op prevention, ReasonCode/tax-override/RBAC/hidden-Approve >$10k, SSRF/URL/CSV-formula/duplicate-line/layering guards, headless renderer smoke | 8 | 0.15s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
-| **Total** | **All Modules Offline** | **607** | **23.42s** |
+| `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
+| **Total** | **All Modules Offline** | **616** | **25.79s** |
 
 ---
 
