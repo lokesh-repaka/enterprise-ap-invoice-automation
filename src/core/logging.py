@@ -13,8 +13,9 @@ from contextvars import ContextVar
 from datetime import UTC, datetime
 from typing import Any
 
-# ContextVar for request tracing across async tasks and API calls
+# ContextVars for request tracing and verified audit actor propagation across async calls
 request_id_ctx: ContextVar[str] = ContextVar("request_id", default="")
+audit_actor_ctx: ContextVar[str] = ContextVar("audit_actor", default="anonymous")
 
 # Regular expressions for sensitive financial identifiers to mask
 # Matches Tax IDs (e.g. US-12-3456789, 12-3456789, DE123456789, ESB12345678, GB123456789)
