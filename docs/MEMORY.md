@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 13 — Automated Evaluation Suite (In Progress — 2 / 4 Tasks Done)
-- **Latest Completed Subtask:** P13-2 · Metric reporting — Header Accuracy ≥95%, Critical Field Floor ≥92%, Line-Item Accuracy ≥90%, STP ≥65%
-- **Total Completed Tasks:** 61 / 68 (90%)
-- **Test Suite Pass Count:** **694 / 694 passing (100% — 665 unit + 29 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Current Active Phase:** Phase 13 — Automated Evaluation Suite (In Progress — 3 / 4 Tasks Done)
+- **Latest Completed Subtask:** P13-3 · Evaluation pytest suite — threshold assertions that fail the CI build if missed
+- **Total Completed Tasks:** 62 / 68 (91%)
+- **Test Suite Pass Count:** **702 / 702 passing (100% — 666 unit + 29 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
 - **Test Execution Latency:** **~31 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (137 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (225 findings audited & mitigated; `SEC-223`–`SEC-225` closed in P13-2); implemented `src/evaluation/metrics.py` computing Macro-Average Header Accuracy (`≥95%`), Critical Field Hard Floor (`≥92%` each), Line-Item Accuracy (`≥90%`), Pilot STP (`≥65%`), Batch Stability (`0` crashes), and slot-level Precision/Recall/F1 with fail-closed empty-batch/crash/non-finite/bool threshold guards (`SEC-223`), PII/host-path/ANSI/BiDi-sanitized JSON & ASCII scorecards (`SEC-224`), and authoritative per-invoice batch integrity verification against forged aggregates (`SEC-225`)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (139 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (227 findings audited & mitigated; `SEC-226`–`SEC-227` closed in P13-3); added `tests/evaluation/test_pilot_evaluation_thresholds.py` (7 contractual threshold gate tests over all 300 pilot invoices), `assert_evaluation_thresholds()` with contractual floor anti-weakening, non-finite Decimal, and non-approval enforcement (`SEC-226`), and wired `evaluation-threshold-gates` into `.github/workflows/ci.yml` blocking `build-package` under `permissions: contents: read` and bounded `timeout-minutes: 10` (`SEC-227`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -28,7 +28,7 @@
 | `tests/unit/test_logging.py` | Structured JSON logging & regex PII masking | 4 | 0.01s |
 | `tests/unit/test_api_health.py` | FastAPI liveness, readiness, and `X-Request-ID` | 5 | 0.03s |
 | `tests/unit/test_harness.py` | Offline fixtures (FakeRedis, Mock AOAI, Mock Blob) | 5 | 0.01s |
-| `tests/unit/test_ci_workflow.py` | GitHub Actions CI workflow triggers & job graph | 4 | 0.02s |
+| `tests/unit/test_ci_workflow.py` | GitHub Actions CI workflow triggers, job graph, `evaluation-threshold-gates`, and least-privilege `permissions` (`SEC-227`) | 5 | 0.02s |
 | `tests/unit/test_models.py` | SQLAlchemy 2 async models, relationships, and CRUD | 6 | 0.22s |
 | `tests/unit/test_schema_migrations.py` | Schema DDL, table integrity, and Alembic migrations | 5 | 0.17s |
 | `tests/unit/test_repositories.py` | Async CRUD repositories, append-only audit guard, rate fallback | 6 | 0.05s |
@@ -89,7 +89,8 @@
 | `tests/integration/test_idempotency_deduplication_integration.py` | P12-5 End-to-end offline idempotency integration tests: identical re-submission across `UPLOADED` → `VALIDATED` → `APPROVED_CLERK` with `mock_aoai.call_count == 1`, explicit & content-derived `409` payload/vendor conflict (`SEC-219`) + `422` header injection, 5-way concurrent race (1x 202, 4x 200), cross-actor isolation, and transient `503` lock release | 5 | 1.67s |
 | `tests/integration/test_evaluator_batch_integration.py` | P13-1 Full 300-invoice pilot corpus batch evaluation (`InvoiceBatchEvaluator` offline): 300/300 completed, 0 crashes, 3,000 header & all line-item comparisons, 0 self-approvals, STP ≥ 65% | 1 | 1.06s |
 | `tests/integration/test_evaluation_metrics_integration.py` | P13-2 Full 300-invoice pilot metric reporting (`InvoiceBatchEvaluator` → `compute_evaluation_metrics()`): verifies all contractual pilot gates (≥95% header, ≥92% critical floor, ≥90% line, ≥65% STP, 0 crashes), P/R/F1 bounds, and PII/path-free JSON & ASCII scorecards | 1 | 0.56s |
-| **Total** | **All Modules Offline** | **694** | **~31s** |
+| `tests/evaluation/test_pilot_evaluation_thresholds.py` | P13-3 Evaluation CI threshold pytest suite (`pytest tests/evaluation/`): 300-invoice batch stability (0 crashes), ≥95% header macro, ≥92% critical field hard floor each, ≥90% line-item, ≥65% STP, unified `assert_evaluation_thresholds()` P/R/F1 & non-approval check, and negative breach/weakening/NaN tests (`SEC-226`) | 7 | 0.44s |
+| **Total** | **All Modules Offline** | **702** | **~31s** |
 
 ---
 
