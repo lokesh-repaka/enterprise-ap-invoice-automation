@@ -534,3 +534,36 @@ class InvoiceApprovalResponse(BaseModel):
     approved_at: datetime
     audit_event_id: str
     comment: str | None = None
+
+
+class AuditEventResponse(BaseModel):
+    """Immutable single audit trail event returned by ``GET /api/v1/invoices/{id}/audit`` (P9-3)."""
+
+    model_config = ConfigDict(frozen=True)
+
+    audit_id: str
+    invoice_id: str
+    user_id: str
+    action_type: str
+    field_name: str | None = None
+    previous_value: str | None = None
+    new_value: str | None = None
+    reason_code: str | None = None
+    comment: str | None = None
+    timestamp: datetime
+
+
+class InvoiceAuditTrailResponse(BaseModel):
+    """Paginated chronological immutable audit trail for an invoice (P9-3, BR-031, PRD Screen 5)."""
+
+    model_config = ConfigDict(frozen=True)
+
+    invoice_id: str
+    invoice_number: str
+    current_status: str
+    immutable: bool = True
+    total_events: int
+    limit: int
+    offset: int
+    filters_applied: dict[str, Any]
+    events: list[AuditEventResponse]
