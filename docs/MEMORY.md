@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 4 — Azure Storage Layer (2 / 4 Tasks Complete — P4-1 & P4-2 Done)
-- **Latest Completed Subtask:** P4-2 · Azurite local emulator setup and integration smoke test
-- **Total Completed Tasks:** 22 / 68 (32%)
-- **Test Suite Pass Count:** **127 / 127 passing (100% — 126 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **3.02 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (54 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (63 findings audited & mitigated); keyless Managed Identity WORM Blob client + loopback-only hardened Azurite emulator (`127.0.0.1:10000`, `cap_drop: ALL`, triple prod gate, zero static keys) active
+- **Current Active Phase:** Phase 4 — Azure Storage Layer (3 / 4 Tasks Complete — P4-1, P4-2 & P4-3 Done)
+- **Latest Completed Subtask:** P4-3 · File validator — MIME type guard, 25 MB limit, password-protected PDF rejection
+- **Total Completed Tasks:** 23 / 68 (34%)
+- **Test Suite Pass Count:** **140 / 140 passing (100% — 139 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **3.06 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (56 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (70 findings audited & mitigated); keyless Managed Identity WORM Blob client, loopback-only hardened Azurite emulator (`127.0.0.1:10000`, `cap_drop: ALL`, triple prod gate), and deep magic-byte file intake validator (25 MB limit, TIFF/GAP-004 block, encrypted & active-script PDF rejection, pre-decode pixel-bomb & XLSX Zip-Slip/ZIP-bomb/UTF-16 XXE/macro defenses) active
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -40,8 +40,9 @@
 | `tests/unit/test_secrets.py` | Keyless Azure Key Vault client, offline stub, `SecretValue` redaction, zero-static-secret CI scan | 8 | 0.02s |
 | `tests/unit/test_blob_client.py` | Keyless Azure Blob WORM client, `overwrite=False`, bounded 25 MB download, SSRF/path/MIME guards | 10 | 0.15s |
 | `tests/unit/test_azurite_local.py` | Azurite triple prod gate, loopback URL pin, container bootstrap, compose security hygiene | 6 | 0.08s |
+| `tests/unit/test_file_validator.py` | Magic-byte MIME guard, 25 MB cap, TIFF block (GAP-004), password/active-script PDF & XLSX XXE/ZIP-bomb/Zip-Slip defenses | 13 | 0.32s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **127** | **3.02s** |
+| **Total** | **All Modules Offline** | **140** | **3.06s** |
 
 ---
 

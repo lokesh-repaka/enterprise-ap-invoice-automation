@@ -29,8 +29,20 @@ from src.storage.blob_client import (
     validate_blob_name,
     validate_container_name,
 )
+from src.storage.file_validator import (
+    ALLOWED_EXTENSIONS,
+    MAX_UPLOAD_SIZE_BYTES,
+    CorruptedOrMaliciousFileError,
+    FileTooLargeError,
+    FileValidationError,
+    PasswordProtectedPDFError,
+    UnsupportedFileTypeError,
+    ValidatedFile,
+    validate_invoice_file,
+)
 
 __all__ = [
+    "ALLOWED_EXTENSIONS",
     "AzureBlobWORMClient",
     "BlobAlreadyExistsError",
     "BlobNotFoundError",
@@ -38,10 +50,17 @@ __all__ = [
     "BlobStorageError",
     "BlobUploadResult",
     "BlobWORMClientProtocol",
+    "CorruptedOrMaliciousFileError",
     "DEFAULT_AZURITE_BLOB_URL",
     "DEFAULT_WORM_RETENTION_DAYS",
+    "FileTooLargeError",
+    "FileValidationError",
     "InMemoryWORMBlobClient",
     "MAX_BLOB_SIZE_BYTES",
+    "MAX_UPLOAD_SIZE_BYTES",
+    "PasswordProtectedPDFError",
+    "UnsupportedFileTypeError",
+    "ValidatedFile",
     "build_extraction_json_blob_name",
     "build_raw_invoice_blob_name",
     "check_azurite_reachable",
@@ -54,4 +73,5 @@ __all__ = [
     "validate_blob_account_url",
     "validate_blob_name",
     "validate_container_name",
+    "validate_invoice_file",
 ]
