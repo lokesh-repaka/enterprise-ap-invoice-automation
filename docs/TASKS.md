@@ -164,7 +164,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 
 | Task | Branch | Status |
 |------|--------|--------|
-| P11-1 · Typed HTTP API client (`src/ui/api_client.py`) wrapping `httpx` — all backend routes | `feature/ui-api-client` | Pending ❌ |
+| P11-1 · Typed HTTP API client (`src/ui/api_client.py`) wrapping `httpx` — all backend routes | `feature/ui-api-client` | Completed ✅ |
 | P11-2 · Ingestion Dashboard (`/`) — drag-and-drop upload, batch status table, live polling | `feature/ui-ingestion-dashboard` | Pending ❌ |
 | P11-3 · Review Workbench (`/workbench/{invoice_id}`) — split-screen PDF viewer + editable fields table, reason code dropdown, Re-Validate button | `feature/ui-review-workbench` | Pending ❌ |
 | P11-4 · Human Exception Queue (`/exceptions`) — filtered queue by exception type, confidence colour coding, bulk actions | `feature/ui-exception-queue` | Pending ❌ |
@@ -268,9 +268,9 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 8 | Confidence Routing and State Machine | 3 | 3 ✅ |
 | 9 | Re-Validation and Approval API | 4 | 4 ✅ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
-| 11 | Streamlit UI | 7 | 0 ❌ |
+| 11 | Streamlit UI | 7 | 1 ⏳ |
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **47 (69%)** |
+| **Total** | | **68** | **48 (71%)** |
 
