@@ -8,12 +8,12 @@
 ## 1. Honest Status
 
 - **Current Active Phase:** Phase 2 — Persistence and Vendor Master
-- **Latest Completed Subtask:** P2-3 · Repository layer — async CRUD for all five tables
-- **Total Completed Tasks:** 13 / 68 (19%)
-- **Test Suite Pass Count:** **42 / 42 passing (100%)**
-- **Test Execution Latency:** **0.52 seconds** (strict offline isolation mode)
+- **Latest Completed Subtask:** P2-4 · Seed scripts — Vendor Master (15 vendors, 4 jurisdictions) and exchange rates
+- **Total Completed Tasks:** 14 / 68 (21%)
+- **Test Suite Pass Count:** **49 / 49 passing (100%)**
+- **Test Execution Latency:** **0.61 seconds** (strict offline isolation mode)
 - **Code Quality & Linter:** Ruff 0.3.3 passing with 0 warnings, 0 errors
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs; dynamic Alembic connection strings; repository field allowlists, pagination clamping, and strict append-only `AuditLogRepository`
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs; dynamic Alembic connection strings; repository field allowlists, pagination clamping, strict append-only `AuditLogRepository`; seed path-traversal and input validation guards
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -31,7 +31,8 @@
 | `tests/unit/test_models.py` | SQLAlchemy 2 async models, relationships, and CRUD | 6 | 0.22s |
 | `tests/unit/test_schema_migrations.py` | Schema DDL, table integrity, and Alembic migrations | 5 | 0.17s |
 | `tests/unit/test_repositories.py` | Async CRUD repositories, append-only audit guard, rate fallback | 6 | 0.05s |
-| **Total** | **All Modules Offline** | **42** | **0.52s** |
+| `tests/unit/test_seed.py` | Idempotent Vendor Master (15 vendors) & ECB FX seed scripts | 7 | 0.08s |
+| **Total** | **All Modules Offline** | **49** | **0.61s** |
 
 ---
 
