@@ -16,6 +16,7 @@ from src.ui.api_client import (
     APInvoiceAPIClient,
     validate_api_base_url,
 )
+from src.ui.exception_queue import render_exception_queue
 from src.ui.ingestion_dashboard import render_ingestion_dashboard, sanitize_display_text
 from src.ui.review_workbench import render_review_workbench
 
@@ -63,6 +64,7 @@ def _clear_session_batch_state(session_state: dict[str, Any]) -> None:
         "selected_workbench_invoice_id",
         "workbench_invoice",
         "workbench_last_revalidation",
+        "exception_assignments",
     ):
         session_state.pop(key, None)
 
@@ -181,9 +183,15 @@ def render_app(
                 st_module=st,
                 user_roles=effective_roles,
             )
+        elif selected_page == PAGE_EXCEPTIONS:
+            render_exception_queue(
+                client,
+                st_module=st,
+                user_roles=effective_roles,
+            )
         else:
             st.title(selected_page)
-            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-4 through P11-7).")
+            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-5 through P11-7).")
     finally:
         if owns_client:
             client.close()
