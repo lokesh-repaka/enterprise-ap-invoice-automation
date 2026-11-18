@@ -110,6 +110,21 @@ class Settings(BaseSettings):
         default=0.05,
         description="Maximum arithmetic rounding difference allowed for grand total (FR-06).",
     )
+    CONFIDENCE_HIGH_THRESHOLD: float = Field(
+        default=90.0,
+        ge=60.0,
+        le=100.0,
+        description="Minimum per-field confidence (%) for VALIDATED status (FR-04, BR-007).",
+    )
+    CONFIDENCE_MEDIUM_THRESHOLD: float = Field(
+        default=80.0,
+        ge=50.0,
+        lt=100.0,
+        description=(
+            "Minimum per-field confidence (%) for REQUIRES_REVIEW status; "
+            "below this threshold routes to REQUIRES_APPROVAL (FR-04, BR-007)."
+        ),
+    )
 
     # --- Local Development / Strict Offline Testing Mode ---
     USE_LOCAL_SQLITE: bool = Field(

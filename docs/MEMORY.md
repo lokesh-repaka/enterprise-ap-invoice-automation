@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 7 — Validation Rules Engine (100% Complete — 6 / 6 Tasks Done ✅)
-- **Latest Completed Subtask:** P7-6 · Rules Engine orchestrator (`src/validation/rules_engine.py`) — chains all validators, returns pass/fail list
-- **Total Completed Tasks:** 40 / 68 (59%)
-- **Test Suite Pass Count:** **360 / 360 passing (100% — 359 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **7.10 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (90 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (160 findings audited & mitigated; `SEC-157`–`SEC-160` closed in P7-6); **Phase 7 complete**: deterministic `RulesEngine` (`src/validation/rules_engine.py`) chains P7-1..P7-5 (duplicate/revision/credit-note, line arithmetic, invoice total + line-sum cross-check, multi-country tax, date normaliser) across all 300 pilot ground-truth invoices with zero crashes (exact routing for `INV-2026-1002-REV`, `1005`, `1010`, `1025`, and `1030`), enforces unconditional credit-note safety even when skipping duplicate lookup or during re-validation (`SEC-157`), rejects partial line-tax omissions (`SEC-158`), blocks `VendorRuleContext` exponent bombs (`SEC-159`), enforces strict bools & non-approval frozen results (`SEC-160`), and maintains zero LLM/SQLAlchemy imports
+- **Current Active Phase:** Phase 8 — Confidence Routing and State Machine (In Progress — 1 / 3 Tasks Done 🟡)
+- **Latest Completed Subtask:** P8-1 · Confidence router (`src/validation/confidence_router.py`) — ≥90% → VALIDATED, 80–89% → REQUIRES_REVIEW, <80% → REQUIRES_APPROVAL
+- **Total Completed Tasks:** 41 / 68 (60%)
+- **Test Suite Pass Count:** **398 / 398 passing (100% — 397 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **7.14 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (92 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (164 findings audited & mitigated; `SEC-161`–`SEC-164` closed in P8-1); deterministic `ConfidenceRouter` (`src/validation/confidence_router.py`) enforces tri-tier FR-04/BR-007 routing (`≥90%` → `VALIDATED` `#22c55e`, `80–89.99%` → `REQUIRES_REVIEW` `#fef08a`, `<80%` → `REQUIRES_APPROVAL` `#ef4444`) with worst-field-wins aggregation, unrounded exact `Decimal` boundary checks, Rules-First precedence across all 300 ground-truth pilot invoices (zero crashes), clerk re-validation semantics preserving immutable model confidence, unconditional credit-note safety (`SEC-161`), percentage-scale threshold floor guards (`SEC-162`), canonical field-key deduplication (`SEC-163`), contradictory `RulesEngineResult` integrity verification + non-approval allowlist (`SEC-164`), and zero LLM/SQLAlchemy imports
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -58,8 +58,9 @@
 | `tests/unit/test_tax_validator.py` | P7-4 multi-country tax validator (US sales tax, UK VAT 20/5/0%, DE MwSt 19/7/0%, ES IVA 21/10/4/0%, mixed-rate lines, reverse-charge/exempt): 299/300 GT pass + `INV-2026-1010` caught, partial-line VAT-evasion/homograph-country/strict-bool/US-ceiling/DoS guards | 27 | 0.46s |
 | `tests/unit/test_date_normalizer.py` | P7-5 date normaliser (Vendor Master US `MM/DD/YYYY` vs EU `DD/MM/YYYY`, ISO 8601, ambiguous flagging): 299/300 GT pass + `INV-2026-1005` chronological conflict caught, cross-locale inversion/homograph/2-digit-year/SQLi/year-bounds/frozen guards | 21 | 0.47s |
 | `tests/unit/test_rules_engine.py` | P7-6 `RulesEngine` orchestrator: chains P7-1..P7-5 across all 300 ground-truth files (zero crashes, exact 4 problem routes), SQLite duplicate + multi-failure precedence, clerk re-validation, unconditional credit-note/partial-tax/exponent/bool/frozen/layer guards | 7 | 0.61s |
+| `tests/unit/test_confidence_router.py` | P8-1 `ConfidenceRouter`: FR-04/BR-007 tri-tier thresholds (≥90% `VALIDATED`, 80–89.99% `REQUIRES_REVIEW`, <80% `REQUIRES_APPROVAL`), sub-cent precision, worst-field-wins, 300 GT batch + Rules-First precedence, re-validation, settings-driven thresholds, credit-note/fraction-floor/key-alias/forged-rules/non-approval/layer guards | 38 | 0.26s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **360** | **7.10s** |
+| **Total** | **All Modules Offline** | **398** | **7.14s** |
 
 ---
 
