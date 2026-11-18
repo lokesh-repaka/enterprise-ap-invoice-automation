@@ -825,14 +825,14 @@ def test_revalidate_blocks_mass_assignment_confidence_tampering_and_malformed_in
     # 4. Invalid invoice_id -> 422; nonexistent invoice_id -> 404
     r_sqli = client.post(
         "/api/v1/invoices/inv-1' OR '1'='1/revalidate",
-        json={"reason_code": "OCR_MISREAD"},
+        json={"reason_code": "OCR_MISREAD", "header_edits": {"po_number": "PO-CHECK"}},
         headers=headers,
     )
     assert r_sqli.status_code == 422
 
     r_missing = client.post(
         "/api/v1/invoices/inv-does-not-exist/revalidate",
-        json={"reason_code": "OCR_MISREAD"},
+        json={"reason_code": "OCR_MISREAD", "header_edits": {"po_number": "PO-CHECK"}},
         headers=headers,
     )
     assert r_missing.status_code == 404
@@ -896,7 +896,7 @@ def test_revalidate_date_inversion_missing_fx_and_db_failure_fail_closed_without
     app.dependency_overrides[get_upload_session_factory] = lambda: lambda: _BrokenSessionCtx()
     err_resp = client.post(
         "/api/v1/invoices/inv-us-review/revalidate",
-        json={"reason_code": "OCR_MISREAD"},
+        json={"reason_code": "OCR_MISREAD", "header_edits": {"po_number": "PO-CHECK"}},
         headers=headers,
     )
     assert err_resp.status_code == 503

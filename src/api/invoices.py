@@ -80,6 +80,7 @@ from src.services.revalidation import (
     LineEditInput,
     RevalidationConflictError,
     RevalidationInput,
+    RevalidationNoOpError,
     RevalidationNotFoundError,
     RevalidationService,
     RevalidationValidationError,
@@ -1051,6 +1052,12 @@ async def revalidate_invoice(
         ) from None
     except RevalidationConflictError as exc:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from None
+    except RevalidationNoOpError as exc:
+        raise HTTPException(
+            status_code=422,
+            detail=str(exc),
+            headers={"Cache-Control": "no-store"},
+        ) from None
     except RevalidationValidationError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from None
     except SQLAlchemyError as exc:

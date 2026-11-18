@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 9 — Re-Validation and Approval API (75% Complete — 3 / 4 Tasks Done)
-- **Latest Completed Subtask:** P9-3 · `GET /api/v1/invoices/{id}/audit` — full immutable audit trail for an invoice
-- **Total Completed Tasks:** 46 / 68 (68%)
-- **Test Suite Pass Count:** **578 / 578 passing (100% — 577 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **12.85 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (103 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (183 findings audited & mitigated; `SEC-181`–`SEC-183` closed in P9-3); `GET /api/v1/invoices/{id}/audit` (`src/api/audit.py`) enforces `ap_clerk`/`finance_manager`/`system_admin` RBAC, strictly read-only immutable surface (`405` on mutating verbs), deterministic `(timestamp ASC, audit_id ASC)` chronological ordering with bounded pagination via `AuditLogRepository.list_for_invoice()`, leaf-field & embedded-comment PII redaction (`***-**-XXXX` on Tax IDs/VAT/IBAN/SSN, `SEC-181`), repository-level `VALID_AUDIT_ACTION_TYPES` allowlist & 50-char param cap (`SEC-182`), blank `user_id` rejection & `Cache-Control: no-store` + `X-Content-Type-Options: nosniff` (`SEC-183`)
+- **Current Active Phase:** Phase 9 — Re-Validation and Approval API (100% Complete — 4 / 4 Tasks Done ✅)
+- **Latest Completed Subtask:** P9-4 · No-op edit guard — reject revalidate request where `previous_value == new_value` at the API layer
+- **Total Completed Tasks:** 47 / 68 (69%)
+- **Test Suite Pass Count:** **589 / 589 passing (100% — 588 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **24.45 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (104 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (186 findings audited & mitigated; `SEC-184`–`SEC-186` closed in P9-4); **Phase 9 complete**: `POST /revalidate` (`P9-1`), `POST /approve` (`P9-2`), `GET /audit` (`P9-3`), and API+service No-Op Edit Guard (`P9-4`) reject empty payloads, empty `header_edits`/`line_edits`, unchanged header fields, unchanged line entries, replayed tax-override flags, `-0.00`/decimal-scale equivalents, Unicode NFD/NFC & NBSP homoglyphs, and explicit `null` values (`SEC-184`) with HTTP `422` before acquiring `REVALIDATING` or writing DB/audit rows, fast-fail empty service commands with zero DB I/O (`SEC-185`), and enforce FSM-first ordering preventing approved-invoice value-guessing oracles (`SEC-186`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -64,8 +64,9 @@
 | `tests/unit/test_invoice_revalidate.py` | P9-1 `POST /api/v1/invoices/{id}/revalidate` & `RevalidationService`: PRD Journey 5 EU reverse-charge, arithmetic fail -> `REQUIRES_APPROVAL`, >$10k/PO-variance escalation, credit-note guard, `ReasonCode` + `OTHER` comment, `ap_clerk` RBAC + anti-spoofing, FSM 409s, `composite_hash` collision rollback, mass-assignment/IDOR/tax-override/1MB/inactive-vendor/layer guards | 15 | 2.20s |
 | `tests/unit/test_invoice_approve.py` | P9-2 `POST /api/v1/invoices/{id}/approve` & `ApprovalService`: clerk ≤$10k one-click (`APPROVED_CLERK`), manager >$10k/PO-variance (`APPROVED_MANAGER`), live ECB FX stale-column guard, dynamic settings thresholds, unauth/admin/spoofing/double-approval/credit-note/sub-90%/placeholder/64KB/layer guards | 14 | 2.10s |
 | `tests/unit/test_invoice_audit_route.py` | P9-3 `GET /api/v1/invoices/{id}/audit`: chronological timeline, 3-role RBAC + empty-role 403, `action_type`/`user_id`/pagination filters, e2e revalidate->approve->audit chain, 405 immutability, dotted-field & comment PII masking, SQLi/XSS/flood/503/nosniff/layer guards | 11 | 1.42s |
+| `tests/unit/test_noop_edit_guard.py` | P9-4 No-op edit guard (`previous_value == new_value` -> 422): empty payload/containers, text/date/decimal-scale/mixed header & line no-ops, LLD §2.2 full-row diff compatibility, `-0.00`/Unicode NFD/NBSP homoglyph/explicit-null/replayed-flag/service-fast-fail/oracle-ordering guards | 11 | 1.99s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **578** | **12.85s** |
+| **Total** | **All Modules Offline** | **589** | **24.45s** |
 
 ---
 

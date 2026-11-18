@@ -24,6 +24,7 @@ Layering invariant (CLAUDE.md §4.2):
 - MUST NOT import FastAPI, Starlette, HTTP clients, or ``src/api/``.
 """
 
+import unicodedata
 from dataclasses import dataclass
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal
@@ -35,6 +36,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from src.core.audit import AuditActionType, AuditLogger, ReasonCode
 from src.core.logging import get_logger
 from src.database.repositories import (
+    AuditLogRepository,
     ExchangeRateRepository,
     InvoiceRepository,
     compute_composite_hash,
@@ -77,6 +79,10 @@ class RevalidationConflictError(RevalidationError, RuntimeError):
 
 class RevalidationValidationError(RevalidationError, ValueError):
     """Raised when re-validation inputs or domain prerequisites fail validation (HTTP 422)."""
+
+
+class RevalidationNoOpError(RevalidationValidationError):
+    """Raised when a re-validation edit has previous_value == new_value (P9-4, CLAUDE.md §16.1, HTTP 422)."""
 
 
 # ---------------------------------------------------------------------------
@@ -154,11 +160,20 @@ class RevalidationOutcome:
 
 
 def _q_money(val: Decimal) -> Decimal:
-    return val.quantize(_MONEY_QUANTUM, rounding=ROUND_HALF_UP)
+    quantized = val.quantize(_MONEY_QUANTUM, rounding=ROUND_HALF_UP)
+    return Decimal("0.00") if quantized == 0 else quantized
 
 
 def _q_unit(val: Decimal) -> Decimal:
-    return val.quantize(_UNIT_QUANTUM, rounding=ROUND_HALF_UP)
+    quantized = val.quantize(_UNIT_QUANTUM, rounding=ROUND_HALF_UP)
+    return Decimal("0.0000") if quantized == 0 else quantized
+
+
+def _norm_text(val: str | None) -> str | None:
+    """Canonical Unicode NFC + trimmed comparison form preventing NFD/whitespace no-op evasion (CWE-176)."""
+    if val is None:
+        return None
+    return unicodedata.normalize("NFC", val.strip())
 
 
 def _fmt_money(val: Decimal | None) -> str | None:
@@ -231,6 +246,30 @@ class RevalidationService:
                 "is_reverse_charge and is_exempt require reason_code TAX_CODE_OVERRIDE or OTHER"
             )
 
+        # SEC-185 (P9-4): Fast-fail empty service command before opening a DB session
+        header_has_values = cmd.header_edits is not None and any(
+            getattr(cmd.header_edits, f) is not None
+            for f in (
+                "invoice_number",
+                "invoice_date",
+                "due_date",
+                "po_number",
+                "subtotal",
+                "total_tax_amount",
+                "total_amount",
+            )
+        )
+        if (
+            not header_has_values
+            and not cmd.line_edits
+            and not cmd.is_reverse_charge
+            and not cmd.is_exempt
+        ):
+            raise RevalidationNoOpError(
+                "No-op edit rejected: at least one header edit, line edit, "
+                "or tax override flag must be provided"
+            )
+
         async with self._session_factory() as session:
             inv_repo = InvoiceRepository(session)
             fx_repo = ExchangeRateRepository(session)
@@ -271,84 +310,104 @@ class RevalidationService:
                         f"Line number {edit.line_number} does not exist on this invoice"
                     )
 
-            # 4. Compute candidate edited header fields & diffs
+            # 4. Compute candidate edited header fields & diffs (tracking explicit no-op fields: P9-4)
             header_edits = cmd.header_edits or HeaderEditsInput()
             field_diffs: list[tuple[str, str | None, str]] = []
             header_updates: dict[str, Any] = {}
+            noop_header_fields: list[str] = []
 
             new_invoice_number = (
-                header_edits.invoice_number
+                _norm_text(header_edits.invoice_number)
                 if header_edits.invoice_number is not None
                 else invoice.invoice_number
             )
-            if new_invoice_number != invoice.invoice_number:
-                header_updates["invoice_number"] = new_invoice_number
-                field_diffs.append(("invoice_number", invoice.invoice_number, new_invoice_number))
+            assert new_invoice_number is not None
+            if header_edits.invoice_number is not None:
+                if new_invoice_number == _norm_text(invoice.invoice_number):
+                    noop_header_fields.append("invoice_number")
+                else:
+                    header_updates["invoice_number"] = new_invoice_number
+                    field_diffs.append(
+                        ("invoice_number", invoice.invoice_number, new_invoice_number)
+                    )
 
             new_invoice_date = (
                 header_edits.invoice_date
                 if header_edits.invoice_date is not None
                 else invoice.invoice_date
             )
-            if new_invoice_date != invoice.invoice_date:
-                header_updates["invoice_date"] = new_invoice_date
-                field_diffs.append(
-                    (
-                        "invoice_date",
-                        _fmt_date(invoice.invoice_date),
-                        _fmt_date(new_invoice_date) or "",
+            if header_edits.invoice_date is not None:
+                if new_invoice_date == invoice.invoice_date:
+                    noop_header_fields.append("invoice_date")
+                else:
+                    header_updates["invoice_date"] = new_invoice_date
+                    field_diffs.append(
+                        (
+                            "invoice_date",
+                            _fmt_date(invoice.invoice_date),
+                            _fmt_date(new_invoice_date) or "",
+                        )
                     )
-                )
 
             new_due_date = (
                 header_edits.due_date if header_edits.due_date is not None else invoice.due_date
             )
-            if new_due_date != invoice.due_date:
-                header_updates["due_date"] = new_due_date
-                field_diffs.append(
-                    ("due_date", _fmt_date(invoice.due_date), _fmt_date(new_due_date) or "")
-                )
+            if header_edits.due_date is not None:
+                if new_due_date == invoice.due_date:
+                    noop_header_fields.append("due_date")
+                else:
+                    header_updates["due_date"] = new_due_date
+                    field_diffs.append(
+                        ("due_date", _fmt_date(invoice.due_date), _fmt_date(new_due_date) or "")
+                    )
 
             new_po_number = (
-                header_edits.po_number if header_edits.po_number is not None else invoice.po_number
+                _norm_text(header_edits.po_number)
+                if header_edits.po_number is not None
+                else invoice.po_number
             )
-            if new_po_number != invoice.po_number:
-                header_updates["po_number"] = new_po_number
-                field_diffs.append(("po_number", invoice.po_number, new_po_number or ""))
+            if header_edits.po_number is not None:
+                if new_po_number == _norm_text(invoice.po_number):
+                    noop_header_fields.append("po_number")
+                else:
+                    header_updates["po_number"] = new_po_number
+                    field_diffs.append(("po_number", invoice.po_number, new_po_number or ""))
 
+            old_subtotal = _q_money(invoice.subtotal) if invoice.subtotal is not None else None
             new_subtotal = (
                 _q_money(header_edits.subtotal)
                 if header_edits.subtotal is not None
-                else (_q_money(invoice.subtotal) if invoice.subtotal is not None else None)
+                else old_subtotal
             )
-            old_subtotal = _q_money(invoice.subtotal) if invoice.subtotal is not None else None
-            if new_subtotal is not None and new_subtotal != old_subtotal:
-                header_updates["subtotal"] = new_subtotal
-                field_diffs.append(
-                    ("subtotal", _fmt_money(old_subtotal), _fmt_money(new_subtotal) or "")
-                )
+            if header_edits.subtotal is not None:
+                if new_subtotal == old_subtotal:
+                    noop_header_fields.append("subtotal")
+                else:
+                    header_updates["subtotal"] = new_subtotal
+                    field_diffs.append(
+                        ("subtotal", _fmt_money(old_subtotal), _fmt_money(new_subtotal) or "")
+                    )
 
-            new_tax_amount = (
-                _q_money(header_edits.total_tax_amount)
-                if header_edits.total_tax_amount is not None
-                else (
-                    _q_money(invoice.total_tax_amount)
-                    if invoice.total_tax_amount is not None
-                    else None
-                )
-            )
             old_tax_amount = (
                 _q_money(invoice.total_tax_amount) if invoice.total_tax_amount is not None else None
             )
-            if new_tax_amount is not None and new_tax_amount != old_tax_amount:
-                header_updates["total_tax_amount"] = new_tax_amount
-                field_diffs.append(
-                    (
-                        "total_tax_amount",
-                        _fmt_money(old_tax_amount),
-                        _fmt_money(new_tax_amount) or "",
+            new_tax_amount = (
+                _q_money(header_edits.total_tax_amount)
+                if header_edits.total_tax_amount is not None
+                else old_tax_amount
+            )
+            if header_edits.total_tax_amount is not None:
+                if new_tax_amount == old_tax_amount:
+                    noop_header_fields.append("total_tax_amount")
+                else:
+                    header_updates["total_tax_amount"] = new_tax_amount
+                    field_diffs.append(
+                        (
+                            "total_tax_amount",
+                            _fmt_money(old_tax_amount),
+                            _fmt_money(new_tax_amount) or "",
+                        )
                     )
-                )
 
             old_total_amount = _q_money(invoice.total_amount)
             new_total_amount = (
@@ -356,31 +415,49 @@ class RevalidationService:
                 if header_edits.total_amount is not None
                 else old_total_amount
             )
-            if new_total_amount != old_total_amount:
-                header_updates["total_amount"] = new_total_amount
-                field_diffs.append(
-                    (
-                        "total_amount",
-                        _fmt_money(old_total_amount),
-                        _fmt_money(new_total_amount) or "",
+            if header_edits.total_amount is not None:
+                if new_total_amount == old_total_amount:
+                    noop_header_fields.append("total_amount")
+                else:
+                    header_updates["total_amount"] = new_total_amount
+                    field_diffs.append(
+                        (
+                            "total_amount",
+                            _fmt_money(old_total_amount),
+                            _fmt_money(new_total_amount) or "",
+                        )
                     )
-                )
 
             if new_subtotal is None or new_tax_amount is None:
                 raise RevalidationValidationError(
                     "Invoice subtotal and total_tax_amount are required for re-validation"
                 )
 
-            # Record explicit tax exemption / reverse-charge flag overrides in audit trail
-            if cmd.is_reverse_charge:
-                field_diffs.append(("is_reverse_charge", "false", "true"))
-            if cmd.is_exempt:
-                field_diffs.append(("is_exempt", "false", "true"))
+            # Record explicit tax exemption / reverse-charge flag overrides (blocking flag-only no-op replays)
+            if cmd.is_reverse_charge or cmd.is_exempt:
+                prior_logs = await AuditLogRepository(session).get_by_invoice_id(cmd.invoice_id)
+                prior_rc = any(
+                    log.action_type == AuditActionType.EDIT.value
+                    and log.field_name == "is_reverse_charge"
+                    and log.new_value == "true"
+                    for log in prior_logs
+                )
+                prior_ex = any(
+                    log.action_type == AuditActionType.EDIT.value
+                    and log.field_name == "is_exempt"
+                    and log.new_value == "true"
+                    for log in prior_logs
+                )
+                if cmd.is_reverse_charge and not prior_rc:
+                    field_diffs.append(("is_reverse_charge", "false", "true"))
+                if cmd.is_exempt and not prior_ex:
+                    field_diffs.append(("is_exempt", "false", "true"))
 
             # 5. Compute candidate edited line items & diffs (original line confidence_score preserved!)
             edits_by_line_num = {e.line_number: e for e in cmd.line_edits}
             candidate_lines_for_rules: list[dict[str, Any]] = []
             line_updates_to_persist: list[tuple[str, dict[str, Any]]] = []
+            noop_line_numbers: list[int] = []
 
             for line in invoice.lines:
                 edit = edits_by_line_num.get(line.line_number)
@@ -392,12 +469,15 @@ class RevalidationService:
 
                 if edit is not None:
                     changes: dict[str, Any] = {}
-                    if edit.description is not None and edit.description != cand_desc:
-                        changes["description"] = edit.description
-                        field_diffs.append(
-                            (f"line_{line.line_number}.description", cand_desc, edit.description)
-                        )
-                        cand_desc = edit.description
+                    if edit.description is not None:
+                        norm_new_desc = _norm_text(edit.description)
+                        assert norm_new_desc is not None
+                        if norm_new_desc != _norm_text(cand_desc):
+                            changes["description"] = norm_new_desc
+                            field_diffs.append(
+                                (f"line_{line.line_number}.description", cand_desc, norm_new_desc)
+                            )
+                            cand_desc = norm_new_desc
 
                     if edit.quantity is not None:
                         q_new = _q_unit(edit.quantity)
@@ -453,6 +533,8 @@ class RevalidationService:
 
                     if changes:
                         line_updates_to_persist.append((line.line_id, changes))
+                    else:
+                        noop_line_numbers.append(line.line_number)
 
                 candidate_lines_for_rules.append(
                     {
@@ -462,6 +544,42 @@ class RevalidationService:
                         "line_total": cand_line_total,
                         "line_tax_rate": cand_tax_rate,
                     }
+                )
+
+            # 5b. P9-4 No-Op Edit Guard (CLAUDE.md §16.1): reject unchanged edits BEFORE acquiring CAS lock
+            if noop_header_fields:
+                logger.warning(
+                    "Rejected no-op header edit during re-validation",
+                    extra={
+                        "invoice_id": cmd.invoice_id,
+                        "actor_id": cmd.actor_id,
+                        "unchanged_header_fields": sorted(noop_header_fields),
+                    },
+                )
+                raise RevalidationNoOpError(
+                    f"No-op edit rejected: header field(s) {sorted(noop_header_fields)} "
+                    "unchanged (previous_value == new_value)"
+                )
+            if noop_line_numbers:
+                logger.warning(
+                    "Rejected no-op line edit during re-validation",
+                    extra={
+                        "invoice_id": cmd.invoice_id,
+                        "actor_id": cmd.actor_id,
+                        "unchanged_line_numbers": sorted(noop_line_numbers),
+                    },
+                )
+                raise RevalidationNoOpError(
+                    f"No-op edit rejected: line(s) {sorted(noop_line_numbers)} "
+                    "have no changed fields (previous_value == new_value)"
+                )
+            if not field_diffs:
+                logger.warning(
+                    "Rejected empty/no-op re-validation request",
+                    extra={"invoice_id": cmd.invoice_id, "actor_id": cmd.actor_id},
+                )
+                raise RevalidationNoOpError(
+                    "No-op edit rejected: no invoice fields changed (previous_value == new_value)"
                 )
 
             # SEC-174 (CWE-840): Reverse-charge/exempt invoices cannot leave non-zero line tax rates
@@ -709,6 +827,7 @@ __all__ = [
     "RevalidationConflictError",
     "RevalidationError",
     "RevalidationInput",
+    "RevalidationNoOpError",
     "RevalidationNotFoundError",
     "RevalidationOutcome",
     "RevalidationService",

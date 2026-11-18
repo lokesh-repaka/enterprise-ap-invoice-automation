@@ -3,6 +3,7 @@ Pydantic schemas for Invoice Upload, Read Detail, Exception Queue, Re-Validation
 """
 
 import re
+import unicodedata
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 from typing import Any
@@ -13,6 +14,7 @@ from src.core.audit import MAX_COMMENT_LENGTH, ReasonCode
 
 _CONTROL_CHAR_RE = re.compile(r"[\x00-\x1f\x7f]")
 _BIDI_OR_ZERO_WIDTH_RE = re.compile(r"[\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]")
+_EXOTIC_SPACE_RE = re.compile(r"[\u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]")
 _STRICT_ASCII_DECIMAL_RE = re.compile(
     r"^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,3})?$"
 )
@@ -102,7 +104,9 @@ def _validate_clean_optional_text(
         raise ValueError(f"{field_name} contains disallowed control characters")
     if _BIDI_OR_ZERO_WIDTH_RE.search(raw):
         raise ValueError(f"{field_name} contains disallowed invisible bidi/zero-width characters")
-    cleaned = raw.strip()
+    if _EXOTIC_SPACE_RE.search(raw):
+        raise ValueError(f"{field_name} contains disallowed non-ASCII whitespace characters")
+    cleaned = unicodedata.normalize("NFC", raw.strip())
     if not cleaned:
         if allow_empty:
             return None
@@ -299,6 +303,29 @@ class InvoiceHeaderEdits(BaseModel):
             max_fraction_digits=2,
         )
 
+    @model_validator(mode="after")
+    def _require_at_least_one_header_field(self) -> "InvoiceHeaderEdits":
+        """Reject empty header_edits={} and explicit null fields as no-op edits at the API layer (P9-4, SEC-184)."""
+        for field in self.model_fields_set:
+            if getattr(self, field) is None:
+                raise ValueError(f"Explicit null value is not permitted for header_edits.{field}")
+        if all(
+            getattr(self, field) is None
+            for field in (
+                "invoice_number",
+                "invoice_date",
+                "due_date",
+                "po_number",
+                "subtotal",
+                "total_tax_amount",
+                "total_amount",
+            )
+        ):
+            raise ValueError(
+                "No-op edit rejected: header_edits must specify at least one editable field"
+            )
+        return self
+
 
 class InvoiceLineEdit(BaseModel):
     """
@@ -363,6 +390,22 @@ class InvoiceLineEdit(BaseModel):
         if parsed is not None and parsed < Decimal("0"):
             raise ValueError("line_tax_rate must be non-negative within [0.0000, 1.0000]")
         return parsed
+
+    @model_validator(mode="after")
+    def _require_at_least_one_line_field(self) -> "InvoiceLineEdit":
+        """Reject fieldless line_edits entries and explicit null fields at the API layer (P9-4, SEC-184)."""
+        for field in self.model_fields_set:
+            if field != "line_number" and getattr(self, field) is None:
+                raise ValueError(f"Explicit null value is not permitted for line_edits.{field}")
+        if all(
+            getattr(self, field) is None
+            for field in ("description", "quantity", "unit_price", "line_total", "line_tax_rate")
+        ):
+            raise ValueError(
+                f"No-op edit rejected: line_edits entry for line {self.line_number} "
+                "must specify at least one editable field"
+            )
+        return self
 
 
 class InvoiceRevalidateRequest(BaseModel):
@@ -432,6 +475,16 @@ class InvoiceRevalidateRequest(BaseModel):
         ):
             raise ValueError(
                 "is_reverse_charge and is_exempt require reason_code TAX_CODE_OVERRIDE or OTHER"
+            )
+        if (
+            self.header_edits is None
+            and not self.line_edits
+            and not self.is_reverse_charge
+            and not self.is_exempt
+        ):
+            raise ValueError(
+                "No-op edit rejected: at least one header edit, line edit, "
+                "or tax override flag must be provided"
             )
         seen_lines: set[int] = set()
         for edit in self.line_edits:
