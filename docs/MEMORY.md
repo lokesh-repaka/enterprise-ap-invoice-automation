@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 3 — Identity and Security (100% Complete ✅ — Ready for Phase 4 & Milestone M1)
-- **Latest Completed Subtask:** P3-5 · Azure Key Vault stub (`src/core/secrets.py`) — zero static secrets in code
-- **Total Completed Tasks:** 20 / 68 (29%)
-- **Test Suite Pass Count:** **110 / 110 passing (100%)**
-- **Test Execution Latency:** **2.64 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (49 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (51 findings audited & mitigated); Phase 3 Identity & Security layer 100% complete (Entra ID RS256 JWT + RBAC, ephemeral RSA-2048 demo tokens, Redis ZSET sliding-window rate limiter, isolated-tx `AuditLogger` + `AuditMiddleware`, and keyless Azure Key Vault provider + offline stub with automated zero-static-secret CI scan)
+- **Current Active Phase:** Phase 4 — Azure Storage Layer (1 / 4 Tasks Complete — P4-1 Done)
+- **Latest Completed Subtask:** P4-1 · Azure Blob WORM client (`src/storage/blob_client.py`) with Managed Identity auth
+- **Total Completed Tasks:** 21 / 68 (31%)
+- **Test Suite Pass Count:** **120 / 120 passing (100%)**
+- **Test Execution Latency:** **3.01 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (51 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (58 findings audited & mitigated); keyless Managed Identity WORM Blob client active (`overwrite=False`, zero delete APIs, HTTPS host pin, bounded 25 MB stream read, CRLF/MIME hardening)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -38,7 +38,8 @@
 | `tests/unit/test_rate_limit.py` | Redis ZSET sliding-window rate limiter, anti-XFF spoofing, IPv6 canonicalization, fail-closed 503 | 12 | 0.10s |
 | `tests/unit/test_audit.py` | Isolated-tx `AuditLogger`, `AuditMiddleware`, `X-Request-ID` sanitization, canonical middleware order | 10 | 0.43s |
 | `tests/unit/test_secrets.py` | Keyless Azure Key Vault client, offline stub, `SecretValue` redaction, zero-static-secret CI scan | 8 | 0.02s |
-| **Total** | **All Modules Offline** | **110** | **2.64s** |
+| `tests/unit/test_blob_client.py` | Keyless Azure Blob WORM client, `overwrite=False`, bounded 25 MB download, SSRF/path/MIME guards | 10 | 0.15s |
+| **Total** | **All Modules Offline** | **120** | **3.01s** |
 
 ---
 
