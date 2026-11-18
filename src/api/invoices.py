@@ -466,10 +466,11 @@ async def upload_invoice(
             and existing_invoice.vendor.vendor_id
             else resolved_vendor_id
         )
-        # Guard against reusing an explicit Idempotency-Key with a conflicting vendor_id (CWE-345)
+        # Guard against reusing an explicit or content-derived idempotency key with a
+        # conflicting explicit vendor_id (CWE-345, SEC-219)
         if (
-            explicit_idem_key is not None
-            and vendor_id is not None
+            vendor_id is not None
+            and replay_vendor_id != DEFAULT_UNKNOWN_VENDOR_ID
             and replay_vendor_id != resolved_vendor_id
         ):
             raise HTTPException(
