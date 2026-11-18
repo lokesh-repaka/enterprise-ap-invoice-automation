@@ -36,7 +36,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | P2-1 · SQLAlchemy 2 async models — `Vendors`, `Invoices`, `InvoiceLines`, `AuditLogs`, `ExchangeRates` | `feature/sqlalchemy-models` | Completed ✅ |
 | P2-2 · Database schema DDL (`schema.sql`) and Alembic migration baseline | `feature/database-schema-migrations` | Completed ✅ |
 | P2-3 · Repository layer — async CRUD for all five tables | `feature/repository-layer` | Completed ✅ |
-| P2-4 · Seed scripts — Vendor Master (15 vendors, 4 jurisdictions) and exchange rates | `feature/seed-vendor-master` | Pending ❌ |
+| P2-4 · Seed scripts — Vendor Master (15 vendors, 4 jurisdictions) and exchange rates | `feature/seed-vendor-master` | Completed ✅ |
 | P2-5 · `composite_hash` unique index and duplicate-safe upsert logic | `feature/database-composite-hash` | Pending ❌ |
 
 ---
@@ -259,7 +259,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | Phase | Name | Tasks | Completed |
 |-------|------|-------|-----------|
 | 1 | Runtime Skeleton | 6 | 6 ✅ |
-| 2 | Persistence and Vendor Master | 5 | 3 ✅ |
+| 2 | Persistence and Vendor Master | 5 | 4 ✅ |
 | 3 | Identity and Security | 5 | 0 ❌ |
 | 4 | Azure Storage Layer | 4 | 0 ❌ |
 | 5 | Upload API and Job Queue | 5 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **13 (19%)** |
+| **Total** | | **68** | **14 (21%)** |
 
