@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 3 — Identity and Security (1 / 5 Tasks Complete — P3-1 Done)
-- **Latest Completed Subtask:** P3-1 · Entra ID JWT validation and `require_role()` guard
-- **Total Completed Tasks:** 16 / 68 (24%)
-- **Test Suite Pass Count:** **70 / 70 passing (100%)**
-- **Test Execution Latency:** **2.10 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (39 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (27 findings audited & mitigated); RS256 Entra ID JWT validation, JWKS caching/cooldown, strict allow-list `require_role()` RBAC, and CORS origin allowlist active
+- **Current Active Phase:** Phase 3 — Identity and Security (2 / 5 Tasks Complete — P3-1 & P3-2 Done)
+- **Latest Completed Subtask:** P3-2 · Demo auth tokens for `sarah.clerk`, `michael.manager`, `dave.admin`
+- **Total Completed Tasks:** 17 / 68 (25%)
+- **Test Suite Pass Count:** **80 / 80 passing (100%)**
+- **Test Execution Latency:** **2.11 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (42 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (33 findings audited & mitigated); RS256 Entra ID JWT validation, ephemeral RSA-2048 demo tokens (triple-gated dev-only), strict allow-list `require_role()` RBAC, and CORS origin allowlist active
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -34,7 +34,8 @@
 | `tests/unit/test_seed.py` | Idempotent Vendor Master (15 vendors) & ECB FX seed scripts | 7 | 0.08s |
 | `tests/unit/test_composite_hash.py` | Partial unique index, SHA-256 hash parity, race-safe duplicate upsert | 6 | 0.09s |
 | `tests/unit/test_security.py` | Entra ID RS256 JWT validation, JWKS cache/rotation, `require_role()` RBAC, CORS hardening | 15 | 1.65s |
-| **Total** | **All Modules Offline** | **70** | **2.10s** |
+| `tests/unit/test_demo_auth.py` | Ephemeral RS256 demo tokens (`sarah.clerk`, `michael.manager`, `dave.admin`), triple prod gate, RBAC e2e | 10 | 0.27s |
+| **Total** | **All Modules Offline** | **80** | **2.11s** |
 
 ---
 

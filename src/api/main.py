@@ -12,6 +12,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from src.api.auth import router as auth_router
 from src.api.middleware import RequestIDMiddleware
 from src.core.config import get_settings
 from src.core.logging import get_logger, setup_logging
@@ -51,6 +52,9 @@ app.add_middleware(
 
 # Request ID tracing middleware (must be outermost custom middleware)
 app.add_middleware(RequestIDMiddleware)
+
+# Register API routers
+app.include_router(auth_router)
 
 
 # -------------------------------------------------------------

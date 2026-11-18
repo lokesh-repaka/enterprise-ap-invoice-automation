@@ -91,6 +91,13 @@ class Settings(BaseSettings):
         default=True,
         description="If True, mocks Azure OpenAI calls with synthetic fixture data.",
     )
+    ENABLE_DEMO_AUTH: bool = Field(
+        default=False,
+        description=(
+            "If True AND APP_ENV is in ('dev', 'local', 'test'), enables ephemeral RSA demo "
+            "tokens for sarah.clerk, michael.manager, and dave.admin. Strictly ignored in staging/prod."
+        ),
+    )
     SAMPLE_DATA_DIR: str = "./sample_data"
 
     @property
