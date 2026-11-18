@@ -34,6 +34,7 @@ from src.ui.api_client import (
     APInvoiceAPIClient,
     APIRateLimitError,
 )
+from src.ui.theme_rbac import classify_confidence_cue
 
 logger = get_logger("ap.ui.ingestion_dashboard")
 
@@ -345,9 +346,13 @@ def build_status_table_rows(items: Sequence[BatchInvoiceItem]) -> list[dict[str,
         if item.error_message:
             notes_parts.append(sanitize_display_text(item.error_message, max_length=180))
 
-        confidence_str = (
-            f"{item.confidence_macro_avg:.1f}%" if item.confidence_macro_avg is not None else "—"
-        )
+        if item.confidence_macro_avg is not None:
+            cue = classify_confidence_cue(item.confidence_macro_avg)
+            confidence_str = f"{cue.score:.1f}%"
+            confidence_color = cue.hex_color
+        else:
+            confidence_str = "—"
+            confidence_color = "—"
         safe_invoice_id = (
             item.invoice_id if item.invoice_id and _INVOICE_ID_RE.match(item.invoice_id) else None
         )
@@ -361,6 +366,7 @@ def build_status_table_rows(items: Sequence[BatchInvoiceItem]) -> list[dict[str,
                 "Detection Mode": sanitize_display_text(item.detection_mode, max_length=40),
                 "Real-Time Status": sanitize_display_text(item.status, max_length=40),
                 "Confidence": confidence_str,
+                "Confidence Color": confidence_color,
                 "Vendor": sanitize_display_text(item.vendor_id, max_length=64),
                 "Notes": " · ".join(notes_parts) if notes_parts else "—",
                 "Route": route,

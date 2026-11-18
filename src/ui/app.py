@@ -21,6 +21,7 @@ from src.ui.exception_queue import render_exception_queue
 from src.ui.ingestion_dashboard import render_ingestion_dashboard, sanitize_display_text
 from src.ui.review_workbench import render_review_workbench
 from src.ui.revision_screen import render_revision_comparison
+from src.ui.theme_rbac import get_role_badge
 
 DEFAULT_DEMO_PERSONAS: tuple[str, ...] = (
     "sarah.clerk",
@@ -165,14 +166,15 @@ def render_app(
         active_roles: list[str] | None = st.session_state.get("user_roles")
         if st.session_state.get("user_email"):
             user_email = sanitize_display_text(str(st.session_state["user_email"]), max_length=100)
-            roles_str = ", ".join(active_roles or [])
-            st.sidebar.caption(f"Signed in: {user_email} [{roles_str}]")
+            st.sidebar.caption(f"Signed in: {user_email} · {get_role_badge(active_roles)}")
             if st.sidebar.button("Sign Out"):
                 client.set_access_token(None)
                 for key in ("access_token", "user_email", "user_name", "user_roles"):
                     st.session_state.pop(key, None)
                 _clear_session_batch_state(st.session_state)
                 active_roles = None
+        else:
+            st.sidebar.caption(f"Session: {get_role_badge(None)}")
 
         st.sidebar.divider()
         selected_page = st.sidebar.radio("Navigation", options=list(NAVIGATION_PAGES), index=0)
