@@ -3,6 +3,7 @@ Service orchestration layer: coordinates repositories, extraction engine, and va
 MUST NOT make direct HTTP calls to external third-party systems (CLAUDE.md §4.2).
 """
 
+from src.services.pipeline import InvoiceProcessingPipeline
 from src.services.worker import (
     ALLOWED_PIPELINE_TARGET_STATUSES,
     ALLOWED_WORKER_ENTRY_STATUSES,
@@ -21,6 +22,7 @@ __all__ = [
     "DefaultSkeletonPipeline",
     "InvoiceBackgroundWorker",
     "InvoicePipelineProtocol",
+    "InvoiceProcessingPipeline",
     "PipelineContext",
     "PipelineResult",
     "PipelineStatusViolationError",

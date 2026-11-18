@@ -537,6 +537,37 @@ class InvoiceRepository:
         await self._session.refresh(invoice)
         return invoice
 
+    async def bind_extracted_vendor(self, invoice_id: str, vendor_tax_id: str) -> bool:
+        """
+        Bind an auto-detected upload's ``vendor_tax_id`` from ``UNKNOWN`` to a verified active Vendor.
+
+        Strictly refuses reassignment once an invoice is already bound to a real vendor
+        (anti-IDOR: SEC-212, CWE-639) and refuses inactive/unregistered vendors.
+        """
+        clean_tax_id = vendor_tax_id.strip() if isinstance(vendor_tax_id, str) else ""
+        if not clean_tax_id or clean_tax_id.upper() == "UNKNOWN":
+            return False
+
+        vendor = await VendorRepository(self._session).get_by_tax_id(clean_tax_id)
+        if vendor is None or not vendor.is_active:
+            return False
+
+        stmt = (
+            update(Invoice)
+            .where(
+                Invoice.invoice_id == invoice_id,
+                Invoice.vendor_tax_id == "UNKNOWN",
+            )
+            .values(
+                vendor_tax_id=vendor.vendor_tax_id,
+                vendor_name=vendor.vendor_name,
+                updated_at=datetime.now(UTC),
+            )
+        )
+        result = await self._session.execute(stmt)
+        await self._session.commit()
+        return bool(result.rowcount and result.rowcount > 0)
+
     async def delete(self, invoice_id: str) -> bool:
         """Delete an invoice record by ID."""
         invoice = await self.get_by_id(invoice_id, include_relations=False)
