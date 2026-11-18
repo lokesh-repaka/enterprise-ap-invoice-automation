@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 13 — Automated Evaluation Suite (In Progress — 1 / 4 Tasks Done)
-- **Latest Completed Subtask:** P13-1 · Evaluator script (`src/evaluation/evaluator.py`) — batch inference, field-by-field comparison against ground-truth JSON
-- **Total Completed Tasks:** 60 / 68 (88%)
-- **Test Suite Pass Count:** **687 / 687 passing (100% — 659 unit + 28 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **~30 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (134 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (222 findings audited & mitigated; `SEC-220`–`SEC-222` closed in P13-1); implemented offline `src/evaluation/evaluator.py::InvoiceBatchEvaluator` running all 300 pilot invoices in ~1.2s with 0 crashes, enforcing symlink/`O_NOFOLLOW`/path-containment/size bounds (`SEC-220`), PII-redacted logs & `__repr__` (`SEC-221`), per-invoice crash containment + zero self-approval (`SEC-222`), and AST-verified zero production imports of `src.evaluation`
+- **Current Active Phase:** Phase 13 — Automated Evaluation Suite (In Progress — 2 / 4 Tasks Done)
+- **Latest Completed Subtask:** P13-2 · Metric reporting — Header Accuracy ≥95%, Critical Field Floor ≥92%, Line-Item Accuracy ≥90%, STP ≥65%
+- **Total Completed Tasks:** 61 / 68 (90%)
+- **Test Suite Pass Count:** **694 / 694 passing (100% — 665 unit + 29 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **~31 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (137 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (225 findings audited & mitigated; `SEC-223`–`SEC-225` closed in P13-2); implemented `src/evaluation/metrics.py` computing Macro-Average Header Accuracy (`≥95%`), Critical Field Hard Floor (`≥92%` each), Line-Item Accuracy (`≥90%`), Pilot STP (`≥65%`), Batch Stability (`0` crashes), and slot-level Precision/Recall/F1 with fail-closed empty-batch/crash/non-finite/bool threshold guards (`SEC-223`), PII/host-path/ANSI/BiDi-sanitized JSON & ASCII scorecards (`SEC-224`), and authoritative per-invoice batch integrity verification against forged aggregates (`SEC-225`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -75,6 +75,7 @@
 | `tests/unit/test_ui_confidence_colours_rbac.py` | P11-7 Confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`) & role-aware UI (`src/ui/theme_rbac.py`): exact boundaries & fail-closed NaN/bool parsing, hidden Approve for `ap_clerk` `>$10k`/PO-variance/credit-note/stale-USD/missing-FX, dynamic `get_settings()` thresholds, headless Workbench hiding proof, full-directory `src/ui/*.py` AST layering & zero-HTML audit | 7 | 0.15s |
 | `tests/unit/test_validation_unit_suite.py` | P12-1 Consolidated validation & reason-code unit suite: line arithmetic (FR-05), invoice total (FR-06), multi-country tax + reverse-charge/exempt (FR-07), date locale disambiguation (FR-08), duplicate SHA-256 hash/revision/credit-note (FR-09..11), tri-tier confidence router (FR-04), `ReasonCode` enum/UI parity/strict ASCII & dotted-field `AuditLogger` guards (FR-12, `SEC-209`–`SEC-211`), and `src/validation/` AST layering audit | 10 | 0.18s |
 | `tests/unit/test_evaluator.py` | P13-1 Offline batch evaluator & field-by-field comparator (`src/evaluation/evaluator.py`): 10-header + 5-line comparison, missing/hallucinated line penalties, bounded 12-invoice batch inference, symlink/`O_NOFOLLOW`/size-cap guards (`SEC-220`), crash isolation & PII-free logs (`SEC-221`–`SEC-222`), and AST production-layer isolation audit | 6 | 0.18s |
+| `tests/unit/test_evaluation_metrics.py` | P13-2 Evaluation metric reporting & threshold gates (`src/evaluation/metrics.py`): ≥95% header macro, ≥92% critical field floor, ≥90% line-item, ≥65% STP, exact boundaries & single-breach failures, slot-level P/R/F1, fail-closed empty-batch/crash/bool guards (`SEC-223`), PII/host-path/ANSI/BiDi sanitization (`SEC-224`), and forged-aggregate & duplicate-slot integrity checks (`SEC-225`) | 6 | 0.05s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
@@ -87,7 +88,8 @@
 | `tests/integration/test_rbac_403_and_auth_integration.py` | P12-4 End-to-end offline RBAC & auth integration tests: unauthenticated/forged/expired 401 across all 8 protected routes, `ap_clerk` >\$10k USD/EUR-FX/PO-variance 403 vs `finance_manager` 200, full 3-role RBAC 403 matrix (`/health/ready` `no-store`: `SEC-217`), actor impersonation & zero-role 403, and headerless chunked `/revalidate` 413 (`SEC-218`) | 4 | 1.36s |
 | `tests/integration/test_idempotency_deduplication_integration.py` | P12-5 End-to-end offline idempotency integration tests: identical re-submission across `UPLOADED` → `VALIDATED` → `APPROVED_CLERK` with `mock_aoai.call_count == 1`, explicit & content-derived `409` payload/vendor conflict (`SEC-219`) + `422` header injection, 5-way concurrent race (1x 202, 4x 200), cross-actor isolation, and transient `503` lock release | 5 | 1.67s |
 | `tests/integration/test_evaluator_batch_integration.py` | P13-1 Full 300-invoice pilot corpus batch evaluation (`InvoiceBatchEvaluator` offline): 300/300 completed, 0 crashes, 3,000 header & all line-item comparisons, 0 self-approvals, STP ≥ 65% | 1 | 1.06s |
-| **Total** | **All Modules Offline** | **687** | **~30s** |
+| `tests/integration/test_evaluation_metrics_integration.py` | P13-2 Full 300-invoice pilot metric reporting (`InvoiceBatchEvaluator` → `compute_evaluation_metrics()`): verifies all contractual pilot gates (≥95% header, ≥92% critical floor, ≥90% line, ≥65% STP, 0 crashes), P/R/F1 bounds, and PII/path-free JSON & ASCII scorecards | 1 | 0.56s |
+| **Total** | **All Modules Offline** | **694** | **~31s** |
 
 ---
 

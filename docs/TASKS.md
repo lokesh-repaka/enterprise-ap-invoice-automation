@@ -197,7 +197,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | Task | Branch | Status |
 |------|--------|--------|
 | P13-1 · Evaluator script (`src/evaluation/evaluator.py`) — batch inference, field-by-field comparison against ground-truth JSON | `feature/eval-evaluator-script` | Completed ✅ |
-| P13-2 · Metric reporting — Header Accuracy ≥95%, Critical Field Floor ≥92%, Line-Item Accuracy ≥90%, STP ≥65% | `feature/eval-metric-reporting` | Pending ❌ |
+| P13-2 · Metric reporting — Header Accuracy ≥95%, Critical Field Floor ≥92%, Line-Item Accuracy ≥90%, STP ≥65% | `feature/eval-metric-reporting` | Completed ✅ |
 | P13-3 · Evaluation pytest suite — threshold assertions that fail the CI build if missed | `feature/eval-pytest-thresholds` | Pending ❌ |
 | P13-4 · `python -m src.evaluation.evaluator --report` CLI — printable evaluation summary | `feature/eval-cli-report` | Pending ❌ |
 
@@ -270,7 +270,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
 | 11 | Streamlit UI | 7 | 7 ✅ |
 | 12 | Integration Tests | 5 | 5 ✅ |
-| 13 | Automated Evaluation Suite | 4 | 1 🟡 |
+| 13 | Automated Evaluation Suite | 4 | 2 🟡 |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **60 (88%)** |
+| **Total** | | **68** | **61 (90%)** |
 
