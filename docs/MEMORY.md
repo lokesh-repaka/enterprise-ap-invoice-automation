@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 12 — Integration Tests (100% Complete — 5 / 5 Tasks Done ✅)
-- **Latest Completed Subtask:** P12-5 · Integration test — idempotency key deduplication (re-submitted identical file)
-- **Total Completed Tasks:** 59 / 68 (87%)
-- **Test Suite Pass Count:** **680 / 680 passing (100% — 653 unit + 27 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **~29 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (131 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (219 findings audited & mitigated; `SEC-219` closed in P12-5); **Phase 12 complete**: end-to-end offline integration proof of idempotency key deduplication across `UPLOADED → VALIDATED → APPROVED_CLERK` with `mock_aoai.call_count == 1`, atomic 5-way concurrent upload race (1 winner `202`, 4 replays `200`), cross-actor isolation, transient storage `503` lock rollback, and HTTP `409` conflict enforcement for conflicting explicit `vendor_id` on both explicit and content-derived idempotency keys (`SEC-219`)
+- **Current Active Phase:** Phase 13 — Automated Evaluation Suite (In Progress — 1 / 4 Tasks Done)
+- **Latest Completed Subtask:** P13-1 · Evaluator script (`src/evaluation/evaluator.py`) — batch inference, field-by-field comparison against ground-truth JSON
+- **Total Completed Tasks:** 60 / 68 (88%)
+- **Test Suite Pass Count:** **687 / 687 passing (100% — 659 unit + 28 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **~30 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (134 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (222 findings audited & mitigated; `SEC-220`–`SEC-222` closed in P13-1); implemented offline `src/evaluation/evaluator.py::InvoiceBatchEvaluator` running all 300 pilot invoices in ~1.2s with 0 crashes, enforcing symlink/`O_NOFOLLOW`/path-containment/size bounds (`SEC-220`), PII-redacted logs & `__repr__` (`SEC-221`), per-invoice crash containment + zero self-approval (`SEC-222`), and AST-verified zero production imports of `src.evaluation`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -74,6 +74,7 @@
 | `tests/unit/test_ui_audit_viewer.py` | P11-6 Audit Trail Viewer (`/audit/{id}`): 3-role RBAC & 9-action filter allowlist, oldest-to-newest chronological timeline & KPI summary, flat/dotted PII & inline SSN/IBAN/Bearer redaction, formula-safe CSV/JSON exports, AST read-only immutability (zero `data_editor`) & layering check, headless renderer smoke | 6 | 0.12s |
 | `tests/unit/test_ui_confidence_colours_rbac.py` | P11-7 Confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`) & role-aware UI (`src/ui/theme_rbac.py`): exact boundaries & fail-closed NaN/bool parsing, hidden Approve for `ap_clerk` `>$10k`/PO-variance/credit-note/stale-USD/missing-FX, dynamic `get_settings()` thresholds, headless Workbench hiding proof, full-directory `src/ui/*.py` AST layering & zero-HTML audit | 7 | 0.15s |
 | `tests/unit/test_validation_unit_suite.py` | P12-1 Consolidated validation & reason-code unit suite: line arithmetic (FR-05), invoice total (FR-06), multi-country tax + reverse-charge/exempt (FR-07), date locale disambiguation (FR-08), duplicate SHA-256 hash/revision/credit-note (FR-09..11), tri-tier confidence router (FR-04), `ReasonCode` enum/UI parity/strict ASCII & dotted-field `AuditLogger` guards (FR-12, `SEC-209`–`SEC-211`), and `src/validation/` AST layering audit | 10 | 0.18s |
+| `tests/unit/test_evaluator.py` | P13-1 Offline batch evaluator & field-by-field comparator (`src/evaluation/evaluator.py`): 10-header + 5-line comparison, missing/hallucinated line penalties, bounded 12-invoice batch inference, symlink/`O_NOFOLLOW`/size-cap guards (`SEC-220`), crash isolation & PII-free logs (`SEC-221`–`SEC-222`), and AST production-layer isolation audit | 6 | 0.18s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
@@ -85,7 +86,8 @@
 | `tests/integration/test_revalidate_and_audit_immutability_integration.py` | P12-3 End-to-end offline integration tests: upload tax-mismatch → Re-Validate → Approve → 7-event audit chain, failed reval loop/EU reverse-charge/>\$10k escalation, no-op/invalid reason-code zero-pollution, 4-layer append-only `AuditLog` enforcement (API 405, Repo/Logger, ORM listeners, SQLite triggers: `SEC-215`–`SEC-216`), and isolated-transaction rollback durability | 5 | 1.45s |
 | `tests/integration/test_rbac_403_and_auth_integration.py` | P12-4 End-to-end offline RBAC & auth integration tests: unauthenticated/forged/expired 401 across all 8 protected routes, `ap_clerk` >\$10k USD/EUR-FX/PO-variance 403 vs `finance_manager` 200, full 3-role RBAC 403 matrix (`/health/ready` `no-store`: `SEC-217`), actor impersonation & zero-role 403, and headerless chunked `/revalidate` 413 (`SEC-218`) | 4 | 1.36s |
 | `tests/integration/test_idempotency_deduplication_integration.py` | P12-5 End-to-end offline idempotency integration tests: identical re-submission across `UPLOADED` → `VALIDATED` → `APPROVED_CLERK` with `mock_aoai.call_count == 1`, explicit & content-derived `409` payload/vendor conflict (`SEC-219`) + `422` header injection, 5-way concurrent race (1x 202, 4x 200), cross-actor isolation, and transient `503` lock release | 5 | 1.67s |
-| **Total** | **All Modules Offline** | **680** | **~29s** |
+| `tests/integration/test_evaluator_batch_integration.py` | P13-1 Full 300-invoice pilot corpus batch evaluation (`InvoiceBatchEvaluator` offline): 300/300 completed, 0 crashes, 3,000 header & all line-item comparisons, 0 self-approvals, STP ≥ 65% | 1 | 1.06s |
+| **Total** | **All Modules Offline** | **687** | **~30s** |
 
 ---
 
