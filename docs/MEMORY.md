@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 9 — Re-Validation and Approval API (100% Complete — 4 / 4 Tasks Done ✅)
-- **Latest Completed Subtask:** P9-4 · No-op edit guard — reject revalidate request where `previous_value == new_value` at the API layer
-- **Total Completed Tasks:** 47 / 68 (69%)
-- **Test Suite Pass Count:** **589 / 589 passing (100% — 588 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **24.45 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (104 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (186 findings audited & mitigated; `SEC-184`–`SEC-186` closed in P9-4); **Phase 9 complete**: `POST /revalidate` (`P9-1`), `POST /approve` (`P9-2`), `GET /audit` (`P9-3`), and API+service No-Op Edit Guard (`P9-4`) reject empty payloads, empty `header_edits`/`line_edits`, unchanged header fields, unchanged line entries, replayed tax-override flags, `-0.00`/decimal-scale equivalents, Unicode NFD/NFC & NBSP homoglyphs, and explicit `null` values (`SEC-184`) with HTTP `422` before acquiring `REVALIDATING` or writing DB/audit rows, fast-fail empty service commands with zero DB I/O (`SEC-185`), and enforce FSM-first ordering preventing approved-invoice value-guessing oracles (`SEC-186`)
+- **Current Active Phase:** Phase 11 — Streamlit UI (14% Complete — 1 / 7 Tasks Done ⏳)
+- **Latest Completed Subtask:** P11-1 · Typed HTTP API client (`src/ui/api_client.py`) wrapping `httpx` — all backend routes
+- **Total Completed Tasks:** 48 / 68 (71%)
+- **Test Suite Pass Count:** **596 / 596 passing (100% — 595 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **23.55 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (106 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (190 findings audited & mitigated; `SEC-187`–`SEC-190` closed in P11-1); `APInvoiceAPIClient` enforces strict `validate_api_base_url()` (http/https only, no embedded credentials, HTTPS required outside local/internal Docker hosts, no query/fragment/control chars) and `follow_redirects=False` (`SEC-187`), strict `invoice_id` allowlist regex (`^[A-Za-z0-9_-]{1,64}$`) and CRLF header/filename rejection (`SEC-188`), Bearer token redaction in `__repr__`/logs and 10 MB `MAX_RESPONSE_BYTES` cap (`SEC-189`), client-side upload filename traversal rejection, empty/`>25 MB` upload guards, and bounded `timeout_seconds` `[0.1, 120.0]` (`SEC-190`), plus AST-enforced `src/ui/` layering isolation
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -65,8 +65,9 @@
 | `tests/unit/test_invoice_approve.py` | P9-2 `POST /api/v1/invoices/{id}/approve` & `ApprovalService`: clerk ≤$10k one-click (`APPROVED_CLERK`), manager >$10k/PO-variance (`APPROVED_MANAGER`), live ECB FX stale-column guard, dynamic settings thresholds, unauth/admin/spoofing/double-approval/credit-note/sub-90%/placeholder/64KB/layer guards | 14 | 2.10s |
 | `tests/unit/test_invoice_audit_route.py` | P9-3 `GET /api/v1/invoices/{id}/audit`: chronological timeline, 3-role RBAC + empty-role 403, `action_type`/`user_id`/pagination filters, e2e revalidate->approve->audit chain, 405 immutability, dotted-field & comment PII masking, SQLi/XSS/flood/503/nosniff/layer guards | 11 | 1.42s |
 | `tests/unit/test_noop_edit_guard.py` | P9-4 No-op edit guard (`previous_value == new_value` -> 422): empty payload/containers, text/date/decimal-scale/mixed header & line no-ops, LLD §2.2 full-row diff compatibility, `-0.00`/Unicode NFD/NBSP homoglyph/explicit-null/replayed-flag/service-fast-fail/oracle-ordering guards | 11 | 1.99s |
+| `tests/unit/test_ui_api_client.py` | P11-1 Typed `httpx` API client (`src/ui/api_client.py`): all 11 FastAPI routes end-to-end, typed error hierarchy (`401`/`403`/`404`/`409`/`422`/`429`/`503`), SSRF/redirect/path-traversal/CRLF/token-redaction/10MB-response/25MB-upload/timeout guards, AST `src/ui/` layering check | 7 | 0.50s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **589** | **24.45s** |
+| **Total** | **All Modules Offline** | **596** | **23.55s** |
 
 ---
 
