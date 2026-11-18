@@ -48,6 +48,14 @@ class EvaluationIntegrityError(ValueError):
     """Raised when BatchEvaluationResult aggregate counters contradict per-invoice results."""
 
 
+class EvaluationThresholdError(AssertionError):
+    """Raised when one or more contractual evaluation threshold gates fail (FR-14, CLAUDE.md §10)."""
+
+    def __init__(self, message: str, *, failed_gates: tuple[str, ...] = ()) -> None:
+        super().__init__(message)
+        self.failed_gates: tuple[str, ...] = failed_gates
+
+
 def _sanitize_label(raw: str, *, max_len: int = 80, default: str = "unknown") -> str:
     """Strip ANSI escape sequences and ASCII control characters for log/terminal safety (SEC-224)."""
     without_ansi = _ANSI_ESCAPE_RE.sub("", raw)
@@ -625,6 +633,134 @@ def compute_evaluation_metrics(
     )
 
 
+def assert_evaluation_thresholds(
+    report: EvaluationMetricsReport,
+    *,
+    enforce_contractual_floor: bool = True,
+) -> None:
+    """
+    Assert that an EvaluationMetricsReport satisfies all contractual CI threshold gates.
+
+    Re-verifies every headline metric directly (never blindly trusting ``all_thresholds_passed``)
+    and rejects weakened thresholds below ``DEFAULT_THRESHOLDS`` when ``enforce_contractual_floor``
+    is enabled (SEC-226, CWE-345 / CWE-693). Raises ``EvaluationThresholdError`` (an
+    ``AssertionError`` subclass) to fail pytest and CI builds cleanly.
+    """
+    failures: list[str] = []
+    failed_gate_names: list[str] = []
+    t = report.thresholds
+
+    if enforce_contractual_floor:
+        weakened_checks = [
+            (
+                "header_macro_accuracy",
+                t.header_macro_accuracy_pct < DEFAULT_THRESHOLDS.header_macro_accuracy_pct,
+                f"header_macro_accuracy threshold weakened ({t.header_macro_accuracy_pct}% < "
+                f"contractual floor {DEFAULT_THRESHOLDS.header_macro_accuracy_pct}%)",
+            ),
+            (
+                "critical_field_floor",
+                t.critical_field_floor_pct < DEFAULT_THRESHOLDS.critical_field_floor_pct,
+                f"critical_field_floor threshold weakened ({t.critical_field_floor_pct}% < "
+                f"contractual floor {DEFAULT_THRESHOLDS.critical_field_floor_pct}%)",
+            ),
+            (
+                "line_item_accuracy",
+                t.line_item_accuracy_pct < DEFAULT_THRESHOLDS.line_item_accuracy_pct,
+                f"line_item_accuracy threshold weakened ({t.line_item_accuracy_pct}% < "
+                f"contractual floor {DEFAULT_THRESHOLDS.line_item_accuracy_pct}%)",
+            ),
+            (
+                "stp_rate",
+                t.stp_rate_pct < DEFAULT_THRESHOLDS.stp_rate_pct,
+                f"stp_rate threshold weakened ({t.stp_rate_pct}% < "
+                f"contractual floor {DEFAULT_THRESHOLDS.stp_rate_pct}%)",
+            ),
+            (
+                "batch_stability",
+                t.max_crashed_invoices > DEFAULT_THRESHOLDS.max_crashed_invoices
+                or t.min_invoices < DEFAULT_THRESHOLDS.min_invoices,
+                f"batch_stability threshold weakened (max_crashed={t.max_crashed_invoices}, "
+                f"min_invoices={t.min_invoices})",
+            ),
+        ]
+        for gate_name, is_weakened, msg in weakened_checks:
+            if is_weakened:
+                failed_gate_names.append(gate_name)
+                failures.append(msg)
+
+    def _below_floor(val: Decimal | None, floor: Decimal) -> bool:
+        return val is None or not val.is_finite() or val < floor
+
+    if _below_floor(report.header_macro_accuracy_pct, t.header_macro_accuracy_pct):
+        failed_gate_names.append("header_macro_accuracy")
+        failures.append(
+            f"header_macro_accuracy={report.header_macro_accuracy_pct}% < {t.header_macro_accuracy_pct}%"
+        )
+
+    for crit_field in CRITICAL_HEADER_FIELD_NAMES:
+        actual = report.critical_field_accuracies_pct.get(crit_field)
+        if _below_floor(actual, t.critical_field_floor_pct):
+            gate_id = f"critical_field_{crit_field}"
+            failed_gate_names.append(gate_id)
+            failures.append(f"{gate_id}={actual}% < {t.critical_field_floor_pct}%")
+
+    if _below_floor(report.critical_field_min_accuracy_pct, t.critical_field_floor_pct):
+        if "critical_field_min" not in failed_gate_names:
+            failed_gate_names.append("critical_field_min")
+        failures.append(
+            f"critical_field_min={report.critical_field_min_accuracy_pct}% < {t.critical_field_floor_pct}%"
+        )
+
+    if _below_floor(report.line_item_accuracy_pct, t.line_item_accuracy_pct):
+        failed_gate_names.append("line_item_accuracy")
+        failures.append(
+            f"line_item_accuracy={report.line_item_accuracy_pct}% < {t.line_item_accuracy_pct}%"
+        )
+
+    if _below_floor(report.stp_rate_pct, t.stp_rate_pct):
+        failed_gate_names.append("stp_rate")
+        failures.append(f"stp_rate={report.stp_rate_pct}% < {t.stp_rate_pct}%")
+
+    if (
+        report.total_invoices < t.min_invoices
+        or report.crashed_invoices > t.max_crashed_invoices
+        or report.completed_invoices + report.crashed_invoices != report.total_invoices
+    ):
+        failed_gate_names.append("batch_stability")
+        failures.append(
+            f"batch_stability: crashes={report.crashed_invoices} (max {t.max_crashed_invoices}), "
+            f"completed={report.completed_invoices}, total={report.total_invoices} (min {t.min_invoices})"
+        )
+
+    for status_name in report.status_distribution:
+        if status_name.startswith("APPROVED_"):
+            failed_gate_names.append("non_approval_invariant")
+            failures.append(f"non_approval_invariant: disallowed status {status_name!r}")
+
+    for chk in report.threshold_checks:
+        if not chk.passed and chk.metric_name not in failed_gate_names:
+            failed_gate_names.append(chk.metric_name)
+            failures.append(f"check_failed={chk.metric_name}")
+
+    if not report.all_thresholds_passed or report.failed_gates:
+        for fg in report.failed_gates:
+            if fg not in failed_gate_names:
+                failed_gate_names.append(fg)
+                failures.append(f"reported_gate_failed={fg}")
+        if not failures:
+            failed_gate_names.append("all_thresholds_passed")
+            failures.append("all_thresholds_passed flag is False")
+
+    if failures:
+        unique_gates = tuple(dict.fromkeys(failed_gate_names))
+        joined = "; ".join(failures)
+        raise EvaluationThresholdError(
+            f"Evaluation threshold gate FAILED for dataset '{report.dataset_label}': {joined}",
+            failed_gates=unique_gates,
+        )
+
+
 def format_metrics_summary(report: EvaluationMetricsReport) -> str:
     """Render a concise, printable, PII-free ASCII scorecard for CI logs and CLI output."""
     overall_verdict = "PASS" if report.all_thresholds_passed else "FAIL"
@@ -692,10 +828,12 @@ __all__ = [
     "LONG_TERM_STP_OBJECTIVE_PCT",
     "EvaluationIntegrityError",
     "EvaluationMetricsReport",
+    "EvaluationThresholdError",
     "EvaluationThresholds",
     "FieldMetricSummary",
     "TestCaseTypeSummary",
     "ThresholdCheckResult",
+    "assert_evaluation_thresholds",
     "compute_evaluation_metrics",
     "format_metrics_summary",
 ]

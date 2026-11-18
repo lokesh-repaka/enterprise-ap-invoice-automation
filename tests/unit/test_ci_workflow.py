@@ -76,3 +76,38 @@ def test_ci_workflow_jobs_and_offline_isolation() -> None:
     assert env.get("USE_FAKE_REDIS") == "true"
     assert env.get("USE_MOCK_AOAI") == "true"
     assert env.get("PYTEST_DISABLE_PLUGIN_AUTOLOAD") == "1"
+
+
+def test_ci_workflow_evaluation_threshold_gate_and_least_privilege() -> None:
+    """# Tests: FR-14, SEC-227 — Verify evaluation-threshold-gates blocks build-package with least-privilege permissions."""
+    workflow_path = Path(".github/workflows/ci.yml")
+    with workflow_path.open() as f:
+        data = yaml.safe_load(f)
+
+    # Least-privilege GITHUB_TOKEN permissions (SEC-227, CWE-250 / CWE-732)
+    assert data.get("permissions") == {"contents": "read"}
+
+    jobs = data.get("jobs", {})
+    assert "evaluation-threshold-gates" in jobs, "Must have an evaluation-threshold-gates job"
+    assert "evaluation-threshold-gates" in jobs["build-package"]["needs"]
+
+    for job_name, job_cfg in jobs.items():
+        timeout = job_cfg.get("timeout-minutes")
+        assert isinstance(timeout, int) and 1 <= timeout <= 30, (
+            f"CI job '{job_name}' must set bounded timeout-minutes (got {timeout!r})"
+        )
+
+    eval_job = jobs["evaluation-threshold-gates"]
+    eval_step = next(
+        (s for s in eval_job.get("steps", []) if "tests/evaluation/" in str(s.get("run", ""))),
+        None,
+    )
+    assert eval_step is not None, (
+        "evaluation-threshold-gates job must run pytest on tests/evaluation/"
+    )
+    eval_env = eval_step.get("env", {})
+    assert eval_env.get("APP_ENV") == "test"
+    assert eval_env.get("USE_LOCAL_SQLITE") == "true"
+    assert eval_env.get("USE_FAKE_REDIS") == "true"
+    assert eval_env.get("USE_MOCK_AOAI") == "true"
+    assert eval_env.get("PYTEST_DISABLE_PLUGIN_AUTOLOAD") == "1"
