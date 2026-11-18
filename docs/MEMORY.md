@@ -1,3 +1,4 @@
+
 # Platform Memory & Engineering Status
 
 > Centralised engineering log and honest project status tracker.
@@ -7,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (71% Complete — 5 / 7 Tasks Done ⏳)
-- **Latest Completed Subtask:** P11-5 · Revision Comparison screen (`/revision/{invoice_id}`) — side-by-side original vs. revision
-- **Total Completed Tasks:** 52 / 68 (76%)
-- **Test Suite Pass Count:** **635 / 635 passing (100% — 630 unit + 5 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **22.59 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (119 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (203 findings audited & mitigated; `SEC-201`–`SEC-203` closed in P11-5); Revision Comparison screen (`src/ui/revision_screen.py`) enforces authoritative Tax ID + vendor parity (blocking `UNKNOWN` placeholder spoofing & cross-vendor superseding plus surfacing currency mismatch alerts — `SEC-201`), sanitized header/line diff tables with masked Tax IDs, CSV-formula/XSS/Bearer stripping, validated `/workbench/{id}` handoff routes, and zero `unsafe_allow_html=True` (`SEC-202`), and fail-closed `ap_clerk`/`finance_manager` decision RBAC, mandatory 5..1000-char audit comments, bounded `MAX_DECISION_HISTORY=200`, 256-char linear suffix matching (anti-ReDoS), and cross-user revision session purge on sign-out/persona-switch (`SEC-203`)
+- **Current Active Phase:** Phase 11 — Streamlit UI (86% Complete — 6 / 7 Tasks Done ⏳)
+- **Latest Completed Subtask:** P11-6 · Audit Trail Viewer (`/audit/{invoice_id}`) — chronological timeline, immutable display
+- **Total Completed Tasks:** 53 / 68 (78%)
+- **Test Suite Pass Count:** **642 / 642 passing (100% — 636 unit + 6 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **25.78 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (122 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (206 findings audited & mitigated; `SEC-204`–`SEC-206` closed in P11-6); Audit Trail Viewer (`src/ui/audit_viewer.py`) enforces flat & dotted sensitive-field PII masking (`vendor_tax_id`, `invoice.iban`, `bank_account`, `ssn`), inline SSN/IBAN & Bearer/JWT redaction in comments, and CSV-formula-safe CSV/JSON exports (`SEC-204`), AST-enforced strict read-only immutability (zero `st.data_editor`, zero `unsafe_allow_html=True`) plus fail-closed 3-role RBAC (`SEC-205`), and validated export filename stems, bounded pagination (`limit <= 200`), and Sign Out / persona-switch audit session purge (`SEC-206`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -70,12 +71,14 @@
 | `tests/unit/test_ui_review_workbench.py` | P11-3 Review Workbench (`/workbench/{id}`): split-screen PyMuPDF viewer (zoom/page/25MB/TIFF/NaN guards), confidence color cues & Tax ID masking, smart-diff no-op prevention, ReasonCode/tax-override/RBAC/hidden-Approve >$10k, SSRF/URL/CSV-formula/duplicate-line/layering guards, headless renderer smoke | 8 | 0.15s |
 | `tests/unit/test_ui_exception_queue.py` | P11-4 Human Exception Queue (`/exceptions`): PRD Screen 3 exception presets & strict filter validation, confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`), urgency & elapsed time, bulk assign/refresh (429 backoff)/manager-only bulk approve, XSS/CSV-formula/route/layering guards, headless renderer smoke | 9 | 0.12s |
 | `tests/unit/test_ui_revision_screen.py` | P11-5 Revision Comparison (`/revision/{id}`): `-REV`/`v2`/`AMENDED` marker detection, yellow/red header & line-item diff engine, financial/tax/percentage deltas, exact duplicate & cross-vendor/`UNKNOWN` spoofing guards, original APPROVE audit provenance, fail-closed decision RBAC, XSS/CSV-formula/layering guards, headless renderer smoke | 8 | 0.14s |
+| `tests/unit/test_ui_audit_viewer.py` | P11-6 Audit Trail Viewer (`/audit/{id}`): 3-role RBAC & 9-action filter allowlist, oldest-to-newest chronological timeline & KPI summary, flat/dotted PII & inline SSN/IBAN/Bearer redaction, formula-safe CSV/JSON exports, AST read-only immutability (zero `data_editor`) & layering check, headless renderer smoke | 6 | 0.12s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
 | `tests/integration/test_ui_exception_queue_integration.py` | P11-4 End-to-end offline integration test: real FastAPI `/exceptions` preset filtering + `finance_manager` bulk approval on `$15k` escalated invoice skipping `DUPLICATE_INVOICE` | 1 | 0.27s |
 | `tests/integration/test_ui_revision_screen_integration.py` | P11-5 End-to-end offline integration test: real FastAPI `APPROVED_CLERK` original + `FLAGGED_POTENTIAL_REVISION` `-REV` side-by-side comparison & immutable `APPROVE` audit provenance | 1 | 0.29s |
-| **Total** | **All Modules Offline** | **635** | **22.59s** |
+| `tests/integration/test_ui_audit_viewer_integration.py` | P11-6 End-to-end offline integration test: real FastAPI Re-Validate -> Approve -> `AuditTrailViewerController` chronological inspection as `system_admin` | 1 | 0.30s |
+| **Total** | **All Modules Offline** | **642** | **25.78s** |
 
 ---
 
