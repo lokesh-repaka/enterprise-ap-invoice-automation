@@ -1,0 +1,163 @@
+# ==============================================================================
+# Enterprise AP Invoice Automation Platform — Local Development Stack (P14-3)
+# Orchestrates FastAPI backend, Streamlit UI, Redis cache/queue, Azurite blob
+# storage emulator, and local persistent SQLite database storage.
+# Security: Strict loopback bindings (127.0.0.1:*), no-new-privileges:true,
+# cap_drop: [ALL], mem_limit, pids_limit, and zero static secrets (SEC-233).
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # Redis: In-Memory Sliding-Window Rate Limiter & Job Queue (Phase 3 & Phase 5)
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: ap-redis-local
+    restart: unless-stopped
+    command: redis-server --save "" --appendonly no --protected-mode yes
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      - ap_network
+    mem_limit: 256m
+    pids_limit: 128
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # Azurite: Microsoft Azure Blob Storage Local Emulator (Phase 4 P4-2)
+  # ----------------------------------------------------------------------------
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:3.33.0
+    container_name: ap-azurite-local
+    restart: unless-stopped
+    command:
+      - azurite-blob
+      - --blobHost
+      - "0.0.0.0"
+      - --blobPort
+      - "10000"
+      - --location
+      - /data
+      - --silent
+    ports:
+      - "127.0.0.1:10000:10000"
+    volumes:
+      - azurite_data:/data
+    networks:
+      - ap_network
+    mem_limit: 512m
+    pids_limit: 128
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('net').connect(10000, '127.0.0.1').on('connect', () => process.exit(0)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ----------------------------------------------------------------------------
+  # API: FastAPI Hardened Backend (Phase 1–9, P14-1)
+  # ----------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: ap-api-local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      APP_NAME: "Enterprise AP Invoice Automation"
+      APP_ENV: "dev"
+      LOG_LEVEL: "INFO"
+      ENABLE_DEMO_AUTH: "true"
+      USE_LOCAL_SQLITE: "true"
+      USE_FAKE_REDIS: "false"
+      REDIS_URL: "redis://redis:6379/0"
+      USE_MOCK_AOAI: "true"
+      USE_AZURITE_EMULATOR: "true"
+      USE_MOCK_BLOB_STORAGE: "false"
+      AZURITE_BLOB_URL: "http://azurite:10000/devstoreaccount1/"
+      AZURITE_ACCOUNT_NAME: "devstoreaccount1"
+      CORS_ALLOWED_ORIGINS: '["http://localhost:8501","http://127.0.0.1:8501"]'
+    volumes:
+      - sqlite_data:/app/data
+    networks:
+      - ap_network
+    depends_on:
+      redis:
+        condition: service_healthy
+      azurite:
+        condition: service_healthy
+    mem_limit: 1024m
+    pids_limit: 256
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys, urllib.request; resp = urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3); sys.exit(0 if resp.status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  # ----------------------------------------------------------------------------
+  # UI: Streamlit Review Workbench & Exception Queue (Phase 11, P14-2)
+  # ----------------------------------------------------------------------------
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    container_name: ap-ui-local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      AP_API_BASE_URL: "http://api:8000"
+      STREAMLIT_SERVER_HEADLESS: "true"
+      STREAMLIT_SERVER_PORT: "8501"
+      STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION: "true"
+      STREAMLIT_SERVER_ENABLE_CORS: "true"
+      STREAMLIT_SERVER_MAX_UPLOAD_SIZE: "25"
+      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+      STREAMLIT_CLIENT_SHOW_ERROR_DETAILS: "false"
+    networks:
+      - ap_network
+    depends_on:
+      api:
+        condition: service_healthy
+    mem_limit: 512m
+    pids_limit: 128
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys, urllib.request; resp = urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3); sys.exit(0 if resp.status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+# ------------------------------------------------------------------------------
+# Networks & Persistent Volumes
+# ------------------------------------------------------------------------------
+networks:
+  ap_network:
+    driver: bridge
+
+volumes:
+  azurite_data:
+  sqlite_data:
+
