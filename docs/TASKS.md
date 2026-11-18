@@ -92,7 +92,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 
 | Task | Branch | Status |
 |------|--------|--------|
-| P6-1 · Document classifier — PyMuPDF text-layer density check → `searchable_pdf`, `scanned_image`, `xlsx` | `feature/extraction-document-classifier` | Pending ❌ |
+| P6-1 · Document classifier — PyMuPDF text-layer density check → `searchable_pdf`, `scanned_image`, `xlsx` | `feature/extraction-document-classifier` | Completed ✅ |
 | P6-2 · Model Gateway (`src/extraction/model_gateway.py`) — route to GPT-4o-mini or GPT-4o Vision | `feature/extraction-model-gateway` | Pending ❌ |
 | P6-3 · Pydantic extraction schema — 10 header fields + line-item fields with per-field confidence scores | `feature/extraction-pydantic-schema` | Pending ❌ |
 | P6-4 · Extraction engine (`src/extraction/extract_engine.py`) — prompt assembly, `<invoice_text>` delimiters, schema enforcement | `feature/extraction-engine-prompts` | Pending ❌ |
@@ -263,7 +263,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 3 | Identity and Security | 5 | 5 ✅ |
 | 4 | Azure Storage Layer | 4 | 4 ✅ |
 | 5 | Upload API and Job Queue | 5 | 5 ✅ |
-| 6 | Extraction Engine and Model Gateway | 5 | 0 ❌ |
+| 6 | Extraction Engine and Model Gateway | 5 | 1 ⏳ |
 | 7 | Validation Rules Engine | 6 | 0 ❌ |
 | 8 | Confidence Routing and State Machine | 3 | 0 ❌ |
 | 9 | Re-Validation and Approval API | 4 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **29 (43%)** |
+| **Total** | | **68** | **30 (44%)** |
 

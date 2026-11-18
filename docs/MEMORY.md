@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 5 — Upload API and Job Queue (5 / 5 Tasks Complete — 100% ✅)
-- **Latest Completed Subtask:** P5-5 · Idempotency key deduplication — re-submitted identical files return existing InvoiceID
-- **Total Completed Tasks:** 29 / 68 (43%)
-- **Test Suite Pass Count:** **193 / 193 passing (100% — 192 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **5.34 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (68 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (105 findings audited & mitigated); Phase 5 complete with RBAC-protected upload/read/exception routes, atomic `SET NX EX` idempotency deduplication (`SHA256(file_bytes + clerk_id)` + explicit `Idempotency-Key` `409 Conflict` guard + rollback lock release), `RedisJobQueueClient` with DLQ & TLS prod gate, and non-self-approving `InvoiceBackgroundWorker`
+- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (1 / 5 Tasks Complete — P6-1 Done)
+- **Latest Completed Subtask:** P6-1 · Document classifier — PyMuPDF text-layer density check → `searchable_pdf`, `scanned_image`, `xlsx`
+- **Total Completed Tasks:** 30 / 68 (44%)
+- **Test Suite Pass Count:** **201 / 201 passing (100% — 200 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **6.22 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (70 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (110 findings audited & mitigated); `classify_document()` (`src/extraction/document_classifier.py`) live with binary magic-byte detection, PyMuPDF per-page alphanumeric + uniqueness density check (defeats whitespace/repeated-char spoofing & detects hybrid scanned pages), bidi/zero-width sanitization preserving EN/DE/ES diacritics, pre-decode raster pixel-bomb checks, and XLSX Zip-Slip/ZIP-bomb guards
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -47,8 +47,9 @@
 | `tests/unit/test_worker.py` | Background worker skeleton (`UPLOADED->EXTRACTING->outcome`), non-approval guard, blob-swap & `FileHash` checks, timeout/retry/DLQ, graceful `run_loop` | 9 | 0.32s |
 | `tests/unit/test_invoice_read_routes.py` | `GET /api/v1/invoices/{id}` & `GET /api/v1/invoices/exceptions` RBAC, LIKE-escaped filters, sort allowlist, bulk PII minimization, `COUNT(*)` audit count | 7 | 0.83s |
 | `tests/unit/test_idempotency_dedup.py` | Atomic upload idempotency dedup (`200 OK` + `X-Idempotency-Replayed`), live SQL status refresh, `409 Conflict` on mismatch, clerk isolation, lock rollback | 7 | 0.95s |
+| `tests/unit/test_document_classifier.py` | PyMuPDF text-layer density classifier (`searchable_pdf`, `scanned_image`, `xlsx`), hybrid PDF detection, anti-spoofing, bidi sanitization, raster/XLSX guards | 8 | 0.19s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **193** | **5.34s** |
+| **Total** | **All Modules Offline** | **201** | **6.22s** |
 
 ---
 
