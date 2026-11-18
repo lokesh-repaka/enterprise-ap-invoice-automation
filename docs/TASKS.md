@@ -185,7 +185,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | P12-2 · Integration test — full upload → extract → validate → route flow with mocked AOAI | `feature/tests-integration-upload-flow` | Completed ✅ |
 | P12-3 · Integration test — re-validate workflow and audit log append-only enforcement | `feature/tests-integration-revalidate` | Completed ✅ |
 | P12-4 · Integration test — RBAC 403 scenarios (clerk approving >$10k, unauthenticated access) | `feature/tests-integration-rbac` | Completed ✅ |
-| P12-5 · Integration test — idempotency key deduplication (re-submitted identical file) | `feature/tests-integration-idempotency` | Pending ❌ |
+| P12-5 · Integration test — idempotency key deduplication (re-submitted identical file) | `feature/tests-integration-idempotency` | Completed ✅ |
 
 ---
 
@@ -269,8 +269,8 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 9 | Re-Validation and Approval API | 4 | 4 ✅ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
 | 11 | Streamlit UI | 7 | 7 ✅ |
-| 12 | Integration Tests | 5 | 4 🟡 |
+| 12 | Integration Tests | 5 | 5 ✅ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **58 (85%)** |
+| **Total** | | **68** | **59 (87%)** |
 

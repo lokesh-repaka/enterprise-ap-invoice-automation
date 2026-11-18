@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 12 — Integration Tests (In Progress — 4 / 5 Tasks Done)
-- **Latest Completed Subtask:** P12-4 · Integration test — RBAC 403 scenarios (clerk approving >\$10k, unauthenticated access)
-- **Total Completed Tasks:** 58 / 68 (85%)
-- **Test Suite Pass Count:** **675 / 675 passing (100% — 653 unit + 22 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **~28 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (130 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (218 findings audited & mitigated; `SEC-217`–`SEC-218` closed in P12-4); end-to-end integration verification of HTTP `401` on unauthenticated/forged/expired tokens across all 8 protected routes, HTTP `403` on `ap_clerk` >\$10k USD/EUR-FX/PO-variance approvals, full 3-role RBAC 403 matrix, anti-impersonation & zero-role checks, plus `Cache-Control: no-store` on `/health/ready` (`SEC-217`) and headerless chunked `413` size cap on `/revalidate` (`SEC-218`)
+- **Current Active Phase:** Phase 12 — Integration Tests (100% Complete — 5 / 5 Tasks Done ✅)
+- **Latest Completed Subtask:** P12-5 · Integration test — idempotency key deduplication (re-submitted identical file)
+- **Total Completed Tasks:** 59 / 68 (87%)
+- **Test Suite Pass Count:** **680 / 680 passing (100% — 653 unit + 27 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **~29 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (131 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (219 findings audited & mitigated; `SEC-219` closed in P12-5); **Phase 12 complete**: end-to-end offline integration proof of idempotency key deduplication across `UPLOADED → VALIDATED → APPROVED_CLERK` with `mock_aoai.call_count == 1`, atomic 5-way concurrent upload race (1 winner `202`, 4 replays `200`), cross-actor isolation, transient storage `503` lock rollback, and HTTP `409` conflict enforcement for conflicting explicit `vendor_id` on both explicit and content-derived idempotency keys (`SEC-219`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -84,7 +84,8 @@
 | `tests/integration/test_upload_extract_validate_route_integration.py` | P12-2 End-to-end offline integration tests: `POST /upload` → Redis → `InvoiceBackgroundWorker` → `InvoiceProcessingPipeline` (`MockAOAIClient` mini/vision + `RulesEngine` + `ConfidenceRouter` + `EscalationEvaluator` + SQL + WORM JSON + `AuditLogs`): STP `VALIDATED`, 85%/74% tri-tier routing, >\$10k EUR FX escalation, tax mismatch/duplicate/revision/credit-note, PNG Vision + unregistered vendor/missing FX fail-closed, prompt-injection & anti-IDOR vendor rebind guards | 6 | 2.53s |
 | `tests/integration/test_revalidate_and_audit_immutability_integration.py` | P12-3 End-to-end offline integration tests: upload tax-mismatch → Re-Validate → Approve → 7-event audit chain, failed reval loop/EU reverse-charge/>\$10k escalation, no-op/invalid reason-code zero-pollution, 4-layer append-only `AuditLog` enforcement (API 405, Repo/Logger, ORM listeners, SQLite triggers: `SEC-215`–`SEC-216`), and isolated-transaction rollback durability | 5 | 1.45s |
 | `tests/integration/test_rbac_403_and_auth_integration.py` | P12-4 End-to-end offline RBAC & auth integration tests: unauthenticated/forged/expired 401 across all 8 protected routes, `ap_clerk` >\$10k USD/EUR-FX/PO-variance 403 vs `finance_manager` 200, full 3-role RBAC 403 matrix (`/health/ready` `no-store`: `SEC-217`), actor impersonation & zero-role 403, and headerless chunked `/revalidate` 413 (`SEC-218`) | 4 | 1.36s |
-| **Total** | **All Modules Offline** | **675** | **~28s** |
+| `tests/integration/test_idempotency_deduplication_integration.py` | P12-5 End-to-end offline idempotency integration tests: identical re-submission across `UPLOADED` → `VALIDATED` → `APPROVED_CLERK` with `mock_aoai.call_count == 1`, explicit & content-derived `409` payload/vendor conflict (`SEC-219`) + `422` header injection, 5-way concurrent race (1x 202, 4x 200), cross-actor isolation, and transient `503` lock release | 5 | 1.67s |
+| **Total** | **All Modules Offline** | **680** | **~29s** |
 
 ---
 
