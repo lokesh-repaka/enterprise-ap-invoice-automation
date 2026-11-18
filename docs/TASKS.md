@@ -107,7 +107,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 
 | Task | Branch | Status |
 |------|--------|--------|
-| P7-1 · Duplicate detector (`src/validation/duplicate_detector.py`) — SHA-256 composite key, `-REV` suffix, credit note (negative total) detection | `feature/validation-duplicate-detector` | Pending ❌ |
+| P7-1 · Duplicate detector (`src/validation/duplicate_detector.py`) — SHA-256 composite key, `-REV` suffix, credit note (negative total) detection | `feature/validation-duplicate-detector` | Completed ✅ |
 | P7-2 · Line-item arithmetic validator — Qty × Unit Price = Total ± 0.02 (FR-05) | `feature/validation-line-arithmetic` | Pending ❌ |
 | P7-3 · Invoice total arithmetic validator — Subtotal + Tax = Total ± 0.05 (FR-06) | `feature/validation-invoice-total` | Pending ❌ |
 | P7-4 · Multi-country tax validator (FR-07) — US sales tax, UK VAT 20/5/0%, DE MwSt 19/7/0%, ES IVA 21/10/4/0%, reverse-charge and exemption flags | `feature/validation-tax-validator` | Pending ❌ |
@@ -264,7 +264,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 4 | Azure Storage Layer | 4 | 4 ✅ |
 | 5 | Upload API and Job Queue | 5 | 5 ✅ |
 | 6 | Extraction Engine and Model Gateway | 5 | 5 ✅ |
-| 7 | Validation Rules Engine | 6 | 0 ❌ |
+| 7 | Validation Rules Engine | 6 | 1 ⏳ |
 | 8 | Confidence Routing and State Machine | 3 | 0 ❌ |
 | 9 | Re-Validation and Approval API | 4 | 0 ❌ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **34 (50%)** |
+| **Total** | | **68** | **35 (51%)** |
 
