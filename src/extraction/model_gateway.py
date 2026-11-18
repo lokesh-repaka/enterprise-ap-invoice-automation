@@ -362,43 +362,6 @@ class KeylessAzureOpenAIClient:
         )
 
 
-class _DefaultOfflineChatClient:
-    """Minimal zero-network stub used when USE_MOCK_AOAI=true prior to P6-5 fixture wiring."""
-
-    async def create_chat_completion(
-        self,
-        *,
-        model: str,
-        messages: list[dict[str, Any]],
-        max_tokens: int,
-        temperature: float,
-        response_format: dict[str, str],
-        timeout: float,
-    ) -> Any:
-        class _Details:
-            cached_tokens = 0
-
-        class _Usage:
-            prompt_tokens = 100
-            completion_tokens = 25
-            total_tokens = 125
-            prompt_tokens_details = _Details()
-
-        class _Message:
-            content = json.dumps({"mock": True, "model": model})
-
-        class _Choice:
-            message = _Message()
-
-        class _Resp:
-            choices = [_Choice()]
-            usage = _Usage()
-
-        resp = _Resp()
-        resp.model = f"{model}-offline-mock"  # type: ignore[attr-defined]
-        return resp
-
-
 class ModelGateway:
     """
     Hybrid Azure OpenAI Model Gateway routing invoices to GPT-4o-mini or GPT-4o Vision (ADR-004).
@@ -625,7 +588,7 @@ class ModelGateway:
 
 _GATEWAY_LOCK = threading.Lock()
 _CACHED_GATEWAY: ModelGateway | None = None
-_CACHED_GATEWAY_KEY: tuple[str, bool, bool, str, str, str, str] | None = None
+_CACHED_GATEWAY_KEY: tuple[str, bool, bool, str, str, str, str, str] | None = None
 
 
 def reset_model_gateway_cache() -> None:
@@ -670,6 +633,7 @@ def get_model_gateway(
         env_name,
         cfg.USE_MOCK_AOAI,
         cfg.USE_LOCAL_SQLITE,
+        cfg.SAMPLE_DATA_DIR,
         cfg.AZURE_OPENAI_ENDPOINT,
         cfg.AZURE_OPENAI_API_VERSION,
         cfg.AZURE_OPENAI_MINI_DEPLOYMENT,
@@ -680,7 +644,9 @@ def get_model_gateway(
             return _CACHED_GATEWAY
 
         if cfg.USE_MOCK_AOAI:
-            client: AOAIChatClientProtocol = _DefaultOfflineChatClient()
+            from src.extraction.mock_aoai_client import MockAOAIClient
+
+            client: AOAIChatClientProtocol = MockAOAIClient(settings=cfg)
         else:
             client = KeylessAzureOpenAIClient(
                 endpoint=cfg.AZURE_OPENAI_ENDPOINT,

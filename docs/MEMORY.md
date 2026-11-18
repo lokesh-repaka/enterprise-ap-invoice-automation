@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (4 / 5 Tasks Complete — P6-1 through P6-4 Done)
-- **Latest Completed Subtask:** P6-4 · Extraction engine (`src/extraction/extract_engine.py`) — prompt assembly, `<invoice_text>` delimiters, schema enforcement
-- **Total Completed Tasks:** 33 / 68 (49%)
-- **Test Suite Pass Count:** **232 / 232 passing (100% — 231 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **7.73 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (76 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (131 findings audited & mitigated); `ExtractionEngine` (`src/extraction/extract_engine.py`) live with byte-identical cached static system prompt + JSON schema (Azure Prompt Caching), mandatory `<invoice_text>` untrusted-data delimiters neutralizing literal/unclosed/fullwidth breakout tags, XXE/Zip-Slip/cell-amplification-safe XLSX parsing, giant-MediaBox pixel-clamped Vision PDF rendering (`<=2400px`), strict Pydantic v2 `InvoiceExtractionSchema` enforcement with PII-safe error formatting and masked `ExtractionResult.__repr__`
+- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (100% Complete — 5 / 5 Tasks Done ✅)
+- **Latest Completed Subtask:** P6-5 · Mock AOAI client for offline testing — returns fixture JSON matching Pydantic schema
+- **Total Completed Tasks:** 34 / 68 (50%)
+- **Test Suite Pass Count:** **242 / 242 passing (100% — 241 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **6.66 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (78 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (136 findings audited & mitigated); **Phase 6 complete**: `MockAOAIClient` (`src/extraction/mock_aoai_client.py`) wired into `get_model_gateway()` for 100% offline `InvoiceExtractionSchema`-compliant extraction across P6-1..P6-5, with strict prod/staging & Azure-SQL isolation, `O_NOFOLLOW` + `fstat` regular-file + 1 MB bounded ground-truth lookup (blocks path traversal/symlinks/TOCTOU/FD leaks), simulated prompt-cache hits, and zero PII in logs
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -51,8 +51,9 @@
 | `tests/unit/test_model_gateway.py` | Hybrid Azure OpenAI Model Gateway routing (`gpt-4o-mini` vs `gpt-4o-vision`), prompt caching order, 2k token cap, LLD §6.2 429 backoff/jitter, keyless MI SSRF/API-version/JSON-bomb/Vision guards | 10 | 0.38s |
 | `tests/unit/test_extraction_schemas.py` | Pydantic v2 10-header + 5-line extraction schemas, per-field confidence aggregations, credit notes, ground-truth round-trip, `extra="forbid"`, `FiniteDecimal` bomb & bidi/XSS/PII guards | 10 | 0.32s |
 | `tests/unit/test_extract_engine.py` | End-to-end Extraction Engine: cached system prompt, `<invoice_text>` breakout defense, PDF/PNG/XLSX/text routing, XXE/Zip-Slip/MediaBox-clamp guards, strict Pydantic schema enforcement & PII-safe errors | 11 | 0.47s |
+| `tests/unit/test_mock_aoai_client.py` | Offline `MockAOAIClient` wired to `ModelGateway` & `ExtractionEngine`: ground-truth fixture lookup, confidence overrides, scripted 429 retry, prod gate, `O_NOFOLLOW`/symlink/traversal/corrupt-file guards | 10 | 0.36s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **232** | **7.73s** |
+| **Total** | **All Modules Offline** | **242** | **6.66s** |
 
 ---
 

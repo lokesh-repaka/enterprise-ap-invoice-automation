@@ -96,7 +96,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | P6-2 · Model Gateway (`src/extraction/model_gateway.py`) — route to GPT-4o-mini or GPT-4o Vision | `feature/extraction-model-gateway` | Completed ✅ |
 | P6-3 · Pydantic extraction schema — 10 header fields + line-item fields with per-field confidence scores | `feature/extraction-pydantic-schema` | Completed ✅ |
 | P6-4 · Extraction engine (`src/extraction/extract_engine.py`) — prompt assembly, `<invoice_text>` delimiters, schema enforcement | `feature/extraction-engine-prompts` | Completed ✅ |
-| P6-5 · Mock AOAI client for offline testing — returns fixture JSON matching Pydantic schema | `feature/extraction-mock-aoai-client` | Pending ❌ |
+| P6-5 · Mock AOAI client for offline testing — returns fixture JSON matching Pydantic schema | `feature/extraction-mock-aoai-client` | Completed ✅ |
 
 ---
 
@@ -263,7 +263,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 3 | Identity and Security | 5 | 5 ✅ |
 | 4 | Azure Storage Layer | 4 | 4 ✅ |
 | 5 | Upload API and Job Queue | 5 | 5 ✅ |
-| 6 | Extraction Engine and Model Gateway | 5 | 4 ⏳ |
+| 6 | Extraction Engine and Model Gateway | 5 | 5 ✅ |
 | 7 | Validation Rules Engine | 6 | 0 ❌ |
 | 8 | Confidence Routing and State Machine | 3 | 0 ❌ |
 | 9 | Re-Validation and Approval API | 4 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **33 (49%)** |
+| **Total** | | **68** | **34 (50%)** |
 
