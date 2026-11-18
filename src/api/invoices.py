@@ -937,28 +937,34 @@ async def get_invoice_detail(
     )
 
 
-def guard_revalidate_content_length(request: Request) -> None:
-    """Fail fast on oversized or malformed JSON bodies on /revalidate (SEC-175, CWE-400)."""
+async def guard_revalidate_content_length(request: Request) -> None:
+    """Fail fast on oversized or malformed JSON bodies on /revalidate, including chunked streams (SEC-175, SEC-218, CWE-400)."""
     raw_len = request.headers.get("content-length")
-    if raw_len is None:
-        return
-    try:
-        declared_len = int(raw_len.strip())
-    except ValueError:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid Content-Length header",
-        ) from None
-    if declared_len < 0:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid Content-Length header",
-        )
-    if declared_len > MAX_REVALIDATE_BODY_BYTES:
-        raise HTTPException(
-            status_code=413,
-            detail=f"Revalidation payload exceeds maximum limit of {MAX_REVALIDATE_BODY_BYTES} bytes",
-        )
+    if raw_len is not None:
+        try:
+            declared_len = int(raw_len.strip())
+        except ValueError:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid Content-Length header",
+            ) from None
+        if declared_len < 0:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid Content-Length header",
+            )
+        if declared_len > MAX_REVALIDATE_BODY_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Revalidation payload exceeds maximum limit of {MAX_REVALIDATE_BODY_BYTES} bytes",
+            )
+    else:
+        body_bytes = await request.body()
+        if len(body_bytes) > MAX_REVALIDATE_BODY_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Revalidation payload exceeds maximum limit of {MAX_REVALIDATE_BODY_BYTES} bytes",
+            )
 
 
 @router.post(

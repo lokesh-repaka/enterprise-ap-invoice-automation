@@ -8,7 +8,7 @@ and lifespan event management per CLAUDE.md §11 and LLD §2.
 from contextlib import asynccontextmanager
 from typing import Annotated, Any
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -88,6 +88,7 @@ async def health_liveness() -> dict[str, Any]:
 
 @app.get("/health/ready", status_code=status.HTTP_200_OK, tags=["System Health"])
 async def health_readiness(
+    response: Response,
     _user: Annotated[AuthenticatedUser, Depends(require_role(Role.SYSTEM_ADMIN))],
 ) -> dict[str, Any]:
     """
@@ -95,6 +96,7 @@ async def health_readiness(
     Protected by system_admin RBAC per CLAUDE.md §9.
     Returns 200 when all core components are reachable or properly mocked.
     """
+    response.headers["Cache-Control"] = "no-store"
     components = {
         "database": "ready (mock_sqlite)" if settings.USE_LOCAL_SQLITE else "ready (azure_sql)",
         "redis": "ready (fake_redis)" if settings.USE_FAKE_REDIS else "ready (azure_redis)",
