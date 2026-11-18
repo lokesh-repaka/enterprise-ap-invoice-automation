@@ -7,6 +7,20 @@ and the 10-state invoice FSM.
 MUST NOT call LLMs (CLAUDE.md §4.2, §7.2).
 """
 
+from src.validation.date_normalizer import (
+    MAX_DATE_STR_CHARS,
+    MAX_LOCALE_STR_CHARS,
+    MAX_VALID_YEAR,
+    MIN_VALID_YEAR,
+    AmbiguousDateError,
+    DateNormalizationResult,
+    InvoiceDatesValidationResult,
+    normalize_extraction_dates,
+    normalize_invoice_date,
+    normalize_invoice_dates,
+    parse_invoice_date,
+    resolve_date_locale,
+)
 from src.validation.duplicate_detector import (
     IGNORED_DUPLICATE_STATUSES,
     MAX_EXISTING_LOOKUP_RECORDS,
@@ -63,13 +77,16 @@ from src.validation.tax_validator import (
 )
 
 __all__ = [
+    "AmbiguousDateError",
     "COUNTRY_TAX_RATES",
+    "DateNormalizationResult",
     "DuplicateCheckInput",
     "DuplicateDetectionResult",
     "DuplicateDetector",
     "DuplicateOutcome",
     "ExistingInvoiceRecord",
     "IGNORED_DUPLICATE_STATUSES",
+    "InvoiceDatesValidationResult",
     "InvoiceLookupProtocol",
     "InvoiceTotalInput",
     "InvoiceTotalRecordLike",
@@ -81,14 +98,18 @@ __all__ = [
     "MAX_ALLOWED_INVOICE_TOLERANCE",
     "MAX_ALLOWED_TAX_TOLERANCE",
     "MAX_ALLOWED_TOLERANCE",
+    "MAX_DATE_STR_CHARS",
     "MAX_EXISTING_LOOKUP_RECORDS",
     "MAX_FILENAME_CHARS",
     "MAX_INVOICE_NUMBER_CHARS",
     "MAX_LINE_ITEMS",
+    "MAX_LOCALE_STR_CHARS",
     "MAX_MONETARY_AMOUNT",
     "MAX_QUANTITY_AMOUNT",
     "MAX_US_SALES_TAX_RATE",
+    "MAX_VALID_YEAR",
     "MAX_VENDOR_TAX_ID_CHARS",
+    "MIN_VALID_YEAR",
     "SUPPORTED_COUNTRY_CODES",
     "TargetDuplicateStatus",
     "TaxLineInput",
@@ -103,6 +124,11 @@ __all__ = [
     "evaluate_line_items",
     "evaluate_tax_rate",
     "normalize_country_code",
+    "normalize_extraction_dates",
+    "normalize_invoice_date",
+    "normalize_invoice_dates",
+    "parse_invoice_date",
+    "resolve_date_locale",
     "validate_extraction_invoice_total",
     "validate_extraction_line_items",
     "validate_extraction_tax",
