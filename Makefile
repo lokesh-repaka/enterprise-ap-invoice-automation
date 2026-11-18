@@ -15,7 +15,7 @@ OFFLINE_ENV := PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
                USE_MOCK_AOAI=true \
                SAMPLE_DATA_DIR=./sample_data
 
-.PHONY: help install run-api run-ui test test-unit test-integration test-eval lint format clean seed-data
+.PHONY: help install run-api run-ui run-azurite stop-azurite test test-unit test-integration test-eval lint format clean seed-data
 
 help: ## Show available make targets
 	@echo "Available commands for Enterprise AP Automation Platform:"
@@ -29,6 +29,12 @@ run-api: ## Run FastAPI backend locally on port 8000
 
 run-ui: ## Run Streamlit UI dashboard on port 8501
 	streamlit run src/ui/app.py --server.port $(PORT_UI)
+
+run-azurite: ## Start local Azurite Blob Storage emulator bound to 127.0.0.1:10000
+	docker compose -f docker-compose.azurite.yml up -d
+
+stop-azurite: ## Stop local Azurite Blob Storage emulator
+	docker compose -f docker-compose.azurite.yml down
 
 test: ## Run all tests offline (100% mocked Azure services)
 	$(OFFLINE_ENV) pytest -p pytest_asyncio -v

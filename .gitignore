@@ -14,6 +14,11 @@ build/
 *.sqlite
 /data/enterprise.db
 
+# Local Azurite Blob emulator artifacts (P4-2)
+.azurite/
+__blobstorage__/
+__azurite_db_*.json
+
 # Temporary scratch scripts & course materials
 scratch/
 AI_Solution_Architect_Masterclass_Slides.pdf

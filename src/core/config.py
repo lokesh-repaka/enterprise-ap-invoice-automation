@@ -132,6 +132,12 @@ class Settings(BaseSettings):
         default=True,
         description="If True (dev/local/test only), uses offline in-memory WORM Blob client.",
     )
+    USE_AZURITE_EMULATOR: bool = Field(
+        default=False,
+        description="If True (dev/local/test + local SQLite only), routes Blob WORM client to local Azurite.",
+    )
+    AZURITE_BLOB_URL: str = "http://127.0.0.1:10000/devstoreaccount1/"
+    AZURITE_ACCOUNT_NAME: str = "devstoreaccount1"
     ENABLE_DEMO_AUTH: bool = Field(
         default=False,
         description=(

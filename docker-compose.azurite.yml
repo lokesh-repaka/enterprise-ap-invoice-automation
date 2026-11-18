@@ -1,0 +1,40 @@
+# ==============================================================================
+# Azurite Local Azure Blob Storage Emulator (Phase 4 P4-2 — Local Dev Only)
+# Usage: make run-azurite / make stop-azurite
+# Security: Loopback-only binding (127.0.0.1:10000), pinned image tag, zero
+# static credentials committed to repository (CWE-668, ADR-007).
+# ==============================================================================
+
+services:
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:3.33.0
+    container_name: ap-azurite-local
+    restart: unless-stopped
+    command:
+      - azurite-blob
+      - --blobHost
+      - "0.0.0.0"
+      - --blobPort
+      - "10000"
+      - --location
+      - /data
+      - --silent
+    ports:
+      - "127.0.0.1:10000:10000"
+    volumes:
+      - azurite_data:/data
+    mem_limit: 256m
+    pids_limit: 128
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('net').connect(10000, '127.0.0.1').on('connect', () => process.exit(0)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  azurite_data:
+
