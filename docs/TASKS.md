@@ -77,7 +77,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 
 | Task | Branch | Status |
 |------|--------|--------|
-| P5-1 · `POST /api/v1/invoices/upload` — multipart upload, Blob write, Redis enqueue, 202 Accepted | `feature/api-invoice-upload` | Pending ❌ |
+| P5-1 · `POST /api/v1/invoices/upload` — multipart upload, Blob write, Redis enqueue, 202 Accepted | `feature/api-invoice-upload` | Completed ✅ |
 | P5-2 · Redis job queue client (`src/core/redis_client.py`) — enqueue, dequeue, idempotency key | `feature/core-redis-job-queue` | Pending ❌ |
 | P5-3 · Background worker skeleton — picks jobs from Redis, calls pipeline, updates status | `feature/worker-pipeline-skeleton` | Pending ❌ |
 | P5-4 · `GET /api/v1/invoices/{id}` and `GET /api/v1/invoices/exceptions` — query and filter routes | `feature/api-invoice-read-routes` | Pending ❌ |
@@ -262,7 +262,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 2 | Persistence and Vendor Master | 5 | 5 ✅ |
 | 3 | Identity and Security | 5 | 5 ✅ |
 | 4 | Azure Storage Layer | 4 | 4 ✅ |
-| 5 | Upload API and Job Queue | 5 | 0 ❌ |
+| 5 | Upload API and Job Queue | 5 | 1 ⏳ |
 | 6 | Extraction Engine and Model Gateway | 5 | 0 ❌ |
 | 7 | Validation Rules Engine | 6 | 0 ❌ |
 | 8 | Confidence Routing and State Machine | 3 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **24 (35%)** |
+| **Total** | | **68** | **25 (37%)** |
 
