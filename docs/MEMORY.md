@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (86% Complete — 6 / 7 Tasks Done ⏳)
-- **Latest Completed Subtask:** P11-6 · Audit Trail Viewer (`/audit/{invoice_id}`) — chronological timeline, immutable display
-- **Total Completed Tasks:** 53 / 68 (78%)
-- **Test Suite Pass Count:** **642 / 642 passing (100% — 636 unit + 6 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **25.78 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (122 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (206 findings audited & mitigated; `SEC-204`–`SEC-206` closed in P11-6); Audit Trail Viewer (`src/ui/audit_viewer.py`) enforces flat & dotted sensitive-field PII masking (`vendor_tax_id`, `invoice.iban`, `bank_account`, `ssn`), inline SSN/IBAN & Bearer/JWT redaction in comments, and CSV-formula-safe CSV/JSON exports (`SEC-204`), AST-enforced strict read-only immutability (zero `st.data_editor`, zero `unsafe_allow_html=True`) plus fail-closed 3-role RBAC (`SEC-205`), and validated export filename stems, bounded pagination (`limit <= 200`), and Sign Out / persona-switch audit session purge (`SEC-206`)
+- **Current Active Phase:** Phase 11 — Streamlit UI (100% Complete — 7 / 7 Tasks Done ✅)
+- **Latest Completed Subtask:** P11-7 · Confidence colour coding and role-aware UI — hide Approve button for `ap_clerk` when total > \$10,000
+- **Total Completed Tasks:** 54 / 68 (79%)
+- **Test Suite Pass Count:** **650 / 650 passing (100% — 643 unit + 7 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **23.84 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (125 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (208 findings audited & mitigated; `SEC-207`–`SEC-208` closed in P11-7); **Phase 11 complete**: centralized `src/ui/theme_rbac.py` enforces exact `CANONICAL_ROLES` allowlist, conservative `max(total_amount, total_amount_usd)` USD threshold evaluation preventing stale-column clerk bypass, fail-closed hiding of Approve button for `ap_clerk` on `>$10k` (from `get_settings()`), missing non-USD FX, PO variance `>5%`, credit notes, `<90%` confidence, and `NaN`/negative thresholds (`SEC-207`), fail-closed `[0, 100]` confidence colour coding (`#22c55e` / `#fef08a` / `#ef4444`) across all 5 Streamlit screens, and a full-directory AST audit proving zero backend/SDK imports and zero `unsafe_allow_html=True` across all `src/ui/*.py` modules (`SEC-208`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -72,13 +72,15 @@
 | `tests/unit/test_ui_exception_queue.py` | P11-4 Human Exception Queue (`/exceptions`): PRD Screen 3 exception presets & strict filter validation, confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`), urgency & elapsed time, bulk assign/refresh (429 backoff)/manager-only bulk approve, XSS/CSV-formula/route/layering guards, headless renderer smoke | 9 | 0.12s |
 | `tests/unit/test_ui_revision_screen.py` | P11-5 Revision Comparison (`/revision/{id}`): `-REV`/`v2`/`AMENDED` marker detection, yellow/red header & line-item diff engine, financial/tax/percentage deltas, exact duplicate & cross-vendor/`UNKNOWN` spoofing guards, original APPROVE audit provenance, fail-closed decision RBAC, XSS/CSV-formula/layering guards, headless renderer smoke | 8 | 0.14s |
 | `tests/unit/test_ui_audit_viewer.py` | P11-6 Audit Trail Viewer (`/audit/{id}`): 3-role RBAC & 9-action filter allowlist, oldest-to-newest chronological timeline & KPI summary, flat/dotted PII & inline SSN/IBAN/Bearer redaction, formula-safe CSV/JSON exports, AST read-only immutability (zero `data_editor`) & layering check, headless renderer smoke | 6 | 0.12s |
+| `tests/unit/test_ui_confidence_colours_rbac.py` | P11-7 Confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`) & role-aware UI (`src/ui/theme_rbac.py`): exact boundaries & fail-closed NaN/bool parsing, hidden Approve for `ap_clerk` `>$10k`/PO-variance/credit-note/stale-USD/missing-FX, dynamic `get_settings()` thresholds, headless Workbench hiding proof, full-directory `src/ui/*.py` AST layering & zero-HTML audit | 7 | 0.15s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
 | `tests/integration/test_ui_exception_queue_integration.py` | P11-4 End-to-end offline integration test: real FastAPI `/exceptions` preset filtering + `finance_manager` bulk approval on `$15k` escalated invoice skipping `DUPLICATE_INVOICE` | 1 | 0.27s |
 | `tests/integration/test_ui_revision_screen_integration.py` | P11-5 End-to-end offline integration test: real FastAPI `APPROVED_CLERK` original + `FLAGGED_POTENTIAL_REVISION` `-REV` side-by-side comparison & immutable `APPROVE` audit provenance | 1 | 0.29s |
 | `tests/integration/test_ui_audit_viewer_integration.py` | P11-6 End-to-end offline integration test: real FastAPI Re-Validate -> Approve -> `AuditTrailViewerController` chronological inspection as `system_admin` | 1 | 0.30s |
-| **Total** | **All Modules Offline** | **642** | **25.78s** |
+| `tests/integration/test_ui_confidence_colours_rbac_integration.py` | P11-7 End-to-end offline integration test: UI-backend RBAC parity (`$15k` hidden in UI + HTTP 403 on FastAPI for `ap_clerk`, approved by `finance_manager`; `$2.5k` approved by `ap_clerk`) | 1 | 0.30s |
+| **Total** | **All Modules Offline** | **650** | **23.84s** |
 
 ---
 

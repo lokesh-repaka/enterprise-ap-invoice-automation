@@ -170,7 +170,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | P11-4 · Human Exception Queue (`/exceptions`) — filtered queue by exception type, confidence colour coding, bulk actions | `feature/ui-exception-queue` | Completed ✅ |
 | P11-5 · Revision Comparison screen (`/revision/{invoice_id}`) — side-by-side original vs. revision | `feature/ui-revision-comparison` | Completed ✅ |
 | P11-6 · Audit Trail Viewer (`/audit/{invoice_id}`) — chronological timeline, immutable display | `feature/ui-audit-trail-viewer` | Completed ✅ |
-| P11-7 · Confidence colour coding and role-aware UI — hide Approve button for `ap_clerk` when total > $10,000 | `feature/ui-confidence-colours-rbac` | Pending ❌ |
+| P11-7 · Confidence colour coding and role-aware UI — hide Approve button for `ap_clerk` when total > $10,000 | `feature/ui-confidence-colours-rbac` | Completed ✅ |
 
 ---
 
@@ -268,9 +268,9 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 8 | Confidence Routing and State Machine | 3 | 3 ✅ |
 | 9 | Re-Validation and Approval API | 4 | 4 ✅ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
-| 11 | Streamlit UI | 7 | 6 ⏳ |
+| 11 | Streamlit UI | 7 | 7 ✅ |
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **53 (78%)** |
+| **Total** | | **68** | **54 (79%)** |
 

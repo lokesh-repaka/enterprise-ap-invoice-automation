@@ -44,10 +44,16 @@ from src.api.schemas.invoices import (
     InvoiceRevalidateResponse,
     ReasonCode,
 )
-from src.core.config import get_settings
 from src.core.logging import get_logger
 from src.ui.api_client import MAX_CLIENT_UPLOAD_BYTES, APIClientError, APInvoiceAPIClient
 from src.ui.ingestion_dashboard import sanitize_display_text
+from src.ui.theme_rbac import (
+    CLERK_APPROVAL_CONFIDENCE_FLOOR,
+    REVIEW_CONFIDENCE_FLOOR,
+    ConfidenceCue,
+    classify_confidence_cue,
+    evaluate_invoice_ui_capabilities,
+)
 
 logger = get_logger("ap.ui.review_workbench")
 
@@ -103,9 +109,6 @@ MANAGER_APPROVABLE_STATUSES: frozenset[str] = frozenset(
     }
 )
 
-CLERK_APPROVAL_CONFIDENCE_FLOOR: Decimal = Decimal("90.00")
-REVIEW_CONFIDENCE_FLOOR: Decimal = Decimal("80.00")
-
 _INVOICE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 _CONTROL_CHAR_RE = re.compile(r"[\r\n\x00-\x1f\x7f]")
 _LOCAL_PREVIEW_HTTP_HOSTS: frozenset[str] = frozenset({"localhost", "127.0.0.1", "azurite"})
@@ -122,17 +125,6 @@ REASON_CODE_LABELS: tuple[tuple[ReasonCode, str], ...] = (
 # ---------------------------------------------------------------------------
 # Typed Workbench Presentation & Draft Models
 # ---------------------------------------------------------------------------
-
-
-class ConfidenceCue(BaseModel):
-    """Canonical tri-tier confidence color badge (CLAUDE.md §12, PRD Screen 2)."""
-
-    model_config = ConfigDict(frozen=True)
-
-    tier: str
-    label: str
-    hex_color: str
-    score: Decimal
 
 
 class DocumentPreviewPage(BaseModel):
@@ -203,31 +195,8 @@ class LineFormDraft(BaseModel):
 # ---------------------------------------------------------------------------
 # Confidence Cues, PII Masking, Document Preview & URL Safety
 # ---------------------------------------------------------------------------
-
-
-def classify_confidence_cue(score: Decimal | float | int | None) -> ConfidenceCue:
-    """Return CLAUDE.md §12 confidence tier color cue (Green / Light-Yellow / Red)."""
-    val = Decimal("0.00") if score is None else Decimal(str(score))
-    if val >= CLERK_APPROVAL_CONFIDENCE_FLOOR:
-        return ConfidenceCue(
-            tier="HIGH",
-            label="High Confidence (≥90%)",
-            hex_color="#22c55e",
-            score=val,
-        )
-    if val >= REVIEW_CONFIDENCE_FLOOR:
-        return ConfidenceCue(
-            tier="REVIEW",
-            label="Review Recommended (80–89%)",
-            hex_color="#fef08a",
-            score=val,
-        )
-    return ConfidenceCue(
-        tier="LOW",
-        label="Low Confidence (<80%)",
-        hex_color="#ef4444",
-        score=val,
-    )
+# PII Masking, Document Preview & URL Safety (Confidence Cues in theme_rbac)
+# ---------------------------------------------------------------------------
 
 
 def mask_tax_id(raw_tax_id: str | None) -> str:
@@ -523,41 +492,13 @@ def can_approve_in_workbench(
     high_value_threshold_usd: Decimal | None = None,
 ) -> bool:
     """
-    Role-aware Approve button visibility guard (CLAUDE.md §12, FR-13, BR-014).
-
-    - ``finance_manager``: allowed on approvable statuses including > HIGH_VALUE_THRESHOLD_USD.
-    - ``ap_clerk``: allowed ONLY when ``status == VALIDATED``, confidence >= 90%, AND
-      effective USD total <= ``HIGH_VALUE_THRESHOLD_USD`` (button is hidden otherwise!).
-    - ``system_admin`` / unauthenticated: always False.
+    Role-aware Approve button visibility guard delegating to ``theme_rbac`` (CLAUDE.md §12, FR-13).
     """
-    if not user_roles:
-        return False
-    role_set = set(user_roles)
-    if not APPROVE_ALLOWED_ROLES.intersection(role_set):
-        return False
-
-    if "finance_manager" in role_set:
-        return invoice.status in MANAGER_APPROVABLE_STATUSES
-
-    # ap_clerk path
-    if invoice.status != "VALIDATED":
-        return False
-    if invoice.confidence_macro_avg < CLERK_APPROVAL_CONFIDENCE_FLOOR:
-        return False
-
-    threshold = (
-        high_value_threshold_usd
-        if high_value_threshold_usd is not None
-        else Decimal(str(get_settings().HIGH_VALUE_THRESHOLD_USD))
-    )
-    effective_usd = (
-        invoice.total_amount_usd
-        if invoice.total_amount_usd is not None
-        else (invoice.total_amount if invoice.currency.upper() == "USD" else None)
-    )
-    if effective_usd is None:
-        return False
-    return effective_usd <= threshold
+    return evaluate_invoice_ui_capabilities(
+        invoice,
+        user_roles,
+        high_value_threshold_usd=high_value_threshold_usd,
+    ).show_approve_button
 
 
 # ---------------------------------------------------------------------------
@@ -860,9 +801,9 @@ def render_review_workbench(
         selected_reason = reason_lookup.get(selected_reason_label, ReasonCode.OCR_MISREAD)
         audit_comment = st.text_area("Audit Comment (mandatory for OTHER)", value="")
 
-        # Action Bar
-        editable = can_revalidate_in_workbench(active_invoice, user_roles)
-        approvable = can_approve_in_workbench(active_invoice, user_roles)
+        # Action Bar (Role-Aware UI per CLAUDE.md §12 & P11-7)
+        capabilities = evaluate_invoice_ui_capabilities(active_invoice, user_roles)
+        editable = capabilities.can_edit_and_revalidate
 
         act_col1, act_col2 = st.columns(2)
         with act_col1:
@@ -882,6 +823,7 @@ def render_review_workbench(
                         st.session_state["workbench_invoice"] = refreshed
                         st.session_state["workbench_last_revalidation"] = reval_resp
                         active_invoice = refreshed
+                        capabilities = evaluate_invoice_ui_capabilities(active_invoice, user_roles)
                         st.success(
                             f"Re-validated invoice {refreshed.invoice_id} -> {reval_resp.status} "
                             f"(Audit ID: {reval_resp.audit_event_id})"
@@ -893,8 +835,8 @@ def render_review_workbench(
 
         with act_col2:
             # CLAUDE.md §12: Hide Approve button completely (not just disable) when not authorized
-            if approvable:
-                if st.button("Approve (One-Click)"):
+            if capabilities.show_approve_button and capabilities.approve_button_label:
+                if st.button(capabilities.approve_button_label):
                     try:
                         app_resp, approved = controller.submit_approval(
                             active_invoice,
@@ -908,6 +850,8 @@ def render_review_workbench(
                         )
                     except (PermissionError, ValueError, APIClientError) as exc:
                         st.error(sanitize_display_text(str(exc), max_length=220))
+            elif capabilities.approve_hidden_reason:
+                st.info(sanitize_display_text(capabilities.approve_hidden_reason, max_length=220))
 
 
 __all__ = [
