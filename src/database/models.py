@@ -17,6 +17,7 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 
 from sqlalchemy import (
+    DDL,
     Boolean,
     Date,
     DateTime,
@@ -27,9 +28,14 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    event,
     text,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
+
+class AuditLogImmutabilityError(PermissionError):
+    """Raised whenever application or ORM code attempts to UPDATE or DELETE an AuditLog row (SEC-215)."""
 
 
 class Base(DeclarativeBase):
@@ -142,7 +148,7 @@ class Invoice(Base):
     audit_logs: Mapped[list["AuditLog"]] = relationship(
         "AuditLog",
         back_populates="invoice",
-        cascade="all, delete-orphan",
+        cascade="save-update, merge",
         order_by="AuditLog.timestamp",
     )
 
@@ -244,6 +250,46 @@ class AuditLog(Base):
             f"<AuditLog(id='{self.audit_id}', inv_id='{self.invoice_id}', "
             f"user='{self.user_id}', action='{self.action_type}')>"
         )
+
+
+@event.listens_for(AuditLog, "before_update")
+def _forbid_audit_log_orm_update(_mapper: object, _connection: object, target: AuditLog) -> None:
+    """Block any ORM UPDATE on immutable AuditLog rows (CLAUDE.md §6, §16 Rule 9, SEC-215)."""
+    raise AuditLogImmutabilityError(
+        f"AuditLogs is strictly append-only: UPDATE prohibited on audit_id={target.audit_id!r}."
+    )
+
+
+@event.listens_for(AuditLog, "before_delete")
+def _forbid_audit_log_orm_delete(_mapper: object, _connection: object, target: AuditLog) -> None:
+    """Block any ORM DELETE (including parent cascade) on AuditLog rows (CLAUDE.md §6, SEC-215)."""
+    raise AuditLogImmutabilityError(
+        f"AuditLogs is strictly append-only: DELETE prohibited on audit_id={target.audit_id!r}."
+    )
+
+
+_SQLITE_AUDIT_NO_UPDATE_TRIGGER = DDL(
+    """
+    CREATE TRIGGER IF NOT EXISTS trg_audit_logs_no_update
+    BEFORE UPDATE ON audit_logs
+    BEGIN
+        SELECT RAISE(ABORT, 'AuditLogs is strictly append-only: UPDATE is prohibited');
+    END;
+    """
+).execute_if(dialect="sqlite")
+
+_SQLITE_AUDIT_NO_DELETE_TRIGGER = DDL(
+    """
+    CREATE TRIGGER IF NOT EXISTS trg_audit_logs_no_delete
+    BEFORE DELETE ON audit_logs
+    BEGIN
+        SELECT RAISE(ABORT, 'AuditLogs is strictly append-only: DELETE is prohibited');
+    END;
+    """
+).execute_if(dialect="sqlite")
+
+event.listen(AuditLog.__table__, "after_create", _SQLITE_AUDIT_NO_UPDATE_TRIGGER)
+event.listen(AuditLog.__table__, "after_create", _SQLITE_AUDIT_NO_DELETE_TRIGGER)
 
 
 class ExchangeRate(Base):

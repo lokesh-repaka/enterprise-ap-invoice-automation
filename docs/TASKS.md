@@ -183,7 +183,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 |------|--------|--------|
 | P12-1 · Unit tests — line arithmetic, invoice total, tax (all countries + reverse-charge), date locale, duplicate hash, confidence router, reason code enum | `feature/tests-unit-validation` | Completed ✅ |
 | P12-2 · Integration test — full upload → extract → validate → route flow with mocked AOAI | `feature/tests-integration-upload-flow` | Completed ✅ |
-| P12-3 · Integration test — re-validate workflow and audit log append-only enforcement | `feature/tests-integration-revalidate` | Pending ❌ |
+| P12-3 · Integration test — re-validate workflow and audit log append-only enforcement | `feature/tests-integration-revalidate` | Completed ✅ |
 | P12-4 · Integration test — RBAC 403 scenarios (clerk approving >$10k, unauthenticated access) | `feature/tests-integration-rbac` | Pending ❌ |
 | P12-5 · Integration test — idempotency key deduplication (re-submitted identical file) | `feature/tests-integration-idempotency` | Pending ❌ |
 
@@ -269,8 +269,8 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 9 | Re-Validation and Approval API | 4 | 4 ✅ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
 | 11 | Streamlit UI | 7 | 7 ✅ |
-| 12 | Integration Tests | 5 | 2 🟡 |
+| 12 | Integration Tests | 5 | 3 🟡 |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **56 (82%)** |
+| **Total** | | **68** | **57 (84%)** |
 
