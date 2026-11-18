@@ -112,7 +112,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | P7-3 · Invoice total arithmetic validator — Subtotal + Tax = Total ± 0.05 (FR-06) | `feature/validation-invoice-total` | Completed ✅ |
 | P7-4 · Multi-country tax validator (FR-07) — US sales tax, UK VAT 20/5/0%, DE MwSt 19/7/0%, ES IVA 21/10/4/0%, reverse-charge and exemption flags | `feature/validation-tax-validator` | Completed ✅ |
 | P7-5 · Date normaliser (FR-08) — Vendor Master locale resolution (US: MM/DD/YYYY; EU: DD/MM/YYYY), ambiguous flag | `feature/validation-date-normaliser` | Completed ✅ |
-| P7-6 · Rules Engine orchestrator (`src/validation/rules_engine.py`) — chains all validators, returns pass/fail list | `feature/validation-rules-engine` | Pending ❌ |
+| P7-6 · Rules Engine orchestrator (`src/validation/rules_engine.py`) — chains all validators, returns pass/fail list | `feature/validation-rules-engine` | Completed ✅ |
 
 ---
 
@@ -264,7 +264,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 4 | Azure Storage Layer | 4 | 4 ✅ |
 | 5 | Upload API and Job Queue | 5 | 5 ✅ |
 | 6 | Extraction Engine and Model Gateway | 5 | 5 ✅ |
-| 7 | Validation Rules Engine | 6 | 5 ⏳ |
+| 7 | Validation Rules Engine | 6 | 6 ✅ |
 | 8 | Confidence Routing and State Machine | 3 | 0 ❌ |
 | 9 | Re-Validation and Approval API | 4 | 0 ❌ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **39 (57%)** |
+| **Total** | | **68** | **40 (59%)** |
 
