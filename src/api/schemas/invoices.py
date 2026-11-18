@@ -1,12 +1,143 @@
 """
-Pydantic schemas for Invoice Upload, Read Detail, Exception Queue, and Async Job Payloads (P5-1, P5-4).
+Pydantic schemas for Invoice Upload, Read Detail, Exception Queue, Re-Validation, and Async Job Payloads (P5-1, P5-4, P9-1).
 """
 
+import re
 from datetime import date, datetime
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+from src.core.audit import MAX_COMMENT_LENGTH, ReasonCode
+
+_CONTROL_CHAR_RE = re.compile(r"[\x00-\x1f\x7f]")
+_BIDI_OR_ZERO_WIDTH_RE = re.compile(r"[\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]")
+_STRICT_ASCII_DECIMAL_RE = re.compile(
+    r"^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,3})?$"
+)
+
+MAX_REVALIDATE_MONETARY_AMOUNT: Decimal = Decimal("999999999999.99")
+MAX_REVALIDATE_DECIMAL_CHARS: int = 32
+MAX_REVALIDATE_LINES: int = 500
+MIN_VALID_YEAR: int = 1990
+MAX_VALID_YEAR: int = 2100
+
+
+def _parse_strict_schema_decimal(
+    raw: Any,
+    *,
+    field_name: str,
+    max_abs: Decimal,
+    max_fraction_digits: int,
+) -> Decimal | None:
+    """Parse strict-ASCII finite bounded Decimal rejecting bool/NaN/Inf/underscores/non-ASCII."""
+    if raw is None:
+        return None
+    if isinstance(raw, bool):
+        raise ValueError(f"{field_name} cannot be a boolean")
+    if isinstance(raw, Decimal):
+        val = raw
+    elif isinstance(raw, int):
+        if raw.bit_length() > 64:
+            raise ValueError(f"{field_name} integer magnitude exceeds safe bounds")
+        val = Decimal(raw)
+    elif isinstance(raw, float):
+        text = repr(raw)
+        if not _STRICT_ASCII_DECIMAL_RE.match(text):
+            raise ValueError(f"{field_name} must be a finite numeric value")
+        val = Decimal(text)
+    elif isinstance(raw, str):
+        if _CONTROL_CHAR_RE.search(raw) or _BIDI_OR_ZERO_WIDTH_RE.search(raw):
+            raise ValueError(f"{field_name} contains disallowed characters")
+        stripped = raw.strip()
+        if not stripped:
+            raise ValueError(f"{field_name} cannot be empty")
+        if len(stripped) > MAX_REVALIDATE_DECIMAL_CHARS:
+            raise ValueError(
+                f"{field_name} exceeds maximum length of {MAX_REVALIDATE_DECIMAL_CHARS}"
+            )
+        if not _STRICT_ASCII_DECIMAL_RE.match(stripped):
+            raise ValueError(f"{field_name} must be a strict ASCII decimal number")
+        try:
+            val = Decimal(stripped)
+        except InvalidOperation:
+            raise ValueError(f"{field_name} must be a valid decimal number") from None
+    else:
+        raise ValueError(f"{field_name} must be a numeric value")
+
+    if not val.is_finite():
+        raise ValueError(f"{field_name} must be finite")
+
+    if val != 0:
+        adjusted = val.adjusted()
+        if adjusted > 12 or adjusted < -max_fraction_digits:
+            raise ValueError(f"{field_name} exponent exceeds allowed precision bounds")
+        norm_exp = val.normalize().as_tuple().exponent
+        if isinstance(norm_exp, int) and norm_exp < -max_fraction_digits:
+            raise ValueError(
+                f"{field_name} exceeds maximum {max_fraction_digits} fractional digits"
+            )
+    else:
+        val = Decimal("0")
+
+    if abs(val) > max_abs:
+        raise ValueError(f"{field_name} exceeds maximum allowed magnitude {max_abs}")
+    return val
+
+
+def _validate_clean_optional_text(
+    raw: Any,
+    *,
+    field_name: str,
+    max_length: int,
+    allow_empty: bool = False,
+) -> str | None:
+    """Validate optional bounded text blocking control/bidi characters (CWE-20/117/451)."""
+    if raw is None:
+        return None
+    if not isinstance(raw, str):
+        raise ValueError(f"{field_name} must be a string")
+    if _CONTROL_CHAR_RE.search(raw):
+        raise ValueError(f"{field_name} contains disallowed control characters")
+    if _BIDI_OR_ZERO_WIDTH_RE.search(raw):
+        raise ValueError(f"{field_name} contains disallowed invisible bidi/zero-width characters")
+    cleaned = raw.strip()
+    if not cleaned:
+        if allow_empty:
+            return None
+        raise ValueError(f"{field_name} cannot be empty")
+    if len(cleaned) > max_length:
+        raise ValueError(f"{field_name} exceeds maximum length of {max_length} characters")
+    return cleaned
+
+
+def _validate_optional_date(raw: Any, *, field_name: str) -> date | None:
+    """Validate strict ISO calendar date within [1990, 2100] (rejects datetime/bool)."""
+    if raw is None:
+        return None
+    if isinstance(raw, bool):
+        raise ValueError(f"{field_name} cannot be a boolean")
+    if isinstance(raw, datetime):
+        raise ValueError(f"{field_name} must be an ISO calendar date (YYYY-MM-DD), not a datetime")
+    if isinstance(raw, date):
+        parsed = raw
+    elif isinstance(raw, str):
+        if _CONTROL_CHAR_RE.search(raw) or _BIDI_OR_ZERO_WIDTH_RE.search(raw):
+            raise ValueError(f"{field_name} contains disallowed characters")
+        stripped = raw.strip()
+        try:
+            parsed = date.fromisoformat(stripped)
+        except ValueError:
+            raise ValueError(f"{field_name} must be a valid ISO date (YYYY-MM-DD)") from None
+    else:
+        raise ValueError(f"{field_name} must be a valid ISO date (YYYY-MM-DD)")
+
+    if parsed.year < MIN_VALID_YEAR or parsed.year > MAX_VALID_YEAR:
+        raise ValueError(
+            f"{field_name} year {parsed.year} outside allowed bounds [{MIN_VALID_YEAR}, {MAX_VALID_YEAR}]"
+        )
+    return parsed
 
 
 class InvoiceUploadResponse(BaseModel):
@@ -117,3 +248,226 @@ class ExceptionQueueResponse(BaseModel):
     limit: int
     offset: int
     filters_applied: dict[str, Any]
+
+
+class InvoiceHeaderEdits(BaseModel):
+    """
+    Allowlisted AP Clerk editable invoice header fields (BR-016, BR-017, LLD §2.2).
+
+    Strictly forbids mass assignment of workflow ``status``, model ``confidence_macro_avg``,
+    FX-derived ``total_amount_usd``, ``vendor_tax_id``, ``currency``, or ``composite_hash``
+    (CWE-915, CLAUDE.md §7.4, §16.1).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    invoice_number: str | None = None
+    invoice_date: date | None = None
+    due_date: date | None = None
+    po_number: str | None = None
+    subtotal: Decimal | None = None
+    total_tax_amount: Decimal | None = None
+    total_amount: Decimal | None = None
+
+    @field_validator("invoice_number", mode="before")
+    @classmethod
+    def _validate_invoice_number(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(v, field_name="invoice_number", max_length=100)
+
+    @field_validator("po_number", mode="before")
+    @classmethod
+    def _validate_po_number(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(v, field_name="po_number", max_length=100)
+
+    @field_validator("invoice_date", mode="before")
+    @classmethod
+    def _validate_invoice_date(cls, v: Any) -> date | None:
+        return _validate_optional_date(v, field_name="invoice_date")
+
+    @field_validator("due_date", mode="before")
+    @classmethod
+    def _validate_due_date(cls, v: Any) -> date | None:
+        return _validate_optional_date(v, field_name="due_date")
+
+    @field_validator("subtotal", "total_tax_amount", "total_amount", mode="before")
+    @classmethod
+    def _validate_monetary_amounts(cls, v: Any, info: Any) -> Decimal | None:
+        return _parse_strict_schema_decimal(
+            v,
+            field_name=str(info.field_name),
+            max_abs=MAX_REVALIDATE_MONETARY_AMOUNT,
+            max_fraction_digits=2,
+        )
+
+
+class InvoiceLineEdit(BaseModel):
+    """
+    Allowlisted AP Clerk editable line-item fields (BR-016, LLD §2.2).
+
+    Strictly forbids tampering with model ``confidence_score``, ``line_id``, or ``invoice_id``
+    (CWE-915, CLAUDE.md §7.4).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    line_number: int
+    description: str | None = None
+    quantity: Decimal | None = None
+    unit_price: Decimal | None = None
+    line_total: Decimal | None = None
+    line_tax_rate: Decimal | None = None
+
+    @field_validator("line_number", mode="before")
+    @classmethod
+    def _validate_line_number(cls, v: Any) -> int:
+        if isinstance(v, bool) or not isinstance(v, int):
+            raise ValueError("line_number must be an integer")
+        if v < 1 or v > MAX_REVALIDATE_LINES:
+            raise ValueError(f"line_number must be between 1 and {MAX_REVALIDATE_LINES}")
+        return v
+
+    @field_validator("description", mode="before")
+    @classmethod
+    def _validate_description(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(v, field_name="description", max_length=2000)
+
+    @field_validator("quantity", "unit_price", mode="before")
+    @classmethod
+    def _validate_line_unit_fields(cls, v: Any, info: Any) -> Decimal | None:
+        return _parse_strict_schema_decimal(
+            v,
+            field_name=str(info.field_name),
+            max_abs=MAX_REVALIDATE_MONETARY_AMOUNT,
+            max_fraction_digits=4,
+        )
+
+    @field_validator("line_total", mode="before")
+    @classmethod
+    def _validate_line_total(cls, v: Any) -> Decimal | None:
+        return _parse_strict_schema_decimal(
+            v,
+            field_name="line_total",
+            max_abs=MAX_REVALIDATE_MONETARY_AMOUNT,
+            max_fraction_digits=2,
+        )
+
+    @field_validator("line_tax_rate", mode="before")
+    @classmethod
+    def _validate_line_tax_rate(cls, v: Any) -> Decimal | None:
+        parsed = _parse_strict_schema_decimal(
+            v,
+            field_name="line_tax_rate",
+            max_abs=Decimal("1.0000"),
+            max_fraction_digits=4,
+        )
+        if parsed is not None and parsed < Decimal("0"):
+            raise ValueError("line_tax_rate must be non-negative within [0.0000, 1.0000]")
+        return parsed
+
+
+class InvoiceRevalidateRequest(BaseModel):
+    """
+    Request payload for ``POST /api/v1/invoices/{id}/revalidate`` (P9-1, FR-12, BR-017, LLD §2.2).
+
+    Enforces:
+    - Mandatory canonical ``ReasonCode`` enum.
+    - Mandatory non-blank ``comment`` when ``reason_code == ReasonCode.OTHER``.
+    - Strict booleans for ``is_reverse_charge`` and ``is_exempt`` (blocks string coercion).
+    - Bounded, duplicate-free ``line_edits``.
+    - Optional ``clerk_id`` (LLD §2.2 compatibility; verified against JWT identity by route).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    clerk_id: str | None = None
+    reason_code: ReasonCode
+    comment: str | None = None
+    is_reverse_charge: bool = False
+    is_exempt: bool = False
+    po_amount: Decimal | None = None
+    header_edits: InvoiceHeaderEdits | None = None
+    line_edits: list[InvoiceLineEdit] = Field(default_factory=list, max_length=MAX_REVALIDATE_LINES)
+
+    @field_validator("clerk_id", mode="before")
+    @classmethod
+    def _validate_clerk_id(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(
+            v, field_name="clerk_id", max_length=128, allow_empty=False
+        )
+
+    @field_validator("comment", mode="before")
+    @classmethod
+    def _validate_comment(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(
+            v, field_name="comment", max_length=MAX_COMMENT_LENGTH, allow_empty=True
+        )
+
+    @field_validator("is_reverse_charge", "is_exempt", mode="before")
+    @classmethod
+    def _validate_strict_flags(cls, v: Any, info: Any) -> bool:
+        if not isinstance(v, bool):
+            raise ValueError(f"{info.field_name} must be a strict boolean")
+        return v
+
+    @field_validator("po_amount", mode="before")
+    @classmethod
+    def _validate_po_amount(cls, v: Any) -> Decimal | None:
+        parsed = _parse_strict_schema_decimal(
+            v,
+            field_name="po_amount",
+            max_abs=MAX_REVALIDATE_MONETARY_AMOUNT,
+            max_fraction_digits=2,
+        )
+        if parsed is not None and parsed < Decimal("0"):
+            raise ValueError("po_amount must be non-negative")
+        return parsed
+
+    @model_validator(mode="after")
+    def _validate_cross_field_rules(self) -> "InvoiceRevalidateRequest":
+        if self.reason_code is ReasonCode.OTHER and not self.comment:
+            raise ValueError("A non-empty comment is mandatory when reason_code is OTHER")
+        if (self.is_reverse_charge or self.is_exempt) and self.reason_code not in (
+            ReasonCode.TAX_CODE_OVERRIDE,
+            ReasonCode.OTHER,
+        ):
+            raise ValueError(
+                "is_reverse_charge and is_exempt require reason_code TAX_CODE_OVERRIDE or OTHER"
+            )
+        seen_lines: set[int] = set()
+        for edit in self.line_edits:
+            if edit.line_number in seen_lines:
+                raise ValueError(f"Duplicate line_number in line_edits: {edit.line_number}")
+            seen_lines.add(edit.line_number)
+        return self
+
+
+class RevalidationSummary(BaseModel):
+    """Deterministic rules summary matching LLD §2.2 ``validation_summary`` contract."""
+
+    model_config = ConfigDict(frozen=True)
+
+    line_arithmetic_valid: bool
+    invoice_total_valid: bool
+    tax_valid: bool
+    date_valid: bool
+    all_passed: bool
+    currency_converted_amount_usd: Decimal | None = None
+    active_exceptions: list[str]
+
+
+class InvoiceRevalidateResponse(BaseModel):
+    """HTTP 200 OK response for ``POST /api/v1/invoices/{id}/revalidate`` (LLD §2.2)."""
+
+    model_config = ConfigDict(frozen=True)
+
+    invoice_id: str
+    previous_status: str
+    status: str
+    is_revalidated: bool = True
+    validation_summary: RevalidationSummary
+    confidence_tier: str
+    confidence_macro_avg: Decimal
+    eligible_for_clerk_approval: bool
+    requires_manager_approval: bool
+    audit_event_id: str
+    edited_fields: list[str]
