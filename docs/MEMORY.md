@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 4 — Azure Storage Layer (1 / 4 Tasks Complete — P4-1 Done)
-- **Latest Completed Subtask:** P4-1 · Azure Blob WORM client (`src/storage/blob_client.py`) with Managed Identity auth
-- **Total Completed Tasks:** 21 / 68 (31%)
-- **Test Suite Pass Count:** **120 / 120 passing (100%)**
-- **Test Execution Latency:** **3.01 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (51 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (58 findings audited & mitigated); keyless Managed Identity WORM Blob client active (`overwrite=False`, zero delete APIs, HTTPS host pin, bounded 25 MB stream read, CRLF/MIME hardening)
+- **Current Active Phase:** Phase 4 — Azure Storage Layer (2 / 4 Tasks Complete — P4-1 & P4-2 Done)
+- **Latest Completed Subtask:** P4-2 · Azurite local emulator setup and integration smoke test
+- **Total Completed Tasks:** 22 / 68 (32%)
+- **Test Suite Pass Count:** **127 / 127 passing (100% — 126 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **3.02 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (54 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (63 findings audited & mitigated); keyless Managed Identity WORM Blob client + loopback-only hardened Azurite emulator (`127.0.0.1:10000`, `cap_drop: ALL`, triple prod gate, zero static keys) active
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -39,7 +39,9 @@
 | `tests/unit/test_audit.py` | Isolated-tx `AuditLogger`, `AuditMiddleware`, `X-Request-ID` sanitization, canonical middleware order | 10 | 0.43s |
 | `tests/unit/test_secrets.py` | Keyless Azure Key Vault client, offline stub, `SecretValue` redaction, zero-static-secret CI scan | 8 | 0.02s |
 | `tests/unit/test_blob_client.py` | Keyless Azure Blob WORM client, `overwrite=False`, bounded 25 MB download, SSRF/path/MIME guards | 10 | 0.15s |
-| **Total** | **All Modules Offline** | **120** | **3.01s** |
+| `tests/unit/test_azurite_local.py` | Azurite triple prod gate, loopback URL pin, container bootstrap, compose security hygiene | 6 | 0.08s |
+| `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
+| **Total** | **All Modules Offline** | **127** | **3.02s** |
 
 ---
 

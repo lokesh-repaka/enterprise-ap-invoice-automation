@@ -588,8 +588,10 @@ def get_blob_worm_client(settings: Settings | None = None) -> BlobWORMClientProt
     cache_key = (
         env_name,
         cfg.USE_MOCK_BLOB_STORAGE,
+        cfg.USE_AZURITE_EMULATOR,
         cfg.USE_LOCAL_SQLITE,
         cfg.AZURE_BLOB_ACCOUNT_URL.strip(),
+        cfg.AZURITE_BLOB_URL.strip(),
         cfg.AZURE_BLOB_WORM_CONTAINER.strip(),
     )
 
@@ -609,6 +611,10 @@ def get_blob_worm_client(settings: Settings | None = None) -> BlobWORMClientProt
                 )
             except ValueError as exc:
                 raise BlobStorageConfigurationError(str(exc)) from None
+        elif cfg.USE_AZURITE_EMULATOR:
+            from src.storage.azurite import create_azurite_worm_client
+
+            client = create_azurite_worm_client(settings=cfg)
         else:
             try:
                 client = AzureBlobWORMClient(

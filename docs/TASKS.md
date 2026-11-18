@@ -64,7 +64,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | Task | Branch | Status |
 |------|--------|--------|
 | P4-1 · Azure Blob WORM client (`src/storage/blob_client.py`) with Managed Identity auth | `feature/storage-blob-worm-client` | Completed ✅ |
-| P4-2 · Azurite local emulator setup and integration smoke test | `feature/storage-azurite-local` | Pending ❌ |
+| P4-2 · Azurite local emulator setup and integration smoke test | `feature/storage-azurite-local` | Completed ✅ |
 | P4-3 · File validator — MIME type guard, 25 MB limit, password-protected PDF rejection | `feature/storage-file-validator` | Pending ❌ |
 | P4-4 · Blob metadata tagging — `VendorID`, `UploadTimestamp`, `FileHash` | `feature/storage-blob-metadata` | Pending ❌ |
 
@@ -261,7 +261,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 1 | Runtime Skeleton | 6 | 6 ✅ |
 | 2 | Persistence and Vendor Master | 5 | 5 ✅ |
 | 3 | Identity and Security | 5 | 5 ✅ |
-| 4 | Azure Storage Layer | 4 | 1 ⏳ |
+| 4 | Azure Storage Layer | 4 | 2 ⏳ |
 | 5 | Upload API and Job Queue | 5 | 0 ❌ |
 | 6 | Extraction Engine and Model Gateway | 5 | 0 ❌ |
 | 7 | Validation Rules Engine | 6 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **21 (31%)** |
+| **Total** | | **68** | **22 (32%)** |
 
