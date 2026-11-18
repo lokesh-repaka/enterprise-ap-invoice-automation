@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 3 — Identity and Security (2 / 5 Tasks Complete — P3-1 & P3-2 Done)
-- **Latest Completed Subtask:** P3-2 · Demo auth tokens for `sarah.clerk`, `michael.manager`, `dave.admin`
-- **Total Completed Tasks:** 17 / 68 (25%)
-- **Test Suite Pass Count:** **80 / 80 passing (100%)**
-- **Test Execution Latency:** **2.11 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (42 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (33 findings audited & mitigated); RS256 Entra ID JWT validation, ephemeral RSA-2048 demo tokens (triple-gated dev-only), strict allow-list `require_role()` RBAC, and CORS origin allowlist active
+- **Current Active Phase:** Phase 3 — Identity and Security (3 / 5 Tasks Complete — P3-1, P3-2 & P3-3 Done)
+- **Latest Completed Subtask:** P3-3 · Redis rate limiter middleware
+- **Total Completed Tasks:** 18 / 68 (26%)
+- **Test Suite Pass Count:** **92 / 92 passing (100%)**
+- **Test Execution Latency:** **2.50 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (44 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (39 findings audited & mitigated); RS256 Entra ID JWT validation, ephemeral RSA-2048 demo tokens, atomic Redis ZSET sliding-window rate limiter (fail-closed, anti-XFF-spoofing), strict allow-list `require_role()` RBAC, and CORS allowlist active
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -35,7 +35,8 @@
 | `tests/unit/test_composite_hash.py` | Partial unique index, SHA-256 hash parity, race-safe duplicate upsert | 6 | 0.09s |
 | `tests/unit/test_security.py` | Entra ID RS256 JWT validation, JWKS cache/rotation, `require_role()` RBAC, CORS hardening | 15 | 1.65s |
 | `tests/unit/test_demo_auth.py` | Ephemeral RS256 demo tokens (`sarah.clerk`, `michael.manager`, `dave.admin`), triple prod gate, RBAC e2e | 10 | 0.27s |
-| **Total** | **All Modules Offline** | **80** | **2.11s** |
+| `tests/unit/test_rate_limit.py` | Redis ZSET sliding-window rate limiter, anti-XFF spoofing, IPv6 canonicalization, fail-closed 503 | 12 | 0.10s |
+| **Total** | **All Modules Offline** | **92** | **2.50s** |
 
 ---
 

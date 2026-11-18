@@ -27,15 +27,18 @@ os.environ["LINE_ROUNDING_TOLERANCE"] = "0.02"
 os.environ["INVOICE_ROUNDING_TOLERANCE"] = "0.05"
 
 from src.api.main import app  # noqa: E402
+from src.api.rate_limit import reset_rate_limit_store  # noqa: E402
 from src.core.config import Settings, get_settings  # noqa: E402
 
 
 @pytest.fixture(autouse=True)
 def clean_settings():
-    """Ensure clean cached settings singleton for each test."""
+    """Ensure clean cached settings singleton and isolated rate-limit store for each test."""
     get_settings.cache_clear()
+    reset_rate_limit_store()
     yield
     get_settings.cache_clear()
+    reset_rate_limit_store()
 
 
 @pytest.fixture
