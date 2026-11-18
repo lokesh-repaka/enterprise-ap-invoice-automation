@@ -52,7 +52,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | P3-2 · Demo auth tokens for `sarah.clerk`, `michael.manager`, `dave.admin` | `feature/auth-demo-tokens` | Completed ✅ |
 | P3-3 · Redis rate limiter middleware | `feature/rate-limit-redis` | Completed ✅ |
 | P3-4 · Audit middleware — `request_id` propagation and immutable `AuditLog` writer | `feature/audit-middleware` | Completed ✅ |
-| P3-5 · Azure Key Vault stub (`src/core/secrets.py`) — zero static secrets in code | `feature/core-keyvault-stub` | Pending ❌ |
+| P3-5 · Azure Key Vault stub (`src/core/secrets.py`) — zero static secrets in code | `feature/core-keyvault-stub` | Completed ✅ |
 
 ---
 
@@ -260,7 +260,7 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 |-------|------|-------|-----------|
 | 1 | Runtime Skeleton | 6 | 6 ✅ |
 | 2 | Persistence and Vendor Master | 5 | 5 ✅ |
-| 3 | Identity and Security | 5 | 4 ⏳ |
+| 3 | Identity and Security | 5 | 5 ✅ |
 | 4 | Azure Storage Layer | 4 | 0 ❌ |
 | 5 | Upload API and Job Queue | 5 | 0 ❌ |
 | 6 | Extraction Engine and Model Gateway | 5 | 0 ❌ |
@@ -272,5 +272,5 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **19 (28%)** |
+| **Total** | | **68** | **20 (29%)** |
 
