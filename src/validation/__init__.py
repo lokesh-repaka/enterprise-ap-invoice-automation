@@ -27,6 +27,16 @@ from src.validation.duplicate_detector import (
     detect_revision_suffix,
     evaluate_duplicate_rules,
 )
+from src.validation.invoice_total import (
+    MAX_ALLOWED_INVOICE_TOLERANCE,
+    InvoiceTotalInput,
+    InvoiceTotalRecordLike,
+    InvoiceTotalValidationResult,
+    evaluate_invoice_record,
+    evaluate_invoice_total,
+    validate_extraction_invoice_total,
+    validate_invoice_total,
+)
 from src.validation.line_arithmetic import (
     MAX_ALLOWED_TOLERANCE,
     MAX_QUANTITY_AMOUNT,
@@ -47,10 +57,14 @@ __all__ = [
     "ExistingInvoiceRecord",
     "IGNORED_DUPLICATE_STATUSES",
     "InvoiceLookupProtocol",
+    "InvoiceTotalInput",
+    "InvoiceTotalRecordLike",
+    "InvoiceTotalValidationResult",
     "LineItemArithmeticInput",
     "LineItemCheckResult",
     "LineItemLike",
     "LineItemsValidationResult",
+    "MAX_ALLOWED_INVOICE_TOLERANCE",
     "MAX_ALLOWED_TOLERANCE",
     "MAX_EXISTING_LOOKUP_RECORDS",
     "MAX_FILENAME_CHARS",
@@ -64,7 +78,11 @@ __all__ = [
     "detect_credit_note",
     "detect_revision_suffix",
     "evaluate_duplicate_rules",
+    "evaluate_invoice_record",
+    "evaluate_invoice_total",
     "evaluate_line_items",
+    "validate_extraction_invoice_total",
     "validate_extraction_line_items",
+    "validate_invoice_total",
     "validate_line_items",
 ]
