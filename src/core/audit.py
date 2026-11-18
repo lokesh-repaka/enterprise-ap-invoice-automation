@@ -24,6 +24,7 @@ logger = get_logger("ap.core.audit")
 MAX_COMMENT_LENGTH: int = 1000
 MAX_AUDIT_VALUE_LENGTH: int = 4096
 _CONTROL_CHAR_RE = re.compile(r"[\r\n\x00-\x1f\x7f]")
+_BIDI_OR_ZERO_WIDTH_RE = re.compile(r"[\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]")
 _SAFE_REQUEST_ID_RE = re.compile(r"^[A-Za-z0-9._-]{1,128}$")
 
 # Financial and tax fields requiring a mandatory reason_code on manual EDIT (CLAUDE.md §5)
@@ -83,25 +84,52 @@ _REASON_LOOKUP: dict[str, ReasonCode] = {r.value: r for r in ReasonCode}
 def _parse_action_type(value: AuditActionType | str) -> AuditActionType:
     if isinstance(value, AuditActionType):
         return value
-    if isinstance(value, str) and value.upper() in _ACTION_LOOKUP:
+    if isinstance(value, str) and value.isascii() and value.upper() in _ACTION_LOOKUP:
         return _ACTION_LOOKUP[value.upper()]
     raise ValueError(f"Unknown audit action_type: {value!r}")
-
-
-def _parse_reason_code(value: ReasonCode | str | None) -> ReasonCode | None:
-    if value is None:
-        return None
-    if isinstance(value, ReasonCode):
-        return value
-    if isinstance(value, str) and value.upper() in _REASON_LOOKUP:
-        return _REASON_LOOKUP[value.upper()]
-    raise ValueError(f"Unknown audit reason_code: {value!r}")
 
 
 def _sanitize_text(value: str | None) -> str | None:
     if value is None:
         return None
-    return _CONTROL_CHAR_RE.sub("", value)
+    no_ctrl = _CONTROL_CHAR_RE.sub("", value)
+    return _BIDI_OR_ZERO_WIDTH_RE.sub("", no_ctrl)
+
+
+def parse_reason_code(value: ReasonCode | str) -> ReasonCode:
+    """Strictly parse a required canonical ASCII ``ReasonCode`` enum value (BR-017, CWE-176)."""
+    if isinstance(value, ReasonCode):
+        return value
+    if isinstance(value, str) and value.isascii() and value.upper() in _REASON_LOOKUP:
+        return _REASON_LOOKUP[value.upper()]
+    raise ValueError(f"Unknown audit reason_code: {value!r}")
+
+
+def validate_reason_code(
+    value: ReasonCode | str,
+    *,
+    comment: str | None = None,
+) -> ReasonCode:
+    """Validate canonical ``ReasonCode`` and enforce non-empty visible comment on ``OTHER``."""
+    parsed = parse_reason_code(value)
+    if parsed is ReasonCode.OTHER:
+        visible_comment = _sanitize_text(comment).strip() if isinstance(comment, str) else ""
+        if not visible_comment:
+            raise ValueError("A non-empty comment is mandatory when reason_code is OTHER.")
+    return parsed
+
+
+def _parse_reason_code(value: ReasonCode | str | None) -> ReasonCode | None:
+    if value is None:
+        return None
+    return parse_reason_code(value)
+
+
+def _field_leaf_name(field_name: str | None) -> str:
+    """Return lowercased leaf segment for dotted paths such as ``line[1].line_total``."""
+    if not field_name:
+        return ""
+    return field_name.rsplit(".", 1)[-1].strip().lower()
 
 
 def _format_audit_comment(comment: str | None, request_id: str) -> str | None:
@@ -178,6 +206,7 @@ class AuditLogger:
         )
 
         # Reject no-op EDIT records (CLAUDE.md §16.1)
+        leaf_field = _field_leaf_name(clean_field)
         if parsed_action is AuditActionType.EDIT:
             if (
                 previous_value is not None
@@ -189,17 +218,19 @@ class AuditLogger:
                 )
             if (
                 clean_field
-                and clean_field.lower() in FINANCIAL_AUDIT_FIELDS
+                and (
+                    clean_field.lower() in FINANCIAL_AUDIT_FIELDS
+                    or leaf_field in FINANCIAL_AUDIT_FIELDS
+                )
                 and parsed_reason is None
             ):
                 raise ValueError(
                     f"A valid reason_code is mandatory when editing financial field '{clean_field}'."
                 )
 
-        # ReasonCode.OTHER requires an explanatory comment (CLAUDE.md §5)
+        # ReasonCode.OTHER requires an explanatory visible comment (CLAUDE.md §5, SEC-210)
         if parsed_reason is ReasonCode.OTHER:
-            if not isinstance(comment, str) or not comment.strip():
-                raise ValueError("A non-empty comment is mandatory when reason_code is OTHER.")
+            validate_reason_code(parsed_reason, comment=comment)
 
         active_request_id = request_id if request_id is not None else request_id_ctx.get()
         formatted_comment = _format_audit_comment(comment, active_request_id)
@@ -232,7 +263,11 @@ class AuditLogger:
                 "field_name": clean_field,
                 "reason_code": persisted.reason_code,
                 "is_sensitive_field": bool(
-                    clean_field and clean_field.lower() in SENSITIVE_AUDIT_FIELDS
+                    clean_field
+                    and (
+                        clean_field.lower() in SENSITIVE_AUDIT_FIELDS
+                        or leaf_field in SENSITIVE_AUDIT_FIELDS
+                    )
                 ),
             },
         )
