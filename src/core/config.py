@@ -47,6 +47,32 @@ class Settings(BaseSettings):
         description="Explicit CORS origin allowlist (never '*' with credentials: CWE-942).",
     )
 
+    # --- Redis Rate Limiting (Phase 3 P3-3) ---
+    RATE_LIMIT_ENABLED: bool = Field(
+        default=True,
+        description="Enable Redis-backed sliding-window HTTP rate limiting middleware.",
+    )
+    RATE_LIMIT_REQUESTS: int = Field(
+        default=100,
+        ge=1,
+        le=100_000,
+        description="Maximum requests permitted per client within RATE_LIMIT_WINDOW_SECONDS.",
+    )
+    RATE_LIMIT_WINDOW_SECONDS: int = Field(
+        default=60,
+        ge=1,
+        le=86_400,
+        description="Sliding-window duration in seconds for Redis rate limiting.",
+    )
+    RATE_LIMIT_FAIL_OPEN: bool = Field(
+        default=False,
+        description="If False (default, fail-closed), returns 503 when Redis is unreachable (CWE-636).",
+    )
+    TRUSTED_PROXY_IPS: list[str] = Field(
+        default_factory=list,
+        description="Explicit trusted reverse-proxy IPs permitted to supply X-Forwarded-For (CWE-348).",
+    )
+
     # --- Azure Services (East US 2 Confinement: ADR-001) ---
     AZURE_BLOB_ACCOUNT_URL: str = "https://mockblob.blob.core.windows.net/"
     AZURE_BLOB_WORM_CONTAINER: str = "raw-invoices-immutable"

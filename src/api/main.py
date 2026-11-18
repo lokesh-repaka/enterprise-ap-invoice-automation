@@ -14,6 +14,7 @@ from fastapi.responses import JSONResponse
 
 from src.api.auth import router as auth_router
 from src.api.middleware import RequestIDMiddleware
+from src.api.rate_limit import RedisRateLimiterMiddleware
 from src.core.config import get_settings
 from src.core.logging import get_logger, setup_logging
 from src.core.security import AuthenticatedUser, Role, require_role
@@ -40,6 +41,9 @@ app = FastAPI(
     description="Enterprise Accounts Payable (AP) Invoice Automation Platform API",
     lifespan=lifespan,
 )
+
+# Redis-backed sliding-window rate limiter (runs inside CORS and RequestIDMiddleware)
+app.add_middleware(RedisRateLimiterMiddleware)
 
 # Cross-Origin Resource Sharing (Explicit origin allowlist — prevents CWE-942 wildcard credential reflection)
 app.add_middleware(
