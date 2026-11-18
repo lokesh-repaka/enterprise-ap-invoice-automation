@@ -823,6 +823,13 @@ class InvoiceBatchEvaluator:
         )
 
 
+def main(argv: Sequence[str] | None = None) -> int:
+    """CLI entrypoint for ``python -m src.evaluation.evaluator --report`` (P13-4)."""
+    from src.evaluation.cli import run_cli
+
+    return run_cli(argv)
+
+
 __all__ = [
     "BatchEvaluationResult",
     "EvaluationCase",
@@ -838,4 +845,8 @@ __all__ = [
     "compare_header_fields",
     "compare_line_items",
     "discover_evaluation_cases",
+    "main",
 ]
+
+if __name__ == "__main__":
+    raise SystemExit(main())
