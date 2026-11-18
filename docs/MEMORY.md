@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 12 — Integration Tests (In Progress — 1 / 5 Tasks Done)
-- **Latest Completed Subtask:** P12-1 · Unit tests — line arithmetic, invoice total, tax (all countries + reverse-charge), date locale, duplicate hash, confidence router, reason code enum
-- **Total Completed Tasks:** 55 / 68 (81%)
-- **Test Suite Pass Count:** **660 / 660 passing (100% — 653 unit + 7 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **~24 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (126 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (211 findings audited & mitigated; `SEC-209`–`SEC-211` closed in P12-1); hardened `src/core/audit.py` with public strict-ASCII `parse_reason_code()` & `validate_reason_code()`, dotted line-item financial/sensitive leaf-field enforcement (`line[1].line_total`, `unit_price`, `quantity`, `line_tax_rate`: `SEC-209`), control-char & invisible bidi/zero-width stripping before mandatory `ReasonCode.OTHER` comment verification (`SEC-210`), and anti-Unicode Long-S (`\u017f`) homoglyph spoofing guard (`SEC-211`)
+- **Current Active Phase:** Phase 12 — Integration Tests (In Progress — 2 / 5 Tasks Done)
+- **Latest Completed Subtask:** P12-2 · Integration test — full upload → extract → validate → route flow with mocked AOAI
+- **Total Completed Tasks:** 56 / 68 (82%)
+- **Test Suite Pass Count:** **666 / 666 passing (100% — 653 unit + 13 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **~26 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (128 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (214 findings audited & mitigated; `SEC-212`–`SEC-214` closed in P12-2); wired full end-to-end `src/services/pipeline.py::InvoiceProcessingPipeline` (`upload → Redis → Worker → ExtractionEngine/MockAOAI → RulesEngine → ConfidenceRouter → EscalationEvaluator → SQL Header/Lines + WORM JSON + AuditLogs`) with anti-IDOR `InvoiceRepository.bind_extracted_vendor()` (`UNKNOWN`-only active-vendor binding & fail-closed unregistered vendor guard: `SEC-212`), race-safe duplicate `composite_hash` preservation & fail-closed missing-FX clerk-cap guard (`SEC-213`), and double-locked non-approval status allowlist + PII-free worker audit summaries (`SEC-214`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -81,7 +81,8 @@
 | `tests/integration/test_ui_revision_screen_integration.py` | P11-5 End-to-end offline integration test: real FastAPI `APPROVED_CLERK` original + `FLAGGED_POTENTIAL_REVISION` `-REV` side-by-side comparison & immutable `APPROVE` audit provenance | 1 | 0.29s |
 | `tests/integration/test_ui_audit_viewer_integration.py` | P11-6 End-to-end offline integration test: real FastAPI Re-Validate -> Approve -> `AuditTrailViewerController` chronological inspection as `system_admin` | 1 | 0.30s |
 | `tests/integration/test_ui_confidence_colours_rbac_integration.py` | P11-7 End-to-end offline integration test: UI-backend RBAC parity (`$15k` hidden in UI + HTTP 403 on FastAPI for `ap_clerk`, approved by `finance_manager`; `$2.5k` approved by `ap_clerk`) | 1 | 0.30s |
-| **Total** | **All Modules Offline** | **660** | **~24s** |
+| `tests/integration/test_upload_extract_validate_route_integration.py` | P12-2 End-to-end offline integration tests: `POST /upload` → Redis → `InvoiceBackgroundWorker` → `InvoiceProcessingPipeline` (`MockAOAIClient` mini/vision + `RulesEngine` + `ConfidenceRouter` + `EscalationEvaluator` + SQL + WORM JSON + `AuditLogs`): STP `VALIDATED`, 85%/74% tri-tier routing, >\$10k EUR FX escalation, tax mismatch/duplicate/revision/credit-note, PNG Vision + unregistered vendor/missing FX fail-closed, prompt-injection & anti-IDOR vendor rebind guards | 6 | 2.53s |
+| **Total** | **All Modules Offline** | **666** | **~26s** |
 
 ---
 
