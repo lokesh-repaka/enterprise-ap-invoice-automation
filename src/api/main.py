@@ -6,15 +6,16 @@ and lifespan event management per CLAUDE.md §11 and LLD §2.
 """
 
 from contextlib import asynccontextmanager
-from typing import Any
+from typing import Annotated, Any
 
-from fastapi import FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.api.middleware import RequestIDMiddleware
 from src.core.config import get_settings
 from src.core.logging import get_logger, setup_logging
+from src.core.security import AuthenticatedUser, Role, require_role
 
 settings = get_settings()
 logger = get_logger("ap.api.main")
@@ -39,13 +40,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Cross-Origin Resource Sharing (Internal Enterprise Streamlit / Front Door)
+# Cross-Origin Resource Sharing (Explicit origin allowlist — prevents CWE-942 wildcard credential reflection)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.CORS_ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID", "Idempotency-Key"],
 )
 
 # Request ID tracing middleware (must be outermost custom middleware)
@@ -67,9 +68,12 @@ async def health_liveness() -> dict[str, Any]:
 
 
 @app.get("/health/ready", status_code=status.HTTP_200_OK, tags=["System Health"])
-async def health_readiness() -> dict[str, Any]:
+async def health_readiness(
+    _user: Annotated[AuthenticatedUser, Depends(require_role(Role.SYSTEM_ADMIN))],
+) -> dict[str, Any]:
     """
     Deep readiness probe inspecting data store and model endpoint status.
+    Protected by system_admin RBAC per CLAUDE.md §9.
     Returns 200 when all core components are reachable or properly mocked.
     """
     components = {

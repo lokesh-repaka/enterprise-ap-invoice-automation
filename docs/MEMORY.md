@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 2 — Persistence and Vendor Master (100% Complete ✅ — Ready for Phase 3 & Phase 4)
-- **Latest Completed Subtask:** P2-5 · `composite_hash` unique index and duplicate-safe upsert logic
-- **Total Completed Tasks:** 15 / 68 (22%)
-- **Test Suite Pass Count:** **55 / 55 passing (100%)**
-- **Test Execution Latency:** **0.60 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff 0.3.3 passing with 0 warnings, 0 errors
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (20 findings audited & mitigated); partial unique index + TOCTOU race-safe duplicate upsert active
+- **Current Active Phase:** Phase 3 — Identity and Security (1 / 5 Tasks Complete — P3-1 Done)
+- **Latest Completed Subtask:** P3-1 · Entra ID JWT validation and `require_role()` guard
+- **Total Completed Tasks:** 16 / 68 (24%)
+- **Test Suite Pass Count:** **70 / 70 passing (100%)**
+- **Test Execution Latency:** **2.10 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (39 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (27 findings audited & mitigated); RS256 Entra ID JWT validation, JWKS caching/cooldown, strict allow-list `require_role()` RBAC, and CORS origin allowlist active
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -33,7 +33,8 @@
 | `tests/unit/test_repositories.py` | Async CRUD repositories, append-only audit guard, rate fallback | 6 | 0.05s |
 | `tests/unit/test_seed.py` | Idempotent Vendor Master (15 vendors) & ECB FX seed scripts | 7 | 0.08s |
 | `tests/unit/test_composite_hash.py` | Partial unique index, SHA-256 hash parity, race-safe duplicate upsert | 6 | 0.09s |
-| **Total** | **All Modules Offline** | **55** | **0.60s** |
+| `tests/unit/test_security.py` | Entra ID RS256 JWT validation, JWKS cache/rotation, `require_role()` RBAC, CORS hardening | 15 | 1.65s |
+| **Total** | **All Modules Offline** | **70** | **2.10s** |
 
 ---
 

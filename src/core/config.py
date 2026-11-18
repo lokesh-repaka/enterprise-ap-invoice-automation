@@ -29,6 +29,23 @@ class Settings(BaseSettings):
     # --- Azure Tenant & Identity (Entra ID Managed Identity: ADR-007) ---
     AZURE_TENANT_ID: str = ""
     AZURE_CLIENT_ID: str = "system-assigned"
+    AZURE_API_AUDIENCE: str = ""
+    ENTRA_JWKS_CACHE_TTL_SECONDS: int = Field(
+        default=3600,
+        ge=60,
+        le=86400,
+        description="TTL in seconds for cached Microsoft Entra ID JWKS signing keys.",
+    )
+    ENTRA_JWT_CLOCK_SKEW_SECONDS: int = Field(
+        default=30,
+        ge=0,
+        le=300,
+        description="Maximum clock skew leeway in seconds for JWT exp/nbf checks.",
+    )
+    CORS_ALLOWED_ORIGINS: list[str] = Field(
+        default_factory=lambda: ["http://localhost:8501", "http://127.0.0.1:8501"],
+        description="Explicit CORS origin allowlist (never '*' with credentials: CWE-942).",
+    )
 
     # --- Azure Services (East US 2 Confinement: ADR-001) ---
     AZURE_BLOB_ACCOUNT_URL: str = "https://mockblob.blob.core.windows.net/"

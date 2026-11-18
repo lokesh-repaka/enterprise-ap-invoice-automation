@@ -7,6 +7,7 @@ Tests: N3, N5, FR-01
 from fastapi.testclient import TestClient
 
 from src.api.main import app
+from src.core.security import AuthenticatedUser, Role, get_current_user
 
 client = TestClient(app)
 
@@ -22,8 +23,20 @@ def test_health_liveness_probe():
 
 
 def test_health_readiness_probe():
-    """Verify GET /health/ready checks service components and reports readiness."""
-    response = client.get("/health/ready")
+    """Verify GET /health/ready checks service components and reports readiness for system_admin."""
+    admin_user = AuthenticatedUser(
+        user_id="oid-dave-admin",
+        subject="sub-dave-admin",
+        email="dave.admin@company.com",
+        name="Dave Admin",
+        tenant_id="11111111-2222-3333-4444-555555555555",
+        roles=frozenset({Role.SYSTEM_ADMIN}),
+    )
+    app.dependency_overrides[get_current_user] = lambda: admin_user
+    try:
+        response = client.get("/health/ready")
+    finally:
+        app.dependency_overrides.pop(get_current_user, None)
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ready"
