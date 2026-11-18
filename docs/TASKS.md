@@ -211,7 +211,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | Task | Branch | Status |
 |------|--------|--------|
 | P14-1 · `Dockerfile.api` — FastAPI image (Python 3.11-slim, non-root user) | `feature/docker-api-image` | Completed ✅ |
-| P14-2 · `Dockerfile.ui` — Streamlit image | `feature/docker-ui-image` | Pending ❌ |
+| P14-2 · `Dockerfile.ui` — Streamlit image | `feature/docker-ui-image` | Completed ✅ |
 | P14-3 · `docker-compose.yml` — FastAPI + Streamlit + Redis + Azurite + SQLite local stack | `feature/docker-compose-local-stack` | Pending ❌ |
 | P14-4 · Azure Bicep template (`infrastructure/main.bicep`) — East US 2: Container Apps, Azure SQL, Redis Cache, Blob WORM, OpenAI, Key Vault, VNet, NSG | `feature/infra-bicep-east-us2` | Pending ❌ |
 | P14-5 · Deployment hygiene tests — no `.env` committed, no static secrets, NSG East US 2 egress-deny verified | `feature/tests-deployment-hygiene` | Pending ❌ |
@@ -271,6 +271,6 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 11 | Streamlit UI | 7 | 7 ✅ |
 | 12 | Integration Tests | 5 | 5 ✅ |
 | 13 | Automated Evaluation Suite | 4 | 4 ✅ |
-| 14 | Infrastructure and Delivery | 5 | 1 🟡 |
-| **Total** | | **68** | **64 (94%)** |
+| 14 | Infrastructure and Delivery | 5 | 2 🟡 |
+| **Total** | | **68** | **65 (96%)** |
 
