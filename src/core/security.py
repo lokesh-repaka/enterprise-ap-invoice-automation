@@ -17,12 +17,12 @@ from typing import Annotated, Any
 
 import httpx
 import jwt
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict
 
 from src.core.config import Settings, get_settings
-from src.core.logging import get_logger
+from src.core.logging import audit_actor_ctx, get_logger
 
 logger = get_logger("ap.core.security")
 
@@ -472,6 +472,7 @@ def get_token_validator() -> EntraJWTValidator:
 
 
 async def get_current_user(
+    request: Request,
     credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer_scheme)],
     validator: Annotated[EntraJWTValidator, Depends(get_token_validator)],
 ) -> AuthenticatedUser:
@@ -483,7 +484,10 @@ async def get_current_user(
     ):
         raise _unauthorized("Authentication required")
 
-    return await validator.validate_token(credentials.credentials)
+    user = await validator.validate_token(credentials.credentials)
+    request.state.audit_actor = user.user_id
+    audit_actor_ctx.set(user.user_id)
+    return user
 
 
 def require_role(*allowed_roles: Role | str) -> Callable[..., Awaitable[AuthenticatedUser]]:

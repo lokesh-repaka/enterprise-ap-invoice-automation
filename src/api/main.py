@@ -12,6 +12,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from src.api.audit_middleware import AuditMiddleware
 from src.api.auth import router as auth_router
 from src.api.middleware import RequestIDMiddleware
 from src.api.rate_limit import RedisRateLimiterMiddleware
@@ -42,10 +43,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Redis-backed sliding-window rate limiter (runs inside CORS and RequestIDMiddleware)
+# -------------------------------------------------------------
+# Canonical Middleware Stack Order (Owned by P3-4 — TASKS.md)
+# Execution order (outermost -> innermost):
+#   1. RequestIDMiddleware        (generates/validates X-Request-ID, echoes on all responses)
+#   2. CORSMiddleware             (explicit origin allowlist, handles preflights cleanly)
+#   3. AuditMiddleware            (request_id & verified actor propagation, logs 200/401/403/429/500)
+#   4. RedisRateLimiterMiddleware (sliding-window throttling before route handlers/DB/AI)
+# -------------------------------------------------------------
 app.add_middleware(RedisRateLimiterMiddleware)
-
-# Cross-Origin Resource Sharing (Explicit origin allowlist — prevents CWE-942 wildcard credential reflection)
+app.add_middleware(AuditMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ALLOWED_ORIGINS,
@@ -53,8 +60,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type", "X-Request-ID", "Idempotency-Key"],
 )
-
-# Request ID tracing middleware (must be outermost custom middleware)
 app.add_middleware(RequestIDMiddleware)
 
 # Register API routers
