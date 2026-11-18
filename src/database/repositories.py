@@ -15,11 +15,13 @@ Security & Layering Rules (CLAUDE.md §4.2, §6):
   - AuditLogRepository exposes zero update or delete methods and rejects no-op edits.
 """
 
+import hashlib
 from datetime import date
 from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import delete, desc, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -32,6 +34,29 @@ from src.database.models import (
 )
 
 MAX_PAGE_LIMIT = 500
+
+
+def compute_composite_hash(
+    vendor_tax_id: str,
+    invoice_number: str,
+    total_amount: Decimal | str | float,
+) -> str:
+    """
+    Compute canonical SHA-256 composite hash for invoice duplicate detection (CLAUDE.md §6).
+
+    Format: SHA256(f"{vendor_tax_id}_{invoice_number}_{total_amount:.2f}")
+    Matches ground-truth dataset hashes in sample_data/ground_truth/.
+    """
+    clean_tax_id = vendor_tax_id.strip()
+    clean_inv_num = invoice_number.strip()
+    if not clean_tax_id:
+        raise ValueError("vendor_tax_id must be non-empty to compute composite_hash")
+    if not clean_inv_num:
+        raise ValueError("invoice_number must be non-empty to compute composite_hash")
+
+    normalized_total = Decimal(str(total_amount)).quantize(Decimal("0.01"))
+    payload = f"{clean_tax_id}_{clean_inv_num}_{normalized_total:.2f}"
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def _validate_update_fields(fields: dict[str, Any], allowed: frozenset[str]) -> None:
@@ -147,6 +172,40 @@ class InvoiceRepository:
         await self._session.commit()
         await self._session.refresh(invoice)
         return invoice
+
+    async def upsert_duplicate_safe(self, invoice: Invoice) -> tuple[Invoice, bool]:
+        """
+        Insert an invoice safely while preventing active duplicates (FR-09, CWE-362).
+
+        Returns:
+            (stored_invoice, is_duplicate):
+              - (created_invoice, False) if newly persisted.
+              - (existing_invoice, True) if an active invoice with the same composite_hash
+                already exists or won a concurrent insert race.
+        """
+        if not invoice.composite_hash:
+            invoice.composite_hash = compute_composite_hash(
+                vendor_tax_id=invoice.vendor_tax_id,
+                invoice_number=invoice.invoice_number,
+                total_amount=invoice.total_amount,
+            )
+
+        # Fast-path check for active duplicate (excludes REJECTED_DUPLICATE and VOID)
+        existing = await self.get_by_composite_hash(invoice.composite_hash)
+        if existing is not None:
+            return existing, True
+
+        try:
+            created = await self.create(invoice)
+            return created, False
+        except IntegrityError:
+            # Handle TOCTOU concurrent insert race condition cleanly
+            await self._session.rollback()
+            winner = await self.get_by_composite_hash(invoice.composite_hash)
+            if winner is not None:
+                return winner, True
+            # IntegrityError was NOT caused by composite_hash duplication (e.g. invalid FK)
+            raise
 
     async def get_by_id(self, invoice_id: str, include_relations: bool = True) -> Invoice | None:
         """Fetch an Invoice by invoice_id, optionally eager-loading relations."""
