@@ -128,6 +128,10 @@ class Settings(BaseSettings):
         default=True,
         description="If True (dev/local/test only), uses offline in-memory Key Vault stub.",
     )
+    USE_MOCK_BLOB_STORAGE: bool = Field(
+        default=True,
+        description="If True (dev/local/test only), uses offline in-memory WORM Blob client.",
+    )
     ENABLE_DEMO_AUTH: bool = Field(
         default=False,
         description=(

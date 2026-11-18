@@ -92,7 +92,9 @@ async def health_readiness(
     components = {
         "database": "ready (mock_sqlite)" if settings.USE_LOCAL_SQLITE else "ready (azure_sql)",
         "redis": "ready (fake_redis)" if settings.USE_FAKE_REDIS else "ready (azure_redis)",
-        "storage": "ready (local_mock)" if settings.USE_MOCK_AOAI else "ready (azure_blob_worm)",
+        "storage": (
+            "ready (local_mock)" if settings.USE_MOCK_BLOB_STORAGE else "ready (azure_blob_worm)"
+        ),
         "openai": "ready (mock_aoai)" if settings.USE_MOCK_AOAI else "ready (azure_openai_eastus2)",
     }
 
