@@ -448,8 +448,20 @@ def _cached_validator(
 
 
 def get_token_validator() -> EntraJWTValidator:
-    """FastAPI dependency provider returning the active EntraJWTValidator singleton."""
+    """
+    FastAPI dependency provider returning the active EntraJWTValidator singleton.
+
+    When ``ENABLE_DEMO_AUTH=true`` AND ``APP_ENV`` is in ``{"dev", "local", "test"}``,
+    delegates to the ephemeral RS256 demo validator (P3-2). In all other environments
+    (including staging and production), strictly validates against Microsoft Entra ID.
+    """
     settings = get_settings()
+    if settings.ENABLE_DEMO_AUTH:
+        from src.core.demo_auth import get_demo_token_validator, is_demo_auth_enabled
+
+        if is_demo_auth_enabled(settings):
+            return get_demo_token_validator(settings)
+
     return _cached_validator(
         settings.AZURE_TENANT_ID,
         settings.AZURE_CLIENT_ID,
