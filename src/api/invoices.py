@@ -42,6 +42,7 @@ from src.api.schemas.invoices import InvoiceJobPayload, InvoiceUploadResponse
 from src.core.audit import AuditActionType, AuditLogger
 from src.core.config import get_settings
 from src.core.logging import get_logger, request_id_ctx
+from src.core.redis_client import DEFAULT_INVOICE_QUEUE_KEY
 from src.core.security import AuthenticatedUser, Role, require_role
 from src.database.models import Invoice, Vendor
 from src.database.repositories import InvoiceRepository, VendorRepository, compute_composite_hash
@@ -66,8 +67,8 @@ logger = get_logger("ap.api.invoices")
 
 router = APIRouter(prefix="/api/v1/invoices", tags=["Invoices"])
 
-# Canonical FIFO Redis queue key for async invoice extraction jobs
-INVOICE_QUEUE_KEY: str = "ap:queue:invoices"
+# Canonical FIFO Redis queue key for async invoice extraction jobs (single source of truth in redis_client.py)
+INVOICE_QUEUE_KEY: str = DEFAULT_INVOICE_QUEUE_KEY
 UPLOAD_READ_CHUNK_BYTES: int = 64 * 1024
 MULTIPART_OVERHEAD_BYTES: int = 1 * 1024 * 1024
 REDIS_QUEUE_SOCKET_TIMEOUT_SECONDS: float = 2.0
