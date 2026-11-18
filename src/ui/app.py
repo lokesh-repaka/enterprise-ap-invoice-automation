@@ -16,6 +16,7 @@ from src.ui.api_client import (
     APInvoiceAPIClient,
     validate_api_base_url,
 )
+from src.ui.audit_viewer import render_audit_trail_viewer
 from src.ui.exception_queue import render_exception_queue
 from src.ui.ingestion_dashboard import render_ingestion_dashboard, sanitize_display_text
 from src.ui.review_workbench import render_review_workbench
@@ -70,6 +71,8 @@ def _clear_session_batch_state(session_state: dict[str, Any]) -> None:
         "revision_incoming_id",
         "revision_pair",
         "revision_decisions",
+        "audit_invoice_id",
+        "audit_trail",
     ):
         session_state.pop(key, None)
 
@@ -200,9 +203,15 @@ def render_app(
                 st_module=st,
                 user_roles=effective_roles,
             )
+        elif selected_page == PAGE_AUDIT:
+            render_audit_trail_viewer(
+                client,
+                st_module=st,
+                user_roles=effective_roles,
+            )
         else:
             st.title(selected_page)
-            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-6 through P11-7).")
+            st.info("Unknown navigation route selected.")
     finally:
         if owns_client:
             client.close()
