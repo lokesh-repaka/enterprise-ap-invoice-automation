@@ -137,7 +137,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | Task | Branch | Status |
 |------|--------|--------|
 | P9-1 · `POST /api/v1/invoices/{id}/revalidate` — reason code validation, re-runs rules engine, re-evaluates confidence, writes audit log | `feature/api-revalidate-route` | Completed ✅ |
-| P9-2 · `POST /api/v1/invoices/{id}/approve` — RBAC check (clerk ≤$10k / manager >$10k), status transition, audit log | `feature/api-approve-route` | Pending ❌ |
+| P9-2 · `POST /api/v1/invoices/{id}/approve` — RBAC check (clerk ≤$10k / manager >$10k), status transition, audit log | `feature/api-approve-route` | Completed ✅ |
 | P9-3 · `GET /api/v1/invoices/{id}/audit` — full immutable audit trail for an invoice | `feature/api-audit-trail-route` | Pending ❌ |
 | P9-4 · No-op edit guard — reject revalidate request where `previous_value == new_value` at the API layer | `feature/api-noop-edit-guard` | Pending ❌ |
 
@@ -266,11 +266,11 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 6 | Extraction Engine and Model Gateway | 5 | 5 ✅ |
 | 7 | Validation Rules Engine | 6 | 6 ✅ |
 | 8 | Confidence Routing and State Machine | 3 | 3 ✅ |
-| 9 | Re-Validation and Approval API | 4 | 1 ⏳ |
+| 9 | Re-Validation and Approval API | 4 | 2 ⏳ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
 | 11 | Streamlit UI | 7 | 0 ❌ |
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **44 (65%)** |
+| **Total** | | **68** | **45 (66%)** |
 
