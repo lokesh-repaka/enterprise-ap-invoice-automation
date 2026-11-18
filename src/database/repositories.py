@@ -666,10 +666,73 @@ class AuditLogRepository:
     async def get_by_invoice_id(self, invoice_id: str) -> list[AuditLog]:
         """Return chronological immutable audit trail for an invoice."""
         stmt = (
-            select(AuditLog).where(AuditLog.invoice_id == invoice_id).order_by(AuditLog.timestamp)
+            select(AuditLog)
+            .where(AuditLog.invoice_id == invoice_id)
+            .order_by(asc(AuditLog.timestamp), asc(AuditLog.audit_id))
         )
         result = await self._session.execute(stmt)
         return list(result.scalars().all())
+
+    VALID_AUDIT_ACTION_TYPES: frozenset[str] = frozenset(
+        {
+            "INGEST",
+            "EXTRACTION",
+            "VALIDATION",
+            "EDIT",
+            "REVALIDATE",
+            "APPROVE",
+            "REJECT",
+            "STATUS_TRANSITION",
+            "EXPORT",
+        }
+    )
+
+    async def list_for_invoice(
+        self,
+        invoice_id: str,
+        *,
+        action_types: list[str] | None = None,
+        user_id: str | None = None,
+        limit: int = 200,
+        offset: int = 0,
+    ) -> tuple[list[AuditLog], int]:
+        """
+        Return paginated chronological immutable audit trail and exact matching count (P9-3).
+
+        Uses strictly parameterized queries, explicit action_type allowlist (SEC-182),
+        bounded pagination limits (CWE-770), and deterministic ``(timestamp ASC, audit_id ASC)`` ordering.
+        """
+        conditions: list[Any] = [AuditLog.invoice_id == invoice_id]
+        if action_types is not None:
+            normalized_actions: list[str] = []
+            for raw in action_types:
+                act = raw.strip().upper()
+                if act not in self.VALID_AUDIT_ACTION_TYPES:
+                    raise ValueError(f"Unsupported audit action_type: {raw!r}")
+                if act not in normalized_actions:
+                    normalized_actions.append(act)
+            if normalized_actions:
+                conditions.append(AuditLog.action_type.in_(normalized_actions))
+        if user_id is not None:
+            conditions.append(AuditLog.user_id == user_id)
+
+        count_stmt = select(func.count(AuditLog.audit_id)).where(*conditions)
+        total_count = int((await self._session.execute(count_stmt)).scalar_one())
+        if total_count == 0:
+            return [], 0
+
+        clamped_offset = min(max(offset, 0), MAX_PAGE_OFFSET)
+        clamped_limit = _clamp_limit(limit)
+
+        data_stmt = (
+            select(AuditLog)
+            .where(*conditions)
+            .order_by(asc(AuditLog.timestamp), asc(AuditLog.audit_id))
+            .offset(clamped_offset)
+            .limit(clamped_limit)
+        )
+        rows = list((await self._session.execute(data_stmt)).scalars().all())
+        return rows, total_count
 
     async def count_by_invoice_id(self, invoice_id: str) -> int:
         """Return exact audit event count for an invoice without hydrating full ORM rows."""
