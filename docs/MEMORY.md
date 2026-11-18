@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 7 — Validation Rules Engine (3 / 6 Tasks Done ⏳)
-- **Latest Completed Subtask:** P7-3 · Invoice total arithmetic validator — Subtotal + Tax = Total ± 0.05 (FR-06)
-- **Total Completed Tasks:** 37 / 68 (54%)
-- **Test Suite Pass Count:** **305 / 305 passing (100% — 304 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **11.51 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (84 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (149 findings audited & mitigated; `SEC-146`–`SEC-149` closed in P7-3); **P7-3 complete**: deterministic invoice total arithmetic validator (`src/validation/invoice_total.py`) verifies `Subtotal + Tax = Grand Total ± INVOICE_ROUNDING_TOLERANCE` (from `get_settings()`) across all 300 ground-truth files (flagging `INV-2026-1030` as `rounding_within_tolerance`), blocks opposite-sign negative-tax $10k threshold evasion (`SEC-146`), supports optional `lines_subtotal` cross-checking, enforces ASCII-only `[0-9]` parsing, fail-closed `[0.00, 100.00]` tolerance & NULL ORM guards, and zero LLM/SQLAlchemy imports
+- **Current Active Phase:** Phase 7 — Validation Rules Engine (4 / 6 Tasks Done ⏳)
+- **Latest Completed Subtask:** P7-4 · Multi-country tax validator (FR-07) — US sales tax, UK VAT 20/5/0%, DE MwSt 19/7/0%, ES IVA 21/10/4/0%, reverse-charge and exemption flags
+- **Total Completed Tasks:** 38 / 68 (56%)
+- **Test Suite Pass Count:** **332 / 332 passing (100% — 331 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **7.76 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (86 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (153 findings audited & mitigated; `SEC-150`–`SEC-153` closed in P7-4); **P7-4 complete**: deterministic multi-country tax validator (`src/validation/tax_validator.py`) validates US sales tax (Vendor Master rate or bounded 0%–15% ceiling), UK VAT (`GB`/`UK` 20/5/0%), DE MwSt (19/7/0%), ES IVA (21/10/4/0%), mixed-rate line items, and reverse-charge/exemption zero-tax rules across all 300 ground-truth files (299 pass, exact `INV-2026-1010` `tax_mismatch` caught), with partial line-subtotal VAT-evasion reconciliation (`SEC-150`), fail-closed country allowlist + homograph rejection (`SEC-151`), strict boolean exemption flags (`SEC-152`), ASCII-only `[0-9]` parsing, and zero LLM/SQLAlchemy imports
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -55,8 +55,9 @@
 | `tests/unit/test_duplicate_detector.py` | P7-1 `DuplicateDetector`: 300-file SHA-256 composite key parity, SQLite `DUPLICATE_INVOICE`/VOID/self exclusion, `-REV`/`v2` & amount-diff `FLAGGED_POTENTIAL_REVISION`, negative total/line `CREDIT_NOTE`, Unicode/case/cross-vendor/CRLF/DoS/PII/layer guards | 43 | 0.87s |
 | `tests/unit/test_line_arithmetic.py` | P7-2 line-item arithmetic (`Qty × Price = Total ± LINE_ROUNDING_TOLERANCE`): 1,068 ground-truth lines, settings-driven tolerance, credit-note negatives, polymorphic ORM/schema/dict inputs, duplicate line/ASCII-digit/env-tolerance/mass-assignment/salami-drift guards | 10 | 0.72s |
 | `tests/unit/test_invoice_total.py` | P7-3 invoice total arithmetic (`Subtotal + Tax = Total ± INVOICE_ROUNDING_TOLERANCE`): all 300 ground-truth invoices + `INV-2026-1030` rounding flag, settings-driven tolerance, line-sum cross-check, ORM NULL fail-closed, opposite-sign tax threshold-evasion/ASCII/frozen guards | 10 | 0.68s |
+| `tests/unit/test_tax_validator.py` | P7-4 multi-country tax validator (US sales tax, UK VAT 20/5/0%, DE MwSt 19/7/0%, ES IVA 21/10/4/0%, mixed-rate lines, reverse-charge/exempt): 299/300 GT pass + `INV-2026-1010` caught, partial-line VAT-evasion/homograph-country/strict-bool/US-ceiling/DoS guards | 27 | 0.46s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **305** | **11.51s** |
+| **Total** | **All Modules Offline** | **332** | **7.76s** |
 
 ---
 
