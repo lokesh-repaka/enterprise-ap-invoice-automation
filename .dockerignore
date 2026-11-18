@@ -1,0 +1,50 @@
+# ==============================================================================
+# Docker Build Context Exclusions (P14-1 — SEC-230, N8, ADR-007)
+# Prevents secrets, local SQLite databases, VCS metadata, tests, and internal
+# workspace artifacts from ever entering container build contexts.
+# ==============================================================================
+
+# Version control & CI/agent metadata
+.git
+.gitignore
+.github/
+.agents/
+.agents.bak-*/
+GEMINI.local.md
+
+# Secrets & environment files (never bake into images)
+.env
+.env.*
+!.env.example
+
+# Local databases & storage emulators
+*.db
+*.sqlite
+*.sqlite3
+data/
+.azurite/
+__blobstorage__/
+__azurite_db_*.json
+
+# Python caches, virtualenvs & build artifacts
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Tests, evaluation scratch & internal docs
+tests/
+internal/
+scratch/
+*.log
+AI_Solution_Architect_Masterclass_Slides.pdf
+
+# Exclude docs except CLAUDE.md (referenced by pyproject.toml readme metadata)
+docs/*
+!docs/CLAUDE.md
