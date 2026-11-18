@@ -8,12 +8,12 @@
 ## 1. Honest Status
 
 - **Current Active Phase:** Phase 2 — Persistence and Vendor Master
-- **Latest Completed Subtask:** P2-2 · Database schema DDL (`schema.sql`) and Alembic migration baseline
-- **Total Completed Tasks:** 12 / 68 (18%)
-- **Test Suite Pass Count:** **36 / 36 passing (100%)**
-- **Test Execution Latency:** **0.48 seconds** (strict offline isolation mode)
+- **Latest Completed Subtask:** P2-3 · Repository layer — async CRUD for all five tables
+- **Total Completed Tasks:** 13 / 68 (19%)
+- **Test Suite Pass Count:** **42 / 42 passing (100%)**
+- **Test Execution Latency:** **0.52 seconds** (strict offline isolation mode)
 - **Code Quality & Linter:** Ruff 0.3.3 passing with 0 warnings, 0 errors
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs; dynamic Alembic connection strings
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs; dynamic Alembic connection strings; repository field allowlists, pagination clamping, and strict append-only `AuditLogRepository`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -30,7 +30,8 @@
 | `tests/unit/test_ci_workflow.py` | GitHub Actions CI workflow triggers & job graph | 4 | 0.02s |
 | `tests/unit/test_models.py` | SQLAlchemy 2 async models, relationships, and CRUD | 6 | 0.22s |
 | `tests/unit/test_schema_migrations.py` | Schema DDL, table integrity, and Alembic migrations | 5 | 0.17s |
-| **Total** | **All Modules Offline** | **36** | **0.48s** |
+| `tests/unit/test_repositories.py` | Async CRUD repositories, append-only audit guard, rate fallback | 6 | 0.05s |
+| **Total** | **All Modules Offline** | **42** | **0.52s** |
 
 ---
 
