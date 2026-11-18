@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 3 — Identity and Security (4 / 5 Tasks Complete — P3-1 through P3-4 Done)
-- **Latest Completed Subtask:** P3-4 · Audit middleware — `request_id` propagation and immutable `AuditLog` writer
-- **Total Completed Tasks:** 19 / 68 (28%)
-- **Test Suite Pass Count:** **102 / 102 passing (100%)**
-- **Test Execution Latency:** **2.30 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (47 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (45 findings audited & mitigated); RS256 Entra ID JWT validation, ephemeral RSA-2048 demo tokens, atomic Redis ZSET sliding-window rate limiter, isolated-transaction append-only `AuditLogger`, sanitized `X-Request-ID`, and locked middleware stack order active
+- **Current Active Phase:** Phase 3 — Identity and Security (100% Complete ✅ — Ready for Phase 4 & Milestone M1)
+- **Latest Completed Subtask:** P3-5 · Azure Key Vault stub (`src/core/secrets.py`) — zero static secrets in code
+- **Total Completed Tasks:** 20 / 68 (29%)
+- **Test Suite Pass Count:** **110 / 110 passing (100%)**
+- **Test Execution Latency:** **2.64 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (49 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (51 findings audited & mitigated); Phase 3 Identity & Security layer 100% complete (Entra ID RS256 JWT + RBAC, ephemeral RSA-2048 demo tokens, Redis ZSET sliding-window rate limiter, isolated-tx `AuditLogger` + `AuditMiddleware`, and keyless Azure Key Vault provider + offline stub with automated zero-static-secret CI scan)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -37,7 +37,8 @@
 | `tests/unit/test_demo_auth.py` | Ephemeral RS256 demo tokens (`sarah.clerk`, `michael.manager`, `dave.admin`), triple prod gate, RBAC e2e | 10 | 0.27s |
 | `tests/unit/test_rate_limit.py` | Redis ZSET sliding-window rate limiter, anti-XFF spoofing, IPv6 canonicalization, fail-closed 503 | 12 | 0.10s |
 | `tests/unit/test_audit.py` | Isolated-tx `AuditLogger`, `AuditMiddleware`, `X-Request-ID` sanitization, canonical middleware order | 10 | 0.43s |
-| **Total** | **All Modules Offline** | **102** | **2.30s** |
+| `tests/unit/test_secrets.py` | Keyless Azure Key Vault client, offline stub, `SecretValue` redaction, zero-static-secret CI scan | 8 | 0.02s |
+| **Total** | **All Modules Offline** | **110** | **2.64s** |
 
 ---
 

@@ -78,6 +78,13 @@ class Settings(BaseSettings):
     AZURE_BLOB_WORM_CONTAINER: str = "raw-invoices-immutable"
     AZURE_SQL_SERVER: str = ""
     AZURE_SQL_DATABASE: str = "sqldb-ap-staging"
+    AZURE_KEY_VAULT_URL: str = ""
+    KEY_VAULT_CACHE_TTL_SECONDS: int = Field(
+        default=300,
+        ge=30,
+        le=3600,
+        description="TTL in seconds for in-memory Azure Key Vault secret cache.",
+    )
     REDIS_URL: str = "redis://localhost:6379/0"
 
     # --- Azure OpenAI East US 2 (Model Gateway: ADR-004) ---
@@ -116,6 +123,10 @@ class Settings(BaseSettings):
     USE_MOCK_AOAI: bool = Field(
         default=True,
         description="If True, mocks Azure OpenAI calls with synthetic fixture data.",
+    )
+    USE_MOCK_KEY_VAULT: bool = Field(
+        default=True,
+        description="If True (dev/local/test only), uses offline in-memory Key Vault stub.",
     )
     ENABLE_DEMO_AUTH: bool = Field(
         default=False,
