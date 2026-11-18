@@ -96,10 +96,14 @@ class Settings(BaseSettings):
     # --- Business Rule Thresholds (Configurable — Never Hardcode in Logic) ---
     HIGH_VALUE_THRESHOLD_USD: float = Field(
         default=10000.00,
+        gt=0.0,
+        le=100_000_000.0,
         description="Invoices with total above this threshold require Finance Manager approval (FR-13).",
     )
     PO_VARIANCE_TOLERANCE_PERCENT: float = Field(
         default=5.0,
+        ge=0.0,
+        le=100.0,
         description="PO total variance exceeding this percentage requires Finance Manager approval.",
     )
     LINE_ROUNDING_TOLERANCE: float = Field(

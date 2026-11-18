@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 8 — Confidence Routing and State Machine (In Progress — 2 / 3 Tasks Done 🟡)
-- **Latest Completed Subtask:** P8-2 · Invoice state machine — 10-state FSM, legal transitions only, status written via repository
-- **Total Completed Tasks:** 42 / 68 (62%)
-- **Test Suite Pass Count:** **511 / 511 passing (100% — 510 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **8.57 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (94 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (168 findings audited & mitigated; `SEC-165`–`SEC-168` closed in P8-2); deterministic `InvoiceStateMachine` (`src/validation/state_machine.py`) enforces the full 10-core / 17-status LLD §4 lifecycle via deeply immutable `MappingProxyType` transition graph, persists status strictly through `InvoiceRepository.compare_and_update_status()` atomic CAS optimistic locking (CWE-362), blocks high-value & unconverted foreign-currency clerk approval (`SEC-165`), blocks negative-balance credit-note promotion to regular invoice states (`SEC-166`), confines `ActorRole.SYSTEM` to automated pipeline transitions only (`SEC-167`), enforces canonical status allowlist at repository CAS boundary (`SEC-168`), and maintains zero LLM/SQLAlchemy imports in `src/validation/`
+- **Current Active Phase:** Phase 8 — Confidence Routing and State Machine (100% Complete — 3 / 3 Tasks Done ✅)
+- **Latest Completed Subtask:** P8-3 · High-value and PO-variance escalation rules — >$10,000 or >5% PO variance → REQUIRES_MANAGER_APPROVAL (all thresholds from `get_settings()`)
+- **Total Completed Tasks:** 43 / 68 (63%)
+- **Test Suite Pass Count:** **538 / 538 passing (100% — 537 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **7.90 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (96 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (172 findings audited & mitigated; `SEC-169`–`SEC-172` closed in P8-3); **Phase 8 complete**: deterministic `EscalationEvaluator` (`src/validation/escalation_rules.py`) enforces `>$10,000` USD (`HIGH_VALUE_THRESHOLD_USD`) and `>5%` PO variance (`PO_VARIANCE_TOLERANCE_PERCENT`) strictly via `get_settings()` with exact unrounded `Decimal` checks, invoice-date ECB daily FX conversion via `ExchangeRateRepository`, end-to-end 300-invoice Phase 7+8 batch stability (zero crashes), spoofed-USD/dual-PO rejection (`SEC-169`), conflicting `current_status` vs `ConfidenceRoutingResult` rejection (`SEC-170`), strict `date`/FX row validation (`SEC-171`), bounded `Settings` thresholds (`SEC-172`), non-approval frozen outputs, and zero LLM/SQLAlchemy imports in `src/validation/`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -60,8 +60,9 @@
 | `tests/unit/test_rules_engine.py` | P7-6 `RulesEngine` orchestrator: chains P7-1..P7-5 across all 300 ground-truth files (zero crashes, exact 4 problem routes), SQLite duplicate + multi-failure precedence, clerk re-validation, unconditional credit-note/partial-tax/exponent/bool/frozen/layer guards | 7 | 0.61s |
 | `tests/unit/test_confidence_router.py` | P8-1 `ConfidenceRouter`: FR-04/BR-007 tri-tier thresholds (≥90% `VALIDATED`, 80–89.99% `REQUIRES_REVIEW`, <80% `REQUIRES_APPROVAL`), sub-cent precision, worst-field-wins, 300 GT batch + Rules-First precedence, re-validation, settings-driven thresholds, credit-note/fraction-floor/key-alias/forged-rules/non-approval/layer guards | 38 | 0.26s |
 | `tests/unit/test_state_machine.py` | P8-2 `InvoiceStateMachine`: 10-core / 17-status LLD §4 FSM, deeply immutable graph, 45 legal & 36 illegal transition guards, RBAC + system allowlist, SQLite `InvoiceRepository` atomic CAS persistence, high-value/FX clerk cap, credit-note/CAS/PII/layer guards | 113 | 0.25s |
+| `tests/unit/test_escalation_rules.py` | P8-3 `EscalationEvaluator`: FR-13/BR-014 >$10k USD & >5% PO variance rules from `get_settings()`, sub-cent precision, invoice-date ECB FX SQLite lookup, 300 GT Phase 7+8 pipeline, exception/credit-note precedence, spoofed-USD/dual-PO/status-conflict/FX-date/settings-bounds/layer guards | 27 | 0.39s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **511** | **8.57s** |
+| **Total** | **All Modules Offline** | **538** | **7.90s** |
 
 ---
 
