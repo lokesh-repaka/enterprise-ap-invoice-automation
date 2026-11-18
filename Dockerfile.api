@@ -1,0 +1,72 @@
+# syntax=docker/dockerfile:1.7
+# ==============================================================================
+# FastAPI Backend Image — Enterprise AP Invoice Automation Platform (P14-1)
+# Multi-stage hardened build: python:3.11-slim-bookworm, non-root UID 10001,
+# zero dev dependencies, zero static secrets, exec-form uvicorn entrypoint.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Stage 1: Builder — compile wheels & install production dependencies into venv
+# ------------------------------------------------------------------------------
+FROM python:3.11-slim-bookworm AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /build
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy only build metadata and application source (never blind COPY . .)
+COPY pyproject.toml ./
+COPY docs/CLAUDE.md ./docs/CLAUDE.md
+COPY src/ ./src/
+
+RUN pip install --no-cache-dir --upgrade "pip>=24.0" "setuptools>=69.0" "wheel>=0.43" \
+    && pip install --no-cache-dir .
+
+# ------------------------------------------------------------------------------
+# Stage 2: Runtime — minimal, non-root FastAPI production container
+# ------------------------------------------------------------------------------
+FROM python:3.11-slim-bookworm AS runtime
+
+LABEL org.opencontainers.image.title="Enterprise AP Invoice Automation API" \
+      org.opencontainers.image.description="Hardened FastAPI backend for AI-powered AP invoice extraction, validation, and approval workflows" \
+      org.opencontainers.image.vendor="Enterprise AP Solution Team"
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/opt/venv/bin:$PATH" \
+    APP_ENV="staging" \
+    ENABLE_DEMO_AUTH="false" \
+    API_HOST="0.0.0.0" \
+    API_PORT="8000"
+
+WORKDIR /app
+
+# Create dedicated non-root system user & group with nologin shell (SEC-231, CWE-250 / CWE-732)
+RUN groupadd --gid 10001 --system appgroup \
+    && useradd --uid 10001 --gid appgroup --system --no-create-home --shell /usr/sbin/nologin appuser \
+    && mkdir -p /app/data \
+    && chown appuser:appgroup /app/data \
+    && chmod 750 /app/data
+
+# Copy venv and source as root:appgroup read-only so appuser cannot tamper with code at runtime
+COPY --from=builder --chown=root:appgroup /opt/venv /opt/venv
+COPY --chown=root:appgroup src/ /app/src/
+RUN chmod -R a-w /app/src
+
+# Drop privileges permanently before healthcheck and container start
+USER appuser
+
+EXPOSE 8000
+
+# Zero-dependency stdlib liveness probe against GET /health (no curl/wget surface)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+    CMD ["python", "-c", "import sys, urllib.request; resp = urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3); sys.exit(0 if resp.status == 200 else 1)"]
+
+# Exec-form entrypoint for clean SIGTERM handling; hides server version banner
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--no-server-header"]

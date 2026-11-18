@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 13 — Automated Evaluation Suite (Completed ✅ — 4 / 4 Tasks Done; ready for Phase 14)
-- **Latest Completed Subtask:** P13-4 · `python -m src.evaluation.evaluator --report` CLI — printable evaluation summary
-- **Total Completed Tasks:** 63 / 68 (93%)
-- **Test Suite Pass Count:** **708 / 708 passing (100% — 671 unit + 30 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
+- **Current Active Phase:** Phase 14 — Infrastructure and Delivery (In Progress — 1 / 5 Tasks Done)
+- **Latest Completed Subtask:** P14-1 · `Dockerfile.api` — FastAPI image (Python 3.11-slim, non-root user)
+- **Total Completed Tasks:** 64 / 68 (94%)
+- **Test Suite Pass Count:** **713 / 713 passing (100% — 676 unit + 30 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
 - **Test Execution Latency:** **~31 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (142 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (229 findings audited & mitigated; `SEC-228`–`SEC-229` closed in P13-4); implemented `src/evaluation/cli.py` and `python -m src.evaluation.evaluator --report` entrypoint supporting `--report`, `--json`, `--limit`, `--sample-data-dir`, `--output-json`, and `--no-fail-on-threshold` (exit codes `0`/`1`/`2`), with `O_NOFOLLOW`/mode-`0600`/symlink/dotfile/dot-dir output write guards (`SEC-228`), sanitized path-free stderr error output & PEP 562 lazy package exports eliminating `runpy` warnings (`SEC-229`)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (143 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (231 findings audited & mitigated; `SEC-230`–`SEC-231` closed in P14-1); created hardened multi-stage `Dockerfile.api` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser` `/usr/sbin/nologin`, read-only `/opt/venv` & `/app/src`, mode-`750` `/app/data`, `ENABLE_DEMO_AUTH=false`, stdlib `/health` `HEALTHCHECK`, exec-form `uvicorn --no-server-header`) and strict `.dockerignore` blocking `.env*`, `*.db`, `.git`, `internal/`, and `tests/`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -77,6 +77,7 @@
 | `tests/unit/test_evaluator.py` | P13-1 Offline batch evaluator & field-by-field comparator (`src/evaluation/evaluator.py`): 10-header + 5-line comparison, missing/hallucinated line penalties, bounded 12-invoice batch inference, symlink/`O_NOFOLLOW`/size-cap guards (`SEC-220`), crash isolation & PII-free logs (`SEC-221`–`SEC-222`), and AST production-layer isolation audit | 6 | 0.18s |
 | `tests/unit/test_evaluation_metrics.py` | P13-2 Evaluation metric reporting & threshold gates (`src/evaluation/metrics.py`): ≥95% header macro, ≥92% critical field floor, ≥90% line-item, ≥65% STP, exact boundaries & single-breach failures, slot-level P/R/F1, fail-closed empty-batch/crash/bool guards (`SEC-223`), PII/host-path/ANSI/BiDi sanitization (`SEC-224`), and forged-aggregate & duplicate-slot integrity checks (`SEC-225`) | 6 | 0.05s |
 | `tests/unit/test_evaluator_cli.py` | P13-4 Evaluation CLI unit suite (`src/evaluation/cli.py`): `--report` printable ASCII scorecard, `--json` & `--output-json` (`0o600`), exit codes `0`/`1`/`2` & `--no-fail-on-threshold`, symlink/dotfile/dot-dir/non-JSON output blocking (`SEC-228`), and path/traceback-free error sanitization (`SEC-229`) | 5 | 0.16s |
+| `tests/unit/test_dockerfile_api.py` | P14-1 Hardened multi-stage `Dockerfile.api` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/app/src` & `/opt/venv`, stdlib `/health` `HEALTHCHECK`, exec-form `uvicorn --no-server-header`, zero secrets/dev deps: `SEC-231`) & `.dockerignore` hygiene (`SEC-230`) | 5 | 0.01s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
@@ -92,7 +93,7 @@
 | `tests/integration/test_evaluation_metrics_integration.py` | P13-2 Full 300-invoice pilot metric reporting (`InvoiceBatchEvaluator` → `compute_evaluation_metrics()`): verifies all contractual pilot gates (≥95% header, ≥92% critical floor, ≥90% line, ≥65% STP, 0 crashes), P/R/F1 bounds, and PII/path-free JSON & ASCII scorecards | 1 | 0.56s |
 | `tests/integration/test_evaluator_cli_integration.py` | P13-4 Subprocess execution of `python -m src.evaluation.evaluator --report` over all 300 pilot invoices: verifies exit `0`, printable `[PASS]` scorecard, zero PII/host paths, zero `RuntimeWarning` | 1 | 1.24s |
 | `tests/evaluation/test_pilot_evaluation_thresholds.py` | P13-3 Evaluation CI threshold pytest suite (`pytest tests/evaluation/`): 300-invoice batch stability (0 crashes), ≥95% header macro, ≥92% critical field hard floor each, ≥90% line-item, ≥65% STP, unified `assert_evaluation_thresholds()` P/R/F1 & non-approval check, and negative breach/weakening/NaN tests (`SEC-226`) | 7 | 0.44s |
-| **Total** | **All Modules Offline** | **708** | **~31s** |
+| **Total** | **All Modules Offline** | **713** | **~31s** |
 
 ---
 
