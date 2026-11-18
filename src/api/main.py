@@ -12,6 +12,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from src.api.approvals import router as approvals_router
 from src.api.audit_middleware import AuditMiddleware
 from src.api.auth import router as auth_router
 from src.api.invoices import router as invoices_router
@@ -66,6 +67,7 @@ app.add_middleware(RequestIDMiddleware)
 # Register API routers
 app.include_router(auth_router)
 app.include_router(invoices_router)
+app.include_router(approvals_router)
 
 
 # -------------------------------------------------------------

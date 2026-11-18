@@ -471,3 +471,66 @@ class InvoiceRevalidateResponse(BaseModel):
     requires_manager_approval: bool
     audit_event_id: str
     edited_fields: list[str]
+
+
+class InvoiceApprovalRequest(BaseModel):
+    """
+    Optional request payload for ``POST /api/v1/invoices/{id}/approve`` (P9-2, FR-13, BR-014/015).
+
+    Supports true one-click approval (empty body or ``{}``) as well as manager approval
+    comments and optional matched PO amount verification. Strictly forbids mass assignment
+    of status, roles, or USD totals (CWE-915).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    approver_id: str | None = None
+    comment: str | None = None
+    po_amount: Decimal | None = None
+
+    @field_validator("approver_id", mode="before")
+    @classmethod
+    def _validate_approver_id(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(
+            v, field_name="approver_id", max_length=128, allow_empty=False
+        )
+
+    @field_validator("comment", mode="before")
+    @classmethod
+    def _validate_comment(cls, v: Any) -> str | None:
+        return _validate_clean_optional_text(
+            v, field_name="comment", max_length=MAX_COMMENT_LENGTH, allow_empty=True
+        )
+
+    @field_validator("po_amount", mode="before")
+    @classmethod
+    def _validate_po_amount(cls, v: Any) -> Decimal | None:
+        parsed = _parse_strict_schema_decimal(
+            v,
+            field_name="po_amount",
+            max_abs=MAX_REVALIDATE_MONETARY_AMOUNT,
+            max_fraction_digits=2,
+        )
+        if parsed is not None and parsed < Decimal("0"):
+            raise ValueError("po_amount must be non-negative")
+        return parsed
+
+
+class InvoiceApprovalResponse(BaseModel):
+    """HTTP 200 OK receipt for ``POST /api/v1/invoices/{id}/approve`` (P9-2, FR-13)."""
+
+    model_config = ConfigDict(frozen=True)
+
+    invoice_id: str
+    previous_status: str
+    status: str
+    approved_by: str
+    approver_role: str
+    total_amount: Decimal
+    currency: str
+    total_amount_usd: Decimal
+    high_value_threshold_usd: Decimal
+    requires_manager_approval: bool
+    approved_at: datetime
+    audit_event_id: str
+    comment: str | None = None
