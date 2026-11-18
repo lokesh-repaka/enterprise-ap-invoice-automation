@@ -17,6 +17,7 @@ from src.database.repositories import (
     InvoiceLineRepository,
     InvoiceRepository,
     VendorRepository,
+    compute_composite_hash,
 )
 from src.database.session import (
     create_db_engine,
@@ -36,6 +37,7 @@ __all__ = [
     "InvoiceRepository",
     "Vendor",
     "VendorRepository",
+    "compute_composite_hash",
     "create_db_engine",
     "create_session_factory",
     "get_async_session",

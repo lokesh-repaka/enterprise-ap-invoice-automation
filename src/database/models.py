@@ -27,6 +27,7 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    text,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -117,7 +118,7 @@ class Invoice(Base):
         Numeric(5, 2), nullable=False, default=Decimal("0.00")
     )
     status: Mapped[str] = mapped_column(String(50), nullable=False, default="UPLOADED", index=True)
-    composite_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    composite_hash: Mapped[str] = mapped_column(String(64), nullable=False)
     blob_raw_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     blob_json_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
@@ -146,6 +147,13 @@ class Invoice(Base):
     )
 
     __table_args__ = (
+        Index(
+            "UX_invoices_composite_hash",
+            "composite_hash",
+            unique=True,
+            sqlite_where=text("status NOT IN ('REJECTED_DUPLICATE', 'VOID')"),
+            mssql_where=text("status NOT IN ('REJECTED_DUPLICATE', 'VOID')"),
+        ),
         Index("IX_invoices_status_date", "status", "invoice_date"),
         Index("IX_invoices_vendor_number", "vendor_tax_id", "invoice_number"),
     )

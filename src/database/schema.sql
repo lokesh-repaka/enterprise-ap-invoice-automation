@@ -47,7 +47,9 @@ CREATE TABLE IF NOT EXISTS invoices (
     FOREIGN KEY (vendor_tax_id) REFERENCES vendors (vendor_tax_id) ON DELETE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS IX_invoices_composite_hash ON invoices (composite_hash);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_invoices_composite_hash
+ON invoices (composite_hash)
+WHERE status NOT IN ('REJECTED_DUPLICATE', 'VOID');
 CREATE INDEX IF NOT EXISTS IX_invoices_status_date ON invoices (status, invoice_date);
 CREATE INDEX IF NOT EXISTS IX_invoices_vendor_number ON invoices (vendor_tax_id, invoice_number);
 CREATE INDEX IF NOT EXISTS IX_invoices_po_number ON invoices (po_number);

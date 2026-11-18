@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 2 — Persistence and Vendor Master
-- **Latest Completed Subtask:** P2-4 · Seed scripts — Vendor Master (15 vendors, 4 jurisdictions) and exchange rates
-- **Total Completed Tasks:** 14 / 68 (21%)
-- **Test Suite Pass Count:** **49 / 49 passing (100%)**
-- **Test Execution Latency:** **0.61 seconds** (strict offline isolation mode)
+- **Current Active Phase:** Phase 2 — Persistence and Vendor Master (100% Complete ✅ — Ready for Phase 3 & Phase 4)
+- **Latest Completed Subtask:** P2-5 · `composite_hash` unique index and duplicate-safe upsert logic
+- **Total Completed Tasks:** 15 / 68 (22%)
+- **Test Suite Pass Count:** **55 / 55 passing (100%)**
+- **Test Execution Latency:** **0.60 seconds** (strict offline isolation mode)
 - **Code Quality & Linter:** Ruff 0.3.3 passing with 0 warnings, 0 errors
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities; PII masked in ORM `__repr__` and JSON logs; dynamic Alembic connection strings; repository field allowlists, pagination clamping, strict append-only `AuditLogRepository`; seed path-traversal and input validation guards
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (20 findings audited & mitigated); partial unique index + TOCTOU race-safe duplicate upsert active
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -32,7 +32,8 @@
 | `tests/unit/test_schema_migrations.py` | Schema DDL, table integrity, and Alembic migrations | 5 | 0.17s |
 | `tests/unit/test_repositories.py` | Async CRUD repositories, append-only audit guard, rate fallback | 6 | 0.05s |
 | `tests/unit/test_seed.py` | Idempotent Vendor Master (15 vendors) & ECB FX seed scripts | 7 | 0.08s |
-| **Total** | **All Modules Offline** | **49** | **0.61s** |
+| `tests/unit/test_composite_hash.py` | Partial unique index, SHA-256 hash parity, race-safe duplicate upsert | 6 | 0.09s |
+| **Total** | **All Modules Offline** | **55** | **0.60s** |
 
 ---
 
