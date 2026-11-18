@@ -124,7 +124,7 @@ Sub-tasks in the same phase that do not share files can be open at the same time
 | Task | Branch | Status |
 |------|--------|--------|
 | P8-1 · Confidence router (`src/validation/confidence_router.py`) — ≥90% → VALIDATED, 80–89% → REQUIRES_REVIEW, <80% → REQUIRES_APPROVAL | `feature/validation-confidence-router` | Completed ✅ |
-| P8-2 · Invoice state machine — 10-state FSM, legal transitions only, status written via repository | `feature/validation-state-machine` | Pending ❌ |
+| P8-2 · Invoice state machine — 10-state FSM, legal transitions only, status written via repository | `feature/validation-state-machine` | Completed ✅ |
 | P8-3 · High-value and PO-variance escalation rules — >$10,000 or >5% PO variance → REQUIRES_MANAGER_APPROVAL (all thresholds from `get_settings()`) | `feature/validation-escalation-rules` | Pending ❌ |
 
 ---
@@ -265,12 +265,12 @@ Phases 3 and 4 start together once Phase 2 merges. Phase 5 waits on Phases 2, 3,
 | 5 | Upload API and Job Queue | 5 | 5 ✅ |
 | 6 | Extraction Engine and Model Gateway | 5 | 5 ✅ |
 | 7 | Validation Rules Engine | 6 | 6 ✅ |
-| 8 | Confidence Routing and State Machine | 3 | 1 🟡 |
+| 8 | Confidence Routing and State Machine | 3 | 2 🟡 |
 | 9 | Re-Validation and Approval API | 4 | 0 ❌ |
 | 10 | Synthetic Sample Data | 4 | 4 ✅ |
 | 11 | Streamlit UI | 7 | 0 ❌ |
 | 12 | Integration Tests | 5 | 0 ❌ |
 | 13 | Automated Evaluation Suite | 4 | 0 ❌ |
 | 14 | Infrastructure and Delivery | 5 | 0 ❌ |
-| **Total** | | **68** | **41 (60%)** |
+| **Total** | | **68** | **42 (62%)** |
 
