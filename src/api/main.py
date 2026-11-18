@@ -14,6 +14,7 @@ from fastapi.responses import JSONResponse
 
 from src.api.audit_middleware import AuditMiddleware
 from src.api.auth import router as auth_router
+from src.api.invoices import router as invoices_router
 from src.api.middleware import RequestIDMiddleware
 from src.api.rate_limit import RedisRateLimiterMiddleware
 from src.core.config import get_settings
@@ -64,6 +65,7 @@ app.add_middleware(RequestIDMiddleware)
 
 # Register API routers
 app.include_router(auth_router)
+app.include_router(invoices_router)
 
 
 # -------------------------------------------------------------
