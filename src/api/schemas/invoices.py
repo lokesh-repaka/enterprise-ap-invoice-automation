@@ -10,13 +10,15 @@ from pydantic import BaseModel, ConfigDict
 
 
 class InvoiceUploadResponse(BaseModel):
-    """HTTP 202 Accepted receipt returned after validation, WORM write, SQL insert, and enqueue."""
+    """HTTP 202 Accepted (or HTTP 200 OK on idempotent replay) invoice upload receipt."""
 
     model_config = ConfigDict(frozen=True)
 
     invoice_id: str
     status: str = "UPLOADED"
     queued: bool = True
+    deduplicated: bool = False
+    idempotency_key: str | None = None
     filename: str
     detected_mime: str
     size_bytes: int

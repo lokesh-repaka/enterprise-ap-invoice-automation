@@ -15,6 +15,7 @@ LLD §2, and CLAUDE.md §4.1 & §9:
 """
 
 import asyncio
+import hmac
 import re
 import threading
 import uuid
@@ -29,6 +30,7 @@ from fastapi import (
     Depends,
     File,
     Form,
+    Header,
     HTTPException,
     Query,
     Request,
@@ -51,7 +53,15 @@ from src.api.schemas.invoices import (
 from src.core.audit import AuditActionType, AuditLogger
 from src.core.config import get_settings
 from src.core.logging import get_logger, request_id_ctx
-from src.core.redis_client import DEFAULT_INVOICE_QUEUE_KEY
+from src.core.redis_client import (
+    DEFAULT_INVOICE_QUEUE_KEY,
+    InvoiceQueueJob,
+    RedisJobPayloadError,
+    RedisJobQueueClient,
+    RedisQueueError,
+    compute_idempotency_key,
+    hash_client_idempotency_key,
+)
 from src.core.security import AuthenticatedUser, Role, require_role
 from src.database.models import Invoice, Vendor
 from src.database.repositories import (
@@ -265,6 +275,24 @@ async def _resolve_vendor_for_upload(
     )
 
 
+async def _try_release_idempotency_key(
+    queue_client: RedisJobQueueClient,
+    idempotency_key: str,
+    invoice_id: str,
+) -> None:
+    """Best-effort atomic rollback of a claimed idempotency lock when downstream intake fails."""
+    try:
+        await queue_client.release_idempotency_key(
+            idempotency_key,
+            expected_invoice_id=invoice_id,
+        )
+    except (RedisQueueError, RedisError, OSError) as exc:
+        logger.warning(
+            "Best-effort idempotency lock release failed during upload rollback",
+            extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
+        )
+
+
 @router.post(
     "/upload",
     status_code=status.HTTP_202_ACCEPTED,
@@ -291,10 +319,15 @@ async def upload_invoice(
     ],
     redis_client: Annotated[Any, Depends(get_upload_redis_client)],
     vendor_id: Annotated[str | None, Form(description="Optional active VendorID")] = None,
+    idempotency_key_header: Annotated[
+        str | None,
+        Header(alias="Idempotency-Key", description="Optional client-supplied idempotency key"),
+    ] = None,
 ) -> InvoiceUploadResponse:
     """
-    Validate, store immutably in WORM Blob Storage, persist SQL Invoice(UPLOADED),
-    log an immutable INGEST audit record, and enqueue an async Redis extraction job.
+    Validate, deduplicate via atomic Redis idempotency key (LLD §6.1), store immutably in
+    WORM Blob Storage, persist SQL Invoice(UPLOADED), log an immutable INGEST audit record,
+    and enqueue an async Redis extraction job.
     """
     raw_filename = (file.filename or "").strip()
     if not raw_filename:
@@ -303,6 +336,21 @@ async def upload_invoice(
             status_code=422,
             detail="Uploaded file must include a valid filename",
         )
+
+    # Validate optional Idempotency-Key header syntax early (before reading multipart bytes)
+    explicit_idem_key: str | None = None
+    if idempotency_key_header is not None:
+        try:
+            explicit_idem_key = hash_client_idempotency_key(
+                idempotency_key_header,
+                clerk_id=current_user.user_id,
+            )
+        except ValueError:
+            await file.close()
+            raise HTTPException(
+                status_code=422,
+                detail="Invalid Idempotency-Key header",
+            ) from None
 
     # Validate optional vendor_id syntax early before reading/storing upload bytes
     if vendor_id is not None:
@@ -327,7 +375,7 @@ async def upload_invoice(
     except FileValidationError as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from None
 
-    # 3. Resolve Vendor FK in SQL before writing immutable WORM blob (avoids orphan blobs on bad vendor_id)
+    # 3. Resolve Vendor FK in SQL before claiming/writing (avoids orphan blobs on bad vendor_id)
     try:
         async with session_factory() as session:
             (
@@ -348,9 +396,108 @@ async def upload_invoice(
             detail="Invoice database is temporarily unavailable",
         ) from None
 
-    # 4. Mint canonical InvoiceID and write immutable WORM Blob with canonical metadata tags (P4-1 + P4-4)
-    # Offloaded via asyncio.to_thread to avoid blocking the async event loop on storage network I/O
+    # 4. Atomic Idempotency Key Deduplication (P5-5, LLD §6.1, CLAUDE.md §16.6)
+    idempotency_key = explicit_idem_key or compute_idempotency_key(raw_bytes, current_user.user_id)
     invoice_id = str(uuid.uuid4())
+    active_request_id = request_id_ctx.get() or None
+    queue_client = RedisJobQueueClient(redis_client, queue_key=INVOICE_QUEUE_KEY)
+
+    try:
+        acquired, idem_record = await queue_client.claim_idempotency_key(
+            idempotency_key,
+            invoice_id,
+            status="UPLOADED",
+            file_hash=validated.sha256_hash,
+        )
+    except RedisQueueError:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Processing queue is temporarily unavailable",
+        ) from None
+
+    if not acquired:
+        # Guard against reusing an explicit Idempotency-Key with a different file payload (CWE-345)
+        if idem_record.file_hash is not None and not hmac.compare_digest(
+            idem_record.file_hash, validated.sha256_hash
+        ):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="Idempotency-Key was already used with a different file payload",
+            )
+
+        existing_invoice: Invoice | None = None
+        try:
+            async with session_factory() as session:
+                existing_invoice = await InvoiceRepository(session).get_by_id(
+                    idem_record.invoice_id,
+                    include_relations=True,
+                    include_audit_logs=False,
+                )
+        except SQLAlchemyError as exc:
+            logger.warning(
+                "Could not refresh SQL invoice during idempotent replay; using Redis snapshot",
+                extra={"invoice_id": idem_record.invoice_id, "error_type": type(exc).__name__},
+            )
+
+        replay_status = (
+            existing_invoice.status if existing_invoice is not None else idem_record.status
+        )
+        replay_blob_url = (
+            existing_invoice.blob_raw_url or "" if existing_invoice is not None else ""
+        )
+        replay_vendor_id = (
+            existing_invoice.vendor.vendor_id
+            if existing_invoice is not None
+            and existing_invoice.vendor is not None
+            and existing_invoice.vendor.vendor_id
+            else resolved_vendor_id
+        )
+        # Guard against reusing an explicit Idempotency-Key with a conflicting vendor_id (CWE-345)
+        if (
+            explicit_idem_key is not None
+            and vendor_id is not None
+            and replay_vendor_id != resolved_vendor_id
+        ):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="Idempotency-Key was already used with a different vendor_id",
+            )
+        replay_uploaded_at = (
+            existing_invoice.created_at
+            if existing_invoice is not None
+            else datetime.fromisoformat(idem_record.created_at.replace("Z", "+00:00"))
+        )
+
+        response.status_code = status.HTTP_200_OK
+        response.headers["Location"] = f"/api/v1/invoices/{idem_record.invoice_id}"
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Idempotency-Replayed"] = "true"
+        logger.info(
+            "Deduplicated re-submitted invoice upload via idempotency key",
+            extra={
+                "invoice_id": idem_record.invoice_id,
+                "status": replay_status,
+                "sha256_prefix": validated.sha256_hash[:12],
+            },
+        )
+        return InvoiceUploadResponse(
+            invoice_id=idem_record.invoice_id,
+            status=replay_status,
+            queued=False,
+            deduplicated=True,
+            idempotency_key=idempotency_key,
+            filename=validated.filename,
+            detected_mime=validated.detected_mime,
+            size_bytes=validated.size_bytes,
+            file_hash=validated.sha256_hash,
+            blob_url=replay_blob_url,
+            vendor_id=replay_vendor_id,
+            uploaded_at=replay_uploaded_at,
+            request_id=active_request_id,
+        )
+
+    # 5. Write immutable WORM Blob with canonical metadata tags (P4-1 + P4-4)
+    # Offloaded via asyncio.to_thread to avoid blocking the async event loop on storage network I/O
     upload_ts = datetime.now(UTC)
     try:
         upload_result = await asyncio.to_thread(
@@ -364,6 +511,7 @@ async def upload_invoice(
             metadata={"InvoiceID": invoice_id},
         )
     except (BlobStorageError, BlobMetadataError) as exc:
+        await _try_release_idempotency_key(queue_client, idempotency_key, invoice_id)
         logger.error(
             "WORM Blob storage upload failed during invoice intake",
             extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
@@ -373,7 +521,7 @@ async def upload_invoice(
             detail="Immutable document storage is temporarily unavailable",
         ) from None
 
-    # 5. Persist Invoice(status="UPLOADED") in SQL (P2-3)
+    # 6. Persist Invoice(status="UPLOADED") in SQL (P2-3)
     placeholder_number = f"PENDING-{invoice_id[:12]}"
     placeholder_hash = compute_composite_hash(
         vendor_tax_id=resolved_vendor_tax_id,
@@ -395,6 +543,7 @@ async def upload_invoice(
         async with session_factory() as session:
             await InvoiceRepository(session).create(invoice_record)
     except SQLAlchemyError as exc:
+        await _try_release_idempotency_key(queue_client, idempotency_key, invoice_id)
         logger.error(
             "Failed to persist Invoice record after WORM blob upload",
             extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
@@ -404,8 +553,7 @@ async def upload_invoice(
             detail="Failed to persist invoice metadata",
         ) from None
 
-    # 6. Write immutable INGEST audit event in isolated transaction (P3-4)
-    active_request_id = request_id_ctx.get() or None
+    # 7. Write immutable INGEST audit event in isolated transaction (P3-4)
     try:
         audit_logger = AuditLogger(session_factory)
         await audit_logger.record(
@@ -418,6 +566,7 @@ async def upload_invoice(
             request_id=active_request_id,
         )
     except SQLAlchemyError as exc:
+        await _try_release_idempotency_key(queue_client, idempotency_key, invoice_id)
         logger.error(
             "Failed to record INGEST audit event",
             extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
@@ -427,7 +576,7 @@ async def upload_invoice(
             detail="Audit trail is temporarily unavailable",
         ) from None
 
-    # 7. Enqueue async extraction job onto Redis FIFO queue (fail-closed -> 503 if Redis down)
+    # 8. Enqueue async extraction job onto Redis FIFO queue via RedisJobQueueClient (fail-closed -> 503)
     job = InvoiceJobPayload(
         invoice_id=invoice_id,
         blob_name=upload_result.blob_name,
@@ -441,8 +590,8 @@ async def upload_invoice(
         enqueued_at=datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
     )
     try:
-        await redis_client.rpush(INVOICE_QUEUE_KEY, job.model_dump_json())
-    except (RedisError, OSError) as exc:
+        await queue_client.enqueue(InvoiceQueueJob(**job.model_dump()))
+    except (RedisQueueError, RedisJobPayloadError, RedisError, OSError) as exc:
         logger.error(
             "Failed to enqueue invoice processing job in Redis",
             extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
@@ -469,6 +618,8 @@ async def upload_invoice(
         invoice_id=invoice_id,
         status="UPLOADED",
         queued=True,
+        deduplicated=False,
+        idempotency_key=idempotency_key,
         filename=validated.filename,
         detected_mime=validated.detected_mime,
         size_bytes=validated.size_bytes,

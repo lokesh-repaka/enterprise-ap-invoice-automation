@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 5 — Upload API and Job Queue (4 / 5 Tasks Complete — P5-1 through P5-4 Done)
-- **Latest Completed Subtask:** P5-4 · `GET /api/v1/invoices/{id}` and `GET /api/v1/invoices/exceptions` — query and filter routes
-- **Total Completed Tasks:** 28 / 68 (41%)
-- **Test Suite Pass Count:** **186 / 186 passing (100% — 185 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **4.94 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (67 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (100 findings audited & mitigated); `GET /api/v1/invoices/exceptions` and `GET /api/v1/invoices/{id}` active with RBAC (`ap_clerk`/`finance_manager`), parameterized & LIKE-escaped search filters, explicit sort allowlist, bulk PII minimization (omits `vendor_tax_id`), `COUNT(*)` audit counts, `Cache-Control: no-store`, and sanitized `503` DB error handling
+- **Current Active Phase:** Phase 5 — Upload API and Job Queue (5 / 5 Tasks Complete — 100% ✅)
+- **Latest Completed Subtask:** P5-5 · Idempotency key deduplication — re-submitted identical files return existing InvoiceID
+- **Total Completed Tasks:** 29 / 68 (43%)
+- **Test Suite Pass Count:** **193 / 193 passing (100% — 192 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **5.34 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (68 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (105 findings audited & mitigated); Phase 5 complete with RBAC-protected upload/read/exception routes, atomic `SET NX EX` idempotency deduplication (`SHA256(file_bytes + clerk_id)` + explicit `Idempotency-Key` `409 Conflict` guard + rollback lock release), `RedisJobQueueClient` with DLQ & TLS prod gate, and non-self-approving `InvoiceBackgroundWorker`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -46,8 +46,9 @@
 | `tests/unit/test_redis_client.py` | Async Redis FIFO job queue (`RPUSH`/`LPOP`/`BLPOP`), DLQ quarantine, atomic `SET NX EX` & `WATCH/MULTI/EXEC` idempotency keys, TLS `rediss://` prod gate | 9 | 0.04s |
 | `tests/unit/test_worker.py` | Background worker skeleton (`UPLOADED->EXTRACTING->outcome`), non-approval guard, blob-swap & `FileHash` checks, timeout/retry/DLQ, graceful `run_loop` | 9 | 0.32s |
 | `tests/unit/test_invoice_read_routes.py` | `GET /api/v1/invoices/{id}` & `GET /api/v1/invoices/exceptions` RBAC, LIKE-escaped filters, sort allowlist, bulk PII minimization, `COUNT(*)` audit count | 7 | 0.83s |
+| `tests/unit/test_idempotency_dedup.py` | Atomic upload idempotency dedup (`200 OK` + `X-Idempotency-Replayed`), live SQL status refresh, `409 Conflict` on mismatch, clerk isolation, lock rollback | 7 | 0.95s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **186** | **4.94s** |
+| **Total** | **All Modules Offline** | **193** | **5.34s** |
 
 ---
 

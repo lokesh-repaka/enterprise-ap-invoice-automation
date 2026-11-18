@@ -105,6 +105,7 @@ class IdempotencyRecord(BaseModel):
     invoice_id: str
     status: str = "UPLOADED"
     created_at: str
+    file_hash: str | None = None
 
 
 def _validate_redis_key(key: str, *, label: str) -> str:
@@ -410,6 +411,7 @@ class RedisJobQueueClient:
         invoice_id: str,
         *,
         status: str = "UPLOADED",
+        file_hash: str | None = None,
         ttl_seconds: int | None = None,
     ) -> tuple[bool, IdempotencyRecord]:
         """
@@ -423,6 +425,11 @@ class RedisJobQueueClient:
         if not isinstance(invoice_id, str) or not _INVOICE_ID_PATTERN.match(invoice_id):
             raise ValueError("Invalid invoice_id for idempotency claim")
         clean_status = _validate_status(status)
+        clean_file_hash: str | None = None
+        if file_hash is not None:
+            if not isinstance(file_hash, str) or not _SHA256_HEX_PATTERN.match(file_hash):
+                raise ValueError("Invalid file_hash for idempotency claim")
+            clean_file_hash = file_hash
         ttl = self._idempotency_ttl_seconds if ttl_seconds is None else _validate_ttl(ttl_seconds)
 
         candidate = IdempotencyRecord(
@@ -430,6 +437,7 @@ class RedisJobQueueClient:
             invoice_id=invoice_id,
             status=clean_status,
             created_at=datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            file_hash=clean_file_hash,
         )
         redis_key = f"{IDEMPOTENCY_KEY_PREFIX}{clean_key}"
 
@@ -499,6 +507,7 @@ class RedisJobQueueClient:
                     invoice_id=existing.invoice_id,
                     status=clean_status,
                     created_at=existing.created_at,
+                    file_hash=existing.file_hash,
                 )
                 pipe.multi()
                 pipe.set(redis_key, updated.model_dump_json(), xx=True, keepttl=True)
