@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (57% Complete — 4 / 7 Tasks Done ⏳)
-- **Latest Completed Subtask:** P11-4 · Human Exception Queue (`/exceptions`) — filtered queue by exception type, confidence colour coding, bulk actions
-- **Total Completed Tasks:** 51 / 68 (75%)
-- **Test Suite Pass Count:** **626 / 626 passing (100% — 622 unit + 4 offline integration tests; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **24.03 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (116 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (200 findings audited & mitigated; `SEC-198`–`SEC-200` closed in P11-4); Human Exception Queue (`src/ui/exception_queue.py`) enforces fail-closed `finance_manager`-only bulk approval skipping non-approvable statuses (`DUPLICATE_INVOICE`/`CREDIT_NOTE`/`REJECTED_TAX_MISMATCH`/`FLAGGED_POTENTIAL_REVISION`), hidden Bulk Manager Approve for `ap_clerk`, and alphanumeric-start assignee handles blocking formula prefixes (`SEC-198`), XSS/CSV-formula/Bearer sanitization and `^[A-Za-z0-9_-]{1,64}$` route allowlist validation with zero `unsafe_allow_html=True` (`SEC-199`), and `MAX_BULK_SELECTION=50`, `MAX_STORED_ASSIGNMENTS=1000`, `MAX_PAGE_LIMIT=100`, immediate HTTP `429` halt, and cross-user `exception_assignments` purge on sign-out/persona-switch (`SEC-200`)
+- **Current Active Phase:** Phase 11 — Streamlit UI (71% Complete — 5 / 7 Tasks Done ⏳)
+- **Latest Completed Subtask:** P11-5 · Revision Comparison screen (`/revision/{invoice_id}`) — side-by-side original vs. revision
+- **Total Completed Tasks:** 52 / 68 (76%)
+- **Test Suite Pass Count:** **635 / 635 passing (100% — 630 unit + 5 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **22.59 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (119 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (203 findings audited & mitigated; `SEC-201`–`SEC-203` closed in P11-5); Revision Comparison screen (`src/ui/revision_screen.py`) enforces authoritative Tax ID + vendor parity (blocking `UNKNOWN` placeholder spoofing & cross-vendor superseding plus surfacing currency mismatch alerts — `SEC-201`), sanitized header/line diff tables with masked Tax IDs, CSV-formula/XSS/Bearer stripping, validated `/workbench/{id}` handoff routes, and zero `unsafe_allow_html=True` (`SEC-202`), and fail-closed `ap_clerk`/`finance_manager` decision RBAC, mandatory 5..1000-char audit comments, bounded `MAX_DECISION_HISTORY=200`, 256-char linear suffix matching (anti-ReDoS), and cross-user revision session purge on sign-out/persona-switch (`SEC-203`)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -69,11 +69,13 @@
 | `tests/unit/test_ui_ingestion_dashboard.py` | P11-2 Ingestion Dashboard (`/`): multi-file drag-and-drop validation (FR-01/GAP-004), deterministic SHA-256 idempotency dedup, batch summary metrics, live status table, bounded live polling & 429 backoff, RBAC/batch-bytes/session/XSS/CSV-formula/route/layering guards, headless Streamlit renderer smoke | 10 | 0.12s |
 | `tests/unit/test_ui_review_workbench.py` | P11-3 Review Workbench (`/workbench/{id}`): split-screen PyMuPDF viewer (zoom/page/25MB/TIFF/NaN guards), confidence color cues & Tax ID masking, smart-diff no-op prevention, ReasonCode/tax-override/RBAC/hidden-Approve >$10k, SSRF/URL/CSV-formula/duplicate-line/layering guards, headless renderer smoke | 8 | 0.15s |
 | `tests/unit/test_ui_exception_queue.py` | P11-4 Human Exception Queue (`/exceptions`): PRD Screen 3 exception presets & strict filter validation, confidence colour coding (`#22c55e`/`#fef08a`/`#ef4444`), urgency & elapsed time, bulk assign/refresh (429 backoff)/manager-only bulk approve, XSS/CSV-formula/route/layering guards, headless renderer smoke | 9 | 0.12s |
+| `tests/unit/test_ui_revision_screen.py` | P11-5 Revision Comparison (`/revision/{id}`): `-REV`/`v2`/`AMENDED` marker detection, yellow/red header & line-item diff engine, financial/tax/percentage deltas, exact duplicate & cross-vendor/`UNKNOWN` spoofing guards, original APPROVE audit provenance, fail-closed decision RBAC, XSS/CSV-formula/layering guards, headless renderer smoke | 8 | 0.14s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
 | `tests/integration/test_ui_exception_queue_integration.py` | P11-4 End-to-end offline integration test: real FastAPI `/exceptions` preset filtering + `finance_manager` bulk approval on `$15k` escalated invoice skipping `DUPLICATE_INVOICE` | 1 | 0.27s |
-| **Total** | **All Modules Offline** | **626** | **24.03s** |
+| `tests/integration/test_ui_revision_screen_integration.py` | P11-5 End-to-end offline integration test: real FastAPI `APPROVED_CLERK` original + `FLAGGED_POTENTIAL_REVISION` `-REV` side-by-side comparison & immutable `APPROVE` audit provenance | 1 | 0.29s |
+| **Total** | **All Modules Offline** | **635** | **22.59s** |
 
 ---
 

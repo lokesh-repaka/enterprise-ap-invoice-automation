@@ -19,6 +19,7 @@ from src.ui.api_client import (
 from src.ui.exception_queue import render_exception_queue
 from src.ui.ingestion_dashboard import render_ingestion_dashboard, sanitize_display_text
 from src.ui.review_workbench import render_review_workbench
+from src.ui.revision_screen import render_revision_comparison
 
 DEFAULT_DEMO_PERSONAS: tuple[str, ...] = (
     "sarah.clerk",
@@ -65,6 +66,10 @@ def _clear_session_batch_state(session_state: dict[str, Any]) -> None:
         "workbench_invoice",
         "workbench_last_revalidation",
         "exception_assignments",
+        "revision_original_id",
+        "revision_incoming_id",
+        "revision_pair",
+        "revision_decisions",
     ):
         session_state.pop(key, None)
 
@@ -189,9 +194,15 @@ def render_app(
                 st_module=st,
                 user_roles=effective_roles,
             )
+        elif selected_page == PAGE_REVISION:
+            render_revision_comparison(
+                client,
+                st_module=st,
+                user_roles=effective_roles,
+            )
         else:
             st.title(selected_page)
-            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-5 through P11-7).")
+            st.info("This view is scheduled in subsequent Phase 11 subtasks (P11-6 through P11-7).")
     finally:
         if owns_client:
             client.close()
