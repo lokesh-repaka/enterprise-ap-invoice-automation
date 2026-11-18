@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (3 / 5 Tasks Complete — P6-1, P6-2 & P6-3 Done)
-- **Latest Completed Subtask:** P6-3 · Pydantic extraction schema — 10 header fields + line-item fields with per-field confidence scores
-- **Total Completed Tasks:** 32 / 68 (47%)
-- **Test Suite Pass Count:** **221 / 221 passing (100% — 220 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **6.07 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (74 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (125 findings audited & mitigated); Pydantic v2 extraction schemas (`src/extraction/schemas.py`) live with immutable `extra="forbid"` contracts for all 10 header fields + 5 line-item fields with per-field `[0.00, 100.00]` confidence scores (zero heuristic rescaling), `FiniteDecimal` exponent-bomb/bool/NaN/SQL-overflow guards, Unicode bidi/zero-width duplicate-hash-bypass blocking (preserving EN/DE/ES diacritics), strict identifier angle-bracket/control-char rejection, and PII-masked `repr()`
+- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (4 / 5 Tasks Complete — P6-1 through P6-4 Done)
+- **Latest Completed Subtask:** P6-4 · Extraction engine (`src/extraction/extract_engine.py`) — prompt assembly, `<invoice_text>` delimiters, schema enforcement
+- **Total Completed Tasks:** 33 / 68 (49%)
+- **Test Suite Pass Count:** **232 / 232 passing (100% — 231 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **7.73 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (76 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (131 findings audited & mitigated); `ExtractionEngine` (`src/extraction/extract_engine.py`) live with byte-identical cached static system prompt + JSON schema (Azure Prompt Caching), mandatory `<invoice_text>` untrusted-data delimiters neutralizing literal/unclosed/fullwidth breakout tags, XXE/Zip-Slip/cell-amplification-safe XLSX parsing, giant-MediaBox pixel-clamped Vision PDF rendering (`<=2400px`), strict Pydantic v2 `InvoiceExtractionSchema` enforcement with PII-safe error formatting and masked `ExtractionResult.__repr__`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -50,8 +50,9 @@
 | `tests/unit/test_document_classifier.py` | PyMuPDF text-layer density classifier (`searchable_pdf`, `scanned_image`, `xlsx`), hybrid PDF detection, anti-spoofing, bidi sanitization, raster/XLSX guards | 8 | 0.19s |
 | `tests/unit/test_model_gateway.py` | Hybrid Azure OpenAI Model Gateway routing (`gpt-4o-mini` vs `gpt-4o-vision`), prompt caching order, 2k token cap, LLD §6.2 429 backoff/jitter, keyless MI SSRF/API-version/JSON-bomb/Vision guards | 10 | 0.38s |
 | `tests/unit/test_extraction_schemas.py` | Pydantic v2 10-header + 5-line extraction schemas, per-field confidence aggregations, credit notes, ground-truth round-trip, `extra="forbid"`, `FiniteDecimal` bomb & bidi/XSS/PII guards | 10 | 0.32s |
+| `tests/unit/test_extract_engine.py` | End-to-end Extraction Engine: cached system prompt, `<invoice_text>` breakout defense, PDF/PNG/XLSX/text routing, XXE/Zip-Slip/MediaBox-clamp guards, strict Pydantic schema enforcement & PII-safe errors | 11 | 0.47s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **221** | **6.07s** |
+| **Total** | **All Modules Offline** | **232** | **7.73s** |
 
 ---
 
