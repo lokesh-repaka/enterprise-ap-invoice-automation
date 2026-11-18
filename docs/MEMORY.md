@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (100% Complete — 5 / 5 Tasks Done ✅)
-- **Latest Completed Subtask:** P6-5 · Mock AOAI client for offline testing — returns fixture JSON matching Pydantic schema
-- **Total Completed Tasks:** 34 / 68 (50%)
-- **Test Suite Pass Count:** **242 / 242 passing (100% — 241 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **6.66 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (78 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (136 findings audited & mitigated); **Phase 6 complete**: `MockAOAIClient` (`src/extraction/mock_aoai_client.py`) wired into `get_model_gateway()` for 100% offline `InvoiceExtractionSchema`-compliant extraction across P6-1..P6-5, with strict prod/staging & Azure-SQL isolation, `O_NOFOLLOW` + `fstat` regular-file + 1 MB bounded ground-truth lookup (blocks path traversal/symlinks/TOCTOU/FD leaks), simulated prompt-cache hits, and zero PII in logs
+- **Current Active Phase:** Phase 7 — Validation Rules Engine (1 / 6 Tasks Done ⏳)
+- **Latest Completed Subtask:** P7-1 · Duplicate detector (`src/validation/duplicate_detector.py`) — SHA-256 composite key, `-REV` suffix, credit note (negative total) detection
+- **Total Completed Tasks:** 35 / 68 (51%)
+- **Test Suite Pass Count:** **285 / 285 passing (100% — 284 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **11.42 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (80 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (141 findings audited & mitigated; `SEC-137`–`SEC-141` closed in P7-1); **P7-1 complete**: deterministic `DuplicateDetector` (`src/validation/duplicate_detector.py`) enforces FR-09 SHA-256 composite key (100% parity across all 300 ground-truth files), FR-10 revision detection (`-REV`/`Rev`/`v2` suffix + differing total + base-invoice linking), and FR-11 credit note classification (negative total/subtotal/line items) with Unicode `Cf`/NBSP/NFKC homograph hash-bypass blocks, SQLite mixed-case duplicate/revision fallback, cross-vendor hash isolation, CRLF log-injection sanitization, bounded lookup DoS caps, ReDoS-safe anchored regexes, PII-masked logs (`***-**-XXXX`), and zero LLM/SQLAlchemy imports
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -52,8 +52,9 @@
 | `tests/unit/test_extraction_schemas.py` | Pydantic v2 10-header + 5-line extraction schemas, per-field confidence aggregations, credit notes, ground-truth round-trip, `extra="forbid"`, `FiniteDecimal` bomb & bidi/XSS/PII guards | 10 | 0.32s |
 | `tests/unit/test_extract_engine.py` | End-to-end Extraction Engine: cached system prompt, `<invoice_text>` breakout defense, PDF/PNG/XLSX/text routing, XXE/Zip-Slip/MediaBox-clamp guards, strict Pydantic schema enforcement & PII-safe errors | 11 | 0.47s |
 | `tests/unit/test_mock_aoai_client.py` | Offline `MockAOAIClient` wired to `ModelGateway` & `ExtractionEngine`: ground-truth fixture lookup, confidence overrides, scripted 429 retry, prod gate, `O_NOFOLLOW`/symlink/traversal/corrupt-file guards | 10 | 0.36s |
+| `tests/unit/test_duplicate_detector.py` | P7-1 `DuplicateDetector`: 300-file SHA-256 composite key parity, SQLite `DUPLICATE_INVOICE`/VOID/self exclusion, `-REV`/`v2` & amount-diff `FLAGGED_POTENTIAL_REVISION`, negative total/line `CREDIT_NOTE`, Unicode/case/cross-vendor/CRLF/DoS/PII/layer guards | 43 | 0.87s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **242** | **6.66s** |
+| **Total** | **All Modules Offline** | **285** | **11.42s** |
 
 ---
 
