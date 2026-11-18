@@ -15,11 +15,12 @@ LLD §2, and CLAUDE.md §4.1 & §9:
 """
 
 import asyncio
+import re
 import threading
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from decimal import Decimal
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 import fakeredis.aioredis
 import redis.asyncio as aioredis
@@ -29,6 +30,7 @@ from fastapi import (
     File,
     Form,
     HTTPException,
+    Query,
     Request,
     Response,
     UploadFile,
@@ -38,14 +40,27 @@ from redis.exceptions import RedisError
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
 
-from src.api.schemas.invoices import InvoiceJobPayload, InvoiceUploadResponse
+from src.api.schemas.invoices import (
+    ExceptionQueueItem,
+    ExceptionQueueResponse,
+    InvoiceDetailResponse,
+    InvoiceJobPayload,
+    InvoiceLineResponse,
+    InvoiceUploadResponse,
+)
 from src.core.audit import AuditActionType, AuditLogger
 from src.core.config import get_settings
 from src.core.logging import get_logger, request_id_ctx
 from src.core.redis_client import DEFAULT_INVOICE_QUEUE_KEY
 from src.core.security import AuthenticatedUser, Role, require_role
 from src.database.models import Invoice, Vendor
-from src.database.repositories import InvoiceRepository, VendorRepository, compute_composite_hash
+from src.database.repositories import (
+    EXCEPTION_QUEUE_STATUSES,
+    AuditLogRepository,
+    InvoiceRepository,
+    VendorRepository,
+    compute_composite_hash,
+)
 from src.database.session import create_db_engine, create_session_factory
 from src.storage.blob_client import (
     BlobStorageError,
@@ -462,4 +477,296 @@ async def upload_invoice(
         vendor_id=resolved_vendor_id,
         uploaded_at=upload_result.uploaded_at,
         request_id=active_request_id,
+    )
+
+
+_INVOICE_ID_PATH_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
+_CURRENCY_CODE_RE = re.compile(r"^[A-Za-z]{3}$")
+_CONTROL_CHAR_RE = re.compile(r"[\r\n\x00-\x1f\x7f]")
+_MAX_FILTER_AMOUNT = Decimal("999999999999999.99")
+
+
+def _sanitize_search_term(raw: str | None, *, field_name: str, max_length: int) -> str | None:
+    """Validate and trim free-text search filters, blocking control characters (CWE-20/113)."""
+    if raw is None:
+        return None
+    if _CONTROL_CHAR_RE.search(raw):
+        raise HTTPException(status_code=422, detail=f"Invalid characters in {field_name}")
+    trimmed = raw.strip()
+    if not trimmed:
+        return None
+    if len(trimmed) > max_length:
+        raise HTTPException(
+            status_code=422, detail=f"{field_name} exceeds maximum length of {max_length}"
+        )
+    return trimmed
+
+
+@router.get(
+    "/exceptions",
+    status_code=status.HTTP_200_OK,
+    response_model=ExceptionQueueResponse,
+    summary="Query and filter the Human Exception Queue (P5-4)",
+)
+async def list_invoice_exceptions(
+    response: Response,
+    _current_user: Annotated[
+        AuthenticatedUser,
+        Depends(require_role(Role.AP_CLERK, Role.FINANCE_MANAGER)),
+    ],
+    session_factory: Annotated[
+        async_sessionmaker[AsyncSession],
+        Depends(get_upload_session_factory),
+    ],
+    exception_status: Annotated[
+        list[str] | None,
+        Query(alias="status", description="Filter by one or more exception statuses"),
+    ] = None,
+    vendor_id: Annotated[str | None, Query(description="Filter by internal VendorID")] = None,
+    vendor_name: Annotated[
+        str | None, Query(max_length=120, description="Search by vendor name substring")
+    ] = None,
+    invoice_number: Annotated[
+        str | None, Query(max_length=100, description="Search by invoice number substring")
+    ] = None,
+    currency: Annotated[str | None, Query(description="3-letter ISO currency code")] = None,
+    min_amount: Annotated[Decimal | None, Query(description="Minimum invoice total")] = None,
+    max_amount: Annotated[Decimal | None, Query(description="Maximum invoice total")] = None,
+    date_from: Annotated[date | None, Query(description="Inclusive start invoice_date")] = None,
+    date_to: Annotated[date | None, Query(description="Inclusive end invoice_date")] = None,
+    max_confidence: Annotated[Decimal | None, Query(ge=Decimal("0"), le=Decimal("100"))] = None,
+    sort_by: Annotated[
+        Literal["created_at", "total_amount", "confidence_macro_avg", "invoice_date"],
+        Query(description="Allowed sort column"),
+    ] = "created_at",
+    sort_order: Annotated[
+        Literal["asc", "desc"],
+        Query(description="Sort direction"),
+    ] = "desc",
+    limit: Annotated[int, Query(ge=1, le=100)] = 50,
+    offset: Annotated[int, Query(ge=0, le=100_000)] = 0,
+) -> ExceptionQueueResponse:
+    """
+    Return paginated, data-minimized Human Exception Queue items (PRD Screen 3, CLAUDE.md §9).
+
+    Registered strictly BEFORE ``/{invoice_id}`` so FastAPI never routes ``/exceptions`` as an ID.
+    """
+    validated_statuses: list[str] | None = None
+    if exception_status is not None:
+        if len(exception_status) > len(EXCEPTION_QUEUE_STATUSES):
+            raise HTTPException(
+                status_code=422,
+                detail="Too many status filter parameters supplied",
+            )
+        normalized_statuses: list[str] = []
+        for raw_st in exception_status:
+            st = raw_st.strip().upper()
+            if st not in EXCEPTION_QUEUE_STATUSES:
+                raise HTTPException(
+                    status_code=422,
+                    detail="Unsupported exception status filter",
+                )
+            if st not in normalized_statuses:
+                normalized_statuses.append(st)
+        validated_statuses = normalized_statuses
+
+    clean_vendor_id: str | None = None
+    if vendor_id is not None:
+        try:
+            clean_vendor_id = validate_vendor_id(vendor_id)
+        except BlobMetadataError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from None
+
+    clean_vendor_name = _sanitize_search_term(vendor_name, field_name="vendor_name", max_length=120)
+    clean_invoice_number = _sanitize_search_term(
+        invoice_number, field_name="invoice_number", max_length=100
+    )
+
+    clean_currency: str | None = None
+    if currency is not None:
+        if not _CURRENCY_CODE_RE.match(currency.strip()):
+            raise HTTPException(
+                status_code=422, detail="currency must be a 3-letter ISO currency code"
+            )
+        clean_currency = currency.strip().upper()
+
+    if min_amount is not None and (
+        not min_amount.is_finite() or abs(min_amount) > _MAX_FILTER_AMOUNT
+    ):
+        raise HTTPException(status_code=422, detail="min_amount must be finite and within bounds")
+    if max_amount is not None and (
+        not max_amount.is_finite() or abs(max_amount) > _MAX_FILTER_AMOUNT
+    ):
+        raise HTTPException(status_code=422, detail="max_amount must be finite and within bounds")
+    if max_confidence is not None and not max_confidence.is_finite():
+        raise HTTPException(status_code=422, detail="max_confidence must be finite")
+    if min_amount is not None and max_amount is not None and min_amount > max_amount:
+        raise HTTPException(status_code=422, detail="min_amount cannot exceed max_amount")
+    if date_from is not None and date_to is not None and date_from > date_to:
+        raise HTTPException(status_code=422, detail="date_from cannot be after date_to")
+
+    try:
+        async with session_factory() as session:
+            invoices, total_count = await InvoiceRepository(session).list_exceptions(
+                statuses=validated_statuses,
+                vendor_id=clean_vendor_id,
+                vendor_name=clean_vendor_name,
+                invoice_number=clean_invoice_number,
+                currency=clean_currency,
+                min_amount=min_amount,
+                max_amount=max_amount,
+                date_from=date_from,
+                date_to=date_to,
+                max_confidence=max_confidence,
+                sort_by=sort_by,
+                sort_order=sort_order,
+                limit=limit,
+                offset=offset,
+            )
+    except SQLAlchemyError as exc:
+        logger.error(
+            "Database error querying invoice exceptions",
+            extra={"error_type": type(exc).__name__},
+        )
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Invoice database is temporarily unavailable",
+        ) from None
+
+    items = [
+        ExceptionQueueItem(
+            invoice_id=inv.invoice_id,
+            invoice_number=inv.invoice_number,
+            vendor_id=inv.vendor.vendor_id if inv.vendor is not None else None,
+            vendor_name=inv.vendor_name,
+            total_amount=inv.total_amount,
+            currency=inv.currency,
+            total_amount_usd=inv.total_amount_usd,
+            confidence_macro_avg=inv.confidence_macro_avg,
+            status=inv.status,
+            invoice_date=inv.invoice_date,
+            created_at=inv.created_at,
+        )
+        for inv in invoices
+    ]
+
+    filters_applied: dict[str, Any] = {
+        k: v
+        for k, v in {
+            "status": validated_statuses,
+            "vendor_id": clean_vendor_id,
+            "vendor_name": clean_vendor_name,
+            "invoice_number": clean_invoice_number,
+            "currency": clean_currency,
+            "min_amount": str(min_amount) if min_amount is not None else None,
+            "max_amount": str(max_amount) if max_amount is not None else None,
+            "date_from": date_from.isoformat() if date_from is not None else None,
+            "date_to": date_to.isoformat() if date_to is not None else None,
+            "max_confidence": str(max_confidence) if max_confidence is not None else None,
+            "sort_by": sort_by,
+            "sort_order": sort_order,
+        }.items()
+        if v is not None
+    }
+
+    response.headers["Cache-Control"] = "no-store"
+    logger.info(
+        "Listed invoice exception queue",
+        extra={"returned": len(items), "total": total_count, "limit": limit, "offset": offset},
+    )
+    return ExceptionQueueResponse(
+        items=items,
+        total=total_count,
+        limit=limit,
+        offset=offset,
+        filters_applied=filters_applied,
+    )
+
+
+@router.get(
+    "/{invoice_id}",
+    status_code=status.HTTP_200_OK,
+    response_model=InvoiceDetailResponse,
+    summary="Retrieve full invoice details, extracted line items, and status (P5-4)",
+)
+async def get_invoice_detail(
+    invoice_id: str,
+    response: Response,
+    _current_user: Annotated[
+        AuthenticatedUser,
+        Depends(require_role(Role.AP_CLERK, Role.FINANCE_MANAGER)),
+    ],
+    session_factory: Annotated[
+        async_sessionmaker[AsyncSession],
+        Depends(get_upload_session_factory),
+    ],
+) -> InvoiceDetailResponse:
+    """Return full invoice header, ordered line items, and audit event count (CLAUDE.md §9)."""
+    if not _INVOICE_ID_PATH_RE.match(invoice_id):
+        raise HTTPException(status_code=422, detail="Invalid invoice_id format")
+
+    try:
+        async with session_factory() as session:
+            invoice = await InvoiceRepository(session).get_by_id(
+                invoice_id,
+                include_relations=True,
+                include_audit_logs=False,
+            )
+            audit_event_count = (
+                await AuditLogRepository(session).count_by_invoice_id(invoice.invoice_id)
+                if invoice is not None
+                else 0
+            )
+    except SQLAlchemyError as exc:
+        logger.error(
+            "Database error retrieving invoice detail",
+            extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
+        )
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Invoice database is temporarily unavailable",
+        ) from None
+
+    if invoice is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invoice not found")
+
+    response.headers["Cache-Control"] = "no-store"
+    logger.info(
+        "Retrieved invoice detail",
+        extra={"invoice_id": invoice.invoice_id, "status": invoice.status},
+    )
+    return InvoiceDetailResponse(
+        invoice_id=invoice.invoice_id,
+        vendor_id=invoice.vendor.vendor_id if invoice.vendor is not None else None,
+        vendor_tax_id=invoice.vendor_tax_id,
+        vendor_name=invoice.vendor_name,
+        invoice_number=invoice.invoice_number,
+        invoice_date=invoice.invoice_date,
+        due_date=invoice.due_date,
+        po_number=invoice.po_number,
+        subtotal=invoice.subtotal,
+        total_tax_amount=invoice.total_tax_amount,
+        total_amount=invoice.total_amount,
+        currency=invoice.currency,
+        total_amount_usd=invoice.total_amount_usd,
+        confidence_macro_avg=invoice.confidence_macro_avg,
+        status=invoice.status,
+        blob_raw_url=invoice.blob_raw_url,
+        blob_json_url=invoice.blob_json_url,
+        created_at=invoice.created_at,
+        updated_at=invoice.updated_at,
+        lines=[
+            InvoiceLineResponse(
+                line_id=line.line_id,
+                line_number=line.line_number,
+                description=line.description,
+                quantity=line.quantity,
+                unit_price=line.unit_price,
+                line_total=line.line_total,
+                line_tax_rate=line.line_tax_rate,
+                confidence_score=line.confidence_score,
+            )
+            for line in invoice.lines
+        ],
+        audit_event_count=audit_event_count,
     )

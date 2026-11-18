@@ -20,7 +20,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Any
 
-from sqlalchemy import delete, desc, select
+from sqlalchemy import asc, delete, desc, func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -34,6 +34,25 @@ from src.database.models import (
 )
 
 MAX_PAGE_LIMIT = 500
+MAX_PAGE_OFFSET = 100_000
+
+# Canonical Human Exception Queue statuses (CLAUDE.md §5, PRD Screen 3)
+EXCEPTION_QUEUE_STATUSES: frozenset[str] = frozenset(
+    {
+        "REQUIRES_REVIEW",
+        "REQUIRES_APPROVAL",
+        "REJECTED_TAX_MISMATCH",
+        "DUPLICATE_INVOICE",
+        "FLAGGED_POTENTIAL_REVISION",
+        "CREDIT_NOTE",
+        "REQUIRES_MANAGER_APPROVAL",
+    }
+)
+
+
+def _escape_like(value: str) -> str:
+    """Escape SQL LIKE wildcard characters (\\, %, _) to prevent wildcard abuse (CWE-89/400)."""
+    return value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
 
 
 def compute_composite_hash(
@@ -207,15 +226,23 @@ class InvoiceRepository:
             # IntegrityError was NOT caused by composite_hash duplication (e.g. invalid FK)
             raise
 
-    async def get_by_id(self, invoice_id: str, include_relations: bool = True) -> Invoice | None:
+    async def get_by_id(
+        self,
+        invoice_id: str,
+        include_relations: bool = True,
+        *,
+        include_audit_logs: bool = True,
+    ) -> Invoice | None:
         """Fetch an Invoice by invoice_id, optionally eager-loading relations."""
         stmt = select(Invoice).where(Invoice.invoice_id == invoice_id)
         if include_relations:
-            stmt = stmt.options(
+            loaders = [
                 selectinload(Invoice.vendor),
                 selectinload(Invoice.lines),
-                selectinload(Invoice.audit_logs),
-            )
+            ]
+            if include_audit_logs:
+                loaders.append(selectinload(Invoice.audit_logs))
+            stmt = stmt.options(*loaders)
         result = await self._session.execute(stmt)
         return result.scalar_one_or_none()
 
@@ -262,6 +289,101 @@ class InvoiceRepository:
             stmt = stmt.where(Invoice.status == status)
         result = await self._session.execute(stmt)
         return list(result.scalars().all())
+
+    ALLOWED_SORT_COLUMNS: dict[str, Any] = {
+        "created_at": Invoice.created_at,
+        "total_amount": Invoice.total_amount,
+        "confidence_macro_avg": Invoice.confidence_macro_avg,
+        "invoice_date": Invoice.invoice_date,
+    }
+
+    async def list_exceptions(
+        self,
+        *,
+        statuses: list[str] | None = None,
+        vendor_id: str | None = None,
+        vendor_name: str | None = None,
+        invoice_number: str | None = None,
+        currency: str | None = None,
+        min_amount: Decimal | None = None,
+        max_amount: Decimal | None = None,
+        date_from: date | None = None,
+        date_to: date | None = None,
+        max_confidence: Decimal | None = None,
+        sort_by: str = "created_at",
+        sort_order: str = "desc",
+        limit: int = 50,
+        offset: int = 0,
+    ) -> tuple[list[Invoice], int]:
+        """
+        Query filtered Human Exception Queue invoices with exact pagination count (P5-4).
+
+        Uses strictly parameterized SQLAlchemy expressions, escaped LIKE wildcards,
+        and an explicit sort-column allowlist (CWE-89 / CWE-400).
+        """
+        target_statuses = (
+            list(EXCEPTION_QUEUE_STATUSES)
+            if not statuses
+            else [s for s in statuses if s in EXCEPTION_QUEUE_STATUSES]
+        )
+        if not target_statuses:
+            return [], 0
+
+        if sort_by not in self.ALLOWED_SORT_COLUMNS:
+            raise ValueError(f"Unsupported sort column: {sort_by!r}")
+        if sort_order not in ("asc", "desc"):
+            raise ValueError(f"Unsupported sort_order: {sort_order!r}")
+
+        conditions: list[Any] = [Invoice.status.in_(target_statuses)]
+        needs_vendor_join = False
+
+        if vendor_id is not None:
+            needs_vendor_join = True
+            conditions.append(Vendor.vendor_id == vendor_id)
+        if vendor_name is not None:
+            escaped_vname = _escape_like(vendor_name)
+            conditions.append(Invoice.vendor_name.ilike(f"%{escaped_vname}%", escape="\\"))
+        if invoice_number is not None:
+            escaped_num = _escape_like(invoice_number)
+            conditions.append(Invoice.invoice_number.ilike(f"%{escaped_num}%", escape="\\"))
+        if currency is not None:
+            conditions.append(Invoice.currency == currency.upper())
+        if min_amount is not None:
+            conditions.append(Invoice.total_amount >= min_amount)
+        if max_amount is not None:
+            conditions.append(Invoice.total_amount <= max_amount)
+        if date_from is not None:
+            conditions.append(Invoice.invoice_date >= date_from)
+        if date_to is not None:
+            conditions.append(Invoice.invoice_date <= date_to)
+        if max_confidence is not None:
+            conditions.append(Invoice.confidence_macro_avg <= max_confidence)
+
+        count_stmt = select(func.count(Invoice.invoice_id)).select_from(Invoice)
+        if needs_vendor_join:
+            count_stmt = count_stmt.join(Vendor, Invoice.vendor_tax_id == Vendor.vendor_tax_id)
+        count_stmt = count_stmt.where(*conditions)
+        total_count = int((await self._session.execute(count_stmt)).scalar_one())
+
+        if total_count == 0:
+            return [], 0
+
+        sort_col = self.ALLOWED_SORT_COLUMNS[sort_by]
+        order_expr = asc(sort_col) if sort_order == "asc" else desc(sort_col)
+        clamped_offset = min(max(offset, 0), MAX_PAGE_OFFSET)
+        clamped_limit = _clamp_limit(limit)
+
+        data_stmt = select(Invoice).options(selectinload(Invoice.vendor))
+        if needs_vendor_join:
+            data_stmt = data_stmt.join(Vendor, Invoice.vendor_tax_id == Vendor.vendor_tax_id)
+        data_stmt = (
+            data_stmt.where(*conditions)
+            .order_by(order_expr, Invoice.invoice_id)
+            .offset(clamped_offset)
+            .limit(clamped_limit)
+        )
+        rows = list((await self._session.execute(data_stmt)).scalars().all())
+        return rows, total_count
 
     async def update_status(self, invoice_id: str, new_status: str) -> Invoice | None:
         """Transition an invoice's persisted workflow status."""
@@ -412,6 +534,12 @@ class AuditLogRepository:
         )
         result = await self._session.execute(stmt)
         return list(result.scalars().all())
+
+    async def count_by_invoice_id(self, invoice_id: str) -> int:
+        """Return exact audit event count for an invoice without hydrating full ORM rows."""
+        stmt = select(func.count(AuditLog.audit_id)).where(AuditLog.invoice_id == invoice_id)
+        result = await self._session.execute(stmt)
+        return int(result.scalar_one())
 
     async def list_by_user(self, user_id: str, limit: int = 100) -> list[AuditLog]:
         """List recent audit events performed by a specific user."""
