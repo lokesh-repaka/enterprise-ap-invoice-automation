@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 8 — Confidence Routing and State Machine (100% Complete — 3 / 3 Tasks Done ✅)
-- **Latest Completed Subtask:** P8-3 · High-value and PO-variance escalation rules — >$10,000 or >5% PO variance → REQUIRES_MANAGER_APPROVAL (all thresholds from `get_settings()`)
-- **Total Completed Tasks:** 43 / 68 (63%)
-- **Test Suite Pass Count:** **538 / 538 passing (100% — 537 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **7.90 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (96 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (172 findings audited & mitigated; `SEC-169`–`SEC-172` closed in P8-3); **Phase 8 complete**: deterministic `EscalationEvaluator` (`src/validation/escalation_rules.py`) enforces `>$10,000` USD (`HIGH_VALUE_THRESHOLD_USD`) and `>5%` PO variance (`PO_VARIANCE_TOLERANCE_PERCENT`) strictly via `get_settings()` with exact unrounded `Decimal` checks, invoice-date ECB daily FX conversion via `ExchangeRateRepository`, end-to-end 300-invoice Phase 7+8 batch stability (zero crashes), spoofed-USD/dual-PO rejection (`SEC-169`), conflicting `current_status` vs `ConfidenceRoutingResult` rejection (`SEC-170`), strict `date`/FX row validation (`SEC-171`), bounded `Settings` thresholds (`SEC-172`), non-approval frozen outputs, and zero LLM/SQLAlchemy imports in `src/validation/`
+- **Current Active Phase:** Phase 9 — Re-Validation and Approval API (25% Complete — 1 / 4 Tasks Done)
+- **Latest Completed Subtask:** P9-1 · `POST /api/v1/invoices/{id}/revalidate` — reason code validation, re-runs rules engine, re-evaluates confidence, writes audit log
+- **Total Completed Tasks:** 44 / 68 (65%)
+- **Test Suite Pass Count:** **553 / 553 passing (100% — 552 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **10.06 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (98 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (176 findings audited & mitigated; `SEC-173`–`SEC-176` closed in P9-1); `POST /api/v1/invoices/{id}/revalidate` (`src/api/invoices.py`) delegates all orchestration to `RevalidationService` (`src/services/revalidation.py`, zero HTTP/FastAPI imports per CLAUDE.md §4.2), enforces `ap_clerk` RBAC + anti-impersonation `clerk_id` verification, strict `ReasonCode` enum + mandatory `OTHER` comment, atomic single-transaction header+line persistence with expected-status CAS & anti-IDOR line ownership (`SEC-173`), statutory tax-override governance & zero line-rate consistency (`SEC-174`), 1 MB `Content-Length` fail-fast cap (`SEC-175`), inactive-vendor block & critical audit-failure SIEM alerting (`SEC-176`), immutable `EDIT` + `REVALIDATE` isolated-transaction audit logs, preserved model confidence scores, and ECB FX high-value/PO-variance escalation
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -61,8 +61,9 @@
 | `tests/unit/test_confidence_router.py` | P8-1 `ConfidenceRouter`: FR-04/BR-007 tri-tier thresholds (≥90% `VALIDATED`, 80–89.99% `REQUIRES_REVIEW`, <80% `REQUIRES_APPROVAL`), sub-cent precision, worst-field-wins, 300 GT batch + Rules-First precedence, re-validation, settings-driven thresholds, credit-note/fraction-floor/key-alias/forged-rules/non-approval/layer guards | 38 | 0.26s |
 | `tests/unit/test_state_machine.py` | P8-2 `InvoiceStateMachine`: 10-core / 17-status LLD §4 FSM, deeply immutable graph, 45 legal & 36 illegal transition guards, RBAC + system allowlist, SQLite `InvoiceRepository` atomic CAS persistence, high-value/FX clerk cap, credit-note/CAS/PII/layer guards | 113 | 0.25s |
 | `tests/unit/test_escalation_rules.py` | P8-3 `EscalationEvaluator`: FR-13/BR-014 >$10k USD & >5% PO variance rules from `get_settings()`, sub-cent precision, invoice-date ECB FX SQLite lookup, 300 GT Phase 7+8 pipeline, exception/credit-note precedence, spoofed-USD/dual-PO/status-conflict/FX-date/settings-bounds/layer guards | 27 | 0.39s |
+| `tests/unit/test_invoice_revalidate.py` | P9-1 `POST /api/v1/invoices/{id}/revalidate` & `RevalidationService`: PRD Journey 5 EU reverse-charge, arithmetic fail -> `REQUIRES_APPROVAL`, >$10k/PO-variance escalation, credit-note guard, `ReasonCode` + `OTHER` comment, `ap_clerk` RBAC + anti-spoofing, FSM 409s, `composite_hash` collision rollback, mass-assignment/IDOR/tax-override/1MB/inactive-vendor/layer guards | 15 | 2.20s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **538** | **7.90s** |
+| **Total** | **All Modules Offline** | **553** | **10.06s** |
 
 ---
 

@@ -48,7 +48,10 @@ from src.api.schemas.invoices import (
     InvoiceDetailResponse,
     InvoiceJobPayload,
     InvoiceLineResponse,
+    InvoiceRevalidateRequest,
+    InvoiceRevalidateResponse,
     InvoiceUploadResponse,
+    RevalidationSummary,
 )
 from src.core.audit import AuditActionType, AuditLogger
 from src.core.config import get_settings
@@ -72,6 +75,15 @@ from src.database.repositories import (
     compute_composite_hash,
 )
 from src.database.session import create_db_engine, create_session_factory
+from src.services.revalidation import (
+    HeaderEditsInput,
+    LineEditInput,
+    RevalidationConflictError,
+    RevalidationInput,
+    RevalidationNotFoundError,
+    RevalidationService,
+    RevalidationValidationError,
+)
 from src.storage.blob_client import (
     BlobStorageError,
     BlobWORMClientProtocol,
@@ -96,6 +108,7 @@ router = APIRouter(prefix="/api/v1/invoices", tags=["Invoices"])
 INVOICE_QUEUE_KEY: str = DEFAULT_INVOICE_QUEUE_KEY
 UPLOAD_READ_CHUNK_BYTES: int = 64 * 1024
 MULTIPART_OVERHEAD_BYTES: int = 1 * 1024 * 1024
+MAX_REVALIDATE_BODY_BYTES: int = 1 * 1024 * 1024
 REDIS_QUEUE_SOCKET_TIMEOUT_SECONDS: float = 2.0
 FAKE_REDIS_ALLOWED_ENVS: frozenset[str] = frozenset({"dev", "local", "test"})
 
@@ -920,4 +933,155 @@ async def get_invoice_detail(
             for line in invoice.lines
         ],
         audit_event_count=audit_event_count,
+    )
+
+
+def guard_revalidate_content_length(request: Request) -> None:
+    """Fail fast on oversized or malformed JSON bodies on /revalidate (SEC-175, CWE-400)."""
+    raw_len = request.headers.get("content-length")
+    if raw_len is None:
+        return
+    try:
+        declared_len = int(raw_len.strip())
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid Content-Length header",
+        ) from None
+    if declared_len < 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid Content-Length header",
+        )
+    if declared_len > MAX_REVALIDATE_BODY_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"Revalidation payload exceeds maximum limit of {MAX_REVALIDATE_BODY_BYTES} bytes",
+        )
+
+
+@router.post(
+    "/{invoice_id}/revalidate",
+    status_code=status.HTTP_200_OK,
+    response_model=InvoiceRevalidateResponse,
+    dependencies=[Depends(guard_revalidate_content_length)],
+    summary="Apply AP Clerk edits, re-run deterministic rules & confidence routing, and write audit log (P9-1)",
+)
+async def revalidate_invoice(
+    invoice_id: str,
+    payload: InvoiceRevalidateRequest,
+    response: Response,
+    current_user: Annotated[
+        AuthenticatedUser,
+        Depends(require_role(Role.AP_CLERK)),
+    ],
+    session_factory: Annotated[
+        async_sessionmaker[AsyncSession],
+        Depends(get_upload_session_factory),
+    ],
+) -> InvoiceRevalidateResponse:
+    """
+    Apply allowlisted AP Clerk edits with mandatory ``reason_code``, re-run deterministic
+    Rules Engine + Confidence Router + Escalation Evaluator via ``RevalidationService``,
+    persist FSM transitions, and record immutable ``EDIT`` + ``REVALIDATE`` audit events
+    (FR-12, BR-016..BR-018, LLD §2.2, CLAUDE.md §4.2, §7.4, §9).
+    """
+    if not _INVOICE_ID_PATH_RE.match(invoice_id):
+        raise HTTPException(status_code=422, detail="Invalid invoice_id format")
+
+    # Anti-impersonation check (CWE-290 / CWE-345): optional clerk_id in payload MUST match JWT actor
+    if payload.clerk_id is not None:
+        allowed_identities = {current_user.user_id.lower()}
+        if current_user.email:
+            allowed_identities.add(current_user.email.lower())
+        if payload.clerk_id.lower() not in allowed_identities:
+            logger.warning(
+                "Rejected re-validation request due to clerk_id actor mismatch",
+                extra={"invoice_id": invoice_id, "actor_id": current_user.user_id},
+            )
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Actor mismatch: clerk_id does not match authenticated user",
+            )
+
+    header_edits_dto = (
+        HeaderEditsInput(
+            invoice_number=payload.header_edits.invoice_number,
+            invoice_date=payload.header_edits.invoice_date,
+            due_date=payload.header_edits.due_date,
+            po_number=payload.header_edits.po_number,
+            subtotal=payload.header_edits.subtotal,
+            total_tax_amount=payload.header_edits.total_tax_amount,
+            total_amount=payload.header_edits.total_amount,
+        )
+        if payload.header_edits is not None
+        else None
+    )
+    line_edits_dtos = tuple(
+        LineEditInput(
+            line_number=le.line_number,
+            description=le.description,
+            quantity=le.quantity,
+            unit_price=le.unit_price,
+            line_total=le.line_total,
+            line_tax_rate=le.line_tax_rate,
+        )
+        for le in payload.line_edits
+    )
+
+    cmd = RevalidationInput(
+        invoice_id=invoice_id,
+        actor_id=current_user.user_id,
+        reason_code=payload.reason_code,
+        comment=payload.comment,
+        is_reverse_charge=payload.is_reverse_charge,
+        is_exempt=payload.is_exempt,
+        po_amount=payload.po_amount,
+        header_edits=header_edits_dto,
+        line_edits=line_edits_dtos,
+        request_id=request_id_ctx.get() or None,
+    )
+
+    service = RevalidationService(session_factory)
+    try:
+        outcome = await service.revalidate(cmd)
+    except RevalidationNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Invoice not found"
+        ) from None
+    except RevalidationConflictError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from None
+    except RevalidationValidationError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except SQLAlchemyError as exc:
+        logger.error(
+            "Database error during invoice re-validation",
+            extra={"invoice_id": invoice_id, "error_type": type(exc).__name__},
+        )
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Invoice database is temporarily unavailable",
+        ) from None
+
+    response.headers["Cache-Control"] = "no-store"
+    return InvoiceRevalidateResponse(
+        invoice_id=outcome.invoice_id,
+        previous_status=outcome.previous_status,
+        status=outcome.status,
+        is_revalidated=outcome.is_revalidated,
+        validation_summary=RevalidationSummary(
+            line_arithmetic_valid=outcome.line_arithmetic_valid,
+            invoice_total_valid=outcome.invoice_total_valid,
+            tax_valid=outcome.tax_valid,
+            date_valid=outcome.date_valid,
+            all_passed=outcome.all_passed,
+            currency_converted_amount_usd=outcome.currency_converted_amount_usd,
+            active_exceptions=list(outcome.active_exceptions),
+        ),
+        confidence_tier=outcome.confidence_tier,
+        confidence_macro_avg=outcome.confidence_macro_avg,
+        eligible_for_clerk_approval=outcome.eligible_for_clerk_approval,
+        requires_manager_approval=outcome.requires_manager_approval,
+        audit_event_id=outcome.audit_event_id,
+        edited_fields=list(outcome.edited_fields),
     )

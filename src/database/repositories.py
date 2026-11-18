@@ -449,6 +449,82 @@ class InvoiceRepository:
         self._session.expire_all()
         return await self.get_by_id(invoice_id, include_relations=False)
 
+    ALLOWED_REVALIDATION_HEADER_FIELDS: frozenset[str] = frozenset(
+        {
+            "invoice_number",
+            "invoice_date",
+            "due_date",
+            "po_number",
+            "subtotal",
+            "total_tax_amount",
+            "total_amount",
+            "total_amount_usd",
+            "composite_hash",
+        }
+    )
+
+    ALLOWED_REVALIDATION_LINE_FIELDS: frozenset[str] = frozenset(
+        {
+            "description",
+            "quantity",
+            "unit_price",
+            "line_total",
+            "line_tax_rate",
+        }
+    )
+
+    async def apply_revalidation_edits(
+        self,
+        invoice_id: str,
+        *,
+        expected_status: str,
+        header_updates: dict[str, Any],
+        line_updates: list[tuple[str, dict[str, Any]]],
+    ) -> Invoice | None:
+        """
+        Atomically persist edited header and line-item fields in a single SQL transaction
+        while verifying the invoice holds ``expected_status`` (SEC-173, CWE-362 / CWE-639 / CWE-915).
+
+        Strictly forbids mutating ``status``, ``confidence_macro_avg``, ``confidence_score``,
+        or lines belonging to another invoice. Rolls back all header and line edits together
+        on any IntegrityError or database error.
+        """
+        if expected_status not in VALID_INVOICE_STATUSES:
+            raise ValueError(f"Unknown expected_status: {expected_status!r}")
+        if header_updates:
+            _validate_update_fields(header_updates, self.ALLOWED_REVALIDATION_HEADER_FIELDS)
+        for _line_id, changes in line_updates:
+            _validate_update_fields(changes, self.ALLOWED_REVALIDATION_LINE_FIELDS)
+
+        invoice = await self.get_by_id(
+            invoice_id,
+            include_relations=True,
+            include_audit_logs=False,
+        )
+        if invoice is None or invoice.status != expected_status:
+            return None
+
+        lines_by_id = {line.line_id: line for line in invoice.lines}
+        for line_id, _changes in line_updates:
+            if line_id not in lines_by_id:
+                raise ValueError(f"Line '{line_id}' does not belong to invoice '{invoice_id}'")
+
+        try:
+            for key, value in header_updates.items():
+                setattr(invoice, key, value)
+            for line_id, changes in line_updates:
+                target_line = lines_by_id[line_id]
+                for key, value in changes.items():
+                    setattr(target_line, key, value)
+            invoice.updated_at = datetime.now(UTC)
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            raise
+
+        await self._session.refresh(invoice)
+        return invoice
+
     async def update_fields(self, invoice_id: str, /, **fields: Any) -> Invoice | None:
         """Update allowed mutable fields on an existing Invoice."""
         _validate_update_fields(fields, self.ALLOWED_UPDATE_FIELDS)
