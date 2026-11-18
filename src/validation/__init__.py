@@ -62,6 +62,14 @@ from src.validation.line_arithmetic import (
     validate_extraction_line_items,
     validate_line_items,
 )
+from src.validation.rules_engine import (
+    AllowedRuleStatus,
+    RuleCheckOutcome,
+    RuleName,
+    RulesEngine,
+    RulesEngineResult,
+    VendorRuleContext,
+)
 from src.validation.tax_validator import (
     COUNTRY_TAX_RATES,
     MAX_ALLOWED_TAX_TOLERANCE,
@@ -77,6 +85,7 @@ from src.validation.tax_validator import (
 )
 
 __all__ = [
+    "AllowedRuleStatus",
     "AmbiguousDateError",
     "COUNTRY_TAX_RATES",
     "DateNormalizationResult",
@@ -110,10 +119,15 @@ __all__ = [
     "MAX_VALID_YEAR",
     "MAX_VENDOR_TAX_ID_CHARS",
     "MIN_VALID_YEAR",
+    "RuleCheckOutcome",
+    "RuleName",
+    "RulesEngine",
+    "RulesEngineResult",
     "SUPPORTED_COUNTRY_CODES",
     "TargetDuplicateStatus",
     "TaxLineInput",
     "TaxValidationResult",
+    "VendorRuleContext",
     "ZERO_TAX_THRESHOLD",
     "compute_composite_hash",
     "detect_credit_note",
