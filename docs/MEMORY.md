@@ -8,13 +8,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 14 — Infrastructure and Delivery (In Progress — 1 / 5 Tasks Done)
-- **Latest Completed Subtask:** P14-1 · `Dockerfile.api` — FastAPI image (Python 3.11-slim, non-root user)
-- **Total Completed Tasks:** 64 / 68 (94%)
-- **Test Suite Pass Count:** **713 / 713 passing (100% — 676 unit + 30 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
+- **Current Active Phase:** Phase 14 — Infrastructure and Delivery (In Progress — 2 / 5 Tasks Done)
+- **Latest Completed Subtask:** P14-2 · `Dockerfile.ui` — Streamlit image
+- **Total Completed Tasks:** 65 / 68 (96%)
+- **Test Suite Pass Count:** **718 / 718 passing (100% — 681 unit + 30 offline integration + 7 evaluation threshold gate tests; 1 optional live-Docker smoke skipped)**
 - **Test Execution Latency:** **~31 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (143 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (231 findings audited & mitigated; `SEC-230`–`SEC-231` closed in P14-1); created hardened multi-stage `Dockerfile.api` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser` `/usr/sbin/nologin`, read-only `/opt/venv` & `/app/src`, mode-`750` `/app/data`, `ENABLE_DEMO_AUTH=false`, stdlib `/health` `HEALTHCHECK`, exec-form `uvicorn --no-server-header`) and strict `.dockerignore` blocking `.env*`, `*.db`, `.git`, `internal/`, and `tests/`
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (144 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (232 findings audited & mitigated; `SEC-232` closed in P14-2); created hardened multi-stage `Dockerfile.ui` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/opt/venv` & `/app/src`, XSRF/CORS enabled, telemetry disabled for East US 2 `N2`, `showErrorDetails=false`, 25 MB `FR-01` upload cap, `fileWatcherType=none`, stdlib `/_stcore/health` `HEALTHCHECK`, and zero backend datastore credentials)
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -78,6 +78,7 @@
 | `tests/unit/test_evaluation_metrics.py` | P13-2 Evaluation metric reporting & threshold gates (`src/evaluation/metrics.py`): ≥95% header macro, ≥92% critical field floor, ≥90% line-item, ≥65% STP, exact boundaries & single-breach failures, slot-level P/R/F1, fail-closed empty-batch/crash/bool guards (`SEC-223`), PII/host-path/ANSI/BiDi sanitization (`SEC-224`), and forged-aggregate & duplicate-slot integrity checks (`SEC-225`) | 6 | 0.05s |
 | `tests/unit/test_evaluator_cli.py` | P13-4 Evaluation CLI unit suite (`src/evaluation/cli.py`): `--report` printable ASCII scorecard, `--json` & `--output-json` (`0o600`), exit codes `0`/`1`/`2` & `--no-fail-on-threshold`, symlink/dotfile/dot-dir/non-JSON output blocking (`SEC-228`), and path/traceback-free error sanitization (`SEC-229`) | 5 | 0.16s |
 | `tests/unit/test_dockerfile_api.py` | P14-1 Hardened multi-stage `Dockerfile.api` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/app/src` & `/opt/venv`, stdlib `/health` `HEALTHCHECK`, exec-form `uvicorn --no-server-header`, zero secrets/dev deps: `SEC-231`) & `.dockerignore` hygiene (`SEC-230`) | 5 | 0.01s |
+| `tests/unit/test_dockerfile_ui.py` | P14-2 Hardened multi-stage `Dockerfile.ui` (`python:3.11-slim-bookworm`, non-root UID 10001 `appuser`, read-only `/app/src` & `/opt/venv`, XSRF/CORS on, telemetry/error-details/watcher off, 25 MB `FR-01` cap, stdlib `/_stcore/health`, zero backend datastore creds: `SEC-232`) | 5 | 0.01s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
 | `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
 | `tests/integration/test_ui_review_workbench_integration.py` | P11-3 End-to-end offline integration test: PRD Journey 5 DE EU reverse-charge edit -> `Re-Validate` -> `VALIDATED` -> `Approve (One-Click)` -> `APPROVED_CLERK` against real FastAPI backend | 1 | 0.30s |
@@ -93,7 +94,7 @@
 | `tests/integration/test_evaluation_metrics_integration.py` | P13-2 Full 300-invoice pilot metric reporting (`InvoiceBatchEvaluator` → `compute_evaluation_metrics()`): verifies all contractual pilot gates (≥95% header, ≥92% critical floor, ≥90% line, ≥65% STP, 0 crashes), P/R/F1 bounds, and PII/path-free JSON & ASCII scorecards | 1 | 0.56s |
 | `tests/integration/test_evaluator_cli_integration.py` | P13-4 Subprocess execution of `python -m src.evaluation.evaluator --report` over all 300 pilot invoices: verifies exit `0`, printable `[PASS]` scorecard, zero PII/host paths, zero `RuntimeWarning` | 1 | 1.24s |
 | `tests/evaluation/test_pilot_evaluation_thresholds.py` | P13-3 Evaluation CI threshold pytest suite (`pytest tests/evaluation/`): 300-invoice batch stability (0 crashes), ≥95% header macro, ≥92% critical field hard floor each, ≥90% line-item, ≥65% STP, unified `assert_evaluation_thresholds()` P/R/F1 & non-approval check, and negative breach/weakening/NaN tests (`SEC-226`) | 7 | 0.44s |
-| **Total** | **All Modules Offline** | **713** | **~31s** |
+| **Total** | **All Modules Offline** | **718** | **~31s** |
 
 ---
 
