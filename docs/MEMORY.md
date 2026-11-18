@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 5 — Upload API and Job Queue (2 / 5 Tasks Complete — P5-1 & P5-2 Done)
-- **Latest Completed Subtask:** P5-2 · Redis job queue client (`src/core/redis_client.py`) — enqueue, dequeue, idempotency key
-- **Total Completed Tasks:** 26 / 68 (38%)
-- **Test Suite Pass Count:** **170 / 170 passing (100% — 169 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **4.35 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (64 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (88 findings audited & mitigated); `POST /api/v1/invoices/upload` and `RedisJobQueueClient` (`src/core/redis_client.py`) active with FIFO `RPUSH`/`LPOP`/`BLPOP`, DLQ poison-pill quarantine (`LTRIM 10k`), atomic `SET NX EX` & `WATCH/MULTI/EXEC` idempotency keys (`SHA256(file_bytes + clerk_id)`), TLS `rediss://` prod enforcement, and fail-closed `USE_FAKE_REDIS` gating
+- **Current Active Phase:** Phase 5 — Upload API and Job Queue (3 / 5 Tasks Complete — P5-1, P5-2 & P5-3 Done)
+- **Latest Completed Subtask:** P5-3 · Background worker skeleton — picks jobs from Redis, calls pipeline, updates status
+- **Total Completed Tasks:** 27 / 68 (40%)
+- **Test Suite Pass Count:** **179 / 179 passing (100% — 178 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **4.73 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (66 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (94 findings audited & mitigated); `InvoiceBackgroundWorker` (`src/services/worker.py`) live with pluggable `InvoicePipelineProtocol`, non-approval status allowlist (blocks `APPROVED_*` self-approval), cross-invoice blob-swap guard, constant-time `FileHash` verification, bounded timeout & retry -> DLQ escalation, and isolated-tx `AuditLog` tracking
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -44,8 +44,9 @@
 | `tests/unit/test_blob_metadata.py` | Canonical `VendorID`/`UploadTimestamp`/`FileHash` tagging, Azure REST lowercase parsing, constant-time integrity check, key+value PII & 8 KB header guards | 10 | 0.19s |
 | `tests/unit/test_invoice_upload.py` | `POST /api/v1/invoices/upload` multipart intake, RBAC, bounded 25 MB stream, WORM Blob, SQL `UPLOADED`, `INGEST` audit, Redis FIFO enqueue, fail-closed `503` | 11 | 1.55s |
 | `tests/unit/test_redis_client.py` | Async Redis FIFO job queue (`RPUSH`/`LPOP`/`BLPOP`), DLQ quarantine, atomic `SET NX EX` & `WATCH/MULTI/EXEC` idempotency keys, TLS `rediss://` prod gate | 9 | 0.04s |
+| `tests/unit/test_worker.py` | Background worker skeleton (`UPLOADED->EXTRACTING->outcome`), non-approval guard, blob-swap & `FileHash` checks, timeout/retry/DLQ, graceful `run_loop` | 9 | 0.32s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **170** | **4.35s** |
+| **Total** | **All Modules Offline** | **179** | **4.73s** |
 
 ---
 
