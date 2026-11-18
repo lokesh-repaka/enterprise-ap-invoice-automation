@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 11 — Streamlit UI (14% Complete — 1 / 7 Tasks Done ⏳)
-- **Latest Completed Subtask:** P11-1 · Typed HTTP API client (`src/ui/api_client.py`) wrapping `httpx` — all backend routes
-- **Total Completed Tasks:** 48 / 68 (71%)
-- **Test Suite Pass Count:** **596 / 596 passing (100% — 595 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **23.55 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (106 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (190 findings audited & mitigated; `SEC-187`–`SEC-190` closed in P11-1); `APInvoiceAPIClient` enforces strict `validate_api_base_url()` (http/https only, no embedded credentials, HTTPS required outside local/internal Docker hosts, no query/fragment/control chars) and `follow_redirects=False` (`SEC-187`), strict `invoice_id` allowlist regex (`^[A-Za-z0-9_-]{1,64}$`) and CRLF header/filename rejection (`SEC-188`), Bearer token redaction in `__repr__`/logs and 10 MB `MAX_RESPONSE_BYTES` cap (`SEC-189`), client-side upload filename traversal rejection, empty/`>25 MB` upload guards, and bounded `timeout_seconds` `[0.1, 120.0]` (`SEC-190`), plus AST-enforced `src/ui/` layering isolation
+- **Current Active Phase:** Phase 11 — Streamlit UI (29% Complete — 2 / 7 Tasks Done ⏳)
+- **Latest Completed Subtask:** P11-2 · Ingestion Dashboard (`/`) — drag-and-drop upload, batch status table, live polling
+- **Total Completed Tasks:** 49 / 68 (72%)
+- **Test Suite Pass Count:** **607 / 607 passing (100% — 605 unit + 2 offline integration tests; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **23.42 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (110 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (194 findings audited & mitigated; `SEC-191`–`SEC-194` closed in P11-2); Ingestion Dashboard (`src/ui/ingestion_dashboard.py`) and main Streamlit shell (`src/ui/app.py`) enforce XSS/unclosed-HTML/bidi/Bearer-redaction/CSV-formula sanitization and `invoice_id` route allowlist validation with zero `unsafe_allow_html=True` (`SEC-191`), 50-file / 100 MB cumulative batch & 500-row session memory caps plus GAP-004 TIFF rejection (`SEC-192`), cross-user session batch purge on sign-out/persona-switch and fail-closed unauthenticated upload gating (`SEC-193`), and bounded `[1, 30]s` / 50-item-per-cycle / 60-cycle auto-polling with immediate HTTP `429` backoff (`SEC-194`), while preserving AST-enforced `src/ui/` layering isolation
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -66,8 +66,10 @@
 | `tests/unit/test_invoice_audit_route.py` | P9-3 `GET /api/v1/invoices/{id}/audit`: chronological timeline, 3-role RBAC + empty-role 403, `action_type`/`user_id`/pagination filters, e2e revalidate->approve->audit chain, 405 immutability, dotted-field & comment PII masking, SQLi/XSS/flood/503/nosniff/layer guards | 11 | 1.42s |
 | `tests/unit/test_noop_edit_guard.py` | P9-4 No-op edit guard (`previous_value == new_value` -> 422): empty payload/containers, text/date/decimal-scale/mixed header & line no-ops, LLD §2.2 full-row diff compatibility, `-0.00`/Unicode NFD/NBSP homoglyph/explicit-null/replayed-flag/service-fast-fail/oracle-ordering guards | 11 | 1.99s |
 | `tests/unit/test_ui_api_client.py` | P11-1 Typed `httpx` API client (`src/ui/api_client.py`): all 11 FastAPI routes end-to-end, typed error hierarchy (`401`/`403`/`404`/`409`/`422`/`429`/`503`), SSRF/redirect/path-traversal/CRLF/token-redaction/10MB-response/25MB-upload/timeout guards, AST `src/ui/` layering check | 7 | 0.50s |
+| `tests/unit/test_ui_ingestion_dashboard.py` | P11-2 Ingestion Dashboard (`/`): multi-file drag-and-drop validation (FR-01/GAP-004), deterministic SHA-256 idempotency dedup, batch summary metrics, live status table, bounded live polling & 429 backoff, RBAC/batch-bytes/session/XSS/CSV-formula/route/layering guards, headless Streamlit renderer smoke | 10 | 0.12s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **596** | **23.55s** |
+| `tests/integration/test_ui_ingestion_dashboard_integration.py` | P11-2 End-to-end offline integration test: `IngestionDashboardController` -> real FastAPI (SQLite + FakeRedis + WORM Blob) upload, idempotent replay, and live SQL status polling | 1 | 0.30s |
+| **Total** | **All Modules Offline** | **607** | **23.42s** |
 
 ---
 
