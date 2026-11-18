@@ -7,13 +7,13 @@
 
 ## 1. Honest Status
 
-- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (2 / 5 Tasks Complete — P6-1 & P6-2 Done)
-- **Latest Completed Subtask:** P6-2 · Model Gateway (`src/extraction/model_gateway.py`) — route to GPT-4o-mini or GPT-4o Vision
-- **Total Completed Tasks:** 31 / 68 (46%)
-- **Test Suite Pass Count:** **211 / 211 passing (100% — 210 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
-- **Test Execution Latency:** **6.70 seconds** (strict offline isolation mode)
-- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (72 files formatted)
-- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (118 findings audited & mitigated); `ModelGateway` (`src/extraction/model_gateway.py`) live with ADR-004 hybrid routing (`searchable_pdf`/`xlsx` → GPT-4o-mini, `scanned_image`/`force_vision` → GPT-4o Vision), keyless Entra ID Managed Identity pinned to `https://<resource>.openai.azure.com/`, strict API version allowlist, Azure Prompt Caching ordering, deterministic JSON mode with `<=2,000` token ceiling, LLD §6.2 HTTP 429 exponential backoff + jitter (max 4 attempts), base64-only Vision data-URI SSRF guards + 25 MB cumulative image cap, and 128 KB / depth-32 JSON bomb protection
+- **Current Active Phase:** Phase 6 — Extraction Engine and Model Gateway (3 / 5 Tasks Complete — P6-1, P6-2 & P6-3 Done)
+- **Latest Completed Subtask:** P6-3 · Pydantic extraction schema — 10 header fields + line-item fields with per-field confidence scores
+- **Total Completed Tasks:** 32 / 68 (47%)
+- **Test Suite Pass Count:** **221 / 221 passing (100% — 220 unit + 1 wire-protocol integration smoke; 1 optional live-Docker smoke skipped)**
+- **Test Execution Latency:** **6.07 seconds** (strict offline isolation mode)
+- **Code Quality & Linter:** Ruff passing with 0 warnings, 0 errors (74 files formatted)
+- **Security Audit Status:** Zero critical/high unmitigated vulnerabilities (125 findings audited & mitigated); Pydantic v2 extraction schemas (`src/extraction/schemas.py`) live with immutable `extra="forbid"` contracts for all 10 header fields + 5 line-item fields with per-field `[0.00, 100.00]` confidence scores (zero heuristic rescaling), `FiniteDecimal` exponent-bomb/bool/NaN/SQL-overflow guards, Unicode bidi/zero-width duplicate-hash-bypass blocking (preserving EN/DE/ES diacritics), strict identifier angle-bracket/control-char rejection, and PII-masked `repr()`
 - **Git Branching Strategy:** Development branch is active; production releases reserved for `main`
 
 ---
@@ -49,8 +49,9 @@
 | `tests/unit/test_idempotency_dedup.py` | Atomic upload idempotency dedup (`200 OK` + `X-Idempotency-Replayed`), live SQL status refresh, `409 Conflict` on mismatch, clerk isolation, lock rollback | 7 | 0.95s |
 | `tests/unit/test_document_classifier.py` | PyMuPDF text-layer density classifier (`searchable_pdf`, `scanned_image`, `xlsx`), hybrid PDF detection, anti-spoofing, bidi sanitization, raster/XLSX guards | 8 | 0.19s |
 | `tests/unit/test_model_gateway.py` | Hybrid Azure OpenAI Model Gateway routing (`gpt-4o-mini` vs `gpt-4o-vision`), prompt caching order, 2k token cap, LLD §6.2 429 backoff/jitter, keyless MI SSRF/API-version/JSON-bomb/Vision guards | 10 | 0.38s |
+| `tests/unit/test_extraction_schemas.py` | Pydantic v2 10-header + 5-line extraction schemas, per-field confidence aggregations, credit notes, ground-truth round-trip, `extra="forbid"`, `FiniteDecimal` bomb & bidi/XSS/PII guards | 10 | 0.32s |
 | `tests/integration/test_azurite_smoke.py` | End-to-end real Azure Storage SDK wire-protocol WORM smoke test (`If-None-Match: *`) | 1 (+1 live skip) | 0.07s |
-| **Total** | **All Modules Offline** | **211** | **6.70s** |
+| **Total** | **All Modules Offline** | **221** | **6.07s** |
 
 ---
 
