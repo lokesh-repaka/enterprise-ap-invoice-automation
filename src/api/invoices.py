@@ -23,7 +23,10 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 from typing import Annotated, Any, Literal
 
-import fakeredis.aioredis
+try:
+    import fakeredis.aioredis
+except ImportError:  # pragma: no cover
+    fakeredis = None  # type: ignore[assignment]
 import redis.asyncio as aioredis
 from fastapi import (
     APIRouter,
@@ -116,7 +119,7 @@ FAKE_REDIS_ALLOWED_ENVS: frozenset[str] = frozenset({"dev", "local", "test"})
 _DEP_LOCK = threading.Lock()
 _DEFAULT_ENGINE: AsyncEngine | None = None
 _DEFAULT_SESSION_FACTORY: async_sessionmaker[AsyncSession] | None = None
-_DEFAULT_FAKE_REDIS: fakeredis.aioredis.FakeRedis | None = None
+_DEFAULT_FAKE_REDIS: Any | None = None
 _DEFAULT_REAL_REDIS: aioredis.Redis | None = None
 _DEFAULT_REAL_REDIS_URL: str | None = None
 
@@ -151,6 +154,11 @@ def get_upload_redis_client() -> Any:
                 raise HTTPException(
                     status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                     detail="Processing queue configuration is invalid for this environment",
+                )
+            if fakeredis is None:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="fakeredis package is required when USE_FAKE_REDIS=true",
                 )
             if _DEFAULT_FAKE_REDIS is None:
                 _DEFAULT_FAKE_REDIS = fakeredis.aioredis.FakeRedis(decode_responses=True)

@@ -26,7 +26,10 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-import fakeredis.aioredis
+try:
+    import fakeredis.aioredis
+except ImportError:  # pragma: no cover
+    fakeredis = None  # type: ignore[assignment]
 import redis.asyncio as aioredis
 from fastapi import status
 from fastapi.responses import JSONResponse
@@ -52,7 +55,7 @@ MAX_XFF_HOPS: int = 16
 REDIS_SOCKET_TIMEOUT_SECONDS: float = 2.0
 
 _STORE_LOCK = threading.Lock()
-_SHARED_FAKE_REDIS: fakeredis.aioredis.FakeRedis | None = None
+_SHARED_FAKE_REDIS: Any | None = None
 _SHARED_REAL_REDIS: aioredis.Redis | None = None
 _SHARED_REAL_REDIS_URL: str | None = None
 
@@ -142,6 +145,8 @@ def get_rate_limit_redis_client(settings: Settings | None = None) -> Any:
 
     with _STORE_LOCK:
         if cfg.USE_FAKE_REDIS:
+            if fakeredis is None:
+                raise RuntimeError("fakeredis package is required when USE_FAKE_REDIS=true")
             if _SHARED_FAKE_REDIS is None:
                 _SHARED_FAKE_REDIS = fakeredis.aioredis.FakeRedis(decode_responses=True)
             return _SHARED_FAKE_REDIS

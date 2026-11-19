@@ -6,9 +6,13 @@
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$PROJECT_ROOT" 2>/dev/null || true
 
-# 1. Guard: never commit .env or *.db (if git is functional)
+# 1. Guard: check if anything is staged. If nothing is staged, fast-allow.
 if command -v git &>/dev/null; then
   STAGED=$(git diff --cached --name-only 2>/dev/null || true)
+  if [ -z "$STAGED" ]; then
+    printf '{"decision":"allow"}\n'
+    exit 0
+  fi
   if echo "$STAGED" | grep -qE '\.env$|\.db$|agent-calls\.jsonl'; then
     printf '{"decision":"deny","reason":"Blocked: attempted to stage .env, *.db, or agent-calls.jsonl. Remove from index first."}\n'
     exit 0

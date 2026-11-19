@@ -23,7 +23,10 @@ from datetime import UTC, datetime
 from typing import Any
 from urllib.parse import urlparse
 
-import fakeredis.aioredis
+try:
+    import fakeredis.aioredis
+except ImportError:  # pragma: no cover
+    fakeredis = None  # type: ignore[assignment]
 import redis.asyncio as aioredis
 from pydantic import BaseModel, ConfigDict, ValidationError
 from redis.exceptions import RedisError, WatchError
@@ -604,6 +607,10 @@ def get_redis_queue_client(settings: Settings | None = None) -> RedisJobQueueCli
             if not cfg.USE_LOCAL_SQLITE:
                 raise RedisQueueConfigurationError(
                     "USE_FAKE_REDIS=true requires USE_LOCAL_SQLITE=true (cannot pair ephemeral RAM queue with Azure SQL)"
+                )
+            if fakeredis is None:
+                raise RedisQueueConfigurationError(
+                    "fakeredis package is required when USE_FAKE_REDIS=true. Install via: pip install fakeredis"
                 )
             backend: Any = fakeredis.aioredis.FakeRedis(decode_responses=True)
         else:
