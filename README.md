@@ -1,5 +1,6 @@
 # Enterprise AP Invoice Automation Platform (ApexAP)
 
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Production-000000?logo=vercel&logoColor=white)](https://enterprise-ap-invoice-automation.vercel.app)
 [![Azure East US 2](https://img.shields.io/badge/Azure-East%20US%202-0078D4?logo=microsoftazure&logoColor=white)](infrastructure/main.bicep)
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI%20Async-009688?logo=fastapi&logoColor=white)](src/api/)
@@ -12,6 +13,9 @@
 An autonomous, audit-grade **Accounts Payable (AP) Invoice Automation Platform** engineered for multinational finance operations across **US, UK, Germany, and Spain**. 
 
 ApexAP pairs **multi-modal AI vision extraction** with a **deterministic zero-hallucination validation rules engine**, automated 3-way purchase order (PO) matching, and legally binding 7-year immutable WORM storage—strictly confined to **Azure East US 2** with zero public internet egress.
+
+> 🚀 **Live Production Application:** **[https://enterprise-ap-invoice-automation.vercel.app](https://enterprise-ap-invoice-automation.vercel.app)**  
+> Lands directly on the executive product landing page and detailed architecture blueprint, with one-click instant launch into the Application Overview & Review Workbench!
 
 ---
 
