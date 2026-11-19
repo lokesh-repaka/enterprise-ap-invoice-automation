@@ -183,11 +183,21 @@ def test_bicep_declares_private_endpoints_for_isolated_datastores() -> None:
     assert "snet-endpoints" in content, "Private Endpoints must be placed in snet-endpoints subnet"
 
     # Verify link connections for all 5 isolated datastores
-    assert "plsc-keyvault" in content or "'vault'" in content, "Must declare Private Endpoint for Key Vault"
-    assert "plsc-sql" in content or "'sqlServer'" in content, "Must declare Private Endpoint for SQL Server"
-    assert "plsc-blob" in content or "'blob'" in content, "Must declare Private Endpoint for Blob Storage"
-    assert "plsc-redis" in content or "'redisCache'" in content, "Must declare Private Endpoint for Redis"
-    assert "plsc-openai" in content or "'account'" in content, "Must declare Private Endpoint for Azure OpenAI"
+    assert "plsc-keyvault" in content or "'vault'" in content, (
+        "Must declare Private Endpoint for Key Vault"
+    )
+    assert "plsc-sql" in content or "'sqlServer'" in content, (
+        "Must declare Private Endpoint for SQL Server"
+    )
+    assert "plsc-blob" in content or "'blob'" in content, (
+        "Must declare Private Endpoint for Blob Storage"
+    )
+    assert "plsc-redis" in content or "'redisCache'" in content, (
+        "Must declare Private Endpoint for Redis"
+    )
+    assert "plsc-openai" in content or "'account'" in content, (
+        "Must declare Private Endpoint for Azure OpenAI"
+    )
 
 
 def test_bicep_has_zero_static_secrets_or_plaintext_credentials() -> None:

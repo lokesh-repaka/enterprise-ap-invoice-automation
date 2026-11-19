@@ -199,7 +199,13 @@ def render_app(
             st.sidebar.caption(f"{user_email} · {get_role_badge(active_roles)}")
             if st.sidebar.button("Sign Out"):
                 client.set_access_token(None)
-                for key in ("access_token", "user_email", "user_name", "user_roles", "active_persona"):
+                for key in (
+                    "access_token",
+                    "user_email",
+                    "user_name",
+                    "user_roles",
+                    "active_persona",
+                ):
                     st.session_state.pop(key, None)
                 _clear_session_batch_state(st.session_state)
                 active_roles = None
