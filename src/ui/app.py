@@ -8,7 +8,14 @@ All backend interactions flow exclusively through ``src/ui/api_client.py`` (CLAU
 """
 
 import os
+import sys
+from pathlib import Path
 from typing import Any
+
+# Ensure project root is on sys.path when invoked directly via `streamlit run src/ui/app.py`
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
 
 from src.ui.api_client import (
     DEFAULT_API_BASE_URL,
