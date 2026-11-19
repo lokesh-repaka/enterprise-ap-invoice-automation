@@ -30,7 +30,7 @@ export const checkHealth = async () => {
 
 export const getDemoPersonas = async () => {
   try {
-    const res = await fetch(`${API_BASE}/api/v1/demo/personas`);
+    const res = await fetch(`${API_BASE}/api/v1/auth/demo-personas`);
     if (!res.ok) throw new Error('Failed to fetch personas');
     return await res.json();
   } catch (err) {
@@ -45,13 +45,20 @@ export const getDemoPersonas = async () => {
 };
 
 export const loginPersona = async (username) => {
-  const res = await fetch(`${API_BASE}/api/v1/demo/token?persona=${encodeURIComponent(username)}`, {
-    method: 'POST',
-  });
-  if (!res.ok) throw new Error('Authentication failed');
-  const data = await res.json();
-  setAuthToken(data.access_token);
-  return data;
+  try {
+    const res = await fetch(`${API_BASE}/api/v1/auth/demo-token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ persona: username }),
+    });
+    if (!res.ok) throw new Error('Authentication failed');
+    const data = await res.json();
+    setAuthToken(data.access_token);
+    return data;
+  } catch (err) {
+    console.warn('Backend demo-token fallback:', err);
+    return null;
+  }
 };
 
 export const listInvoices = async () => {
