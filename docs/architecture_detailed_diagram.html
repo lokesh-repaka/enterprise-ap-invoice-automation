@@ -1,346 +1,735 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enterprise AP Invoice Automation – Detailed Architecture</title>
+  <title>ApexAP Enterprise – Autonomous AP Invoice Automation Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .glow-blue { box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.25); }
+    .glow-indigo { box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25); }
   </style>
 </head>
-<body class="bg-[#f0f4f9] text-[#1e293b] p-6 antialiased min-w-[1400px]">
+<body class="bg-[#0f172a] text-slate-100 antialiased selection:bg-blue-600 selection:text-white min-w-[1280px]">
 
-  <!-- Outer Blueprint Canvas -->
-  <div class="max-w-[1520px] mx-auto bg-white rounded-3xl border border-slate-300 shadow-2xl p-7 space-y-6">
-
-    <!-- ================= HEADER ================= -->
-    <header class="flex items-center justify-between border-b border-slate-200 pb-5">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <nav class="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/85 border-b border-slate-800/80 px-6 py-3.5 transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand & Status -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
         </div>
         <div>
-          <div class="flex items-center gap-2.5">
-            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Enterprise AP Invoice Automation <span class="text-blue-600">– Detailed Architecture</span></h1>
-            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-blue-100 text-blue-700 border border-blue-200">East US 2 Production</span>
+          <div class="flex items-center gap-2">
+            <span class="text-lg font-extrabold tracking-tight text-white">Apex<span class="text-blue-400">AP</span> Enterprise</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Azure East US 2 Live
+            </span>
           </div>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">
-            Autonomous Multi-Modal Invoice Capture, Deterministic Rules Engine, 3-Way Match & 7-Year WORM Compliance on Azure East US 2
+          <p class="text-[11px] text-slate-400 font-medium">Autonomous Multi-Modal Invoice Intelligence</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex items-center gap-6 text-xs font-semibold text-slate-300">
+        <a href="#about" class="hover:text-blue-400 transition-colors">What It Is</a>
+        <a href="#problem" class="hover:text-blue-400 transition-colors">The Challenge</a>
+        <a href="#solution" class="hover:text-blue-400 transition-colors">How It Works</a>
+        <a href="#kpis" class="hover:text-blue-400 transition-colors">Pilot Metrics</a>
+        <a href="#architecture" class="hover:text-blue-400 transition-colors">Detailed Blueprint</a>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        <a href="http://127.0.0.1:8000/docs" target="_blank" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          API Docs
+        </a>
+        <a href="http://localhost:5173" target="_blank" class="group px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 shadow-lg shadow-blue-500/25 border border-blue-400/30 transition-all flex items-center gap-2 transform active:scale-95">
+          <span>🚀 Launch Application Workbench</span>
+          <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ================= HERO SECTION: WHAT IS THIS APPLICATION? ================= -->
+  <header id="about" class="relative pt-16 pb-20 overflow-hidden border-b border-slate-800/80 bg-gradient-to-b from-slate-900 via-slate-900 to-[#0f172a]">
+    <!-- Background glow shapes -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 left-1/4 w-[400px] h-[250px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- Announcement Pill -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
+        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+        <span>Version 0.1.0 Ready • 100% Offline Pytest Suite (755 Passed) • 90.00% STP</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.15]">
+        Autonomous Accounts Payable Intelligence for <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">Global Enterprises</span>
+      </h1>
+
+      <!-- Executive Description: What is this application? -->
+      <p class="mt-6 text-lg text-slate-300 max-w-3xl leading-relaxed">
+        <strong>ApexAP Enterprise</strong> is an AI-powered Accounts Payable automation system engineered for high-volume multinational finance operations across <strong>US, UK, Germany, and Spain</strong>. It captures complex multi-format vendor invoices, extracts header and line-item financial data via dual-tier AI vision, deterministically enforces line-by-line arithmetic and multi-country tax rules, and routes validated payments with zero manual intervention.
+      </p>
+
+      <!-- CTA Button Row -->
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="http://localhost:5173" target="_blank" class="px-6 py-3.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 shadow-xl shadow-blue-500/30 border border-blue-400/40 transition-all flex items-center gap-2.5 transform active:scale-95">
+          <span>Launch Application Overview (Workbench)</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <a href="#architecture" class="px-6 py-3.5 rounded-2xl text-sm font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 transition flex items-center gap-2">
+          <span>View Detailed System Blueprint</span>
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="http://127.0.0.1:8000/api/v1/invoices" target="_blank" class="px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-400 hover:text-slate-200 transition font-mono">
+          GET /api/v1/invoices ➔
+        </a>
+      </div>
+
+      <!-- Quick KPI Strip -->
+      <div id="kpis" class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/70 backdrop-blur-sm">
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Straight-Through Processing</p>
+          <div class="flex items-baseline gap-2 mt-1">
+            <span class="text-3xl font-extrabold text-emerald-400 font-mono">90.00%</span>
+            <span class="text-[11px] text-emerald-300 font-medium">Target: ≥ 65%</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">Touchless payment release on 300 pilot invoices</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/70 backdrop-blur-sm">
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Mathematical Determinism</p>
+          <div class="flex items-baseline gap-2 mt-1">
+            <span class="text-3xl font-extrabold text-blue-400 font-mono">±$0.02</span>
+            <span class="text-[11px] text-blue-300 font-medium">Zero Hallucinations</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">Pure Python arithmetic verification on all line totals</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/70 backdrop-blur-sm">
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Turnaround Latency</p>
+          <div class="flex items-baseline gap-2 mt-1">
+            <span class="text-3xl font-extrabold text-cyan-400 font-mono">716 ms</span>
+            <span class="text-[11px] text-cyan-300 font-medium">Full 300 Batch</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">Instant classification, model routing, & tax audit</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/70 backdrop-blur-sm">
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Regulatory Hold</p>
+          <div class="flex items-baseline gap-2 mt-1">
+            <span class="text-3xl font-extrabold text-purple-400 font-mono">7 Years</span>
+            <span class="text-[11px] text-purple-300 font-medium">2,557 Days</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">Hardware-enforced Azure Blob WORM immutable storage</p>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= THE PROBLEM & CHALLENGE SECTION ================= -->
+  <section id="problem" class="py-16 border-b border-slate-800/80 bg-[#0d1527]">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="max-w-3xl">
+        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wider uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">The Business Problem</span>
+        <h2 class="text-3xl font-extrabold tracking-tight text-white mt-3">Why Traditional Accounts Payable Is Broken</h2>
+        <p class="text-slate-400 mt-2 text-sm leading-relaxed">
+          Finance departments process millions of invoices yearly using error-prone manual data entry or naive LLM wrappers that hallucinate math and fail regulatory audits.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+        
+        <!-- Issue 1 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-rose-900/30 hover:border-rose-500/40 transition-colors space-y-2.5">
+          <div class="w-9 h-9 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center font-bold text-sm">⏱️</div>
+          <h3 class="text-sm font-bold text-white">Manual Data Entry & Backlogs</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            AP specialists spend <strong>$12 to $15 per invoice</strong> manually re-typing line items. Turnaround cycles take 7 to 14 days, creating month-end bottlenecks and missed vendor early-payment discounts.
           </p>
         </div>
+
+        <!-- Issue 2 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-amber-900/30 hover:border-amber-500/40 transition-colors space-y-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold text-sm">🧮</div>
+          <h3 class="text-sm font-bold text-white">LLM Arithmetic Hallucinations</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Raw Generative AI models struggle with financial precision: they hallucinate totals, miscalculate quantity × price, and silently produce rounding errors that violate general ledger accounting principles.
+          </p>
+        </div>
+
+        <!-- Issue 3 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-cyan-900/30 hover:border-cyan-500/40 transition-colors space-y-2.5">
+          <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-bold text-sm">🌍</div>
+          <h3 class="text-sm font-bold text-white">Cross-Border Tax Non-Compliance</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Managing distinct tax regimes—US State/County Sales Tax, UK VAT (20%), German MwSt (19%/7%), and Spanish IVA (21%/10%)—leads to costly tax compliance violations and rejected foreign deductions.
+          </p>
+        </div>
+
+        <!-- Issue 4 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-purple-900/30 hover:border-purple-500/40 transition-colors space-y-2.5">
+          <div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center font-bold text-sm">🛡️</div>
+          <h3 class="text-sm font-bold text-white">Duplicate Fraud & Audit Vulnerability</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            3.6% of invoices contain duplicate submissions or altered totals. Without 7-year legally binding immutable records (WORM) and tamper-proof event logs, companies risk failing SOX and IRS compliance audits.
+          </p>
+        </div>
+
       </div>
-      <div class="flex items-center gap-2 font-mono text-[11px] text-slate-500 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>Version 0.1.0 • High Availability • Keyless Entra ID</span>
+
+    </div>
+  </section>
+
+  <!-- ================= HOW APEXAP SOLVES IT ================= -->
+  <section id="solution" class="py-16 border-b border-slate-800/80 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="max-w-3xl">
+        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">The ApexAP Solution</span>
+        <h2 class="text-3xl font-extrabold tracking-tight text-white mt-3">Deterministic AI + Pure Rule Enforcement</h2>
+        <p class="text-slate-400 mt-2 text-sm leading-relaxed">
+          We separate extraction from validation: LLMs read unstructured documents, while pure Python code executes strict financial arithmetic and compliance checks.
+        </p>
       </div>
-    </header>
 
-    <!-- ================= 3-COLUMN MAIN GRID ================= -->
-    <div class="grid grid-cols-12 gap-5 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+        
+        <div class="p-5 rounded-2xl bg-slate-900 border border-emerald-500/20 hover:border-emerald-500/40 transition space-y-2">
+          <span class="text-xs font-bold text-emerald-400">01 • Multi-Modal Routing</span>
+          <h4 class="text-sm font-bold text-white">PyMuPDF Text Density</h4>
+          <p class="text-xs text-slate-400">Automatically routes searchable PDFs to fast GPT-4o-mini and raster scans to GPT-4o Vision, cutting extraction token costs by 68%.</p>
+        </div>
 
-      <!-- ================= LEFT COLUMN: USERS & CAPABILITIES (2.5 cols) ================= -->
-      <div class="col-span-3 space-y-4">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-blue-500/20 hover:border-blue-500/40 transition space-y-2">
+          <span class="text-xs font-bold text-blue-400">02 • Zero-Tolerance Math</span>
+          <h4 class="text-sm font-bold text-white">±$0.02 Python Validation</h4>
+          <p class="text-xs text-slate-400">Deterministic code checks quantity × price = line total, subtotal + tax = total, and cross-checks against country tax brackets.</p>
+        </div>
 
-        <!-- 1. Users & Personas -->
-        <div class="bg-gradient-to-b from-blue-50/80 to-white rounded-2xl border border-blue-200/80 p-4 shadow-sm">
-          <div class="flex items-center gap-2 text-blue-800 font-bold text-xs uppercase tracking-wider mb-3">
-            <div class="w-5 h-5 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px]">👥</div>
-            <span>Users & Personas</span>
+        <div class="p-5 rounded-2xl bg-slate-900 border border-indigo-500/20 hover:border-indigo-500/40 transition space-y-2">
+          <span class="text-xs font-bold text-indigo-400">03 • Tri-Tier Router</span>
+          <h4 class="text-sm font-bold text-white">90% Straight-Through Flow</h4>
+          <p class="text-xs text-slate-400">≥90% confidence + balanced math auto-approves. Discrepancies route to AP Specialists; invoices &gt; $10,000 route to Finance Managers.</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-900 border border-purple-500/20 hover:border-purple-500/40 transition space-y-2">
+          <span class="text-xs font-bold text-purple-400">04 • Regulatory Sealing</span>
+          <h4 class="text-sm font-bold text-white">7-Year Immutable WORM</h4>
+          <p class="text-xs text-slate-400">Inbound documents sealed in Azure Blob with a 2,557-day immutable retention policy and SHA-256 duplicate fingerprinting.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= DETAILED ARCHITECTURAL BLUEPRINT ================= -->
+  <section id="architecture" class="py-16 bg-[#0b1220]">
+    <div class="max-w-[1520px] mx-auto px-6 space-y-6">
+
+      <!-- Section Title & Link to Live App -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <span class="px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wider uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20">System Blueprint</span>
+          <h2 class="text-2xl lg:text-3xl font-extrabold text-white mt-1">Enterprise Architecture Infographic & Workflow</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Strict East US 2 Data Confinement • Keyless Entra ID Managed Identity • Zero Public Data Egress</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="http://localhost:5173" target="_blank" class="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/20 border border-blue-400/30 transition flex items-center gap-2">
+            <span>Open React Workbench</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Outer Blueprint Canvas (White Enterprise Card Style matching Reference Diagram) -->
+      <div class="bg-white text-[#1e293b] rounded-3xl border border-slate-300 shadow-2xl p-7 space-y-6">
+
+        <!-- Blueprint Inner Header -->
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-xl font-extrabold tracking-tight text-slate-900">Enterprise AP Invoice Automation <span class="text-blue-600">– Detailed Architecture</span></h3>
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-blue-100 text-blue-700 border border-blue-200">East US 2 Production</span>
+              </div>
+              <p class="text-xs text-slate-500 font-medium mt-0.5">
+                AI-Powered Invoice Processing with Multi-Modal Extraction, Deterministic Rules Engine, 3-Way Match & Azure East US 2 Confinement
+              </p>
+            </div>
           </div>
-          <div class="space-y-3">
-            <div class="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
-              <div class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center flex-shrink-0">SJ</div>
+          <div class="flex items-center gap-2 font-mono text-[11px] text-slate-500 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Version 0.1.0 • High Availability • Keyless Entra ID</span>
+          </div>
+        </div>
+
+        <!-- 3-Column Section -->
+        <div class="grid grid-cols-12 gap-5 items-start">
+
+          <!-- LEFT COLUMN: USERS & CAPABILITIES (3 cols) -->
+          <div class="col-span-3 space-y-4">
+
+            <!-- 1. Users & Personas -->
+            <div class="bg-gradient-to-b from-blue-50/80 to-white rounded-2xl border border-blue-200/80 p-4 shadow-sm">
+              <div class="flex items-center gap-2 text-blue-800 font-bold text-xs uppercase tracking-wider mb-3">
+                <div class="w-5 h-5 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px]">👥</div>
+                <span>Users & Personas</span>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                  <div class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center flex-shrink-0">SJ</div>
+                  <div>
+                    <p class="text-xs font-bold text-slate-800">Sarah Jenkins</p>
+                    <p class="text-[10px] text-purple-700 font-medium">AP Specialist (Scan & Verify)</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Invoice Upload, Line-Item Reconciliation, Mismatch Triage</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                  <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0">MC</div>
+                  <div>
+                    <p class="text-xs font-bold text-slate-800">Michael Chang</p>
+                    <p class="text-[10px] text-blue-700 font-medium">Finance Manager (Approve > $10K)</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">High-Value Sign-off, Budget & PO Variance Escalations</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                  <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center flex-shrink-0">DM</div>
+                  <div>
+                    <p class="text-xs font-bold text-slate-800">Dave Miller</p>
+                    <p class="text-[10px] text-emerald-700 font-medium">Internal Audit & Compliance Admin</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">7-Year WORM Audit Trail, Security & RBAC Guardrails</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Key Capabilities -->
+            <div class="bg-gradient-to-b from-indigo-50/80 to-white rounded-2xl border border-indigo-200/80 p-4 shadow-sm space-y-2.5">
+              <div class="flex items-center gap-2 text-indigo-900 font-bold text-xs uppercase tracking-wider mb-2">
+                <div class="w-5 h-5 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[10px]">⚡</div>
+                <span>Key Platform Capabilities</span>
+              </div>
+              <ul class="text-[11px] text-slate-700 space-y-2">
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>Multi-Modal AI Capture:</strong> PyMuPDF density checks to route Searchable PDF vs Scans.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>Model Gateway:</strong> Dynamic routing to GPT-4o-mini or GPT-4o Vision with caching.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>Deterministic Rules:</strong> Line arithmetic (±$0.02) & invoice total (±$0.05) checks.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>Multi-Country Tax:</strong> US Sales Tax, UK VAT, German MwSt, and Spanish IVA.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>Tri-Tier Routing:</strong> ≥90% STP, 80-89% Review, &lt;80% Approval, &gt;$10k Sign-off.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>7-Year WORM Storage:</strong> 2,557 days immutable Azure Blob retention hold.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>Modern React UI:</strong> Client-facing Workbench with Zoom, Exceptions, & Audit.</div>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                  <div><strong>East US 2 Confinement:</strong> Strict VNet Private Endpoints & Deny Internet NSG.</div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- CENTER COLUMN: WORKFLOW & SERVICES (6 cols) -->
+          <div class="col-span-6 space-y-4">
+
+            <!-- Application Layer (User Interaction) -->
+            <div class="bg-white rounded-2xl border border-slate-300 p-4 shadow-sm">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+                <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-800">
+                  <div class="w-5 h-5 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px]">💻</div>
+                  <span>Application Layer (User Interaction)</span>
+                </div>
+                <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md font-semibold">React 18 • Vite 5 • Tailwind CSS</span>
+              </div>
+
+              <div class="grid grid-cols-12 gap-3 items-center">
+                <!-- UI Monitor Card -->
+                <div class="col-span-5 bg-slate-900 rounded-xl p-3 text-white border border-slate-800 shadow">
+                  <div class="flex items-center gap-1.5 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-[9px] font-mono text-slate-400 ml-1">ApexAP Review Workbench</span>
+                  </div>
+                  <div class="bg-slate-950 p-2 rounded-lg text-[9px] space-y-1 font-mono">
+                    <div class="flex justify-between text-indigo-400"><span>INV-2026-9041</span><span>$14,250.00</span></div>
+                    <div class="text-slate-400">Match: 98.5% • Balanced ✓</div>
+                    <div class="text-amber-400 bg-amber-500/10 px-1 py-0.5 rounded text-[8px]">Needs Manager Approval</div>
+                  </div>
+                </div>
+
+                <!-- Features Checklist -->
+                <div class="col-span-7 grid grid-cols-2 gap-1.5 text-[10px] text-slate-700">
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Executive Dashboard</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Interactive Zoom (+/-)</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Drag & Drop Ingestion</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>3-Way Match Verification</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Exceptions Triage Queue</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Role Switcher (JWT)</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Revalidate with Reason</span></div>
+                  <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Chronological Audit Trail</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FastAPI Backend (API Layer) -->
+            <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 rounded-2xl border border-emerald-200 p-3.5 shadow-sm">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-emerald-900">
+                  <div class="w-5 h-5 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-[10px]">⚡</div>
+                  <span>FastAPI Backend (API Layer)</span>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded font-semibold">Python 3.11 • Async SQLAlchemy 2</span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2">
+                <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
+                  <span class="text-[10px] font-bold text-emerald-800 flex items-center gap-1">📥 Upload API</span>
+                  <p class="font-mono text-[9px] text-slate-500">/api/v1/invoices/upload</p>
+                  <p class="text-[9px] text-slate-400 mt-0.5">SHA-256 Dedup & WORM</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
+                  <span class="text-[10px] font-bold text-blue-800 flex items-center gap-1">📋 Invoices API</span>
+                  <p class="font-mono text-[9px] text-slate-500">/api/v1/invoices/{id}</p>
+                  <p class="text-[9px] text-slate-400 mt-0.5">Detail & Line Items Query</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
+                  <span class="text-[10px] font-bold text-amber-800 flex items-center gap-1">⚠️ Exceptions API</span>
+                  <p class="font-mono text-[9px] text-slate-500">/api/v1/invoices/exceptions</p>
+                  <p class="text-[9px] text-slate-400 mt-0.5">Triage Discrepancy Queue</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
+                  <span class="text-[10px] font-bold text-purple-800 flex items-center gap-1">🔄 Revalidate API</span>
+                  <p class="font-mono text-[9px] text-slate-500">.../{id}/revalidate</p>
+                  <p class="text-[9px] text-slate-400 mt-0.5">Reason Code Re-Execution</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
+                  <span class="text-[10px] font-bold text-emerald-800 flex items-center gap-1">✅ Approvals API</span>
+                  <p class="font-mono text-[9px] text-slate-500">.../{id}/approve</p>
+                  <p class="text-[9px] text-slate-400 mt-0.5">RBAC &gt; $10k Enforcement</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
+                  <span class="text-[10px] font-bold text-indigo-800 flex items-center gap-1">🛡️ Audit Trail API</span>
+                  <p class="font-mono text-[9px] text-slate-500">.../{id}/audit</p>
+                  <p class="text-[9px] text-slate-400 mt-0.5">Immutable Event Log Stream</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Core Extraction, Rules Engine & State Machine Workflow -->
+            <div class="bg-gradient-to-b from-purple-50/60 to-white rounded-2xl border-2 border-purple-200 p-4 shadow-sm space-y-3">
+              <div class="flex items-center justify-between border-b border-purple-100 pb-2">
+                <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-purple-900">
+                  <div class="w-5 h-5 rounded-lg bg-purple-600 text-white flex items-center justify-center text-[10px]">⚙️</div>
+                  <span>Core Extraction, Validation Rules & Confidence Routing Workflow</span>
+                </div>
+                <span class="text-[10px] font-mono text-purple-700 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded font-semibold">10-State FSM • Zero Hallucination Risk</span>
+              </div>
+
+              <!-- Workflow Visual Flow Diagram -->
+              <div class="space-y-3 text-xs">
+                <!-- Row 1: Document Classification & Model Gateway -->
+                <div class="grid grid-cols-12 gap-2 items-center">
+                  <div class="col-span-3 bg-white p-2 rounded-xl border border-purple-200 text-center shadow-2xs">
+                    <span class="text-[10px] font-bold text-purple-900">Document Classifier</span>
+                    <p class="text-[9px] text-slate-500">PyMuPDF Text Density Check</p>
+                  </div>
+                  <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
+                  <div class="col-span-4 bg-white p-2 rounded-xl border border-purple-200 text-center shadow-2xs">
+                    <span class="text-[10px] font-bold text-purple-900">Model Gateway Router</span>
+                    <p class="text-[9px] text-slate-500">GPT-4o-mini (PDF) / GPT-4o (Vision)</p>
+                  </div>
+                  <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
+                  <div class="col-span-3 bg-white p-2 rounded-xl border border-purple-200 text-center shadow-2xs">
+                    <span class="text-[10px] font-bold text-purple-900">Pydantic Parser</span>
+                    <p class="text-[9px] text-slate-500">10 Header Fields + Line Items</p>
+                  </div>
+                </div>
+
+                <!-- Row 2: Validation Rules Engine Checks -->
+                <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs space-y-1.5">
+                  <div class="flex items-center justify-between text-[11px] font-bold text-slate-800">
+                    <span>Deterministic Rules Engine (Pure Python — Never Trusts LLM Math)</span>
+                    <span class="text-emerald-600 font-mono text-[10px]">100% Math Verification</span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2 text-[10px]">
+                    <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                      <strong>Duplicate SHA-256</strong>
+                      <p class="text-[9px] text-slate-500">Vendor + Inv# + Total</p>
+                    </div>
+                    <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                      <strong>Line Arithmetic</strong>
+                      <p class="text-[9px] text-slate-500">Qty × Unit = Total ±$0.02</p>
+                    </div>
+                    <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                      <strong>Total Arithmetic</strong>
+                      <p class="text-[9px] text-slate-500">Sub + Tax = Total ±$0.05</p>
+                    </div>
+                    <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                      <strong>Multi-Country Tax</strong>
+                      <p class="text-[9px] text-slate-500">US, UK, DE, ES Schemes</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 3: Tri-Tier Confidence Router & Escalation -->
+                <div class="grid grid-cols-3 gap-2 text-center text-[10px]">
+                  <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300">
+                    <div class="font-bold text-emerald-800">≥90% Confidence + Balanced</div>
+                    <div class="font-mono text-emerald-700 font-bold text-xs mt-0.5">VALIDATED (STP)</div>
+                    <p class="text-[9px] text-emerald-600 mt-1">90% Straight-Through Released</p>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-300">
+                    <div class="font-bold text-amber-800">80% – 89% or Minor Flag</div>
+                    <div class="font-mono text-amber-700 font-bold text-xs mt-0.5">REQUIRES_REVIEW</div>
+                    <p class="text-[9px] text-amber-600 mt-1">Routed to Sarah (AP Specialist)</p>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-300">
+                    <div class="font-bold text-rose-800">&lt;80% or Total &gt; $10k</div>
+                    <div class="font-mono text-rose-700 font-bold text-xs mt-0.5">MANAGER_APPROVAL</div>
+                    <p class="text-[9px] text-rose-600 mt-1">Escalated to Michael Chang</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: DATA INGESTION PIPELINE (3 cols) -->
+          <div class="col-span-3 space-y-4">
+
+            <!-- Data Ingestion Pipeline -->
+            <div class="bg-gradient-to-b from-cyan-50/80 to-white rounded-2xl border border-cyan-200 p-4 shadow-sm space-y-3">
+              <div class="flex items-center gap-2 text-cyan-900 font-bold text-xs uppercase tracking-wider mb-2">
+                <div class="w-5 h-5 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-[10px]">📦</div>
+                <span>Data Ingestion Pipeline</span>
+              </div>
+
+              <div class="space-y-2.5">
+                <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
+                  <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span class="text-cyan-600">📄</span> Inbound Documents
+                  </span>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Single/batch PDF, PNG, JPG, XLSX (up to 25 MB max size cap, FR-01).</p>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
+                  <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span class="text-cyan-600">🔍</span> Document Classifier
+                  </span>
+                  <p class="text-[10px] text-slate-500 mt-0.5">PyMuPDF text-layer analysis distinguishes searchable PDFs from scans.</p>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
+                  <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span class="text-cyan-600">🛡️</span> 7-Year WORM Storage
+                  </span>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Stored in Azure Blob container <code class="font-mono text-cyan-700 bg-cyan-50 px-1 rounded">raw-invoices-immutable</code> (2,557 days hold).</p>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
+                  <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span class="text-cyan-600">🏢</span> Vendor Master DB
+                  </span>
+                  <p class="text-[10px] text-slate-500 mt-0.5">15 enterprise vendors, tax schemes, currency, and date locale resolution.</p>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
+                  <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span class="text-cyan-600">💱</span> ECB Exchange Rates
+                  </span>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Daily EUR/GBP/USD FX rates with fallback tolerance checks.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- HORIZONTAL DATA & AI SERVICES LAYER -->
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-4 text-white shadow-md border border-slate-800">
+          <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
+            <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-300">
+              <span class="text-indigo-400">🗄️</span>
+              <span>Data & AI Services Layer (Keyless Azure Managed Identity Integration)</span>
+            </div>
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950 border border-cyan-800 px-2 py-0.5 rounded font-semibold">ADR-007 Zero Static Secrets</span>
+          </div>
+
+          <div class="grid grid-cols-5 gap-3 text-center text-xs">
+            <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
+              <div class="text-lg">🗄️</div>
+              <strong class="text-white text-[11px] block mt-1">Azure SQL / SQLite</strong>
+              <p class="text-[9px] text-slate-400 mt-0.5">Vendors, Invoices, Lines, AuditLogs, ExchangeRates</p>
+            </div>
+
+            <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
+              <div class="text-lg">📦</div>
+              <strong class="text-white text-[11px] block mt-1">Azure Blob (7-Yr WORM)</strong>
+              <p class="text-[9px] text-slate-400 mt-0.5">2,557 days immutable retention policy (raw-invoices-immutable)</p>
+            </div>
+
+            <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
+              <div class="text-lg">⚡</div>
+              <strong class="text-white text-[11px] block mt-1">Azure Cache for Redis</strong>
+              <p class="text-[9px] text-slate-400 mt-0.5">Sliding-window rate limiter & async background job queue</p>
+            </div>
+
+            <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
+              <div class="text-lg">🧠</div>
+              <strong class="text-white text-[11px] block mt-1">Azure OpenAI East US 2</strong>
+              <p class="text-[9px] text-slate-400 mt-0.5">GPT-4o Vision & GPT-4o-mini with prompt caching</p>
+            </div>
+
+            <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
+              <div class="text-lg">🔐</div>
+              <strong class="text-white text-[11px] block mt-1">Azure Key Vault</strong>
+              <p class="text-[9px] text-slate-400 mt-0.5">Hardware-backed secrets with Entra ID Managed Identity</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM SECTION: AZURE DEPLOYMENT (EAST US 2) -->
+        <div class="bg-gradient-to-r from-blue-50/70 via-slate-50 to-indigo-50/70 rounded-2xl border border-blue-200 p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3 border-b border-blue-100 pb-2">
+            <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-blue-900">
+              <span class="text-blue-600">☁️</span>
+              <span>Production Cloud Deployment (Strict East US 2 Regional Confinement)</span>
+            </div>
+            <span class="text-[10px] font-mono text-blue-800 bg-blue-100 border border-blue-300 px-2 py-0.5 rounded font-semibold">infrastructure/main.bicep</span>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 items-center">
+            <div class="col-span-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm">🐳</div>
               <div>
-                <p class="text-xs font-bold text-slate-800">Sarah Jenkins</p>
-                <p class="text-[10px] text-purple-700 font-medium">AP Specialist (Scan & Verify)</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">Invoice Upload, Line-Item Reconciliation, Mismatch Triage</p>
+                <strong class="text-xs text-slate-800 block">Docker Hardening</strong>
+                <p class="text-[10px] text-slate-500">Multi-stage Node/Nginx + Python 3.11-slim non-root (UID 10001)</p>
               </div>
             </div>
-            <div class="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
-              <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0">MC</div>
+
+            <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
+
+            <div class="col-span-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">🏗️</div>
               <div>
-                <p class="text-xs font-bold text-slate-800">Michael Chang</p>
-                <p class="text-[10px] text-blue-700 font-medium">Finance Manager (Approve > $10K)</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">High-Value Sign-off, Budget & PO Variance Escalations</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
-              <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center flex-shrink-0">DM</div>
-              <div>
-                <p class="text-xs font-bold text-slate-800">Dave Miller</p>
-                <p class="text-[10px] text-emerald-700 font-medium">Internal Audit & Compliance Admin</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">7-Year WORM Audit Trail, Security & RBAC Guardrails</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Key Capabilities -->
-        <div class="bg-gradient-to-b from-indigo-50/80 to-white rounded-2xl border border-indigo-200/80 p-4 shadow-sm space-y-2.5">
-          <div class="flex items-center gap-2 text-indigo-900 font-bold text-xs uppercase tracking-wider mb-2">
-            <div class="w-5 h-5 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[10px]">⚡</div>
-            <span>Key Platform Capabilities</span>
-          </div>
-          <ul class="text-[11px] text-slate-700 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>Multi-Modal AI Capture:</strong> PyMuPDF density checks to route Searchable PDF vs Scans.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>Model Gateway:</strong> Dynamic routing to GPT-4o-mini or GPT-4o Vision with caching.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>Deterministic Rules:</strong> Line arithmetic (±$0.02) & invoice total (±$0.05) checks.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>Multi-Country Tax:</strong> US Sales Tax, UK VAT, German MwSt, and Spanish IVA.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>Tri-Tier Routing:</strong> ≥90% STP, 80-89% Review, &lt;80% Approval, &gt;$10k Sign-off.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>7-Year WORM Storage:</strong> 2,557 days immutable Azure Blob retention hold.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>Modern React UI:</strong> Client-facing Workbench with Zoom, Exceptions, & Audit.</div>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-indigo-600 font-bold mt-0.5">✓</span>
-              <div><strong>East US 2 Confinement:</strong> Strict VNet Private Endpoints & Deny Internet NSG.</div>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- ================= CENTER COLUMN: WORKFLOW & SERVICES (6.5 cols) ================= -->
-      <div class="col-span-6 space-y-4">
-
-        <!-- Application Layer (User Interaction) -->
-        <div class="bg-white rounded-2xl border border-slate-300 p-4 shadow-sm">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
-            <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-800">
-              <div class="w-5 h-5 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px]">💻</div>
-              <span>Application Layer (User Interaction)</span>
-            </div>
-            <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md font-semibold">React 18 • Vite 5 • Tailwind CSS</span>
-          </div>
-
-          <div class="grid grid-cols-12 gap-3 items-center">
-            <!-- UI Monitor Card -->
-            <div class="col-span-5 bg-slate-900 rounded-xl p-3 text-white border border-slate-800 shadow">
-              <div class="flex items-center gap-1.5 mb-2">
-                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span class="text-[9px] font-mono text-slate-400 ml-1">ApexAP Review Workbench</span>
-              </div>
-              <div class="bg-slate-950 p-2 rounded-lg text-[9px] space-y-1 font-mono">
-                <div class="flex justify-between text-indigo-400"><span>INV-2026-9041</span><span>$14,250.00</span></div>
-                <div class="text-slate-400">Match: 98.5% • Balanced ✓</div>
-                <div class="text-amber-400 bg-amber-500/10 px-1 py-0.5 rounded text-[8px]">Needs Manager Approval</div>
+                <strong class="text-xs text-slate-800 block">Azure Container Apps</strong>
+                <p class="text-[10px] text-slate-500">ca-api (FastAPI :8000) & ca-ui (React :8080) in VNet (snet-aca)</p>
               </div>
             </div>
 
-            <!-- Features Checklist -->
-            <div class="col-span-7 grid grid-cols-2 gap-1.5 text-[10px] text-slate-700">
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Executive Dashboard</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Interactive Zoom (+/-)</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Drag & Drop Ingestion</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>3-Way Match Verification</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Exceptions Triage Queue</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Role Switcher (JWT)</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Revalidate with Reason</span></div>
-              <div class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span> <span>Chronological Audit Trail</span></div>
-            </div>
-          </div>
-        </div>
+            <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
 
-        <!-- FastAPI Backend (API Layer) -->
-        <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 rounded-2xl border border-emerald-200 p-3.5 shadow-sm">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-emerald-900">
-              <div class="w-5 h-5 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-[10px]">⚡</div>
-              <span>FastAPI Backend (API Layer)</span>
-            </div>
-            <span class="text-[10px] font-mono text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded font-semibold">Python 3.11 • Async SQLAlchemy 2</span>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2">
-            <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
-              <span class="text-[10px] font-bold text-emerald-800 flex items-center gap-1">📥 Upload API</span>
-              <p class="font-mono text-[9px] text-slate-500">/api/v1/invoices/upload</p>
-              <p class="text-[9px] text-slate-400 mt-0.5">SHA-256 Dedup & WORM</p>
-            </div>
-            <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
-              <span class="text-[10px] font-bold text-blue-800 flex items-center gap-1">📋 Invoices API</span>
-              <p class="font-mono text-[9px] text-slate-500">/api/v1/invoices/{id}</p>
-              <p class="text-[9px] text-slate-400 mt-0.5">Detail & Line Items Query</p>
-            </div>
-            <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
-              <span class="text-[10px] font-bold text-amber-800 flex items-center gap-1">⚠️ Exceptions API</span>
-              <p class="font-mono text-[9px] text-slate-500">/api/v1/invoices/exceptions</p>
-              <p class="text-[9px] text-slate-400 mt-0.5">Triage Discrepancy Queue</p>
-            </div>
-            <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
-              <span class="text-[10px] font-bold text-purple-800 flex items-center gap-1">🔄 Revalidate API</span>
-              <p class="font-mono text-[9px] text-slate-500">.../{id}/revalidate</p>
-              <p class="text-[9px] text-slate-400 mt-0.5">Reason Code Re-Execution</p>
-            </div>
-            <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
-              <span class="text-[10px] font-bold text-emerald-800 flex items-center gap-1">✅ Approvals API</span>
-              <p class="font-mono text-[9px] text-slate-500">.../{id}/approve</p>
-              <p class="text-[9px] text-slate-400 mt-0.5">RBAC &gt; $10k Enforcement</p>
-            </div>
-            <div class="p-2 rounded-xl bg-white border border-emerald-100 shadow-2xs">
-              <span class="text-[10px] font-bold text-indigo-800 flex items-center gap-1">🛡️ Audit Trail API</span>
-              <p class="font-mono text-[9px] text-slate-500">.../{id}/audit</p>
-              <p class="text-[9px] text-slate-400 mt-0.5">Immutable Event Log Stream</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Core Extraction, Rules Engine & State Machine Workflow -->
-        <div class="bg-gradient-to-b from-purple-50/60 to-white rounded-2xl border-2 border-purple-200 p-4 shadow-sm space-y-3">
-          <div class="flex items-center justify-between border-b border-purple-100 pb-2">
-            <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-purple-900">
-              <div class="w-5 h-5 rounded-lg bg-purple-600 text-white flex items-center justify-center text-[10px]">⚙️</div>
-              <span>Core Extraction, Validation Rules & Confidence Routing Workflow</span>
-            </div>
-            <span class="text-[10px] font-mono text-purple-700 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded font-semibold">10-State FSM • Zero Hallucination Risk</span>
-          </div>
-
-          <!-- Workflow Visual Flow Diagram -->
-          <div class="space-y-3 text-xs">
-            <!-- Row 1: Document Classification & Model Gateway -->
-            <div class="grid grid-cols-12 gap-2 items-center">
-              <div class="col-span-3 bg-white p-2 rounded-xl border border-purple-200 text-center shadow-2xs">
-                <span class="text-[10px] font-bold text-purple-900">Document Classifier</span>
-                <p class="text-[9px] text-slate-500">PyMuPDF Text Density Check</p>
+            <div class="col-span-4 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
+              <div class="flex items-center justify-between mb-1">
+                <strong class="text-xs text-slate-800">Private Endpoints & Security</strong>
+                <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">snet-endpoints</span>
               </div>
-              <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
-              <div class="col-span-4 bg-white p-2 rounded-xl border border-purple-200 text-center shadow-2xs">
-                <span class="text-[10px] font-bold text-purple-900">Model Gateway Router</span>
-                <p class="text-[9px] text-slate-500">GPT-4o-mini (PDF) / GPT-4o (Vision)</p>
-              </div>
-              <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
-              <div class="col-span-3 bg-white p-2 rounded-xl border border-purple-200 text-center shadow-2xs">
-                <span class="text-[10px] font-bold text-purple-900">Pydantic Parser</span>
-                <p class="text-[9px] text-slate-500">10 Header Fields + Line Items</p>
-              </div>
-            </div>
-
-            <!-- Row 2: Validation Rules Engine Checks -->
-            <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs space-y-1.5">
-              <div class="flex items-center justify-between text-[11px] font-bold text-slate-800">
-                <span>Deterministic Rules Engine (Pure Python — Never Trusts LLM Math)</span>
-                <span class="text-emerald-600 font-mono text-[10px]">100% Math Verification</span>
-              </div>
-              <div class="grid grid-cols-4 gap-2 text-[10px]">
-                <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
-                  <strong>Duplicate SHA-256</strong>
-                  <p class="text-[9px] text-slate-500">Vendor + Inv# + Total</p>
-                </div>
-                <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
-                  <strong>Line Arithmetic</strong>
-                  <p class="text-[9px] text-slate-500">Qty × Unit = Total ±$0.02</p>
-                </div>
-                <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
-                  <strong>Total Arithmetic</strong>
-                  <p class="text-[9px] text-slate-500">Sub + Tax = Total ±$0.05</p>
-                </div>
-                <div class="p-1.5 bg-slate-50 rounded-lg border border-slate-200 text-center">
-                  <strong>Multi-Country Tax</strong>
-                  <p class="text-[9px] text-slate-500">US, UK, DE, ES Schemes</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Row 3: Tri-Tier Confidence Router & Escalation -->
-            <div class="grid grid-cols-3 gap-2 text-center text-[10px]">
-              <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-300">
-                <div class="font-bold text-emerald-800">≥90% Confidence + Balanced</div>
-                <div class="font-mono text-emerald-700 font-bold text-xs mt-0.5">VALIDATED (STP)</div>
-                <p class="text-[9px] text-emerald-600 mt-1">90% Straight-Through Released</p>
-              </div>
-              <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-300">
-                <div class="font-bold text-amber-800">80% – 89% or Minor Flag</div>
-                <div class="font-mono text-amber-700 font-bold text-xs mt-0.5">REQUIRES_REVIEW</div>
-                <p class="text-[9px] text-amber-600 mt-1">Routed to Sarah (AP Specialist)</p>
-              </div>
-              <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-300">
-                <div class="font-bold text-rose-800">&lt;80% or Total &gt; $10k</div>
-                <div class="font-mono text-rose-700 font-bold text-xs mt-0.5">MANAGER_APPROVAL</div>
-                <p class="text-[9px] text-rose-600 mt-1">Escalated to Michael Chang</p>
+              <div class="grid grid-cols-2 gap-1 text-[9px] text-slate-600">
+                <div>✓ Keyless Entra ID RBAC</div>
+                <div>✓ NSG Deny Internet Outbound</div>
+                <div>✓ Private Links (SQL, Blob, AI)</div>
+                <div>✓ 100% East US 2 Data Confinement</div>
               </div>
             </div>
           </div>
         </div>
 
-      </div>
-
-      <!-- ================= RIGHT COLUMN: DATA INGESTION PIPELINE (3 cols) ================= -->
-      <div class="col-span-3 space-y-4">
-
-        <!-- Data Ingestion Pipeline -->
-        <div class="bg-gradient-to-b from-cyan-50/80 to-white rounded-2xl border border-cyan-200 p-4 shadow-sm space-y-3">
-          <div class="flex items-center gap-2 text-cyan-900 font-bold text-xs uppercase tracking-wider mb-2">
-            <div class="w-5 h-5 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-[10px]">📦</div>
-            <span>Data Ingestion Pipeline</span>
+        <!-- BOTTOM BANNER: END-TO-END FLOW -->
+        <div id="flow" class="bg-slate-900 rounded-2xl p-4 text-white shadow-lg border border-slate-800">
+          <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-300 mb-3">
+            <span class="text-blue-400">🚀</span>
+            <span>End-to-End Invoice Processing Lifecycle (7 Verified Stages)</span>
           </div>
 
-          <div class="space-y-2.5">
-            <!-- Step 1 -->
-            <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
-              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <span class="text-cyan-600">📄</span> Inbound Documents
-              </span>
-              <p class="text-[10px] text-slate-500 mt-0.5">Single/batch PDF, PNG, JPG, XLSX (up to 25 MB max size cap, FR-01).</p>
+          <div class="grid grid-cols-7 gap-2 text-center">
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">1</div>
+              <strong class="text-[10px] text-white block">Upload Invoice</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">Vendor/Clerk submits via React Web UI</p>
             </div>
 
-            <!-- Step 2 -->
-            <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
-              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <span class="text-cyan-600">🔍</span> Document Classifier
-              </span>
-              <p class="text-[10px] text-slate-500 mt-0.5">PyMuPDF text-layer analysis distinguishes searchable PDFs from scans.</p>
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">2</div>
+              <strong class="text-[10px] text-white block">WORM Archiving</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">SHA-256 dedup & 7-yr immutable Blob write</p>
             </div>
 
-            <!-- Step 3 -->
-            <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
-              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <span class="text-cyan-600">🛡️</span> 7-Year WORM Storage
-              </span>
-              <p class="text-[10px] text-slate-500 mt-0.5">Stored in Azure Blob container <code class="font-mono text-cyan-700 bg-cyan-50 px-1 rounded">raw-invoices-immutable</code> (2,557 days hold).</p>
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">3</div>
+              <strong class="text-[10px] text-white block">AI Model Gateway</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">Routes to GPT-4o Vision or GPT-4o-mini</p>
             </div>
 
-            <!-- Step 4 -->
-            <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
-              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <span class="text-cyan-600">🏢</span> Vendor Master Master DB
-              </span>
-              <p class="text-[10px] text-slate-500 mt-0.5">15 enterprise vendors, tax schemes, currency, and date locale resolution.</p>
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">4</div>
+              <strong class="text-[10px] text-white block">Pydantic Parsing</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">Extracts 10 headers & all line items</p>
             </div>
 
-            <!-- Step 5 -->
-            <div class="p-2.5 bg-white rounded-xl border border-cyan-100 shadow-2xs">
-              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <span class="text-cyan-600">💱</span> ECB Exchange Rates
-              </span>
-              <p class="text-[10px] text-slate-500 mt-0.5">Daily EUR/GBP/USD FX rates with fallback tolerance checks.</p>
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">5</div>
+              <strong class="text-[10px] text-white block">Rules Engine</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">Line math ±$0.02 & tax (US/UK/DE/ES)</p>
+            </div>
+
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">6</div>
+              <strong class="text-[10px] text-white block">Confidence Routing</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">≥90% STP vs Review vs Manager ($10k)</p>
+            </div>
+
+            <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
+              <div class="w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">7</div>
+              <strong class="text-[10px] text-emerald-400 block">Payment Release</strong>
+              <p class="text-[8px] text-slate-400 mt-0.5">Immutable AuditLog written & payment queued</p>
             </div>
           </div>
         </div>
@@ -348,152 +737,47 @@
       </div>
 
     </div>
+  </section>
 
-    <!-- ================= HORIZONTAL DATA & AI SERVICES LAYER ================= -->
-    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-4 text-white shadow-md border border-slate-800">
-      <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
-        <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-300">
-          <span class="text-indigo-400">🗄️</span>
-          <span>Data & AI Services Layer (Keyless Azure Managed Identity Integration)</span>
-        </div>
-        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950 border border-cyan-800 px-2 py-0.5 rounded font-semibold">ADR-007 Zero Static Secrets</span>
+  <!-- ================= FLOATING REDIRECT CTA / LAUNCH STRIP ================= -->
+  <section class="py-14 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 border-t border-blue-500/30 text-white">
+    <div class="max-w-5xl mx-auto px-6 text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-blue-200 text-xs font-semibold">
+        <span>⚡ Ready for Live Interactive Walkthrough</span>
       </div>
-
-      <div class="grid grid-cols-5 gap-3 text-center text-xs">
-        <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
-          <div class="text-lg">🗄️</div>
-          <strong class="text-white text-[11px] block mt-1">Azure SQL / SQLite</strong>
-          <p class="text-[9px] text-slate-400 mt-0.5">Vendors, Invoices, Lines, AuditLogs, ExchangeRates</p>
-        </div>
-
-        <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
-          <div class="text-lg">📦</div>
-          <strong class="text-white text-[11px] block mt-1">Azure Blob (7-Yr WORM)</strong>
-          <p class="text-[9px] text-slate-400 mt-0.5">2,557 days immutable retention policy (raw-invoices-immutable)</p>
-        </div>
-
-        <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
-          <div class="text-lg">⚡</div>
-          <strong class="text-white text-[11px] block mt-1">Azure Cache for Redis</strong>
-          <p class="text-[9px] text-slate-400 mt-0.5">Sliding-window rate limiter & async background job queue</p>
-        </div>
-
-        <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
-          <div class="text-lg">🧠</div>
-          <strong class="text-white text-[11px] block mt-1">Azure OpenAI East US 2</strong>
-          <p class="text-[9px] text-slate-400 mt-0.5">GPT-4o Vision & GPT-4o-mini with prompt caching</p>
-        </div>
-
-        <div class="p-3 bg-slate-850/80 rounded-xl border border-slate-700/80">
-          <div class="text-lg">🔐</div>
-          <strong class="text-white text-[11px] block mt-1">Azure Key Vault</strong>
-          <p class="text-[9px] text-slate-400 mt-0.5">Hardware-backed secrets with Entra ID Managed Identity</p>
-        </div>
+      <h2 class="text-3xl font-extrabold text-white">Experience the Live AP Review Workbench</h2>
+      <p class="text-slate-300 text-sm max-w-2xl mx-auto leading-relaxed">
+        Test document ingestion with sample PDFs, zoom in/out with the document viewer, verify line arithmetic, and simulate multi-role approvals with Sarah, Michael, and Dave.
+      </p>
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
+        <a href="http://localhost:5173" target="_blank" class="px-8 py-4 rounded-2xl text-base font-extrabold text-slate-900 bg-white hover:bg-slate-100 shadow-2xl transition transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2.5">
+          <span>🚀 Go to Application Overview & Workbench</span>
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+        <a href="http://127.0.0.1:8000/docs" target="_blank" class="px-6 py-4 rounded-2xl text-base font-semibold text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-600 transition flex items-center gap-2">
+          <span>Open FastAPI Swagger Docs</span>
+        </a>
       </div>
     </div>
+  </section>
 
-    <!-- ================= BOTTOM SECTION: AZURE DEPLOYMENT (EAST US 2) ================= -->
-    <div class="bg-gradient-to-r from-blue-50/70 via-slate-50 to-indigo-50/70 rounded-2xl border border-blue-200 p-4 shadow-sm">
-      <div class="flex items-center justify-between mb-3 border-b border-blue-100 pb-2">
-        <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-blue-900">
-          <span class="text-blue-600">☁️</span>
-          <span>Production Cloud Deployment (Strict East US 2 Regional Confinement)</span>
-        </div>
-        <span class="text-[10px] font-mono text-blue-800 bg-blue-100 border border-blue-300 px-2 py-0.5 rounded font-semibold">infrastructure/main.bicep</span>
+  <!-- ================= FOOTER ================= -->
+  <footer class="py-8 bg-slate-950 border-t border-slate-900 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="font-bold text-slate-300">ApexAP Enterprise</span>
+        <span>•</span>
+        <span>Confined to Azure East US 2</span>
+        <span>•</span>
+        <span>7-Year WORM Regulatory Compliance</span>
       </div>
-
-      <div class="grid grid-cols-12 gap-4 items-center">
-        <!-- Flow Step 1 -->
-        <div class="col-span-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm">🐳</div>
-          <div>
-            <strong class="text-xs text-slate-800 block">Docker Hardening</strong>
-            <p class="text-[10px] text-slate-500">Multi-stage Node/Nginx + Python 3.11-slim non-root (UID 10001)</p>
-          </div>
-        </div>
-
-        <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
-
-        <!-- Flow Step 2 -->
-        <div class="col-span-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">🏗️</div>
-          <div>
-            <strong class="text-xs text-slate-800 block">Azure Container Apps</strong>
-            <p class="text-[10px] text-slate-500">ca-api (FastAPI :8000) & ca-ui (React :8080) in VNet (snet-aca)</p>
-          </div>
-        </div>
-
-        <div class="col-span-1 text-center font-bold text-slate-400">➔</div>
-
-        <!-- Flow Step 3 -->
-        <div class="col-span-4 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-          <div class="flex items-center justify-between mb-1">
-            <strong class="text-xs text-slate-800">Private Endpoints & Security</strong>
-            <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">snet-endpoints</span>
-          </div>
-          <div class="grid grid-cols-2 gap-1 text-[9px] text-slate-600">
-            <div>✓ Keyless Entra ID RBAC</div>
-            <div>✓ NSG Deny Internet Outbound</div>
-            <div>✓ Private Links (SQL, Blob, AI)</div>
-            <div>✓ 100% East US 2 Data Confinement</div>
-          </div>
-        </div>
+      <div class="flex items-center gap-6">
+        <a href="http://localhost:5173" class="hover:text-blue-400 transition">Workbench UI (:5173)</a>
+        <a href="http://127.0.0.1:8000/docs" class="hover:text-blue-400 transition">FastAPI Swagger (:8000)</a>
+        <a href="https://github.com/lokesh-repaka/enterprise-ap-invoice-automation" target="_blank" class="hover:text-blue-400 transition">GitHub Repo</a>
       </div>
     </div>
-
-    <!-- ================= BOTTOM BANNER: END-TO-END FLOW ================= -->
-    <div class="bg-slate-900 rounded-2xl p-4 text-white shadow-lg border border-slate-800">
-      <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-300 mb-3">
-        <span class="text-blue-400">🚀</span>
-        <span>End-to-End Invoice Processing Lifecycle (7 Verified Stages)</span>
-      </div>
-
-      <div class="grid grid-cols-7 gap-2 text-center">
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">1</div>
-          <strong class="text-[10px] text-white block">Upload Invoice</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">Vendor/Clerk submits via React Web UI</p>
-        </div>
-
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">2</div>
-          <strong class="text-[10px] text-white block">WORM Archiving</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">SHA-256 dedup & 7-yr immutable Blob write</p>
-        </div>
-
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">3</div>
-          <strong class="text-[10px] text-white block">AI Model Gateway</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">Routes to GPT-4o Vision or GPT-4o-mini</p>
-        </div>
-
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">4</div>
-          <strong class="text-[10px] text-white block">Pydantic Parsing</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">Extracts 10 headers & all line items</p>
-        </div>
-
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">5</div>
-          <strong class="text-[10px] text-white block">Rules Engine</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">Line math ±$0.02 & tax (US/UK/DE/ES)</p>
-        </div>
-
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">6</div>
-          <strong class="text-[10px] text-white block">Confidence Routing</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">≥90% STP vs Review vs Manager ($10k)</p>
-        </div>
-
-        <div class="bg-slate-800/90 p-2.5 rounded-xl border border-slate-700">
-          <div class="w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold mx-auto flex items-center justify-center mb-1">7</div>
-          <strong class="text-[10px] text-emerald-400 block">Payment Release</strong>
-          <p class="text-[8px] text-slate-400 mt-0.5">Immutable AuditLog written & payment queued</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  </footer>
 
 </body>
 </html>
