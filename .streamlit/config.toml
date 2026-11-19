@@ -12,3 +12,4 @@ showErrorDetails = false
 headless = true
 enableCORS = true
 enableXsrfProtection = true
+

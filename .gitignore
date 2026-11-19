@@ -27,3 +27,8 @@ AI_Solution_Architect_Masterclass_Slides.pdf
 /.agents/agent-calls.jsonl
 /.agents.bak-*/
 /GEMINI.local.md
+
+# Frontend dependencies & build artifacts
+frontend/node_modules/
+frontend/dist/
+
