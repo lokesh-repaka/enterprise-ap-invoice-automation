@@ -1,0 +1,272 @@
+{
+  "dataset_label": "sample_data",
+  "total_invoices": 300,
+  "completed_invoices": 300,
+  "crashed_invoices": 0,
+  "stp_count": 270,
+  "total_duration_ms": 735,
+  "header_macro_accuracy_pct": "100.00",
+  "critical_field_min_accuracy_pct": "100.00",
+  "line_item_accuracy_pct": "100.00",
+  "stp_rate_pct": "90.00",
+  "long_term_stp_objective_pct": "70.00",
+  "header_precision_pct": "100.00",
+  "header_recall_pct": "100.00",
+  "header_f1_pct": "100.00",
+  "line_precision_pct": "100.00",
+  "line_recall_pct": "100.00",
+  "line_f1_pct": "100.00",
+  "overall_precision_pct": "100.00",
+  "overall_recall_pct": "100.00",
+  "overall_f1_pct": "100.00",
+  "per_header_field": {
+    "vendor_name": {
+      "field_name": "vendor_name",
+      "is_critical": false,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "vendor_tax_id": {
+      "field_name": "vendor_tax_id",
+      "is_critical": true,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "invoice_number": {
+      "field_name": "invoice_number",
+      "is_critical": true,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "invoice_date": {
+      "field_name": "invoice_date",
+      "is_critical": true,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "due_date": {
+      "field_name": "due_date",
+      "is_critical": false,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "po_number": {
+      "field_name": "po_number",
+      "is_critical": false,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "subtotal": {
+      "field_name": "subtotal",
+      "is_critical": false,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "tax_amount": {
+      "field_name": "tax_amount",
+      "is_critical": false,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "total_amount": {
+      "field_name": "total_amount",
+      "is_critical": true,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    },
+    "currency": {
+      "field_name": "currency",
+      "is_critical": false,
+      "matched_count": 300,
+      "total_count": 300,
+      "accuracy_pct": "100.00",
+      "precision_pct": "100.00",
+      "recall_pct": "100.00",
+      "f1_pct": "100.00"
+    }
+  },
+  "critical_field_accuracies_pct": {
+    "vendor_tax_id": "100.00",
+    "invoice_number": "100.00",
+    "invoice_date": "100.00",
+    "total_amount": "100.00"
+  },
+  "status_distribution": {
+    "CREDIT_NOTE": 1,
+    "FLAGGED_POTENTIAL_REVISION": 1,
+    "REJECTED_TAX_MISMATCH": 1,
+    "REQUIRES_MANAGER_APPROVAL": 26,
+    "REQUIRES_REVIEW": 1,
+    "VALIDATED": 270
+  },
+  "by_test_case_type": {
+    "ambiguous_date_locale": {
+      "test_case_type": "ambiguous_date_locale",
+      "total_invoices": 1,
+      "completed_invoices": 1,
+      "crashed_invoices": 0,
+      "stp_count": 0,
+      "stp_rate_pct": "0.00"
+    },
+    "credit_note": {
+      "test_case_type": "credit_note",
+      "total_invoices": 1,
+      "completed_invoices": 1,
+      "crashed_invoices": 0,
+      "stp_count": 0,
+      "stp_rate_pct": "0.00"
+    },
+    "po_variance_exceeded": {
+      "test_case_type": "po_variance_exceeded",
+      "total_invoices": 1,
+      "completed_invoices": 1,
+      "crashed_invoices": 0,
+      "stp_count": 1,
+      "stp_rate_pct": "100.00"
+    },
+    "potential_revision": {
+      "test_case_type": "potential_revision",
+      "total_invoices": 1,
+      "completed_invoices": 1,
+      "crashed_invoices": 0,
+      "stp_count": 0,
+      "stp_rate_pct": "0.00"
+    },
+    "rounding_within_tolerance": {
+      "test_case_type": "rounding_within_tolerance",
+      "total_invoices": 1,
+      "completed_invoices": 1,
+      "crashed_invoices": 0,
+      "stp_count": 1,
+      "stp_rate_pct": "100.00"
+    },
+    "standard": {
+      "test_case_type": "standard",
+      "total_invoices": 294,
+      "completed_invoices": 294,
+      "crashed_invoices": 0,
+      "stp_count": 268,
+      "stp_rate_pct": "91.16"
+    },
+    "tax_mismatch": {
+      "test_case_type": "tax_mismatch",
+      "total_invoices": 1,
+      "completed_invoices": 1,
+      "crashed_invoices": 0,
+      "stp_count": 0,
+      "stp_rate_pct": "0.00"
+    }
+  },
+  "thresholds": {
+    "header_macro_accuracy_pct": "95.00",
+    "critical_field_floor_pct": "92.00",
+    "line_item_accuracy_pct": "90.00",
+    "stp_rate_pct": "65.00",
+    "max_crashed_invoices": 0,
+    "min_invoices": 1
+  },
+  "threshold_checks": [
+    {
+      "metric_name": "header_macro_accuracy",
+      "actual_value": "100.00",
+      "threshold_value": "95.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Header Macro-Average Accuracy 100.00% (target >= 95.00%)"
+    },
+    {
+      "metric_name": "critical_field_vendor_tax_id",
+      "actual_value": "100.00",
+      "threshold_value": "92.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Critical Field 'vendor_tax_id' Accuracy 100.00% (floor >= 92.00%)"
+    },
+    {
+      "metric_name": "critical_field_invoice_number",
+      "actual_value": "100.00",
+      "threshold_value": "92.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Critical Field 'invoice_number' Accuracy 100.00% (floor >= 92.00%)"
+    },
+    {
+      "metric_name": "critical_field_invoice_date",
+      "actual_value": "100.00",
+      "threshold_value": "92.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Critical Field 'invoice_date' Accuracy 100.00% (floor >= 92.00%)"
+    },
+    {
+      "metric_name": "critical_field_total_amount",
+      "actual_value": "100.00",
+      "threshold_value": "92.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Critical Field 'total_amount' Accuracy 100.00% (floor >= 92.00%)"
+    },
+    {
+      "metric_name": "line_item_accuracy",
+      "actual_value": "100.00",
+      "threshold_value": "90.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Line-Item Accuracy 100.00% (target >= 90.00%)"
+    },
+    {
+      "metric_name": "stp_rate",
+      "actual_value": "90.00",
+      "threshold_value": "65.00",
+      "operator": ">=",
+      "passed": true,
+      "detail": "Pilot STP Rate 90.00% (pilot target >= 65.00%, long-term objective 70.00%)"
+    },
+    {
+      "metric_name": "batch_stability",
+      "actual_value": "0",
+      "threshold_value": "0",
+      "operator": "<=",
+      "passed": true,
+      "detail": "Batch Stability: 0 crashes across 300 invoices (max crashes <= 0, min invoices >= 1)"
+    }
+  ],
+  "all_thresholds_passed": true,
+  "failed_gates": []
+}
