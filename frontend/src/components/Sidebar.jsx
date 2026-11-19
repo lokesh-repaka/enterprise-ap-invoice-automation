@@ -6,6 +6,7 @@ import {
   FileSearch,
   ShieldCheck,
   ChevronDown,
+  Compass,
 } from 'lucide-react';
 
 export default function Sidebar({
@@ -19,6 +20,7 @@ export default function Sidebar({
   const [showDropdown, setShowDropdown] = useState(false);
 
   const navItems = [
+    { id: 'landing', label: 'Landing & Blueprint', icon: Compass },
     { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
     { id: 'upload', label: 'Upload Invoices', icon: UploadCloud },
     {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
+import LandingPage from './components/LandingPage';
 import OverviewTab from './components/OverviewTab';
 import UploadTab from './components/UploadTab';
 import WorkbenchTab from './components/WorkbenchTab';
@@ -39,10 +40,24 @@ const PERSONAS = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    return hash && hash !== 'landing' ? hash : 'landing';
+  });
   const [selectedInvoiceId, setSelectedInvoiceId] = useState('INV-2026-9041');
   const [currentUser, setCurrentUser] = useState(PERSONAS[0]);
   const [systemStatus, setSystemStatus] = useState({ status: 'healthy' });
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setActiveTab(hash);
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
   const [invoices, setInvoices] = useState([
     {
       id: 'INV-2026-9041',
@@ -123,6 +138,17 @@ export default function App() {
       )
     );
   };
+
+  if (activeTab === 'landing') {
+    return (
+      <LandingPage
+        onLaunchWorkbench={() => {
+          setActiveTab('dashboard');
+          window.location.hash = 'dashboard';
+        }}
+      />
+    );
+  }
 
   return (
     <div className="bg-[#0b0f19] text-[#f1f5f9] antialiased m-0 p-0 font-sans text-sm selection:bg-indigo-500 selection:text-white flex h-screen overflow-hidden">
