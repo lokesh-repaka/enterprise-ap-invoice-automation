@@ -44,6 +44,41 @@ jobs:
       - name: Check code formatting
         run: ruff format --check src/ tests/
 
+  frontend-build-and-test:
+    name: Frontend React Build & Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build production bundle
+        working-directory: frontend
+        run: npm run build
+
+      - name: Verify build artifacts
+        run: |
+          test -f frontend/dist/index.html
+          echo "Frontend bundle compiled successfully."
+
+      - name: Upload frontend build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+          retention-days: 7
+
   offline-unit-tests:
     name: Offline Unit Tests
     runs-on: ubuntu-latest
@@ -103,9 +138,42 @@ jobs:
         run: |
           pytest -p pytest_asyncio -v tests/evaluation/
 
+  infrastructure-validation:
+    name: Azure Bicep & Hygiene Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run infrastructure & deployment hygiene tests
+        run: |
+          pytest -v tests/unit/test_bicep_infrastructure.py tests/unit/test_deployment_hygiene.py tests/unit/test_docker_compose.py tests/unit/test_dockerfile_ui.py
+
+      - name: Validate Bicep Template Build
+        run: |
+          az bicep build --file infrastructure/main.bicep
+          echo "infrastructure/main.bicep successfully compiled to ARM template without errors."
+
   build-package:
     name: Build Wheel & Distribution
-    needs: [lint-and-security, offline-unit-tests, evaluation-threshold-gates]
+    needs:
+      - lint-and-security
+      - frontend-build-and-test
+      - offline-unit-tests
+      - evaluation-threshold-gates
+      - infrastructure-validation
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

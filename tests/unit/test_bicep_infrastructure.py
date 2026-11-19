@@ -173,6 +173,23 @@ def test_bicep_declares_container_apps_and_managed_identity_rbac_roles() -> None
     )
 
 
+def test_bicep_declares_private_endpoints_for_isolated_datastores() -> None:
+    """# Tests: P14-4, ADR-007, SEC-234 — Private Endpoints for Key Vault, SQL, Blob, Redis, OpenAI."""
+    content = _read_bicep_content()
+
+    assert "Microsoft.Network/privateEndpoints@" in content, (
+        "Must declare Private Endpoints for VNet isolation"
+    )
+    assert "snet-endpoints" in content, "Private Endpoints must be placed in snet-endpoints subnet"
+
+    # Verify link connections for all 5 isolated datastores
+    assert "plsc-keyvault" in content or "'vault'" in content, "Must declare Private Endpoint for Key Vault"
+    assert "plsc-sql" in content or "'sqlServer'" in content, "Must declare Private Endpoint for SQL Server"
+    assert "plsc-blob" in content or "'blob'" in content, "Must declare Private Endpoint for Blob Storage"
+    assert "plsc-redis" in content or "'redisCache'" in content, "Must declare Private Endpoint for Redis"
+    assert "plsc-openai" in content or "'account'" in content, "Must declare Private Endpoint for Azure OpenAI"
+
+
 def test_bicep_has_zero_static_secrets_or_plaintext_credentials() -> None:
     """# Tests: P14-4, ADR-007, N1, N8, SEC-234 — Zero plaintext credentials or hardcoded keys."""
     content = _read_bicep_content()

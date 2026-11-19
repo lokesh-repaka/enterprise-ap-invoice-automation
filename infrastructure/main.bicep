@@ -383,6 +383,121 @@ resource gpt4oMiniDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
 }
 
 // ==============================================================================
+// 7b. Networking: Private Endpoints for Isolated Datastores (snet-endpoints)
+// ==============================================================================
+var endpointSubnetId = '${virtualNetwork.id}/subnets/snet-endpoints'
+
+// Private Endpoint: Azure Key Vault
+resource peKeyVault 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+  name: 'pe-${keyVaultName}'
+  location: location
+  properties: {
+    subnet: {
+      id: endpointSubnetId
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'plsc-keyvault'
+        properties: {
+          privateLinkServiceId: keyVault.id
+          groupIds: [
+            'vault'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+// Private Endpoint: Azure SQL Database
+resource peSqlServer 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+  name: 'pe-${sqlServerName}'
+  location: location
+  properties: {
+    subnet: {
+      id: endpointSubnetId
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'plsc-sql'
+        properties: {
+          privateLinkServiceId: sqlServer.id
+          groupIds: [
+            'sqlServer'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+// Private Endpoint: Azure Blob Storage
+resource peStorageBlob 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+  name: 'pe-${storageAccountName}-blob'
+  location: location
+  properties: {
+    subnet: {
+      id: endpointSubnetId
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'plsc-blob'
+        properties: {
+          privateLinkServiceId: storageAccount.id
+          groupIds: [
+            'blob'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+// Private Endpoint: Azure Cache for Redis
+resource peRedis 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+  name: 'pe-${redisName}'
+  location: location
+  properties: {
+    subnet: {
+      id: endpointSubnetId
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'plsc-redis'
+        properties: {
+          privateLinkServiceId: redisCache.id
+          groupIds: [
+            'redisCache'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+// Private Endpoint: Azure OpenAI Model Gateway
+resource peOpenAi 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+  name: 'pe-${openAiName}'
+  location: location
+  properties: {
+    subnet: {
+      id: endpointSubnetId
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'plsc-openai'
+        properties: {
+          privateLinkServiceId: openAiAccount.id
+          groupIds: [
+            'account'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+// ==============================================================================
 // 8. Compute: Azure Container Apps Environment & Services
 // ==============================================================================
 resource containerAppEnv 'Microsoft.App/managedEnvironments@2023-05-01' = {
