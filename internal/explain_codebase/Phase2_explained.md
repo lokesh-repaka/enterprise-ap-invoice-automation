@@ -139,3 +139,4 @@ Here is your exact pitch:
 | **Can anyone edit or erase the audit history?** | No—the Audit Log repository is strictly append-only (permanent ink) with zero update or delete capabilities. |
 | **How are foreign currencies handled on weekends?** | The system automatically finds the latest official European Central Bank rate on or before the invoice's date. |
 | **How reliable is this code?** | 55 automated tests pass in **0.59 seconds** with 100% pass rate on GitHub Actions CI. |
+

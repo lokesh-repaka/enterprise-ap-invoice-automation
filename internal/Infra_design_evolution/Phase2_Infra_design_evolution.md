@@ -225,3 +225,4 @@ flowchart TD
 | **P2-3** | `StaticPool` & Async Session Wiring | 6 async repository tests across isolated sessions | Verified ✅ |
 | **P2-4** | Read-Only Seed Containment & Idempotent CLI | `test_seed_all_end_to_end_sqlite_file` + CWE-22 test | Verified ✅ |
 | **P2-5** | Multi-Session Partial Unique Index Lock | Multi-session `session_a`/`session_b` race test + Alembic `0002` | Verified ✅ |
+

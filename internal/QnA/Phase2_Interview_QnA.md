@@ -205,3 +205,4 @@ When opening PR #1 (`P2-1`), all 31 unit tests passed locally on macOS, but GitH
 | **CWE-22** | Path Traversal in Seeding | `_resolve_safe_json_path()` enforces strict containment within `sample_data_dir`. |
 | **CWE-20** | Poisoned Reference Data | Strict validation on tax rate bounds `[0, 1]`, positive FX rates, and ISO-3 currencies. |
 | **CWE-200** | PII Exposure in Object Reprs | Masked `Vendor.__repr__` (`***-**-XXXX`) + aggregate-only seed CLI logs. |
+
