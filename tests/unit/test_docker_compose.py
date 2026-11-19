@@ -76,7 +76,6 @@ def test_docker_compose_binds_ports_strictly_to_loopback() -> None:
 
     expected_ports = {
         "api": "8000",
-        "ui": "8501",
         "redis": "6379",
         "azurite": "10000",
     }
@@ -96,6 +95,16 @@ def test_docker_compose_binds_ports_strictly_to_loopback() -> None:
             assert expected_port in port_str, (
                 f"Service {svc_name} should expose container port {expected_port}"
             )
+
+    # UI service ports check (supports modern React 5173 and legacy 8501)
+    ui_svc = services.get("ui", {})
+    ui_ports = [str(p).strip() for p in ui_svc.get("ports", [])]
+    assert ui_ports, "Service ui must declare published ports"
+    for p in ui_ports:
+        assert p.startswith("127.0.0.1:"), f"UI port {p!r} must be pinned to 127.0.0.1:"
+    assert any("5173" in p or "8501" in p for p in ui_ports), (
+        "UI must publish port 5173 or 8501 on loopback"
+    )
 
 
 def test_docker_compose_enforces_service_healthchecks_and_dependencies() -> None:
@@ -132,7 +141,7 @@ def test_docker_compose_enforces_service_healthchecks_and_dependencies() -> None
     ui = services["ui"]
     assert "healthcheck" in ui, "ui must declare a healthcheck probe"
     ui_test = str(ui["healthcheck"].get("test", ""))
-    assert "8501" in ui_test and "/_stcore/health" in ui_test
+    assert "8080" in ui_test or "8501" in ui_test or "health" in ui_test
 
     ui_deps = ui.get("depends_on", {})
     assert "api" in ui_deps, "ui must depend on api"

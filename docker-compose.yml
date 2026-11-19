@@ -90,7 +90,7 @@ services:
       USE_MOCK_BLOB_STORAGE: "false"
       AZURITE_BLOB_URL: "http://azurite:10000/devstoreaccount1/"
       AZURITE_ACCOUNT_NAME: "devstoreaccount1"
-      CORS_ALLOWED_ORIGINS: '["http://localhost:8501","http://127.0.0.1:8501"]'
+      CORS_ALLOWED_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173","http://localhost:8501","http://127.0.0.1:8501"]'
     volumes:
       - sqlite_data:/app/data
     networks:
@@ -114,7 +114,7 @@ services:
       retries: 3
 
   # ----------------------------------------------------------------------------
-  # UI: Streamlit Review Workbench & Exception Queue (Phase 11, P14-2)
+  # UI: React Review Workbench & Modern Web Frontend (Phase 11, P14-2)
   # ----------------------------------------------------------------------------
   ui:
     build:
@@ -123,32 +123,26 @@ services:
     container_name: ap-ui-local
     restart: unless-stopped
     ports:
-      - "127.0.0.1:8501:8501"
+      - "127.0.0.1:5173:8080"
+      - "127.0.0.1:8501:8080"
     environment:
       AP_API_BASE_URL: "http://api:8000"
-      STREAMLIT_SERVER_HEADLESS: "true"
-      STREAMLIT_SERVER_PORT: "8501"
-      STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION: "true"
-      STREAMLIT_SERVER_ENABLE_CORS: "true"
-      STREAMLIT_SERVER_MAX_UPLOAD_SIZE: "25"
-      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
-      STREAMLIT_CLIENT_SHOW_ERROR_DETAILS: "false"
     networks:
       - ap_network
     depends_on:
       api:
         condition: service_healthy
-    mem_limit: 512m
+    mem_limit: 256m
     pids_limit: 128
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     healthcheck:
-      test: ["CMD", "python", "-c", "import sys, urllib.request; resp = urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3); sys.exit(0 if resp.status == 200 else 1)"]
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8080/"]
       interval: 30s
       timeout: 5s
-      start_period: 20s
+      start_period: 10s
       retries: 3
 
 # ------------------------------------------------------------------------------

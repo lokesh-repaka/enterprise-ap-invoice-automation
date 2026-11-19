@@ -1,81 +1,59 @@
 # syntax=docker/dockerfile:1.7
 # ==============================================================================
-# Streamlit UI Image — Enterprise AP Invoice Automation Platform (P14-2)
-# Multi-stage hardened build: python:3.11-slim-bookworm, non-root UID 10001,
-# XSRF/CORS enforced, telemetry disabled (East US 2 N2), 25 MB upload cap (FR-01),
-# talks exclusively to FastAPI backend via src/ui/api_client.py (CLAUDE.md §12).
+# React UI Image — Enterprise AP Invoice Automation Platform (P14-2)
+# Multi-stage hardened build: node:20-alpine -> nginx:1.27-alpine
+# Non-root UID 10001 appuser, unprivileged Nginx on port 8080,
+# Automated API reverse proxy to FastAPI backend (http://api:8000).
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-# Stage 1: Builder — compile wheels & install production dependencies into venv
+# Stage 1: Builder — Compile Vite React & Tailwind assets
 # ------------------------------------------------------------------------------
-FROM python:3.11-slim-bookworm AS builder
-
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
-
-WORKDIR /build
-
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Copy only build metadata and application source (never blind COPY . .)
-COPY pyproject.toml ./
-COPY docs/CLAUDE.md ./docs/CLAUDE.md
-COPY src/ ./src/
-
-RUN pip install --no-cache-dir --upgrade "pip>=24.0" "setuptools>=69.0" "wheel>=0.43" \
-    && pip install --no-cache-dir .
-
-# ------------------------------------------------------------------------------
-# Stage 2: Runtime — minimal, non-root Streamlit production container
-# ------------------------------------------------------------------------------
-FROM python:3.11-slim-bookworm AS runtime
-
-LABEL org.opencontainers.image.title="Enterprise AP Invoice Automation UI" \
-      org.opencontainers.image.description="Hardened Streamlit review workbench and exception queue UI communicating strictly via FastAPI REST API" \
-      org.opencontainers.image.vendor="Enterprise AP Solution Team"
-
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PATH="/opt/venv/bin:$PATH" \
-    HOME="/tmp" \
-    AP_API_BASE_URL="http://api:8000" \
-    STREAMLIT_SERVER_HEADLESS="true" \
-    STREAMLIT_SERVER_ADDRESS="0.0.0.0" \
-    STREAMLIT_SERVER_PORT="8501" \
-    STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION="true" \
-    STREAMLIT_SERVER_ENABLE_CORS="true" \
-    STREAMLIT_SERVER_MAX_UPLOAD_SIZE="25" \
-    STREAMLIT_BROWSER_GATHER_USAGE_STATS="false" \
-    STREAMLIT_CLIENT_SHOW_ERROR_DETAILS="false" \
-    STREAMLIT_CLIENT_TOOLBAR_MODE="minimal" \
-    STREAMLIT_SERVER_FILE_WATCHER_TYPE="none"
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Create dedicated non-root system user & group with nologin shell (SEC-232, CWE-250 / CWE-732)
-RUN groupadd --gid 10001 --system appgroup \
-    && useradd --uid 10001 --gid appgroup --system --no-create-home --shell /usr/sbin/nologin appuser \
-    && mkdir -p /app/.streamlit \
-    && chown appuser:appgroup /app/.streamlit \
-    && chmod 750 /app/.streamlit
+# Copy dependency manifests
+COPY frontend/package.json frontend/package-lock.json ./
 
-# Copy venv and source as root:appgroup read-only so appuser cannot tamper with code at runtime
-COPY --from=builder --chown=root:appgroup /opt/venv /opt/venv
-COPY --chown=root:appgroup src/ /app/src/
-RUN chmod -R a-w /app/src
+# Install dependencies deterministically
+RUN npm ci
 
-# Drop privileges permanently before healthcheck and container start
+# Copy frontend application code
+COPY frontend/ ./
+
+# Build production bundle into /app/dist
+RUN npm run build
+
+# ------------------------------------------------------------------------------
+# Stage 2: Runtime — Minimal hardened non-root Nginx server
+# ------------------------------------------------------------------------------
+FROM nginx:1.27-alpine AS runtime
+
+LABEL org.opencontainers.image.title="Enterprise AP Invoice Automation React UI" \
+      org.opencontainers.image.description="Hardened Nginx container serving React 18 / Tailwind CSS client-facing frontend" \
+      org.opencontainers.image.vendor="Enterprise AP Solution Team"
+
+# Security: Create non-root appgroup and appuser (UID 10001) with nologin shell
+RUN addgroup -g 10001 appgroup && \
+    adduser -D -u 10001 -s /sbin/nologin -G appgroup appuser
+
+# Copy custom hardened unprivileged nginx configuration
+COPY frontend/nginx.conf /etc/nginx/nginx.conf
+
+# Copy compiled static assets from builder
+COPY --from=builder --chown=appuser:appgroup /app/dist /usr/share/nginx/html
+
+# Prepare writable directories for non-root user
+RUN mkdir -p /var/cache/nginx /var/run /tmp/client_temp /tmp/proxy_temp_path && \
+    chown -R appuser:appgroup /var/cache/nginx /var/run /usr/share/nginx/html /tmp
+
+# Switch to non-root user
 USER appuser
 
-EXPOSE 8501
+EXPOSE 8080
 
-# Zero-dependency stdlib liveness probe against Streamlit built-in /_stcore/health
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD ["python", "-c", "import sys, urllib.request; resp = urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3); sys.exit(0 if resp.status == 200 else 1)"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget -q -O - http://127.0.0.1:8080/ || exit 1
 
-# Exec-form entrypoint for clean SIGTERM handling (CLAUDE.md §14)
-CMD ["streamlit", "run", "src/ui/app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
+CMD ["nginx", "-g", "daemon off;"]

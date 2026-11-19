@@ -43,7 +43,12 @@ class Settings(BaseSettings):
         description="Maximum clock skew leeway in seconds for JWT exp/nbf checks.",
     )
     CORS_ALLOWED_ORIGINS: list[str] = Field(
-        default_factory=lambda: ["http://localhost:8501", "http://127.0.0.1:8501"],
+        default_factory=lambda: [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:8501",
+            "http://127.0.0.1:8501",
+        ],
         description="Explicit CORS origin allowlist (never '*' with credentials: CWE-942).",
     )
 
