@@ -15,7 +15,7 @@ param primaryRegion string = 'eastus2'
 
 @description('Deployment environment tier.')
 @allowed([
-  'staging',
+  'staging'
   'prod'
 ])
 param environment string = 'staging'
@@ -263,7 +263,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
     enableRbacAuthorization: true
     enableSoftDelete: true
     softDeleteRetentionInDays: 90
-    purgeProtection: true
+    enablePurgeProtection: true
     publicNetworkAccess: 'Disabled'
     networkAcls: {
       bypass: 'AzureServices'
