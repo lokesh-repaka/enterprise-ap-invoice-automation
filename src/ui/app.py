@@ -42,6 +42,20 @@ PAGE_EXCEPTIONS: str = "Human Exception Queue (/exceptions)"
 PAGE_REVISION: str = "Revision Comparison (/revision)"
 PAGE_AUDIT: str = "Audit Trail Viewer (/audit)"
 
+PAGE_FRIENDLY_LABELS: dict[str, str] = {
+    PAGE_INGESTION: "📊 Ingestion & Upload",
+    PAGE_EXCEPTIONS: "⚠️ Action Required (Exceptions)",
+    PAGE_WORKBENCH: "🔍 Review Workbench",
+    PAGE_REVISION: "🔄 Duplicate & Revision Check",
+    PAGE_AUDIT: "🛡️ Compliance & Audit Trail",
+}
+
+PERSONA_FRIENDLY_NAMES: dict[str, str] = {
+    "sarah.clerk": "Sarah Jenkins (AP Specialist)",
+    "michael.manager": "Michael Chang (Finance Manager)",
+    "dave.admin": "Dave Miller (Compliance Admin)",
+}
+
 NAVIGATION_PAGES: tuple[str, ...] = (
     PAGE_INGESTION,
     PAGE_WORKBENCH,
@@ -104,20 +118,20 @@ def render_app(
         client.set_access_token(saved_token)
 
     try:
-        # --- Sidebar: Identity, Backend Readiness & Page Navigation ---
-        st.sidebar.header("Enterprise AP Platform")
+        # 1. Branding Header & Logo
+        st.sidebar.header("ApexAP — Enterprise AP")
 
-        # 1. Backend Health Badge (public /health liveness probe)
-        try:
-            health_data = client.health()
-            health_status = sanitize_display_text(
-                str(health_data.get("status", "healthy")), max_length=32
-            )
-            st.sidebar.caption(f"Backend API: {health_status}")
-        except APIClientError:
-            st.sidebar.warning("Backend API unreachable — check FastAPI server status.")
+        # 2. Navigation with Client-Friendly Labels
+        selected_page = st.sidebar.radio(
+            "Navigation",
+            options=list(NAVIGATION_PAGES),
+            format_func=lambda page: PAGE_FRIENDLY_LABELS.get(page, page),
+            index=0,
+        )
 
-        # 2. Authentication (Demo Persona or Masked Bearer JWT)
+        st.sidebar.divider()
+
+        # 3. Authentication & Role Switcher
         persona_names = list(DEFAULT_DEMO_PERSONAS)
         try:
             personas_resp = client.list_demo_personas()
@@ -126,12 +140,42 @@ def render_app(
         except APIClientError:
             pass
 
-        selected_persona = st.sidebar.selectbox(
-            "Demo Persona",
-            options=persona_names,
-            index=0,
+        # Auto-authenticate in live application mode on first load
+        if st_module is None and not st.session_state.get("access_token") and persona_names:
+            default_p = persona_names[0]
+            try:
+                tok = client.issue_demo_token(default_p)
+                st.session_state["access_token"] = tok.access_token
+                st.session_state["user_email"] = tok.email
+                st.session_state["user_name"] = tok.name
+                st.session_state["user_roles"] = [tok.role]
+                st.session_state["active_persona"] = default_p
+                client.set_access_token(tok.access_token)
+            except Exception:
+                pass
+
+        st.sidebar.subheader("Active User")
+        current_persona = st.session_state.get(
+            "active_persona", persona_names[0] if persona_names else "sarah.clerk"
         )
-        if st.sidebar.button("Sign In as Demo Persona"):
+        persona_idx = (
+            persona_names.index(current_persona) if current_persona in persona_names else 0
+        )
+
+        selected_persona = st.sidebar.selectbox(
+            "Switch Role",
+            options=persona_names,
+            format_func=lambda p: PERSONA_FRIENDLY_NAMES.get(p, p),
+            index=persona_idx,
+        )
+
+        # Switch role button & auto-sync
+        switch_clicked = st.sidebar.button("Sign In as Demo Persona")
+        logged_in_persona = st.session_state.get("active_persona")
+        should_switch = switch_clicked or (
+            logged_in_persona is not None and selected_persona != logged_in_persona
+        )
+        if should_switch:
             try:
                 prev_email = st.session_state.get("user_email")
                 tok = client.issue_demo_token(selected_persona)
@@ -141,12 +185,29 @@ def render_app(
                 st.session_state["user_email"] = tok.email
                 st.session_state["user_name"] = tok.name
                 st.session_state["user_roles"] = [tok.role]
+                st.session_state["active_persona"] = selected_persona
+                client.set_access_token(tok.access_token)
                 st.sidebar.success(
-                    f"Signed in as {sanitize_display_text(tok.name, max_length=80)} ({tok.role})"
+                    f"Active: {sanitize_display_text(tok.name, max_length=80)} ({tok.role})"
                 )
             except APIClientError as exc:
                 st.sidebar.error(sanitize_display_text(str(exc), max_length=180))
 
+        active_roles: list[str] | None = st.session_state.get("user_roles")
+        if st.session_state.get("user_email"):
+            user_email = sanitize_display_text(str(st.session_state["user_email"]), max_length=100)
+            st.sidebar.caption(f"{user_email} · {get_role_badge(active_roles)}")
+            if st.sidebar.button("Sign Out"):
+                client.set_access_token(None)
+                for key in ("access_token", "user_email", "user_name", "user_roles", "active_persona"):
+                    st.session_state.pop(key, None)
+                _clear_session_batch_state(st.session_state)
+                active_roles = None
+        else:
+            st.sidebar.caption(f"Session: {get_role_badge(None)}")
+
+        # 4. Advanced Enterprise SSO Token Input
+        st.sidebar.caption("Enterprise SSO")
         manual_token = st.sidebar.text_input(
             "Or paste Entra ID Bearer Token",
             value="",
@@ -170,21 +231,15 @@ def render_app(
                 client.set_access_token(None)
                 st.sidebar.error(sanitize_display_text(str(exc), max_length=180))
 
-        active_roles: list[str] | None = st.session_state.get("user_roles")
-        if st.session_state.get("user_email"):
-            user_email = sanitize_display_text(str(st.session_state["user_email"]), max_length=100)
-            st.sidebar.caption(f"Signed in: {user_email} · {get_role_badge(active_roles)}")
-            if st.sidebar.button("Sign Out"):
-                client.set_access_token(None)
-                for key in ("access_token", "user_email", "user_name", "user_roles"):
-                    st.session_state.pop(key, None)
-                _clear_session_batch_state(st.session_state)
-                active_roles = None
-        else:
-            st.sidebar.caption(f"Session: {get_role_badge(None)}")
-
-        st.sidebar.divider()
-        selected_page = st.sidebar.radio("Navigation", options=list(NAVIGATION_PAGES), index=0)
+        # 5. System Health Status
+        try:
+            health_data = client.health()
+            health_status = sanitize_display_text(
+                str(health_data.get("status", "healthy")), max_length=32
+            )
+            st.sidebar.caption(f"🟢 System: {health_status.capitalize()}")
+        except APIClientError:
+            st.sidebar.warning("⚠️ System offline — connecting to API...")
 
         # --- Main Page Router ---
         effective_roles = active_roles if active_roles is not None else []

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexAP — Enterprise Invoice Automation</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Custom scrollbars & smooth transitions */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.4); }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-[#f1f5f9] antialiased m-0 p-0 font-sans text-sm selection:bg-indigo-500 selection:text-white flex h-screen overflow-hidden">
+
+  <!-- ================= LEFT SIDEBAR NAVIGATION ================= -->
+  <aside class="w-64 bg-[#111827] border-r border-slate-800/80 flex flex-col justify-between flex-shrink-0 z-40 select-none">
+    <!-- Top Branding & Nav Links -->
+    <div class="flex flex-col">
+      <!-- App Brand Logo -->
+      <div class="p-5 flex items-center gap-3 border-b border-slate-800/60">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-bold text-base tracking-tight text-white">Apex<span class="text-indigo-400">AP</span></span>
+            <span class="px-1.5 py-0.2 text-[9px] font-bold tracking-wider uppercase rounded bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">Enterprise</span>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-tight">Accounts Payable Suite</p>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav class="p-3 space-y-1">
+        <div class="px-3 pt-3 pb-1 text-[10px] font-semibold tracking-wider text-slate-400 uppercase">Workflow</div>
+
+        <!-- 1. Overview -->
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-white bg-indigo-600 shadow-md shadow-indigo-600/20">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            <span>Overview</span>
+          </div>
+        </button>
+
+        <!-- 2. Upload Invoices -->
+        <button onclick="switchTab('upload')" id="nav-upload" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+            <span>Upload Invoices</span>
+          </div>
+        </button>
+
+        <!-- 3. Exceptions & Approvals -->
+        <button onclick="switchTab('exceptions')" id="nav-exceptions" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <span>Action Required</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-bold border border-amber-500/30">3</span>
+        </button>
+
+        <!-- 4. Review Workbench -->
+        <button onclick="switchTab('workbench')" id="nav-workbench" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            <span>Review Workbench</span>
+          </div>
+        </button>
+
+        <!-- 5. Audit & Compliance -->
+        <button onclick="switchTab('audit')" id="nav-audit" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            <span>Audit Trail</span>
+          </div>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Bottom User Profile Pill & System Status -->
+    <div class="p-4 border-t border-slate-800/60 space-y-3">
+      <!-- Status Indicator -->
+      <div class="flex items-center justify-between text-xs px-2 text-slate-400">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>System Healthy</span>
+        </span>
+        <span class="text-[10px] text-slate-500 font-mono">v0.1.0</span>
+      </div>
+
+      <!-- User Profile Switcher Card -->
+      <div class="relative">
+        <button onclick="toggleUserDropdown()" class="w-full flex items-center justify-between bg-slate-850 hover:bg-slate-800/90 p-2.5 rounded-xl border border-slate-800 transition-colors">
+          <div class="flex items-center gap-2.5 text-left">
+            <div id="user-avatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center font-bold text-xs text-white shadow">SJ</div>
+            <div>
+              <div id="user-display-name" class="font-semibold text-xs text-white leading-tight">Sarah Jenkins</div>
+              <div id="user-role-badge" class="text-[10px] text-indigo-400 font-medium">AP Specialist</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+        </button>
+
+        <!-- Dropdown Popup -->
+        <div id="user-menu" class="hidden absolute bottom-14 left-0 w-64 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl p-2 z-50">
+          <div class="px-3 py-2 border-b border-slate-800 mb-1">
+            <p class="text-[10px] uppercase tracking-wider font-semibold text-slate-400">Active User Role</p>
+            <p class="text-xs text-slate-300">Simulate workflow role permissions</p>
+          </div>
+          <button onclick="setUser('sarah')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 flex items-center gap-2.5 transition">
+            <div class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xs flex items-center justify-center">SJ</div>
+            <div>
+              <div class="text-xs font-semibold text-white">Sarah Jenkins</div>
+              <div class="text-[10px] text-slate-400">AP Specialist (Scan & Verify)</div>
+            </div>
+          </button>
+          <button onclick="setUser('michael')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 flex items-center gap-2.5 transition">
+            <div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xs flex items-center justify-center">MC</div>
+            <div>
+              <div class="text-xs font-semibold text-white">Michael Chang</div>
+              <div class="text-[10px] text-slate-400">Finance Manager (Approve > $10K)</div>
+            </div>
+          </button>
+          <button onclick="setUser('dave')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 flex items-center gap-2.5 transition">
+            <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center">DM</div>
+            <div>
+              <div class="text-xs font-semibold text-white">Dave Miller</div>
+              <div class="text-[10px] text-slate-400">Internal Audit & Compliance</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= RIGHT MAIN APPLICATION AREA ================= -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Action Bar -->
+    <header class="h-16 border-b border-slate-800/80 bg-[#111827]/70 backdrop-blur-md px-8 flex items-center justify-between flex-shrink-0">
+      <!-- Breadcrumb / Search -->
+      <div class="flex items-center gap-4">
+        <h2 id="top-title" class="font-bold text-base text-white">Executive Dashboard</h2>
+        <div class="hidden md:flex items-center bg-slate-900 border border-slate-700/60 rounded-xl px-3 py-1.5 text-xs text-slate-400 w-80">
+          <svg class="w-4 h-4 text-slate-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input type="text" placeholder="Search by vendor, PO #, or invoice ID..." class="bg-transparent text-white focus:outline-none w-full">
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="switchTab('upload')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2 rounded-xl shadow-md shadow-indigo-600/25 transition flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+          Upload Invoices
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Content Viewport -->
+    <main class="flex-1 overflow-y-auto p-8 space-y-6">
+
+      <!-- ================= TAB 1: EXECUTIVE DASHBOARD ================= -->
+      <section id="tab-dashboard" class="space-y-6">
+        <div>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Invoice Processing Telemetry</h1>
+          <p class="text-xs text-slate-400 mt-1">Real-time status across multi-modal extraction, business rule validation, and payment releases.</p>
+        </div>
+
+        <!-- 4 Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-[#111827] rounded-2xl p-5 border border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">Total Invoices Processed</span>
+              <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-xs">📊</div>
+            </div>
+            <div class="mt-3 flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-white">1,482</span>
+              <span class="text-[11px] font-semibold text-emerald-400">↑ 12.4%</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">$4,821,390 volume (MTD)</p>
+          </div>
+
+          <div class="bg-[#111827] rounded-2xl p-5 border border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">Automated Match Rate</span>
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs">⚡</div>
+            </div>
+            <div class="mt-3 flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-white">92.6%</span>
+              <span class="text-[11px] font-semibold text-emerald-400">↑ 3.1%</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Straight-through processing</p>
+          </div>
+
+          <div class="bg-[#111827] rounded-2xl p-5 border border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">Action Required</span>
+              <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs">⚠️</div>
+            </div>
+            <div class="mt-3 flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-white">3</span>
+              <span class="text-[11px] font-semibold text-amber-400">1 Critical</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Pending review or approval</p>
+          </div>
+
+          <div class="bg-[#111827] rounded-2xl p-5 border border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">Average Processing Speed</span>
+              <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-xs">⏱️</div>
+            </div>
+            <div class="mt-3 flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-white">1.8s</span>
+              <span class="text-[11px] font-semibold text-emerald-400">99.4% accuracy</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Automated AI extraction</p>
+          </div>
+        </div>
+
+        <!-- Recent Invoices Table -->
+        <div class="bg-[#111827] rounded-2xl border border-slate-800 overflow-hidden shadow-sm">
+          <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+            <div>
+              <h2 class="font-semibold text-sm text-white">Recent Invoices</h2>
+              <p class="text-xs text-slate-400">Real-time status of incoming vendor invoices</p>
+            </div>
+            <button onclick="switchTab('exceptions')" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">View Action Queue →</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-black/20 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+                <tr>
+                  <th class="p-3.5 pl-6">Invoice ID</th>
+                  <th class="p-3.5">Vendor</th>
+                  <th class="p-3.5">Invoice Date</th>
+                  <th class="p-3.5">Total Amount</th>
+                  <th class="p-3.5">Extraction Match</th>
+                  <th class="p-3.5">Current Status</th>
+                  <th class="p-3.5 pr-6 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/80">
+                <tr class="hover:bg-slate-800/30 transition">
+                  <td class="p-3.5 pl-6 font-mono text-indigo-400 font-semibold">INV-2026-9041</td>
+                  <td class="p-3.5 text-white font-medium">Acme Industrial Ltd.</td>
+                  <td class="p-3.5 text-slate-300">Nov 18, 2026</td>
+                  <td class="p-3.5 font-semibold text-white">$14,250.00</td>
+                  <td class="p-3.5">
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-16 h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="w-full h-full bg-emerald-500"></div></div>
+                      <span class="text-emerald-400 font-mono text-[11px]">98.5%</span>
+                    </div>
+                  </td>
+                  <td class="p-3.5">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">Requires Manager Approval (> $10k)</span>
+                  </td>
+                  <td class="p-3.5 pr-6 text-right">
+                    <button onclick="openWorkbench('INV-2026-9041')" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-medium transition shadow-sm">Review</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition">
+                  <td class="p-3.5 pl-6 font-mono text-indigo-400 font-semibold">INV-2026-9042</td>
+                  <td class="p-3.5 text-white font-medium">CloudScale Data Services</td>
+                  <td class="p-3.5 text-slate-300">Nov 18, 2026</td>
+                  <td class="p-3.5 font-semibold text-white">$3,420.50</td>
+                  <td class="p-3.5">
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-16 h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="w-[96%] h-full bg-emerald-500"></div></div>
+                      <span class="text-emerald-400 font-mono text-[11px]">96.2%</span>
+                    </div>
+                  </td>
+                  <td class="p-3.5">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Approved (Automated)</span>
+                  </td>
+                  <td class="p-3.5 pr-6 text-right">
+                    <button onclick="openWorkbench('INV-2026-9042')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium transition">View</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-800/30 transition">
+                  <td class="p-3.5 pl-6 font-mono text-indigo-400 font-semibold">INV-2026-9043</td>
+                  <td class="p-3.5 text-white font-medium">Global Logistics Express</td>
+                  <td class="p-3.5 text-slate-300">Nov 17, 2026</td>
+                  <td class="p-3.5 font-semibold text-white">$890.00</td>
+                  <td class="p-3.5">
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-16 h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="w-[78%] h-full bg-amber-500"></div></div>
+                      <span class="text-amber-400 font-mono text-[11px]">78.0%</span>
+                    </div>
+                  </td>
+                  <td class="p-3.5">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">Math Mismatch ($12.00)</span>
+                  </td>
+                  <td class="p-3.5 pr-6 text-right">
+                    <button onclick="openWorkbench('INV-2026-9043')" class="px-3 py-1 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-medium transition shadow-sm">Resolve</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: INVOICE UPLOAD (CLIENT FRIENDLY) ================= -->
+      <section id="tab-upload" class="hidden space-y-6">
+        <div>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Upload Vendor Invoices</h1>
+          <p class="text-xs text-slate-400 mt-1">Upload single or batch invoices for automated AI extraction, purchase order matching, and validation.</p>
+        </div>
+
+        <!-- Clean Drag & Drop Upload Card -->
+        <div class="bg-[#111827] border-2 border-dashed border-indigo-500/30 hover:border-indigo-500/60 rounded-2xl p-12 text-center transition cursor-pointer flex flex-col items-center justify-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center shadow-inner">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+          </div>
+          <div class="space-y-1">
+            <p class="text-base font-semibold text-white">Drag & drop invoice files here, or <span class="text-indigo-400 underline">browse your computer</span></p>
+            <p class="text-xs text-slate-400">Supports PDF, PNG, and JPG invoices up to 25 MB.</p>
+            <p class="text-xs text-slate-500">Duplicate detection and automated invoice reconciliation enabled.</p>
+          </div>
+          <button onclick="simulateUpload()" class="mt-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-6 py-3 rounded-xl shadow-lg shadow-indigo-600/25 transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+            Upload Sample: Acme_Invoice_9044.pdf
+          </button>
+        </div>
+
+        <!-- Interactive Processing Progress Card (Client-Friendly) -->
+        <div id="upload-progress-card" class="hidden bg-[#111827] rounded-2xl p-6 border border-indigo-500/30 shadow-xl space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">PDF</div>
+              <div>
+                <p class="text-sm font-semibold text-white">Acme_Invoice_9044.pdf (1.2 MB)</p>
+                <p id="upload-status-text" class="text-xs text-slate-400">Verifying document and checking for duplicates...</p>
+              </div>
+            </div>
+            <span id="upload-pct" class="text-sm font-bold text-indigo-400 font-mono">25%</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+            <div id="upload-bar" class="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 w-[25%]"></div>
+          </div>
+
+          <!-- 3 Step Badges (Business-Oriented) -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>Duplicate Check: <strong class="text-white">Unique Document</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>Storage: <strong class="text-white">Encrypted & Archived</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-indigo-400 font-bold">⚡</span>
+              <span>AI Extraction: <strong class="text-indigo-400">In Progress</strong></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: REVIEW WORKBENCH ================= -->
+      <section id="tab-workbench" class="hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-2xl font-bold text-white tracking-tight">Invoice Review Workbench</h1>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">Requires Review</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Side-by-side original invoice document comparison with extracted line items and calculations.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="approveInvoice()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+              Approve for Payment
+            </button>
+            <button onclick="rejectInvoice()" class="bg-rose-600/80 hover:bg-rose-600 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+              Reject Invoice
+            </button>
+          </div>
+        </div>
+
+        <!-- Split Screen Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- LEFT: Document Viewer Mockup (5 cols) -->
+          <div class="lg:col-span-5 bg-[#111827] rounded-2xl border border-slate-800 overflow-hidden shadow-sm flex flex-col h-[650px]">
+            <div class="p-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-white font-semibold">Original PDF Viewer</span>
+              <div class="flex items-center gap-1.5 text-slate-400 text-xs">
+                <button onclick="zoomOut()" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-medium transition">- Zoom</button>
+                <span id="zoom-level-label" class="font-mono text-[10px] text-slate-400 min-w-[36px] text-center">100%</span>
+                <button onclick="zoomIn()" class="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-medium transition">+ Zoom</button>
+                <button onclick="resetZoom()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-[10px] text-slate-400" title="Reset Zoom">Reset</button>
+              </div>
+            </div>
+
+            <!-- Simulated High-Res Scanned Document -->
+            <div class="p-6 bg-slate-950 overflow-y-auto flex-1 font-serif text-[11px] leading-relaxed text-slate-300">
+              <div id="invoice-document-sheet" class="bg-white text-slate-900 p-8 rounded-lg shadow-xl max-w-sm mx-auto space-y-4 transition-transform duration-200 origin-top">
+                <div class="flex justify-between border-b pb-3">
+                  <div>
+                    <h3 class="font-bold text-base text-slate-900 font-sans tracking-tight">ACME SUPPLIES LTD</h3>
+                    <p class="text-[9px] text-slate-500">100 Enterprise Way, Suite 400<br>Wilmington, DE 19801</p>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-bold text-xs text-indigo-600 font-sans">INVOICE</span>
+                    <p class="text-[9px] text-slate-500">INV-2026-9041<br>Date: Nov 18, 2026</p>
+                  </div>
+                </div>
+
+                <div class="text-[9px] text-slate-600">
+                  <strong>Bill To:</strong> Contoso Global Logistics Inc.<br>
+                  PO Number: <span class="font-bold text-slate-900">PO-88210</span>
+                </div>
+
+                <table class="w-full text-[9px] border-t border-b py-1">
+                  <thead>
+                    <tr class="border-b text-slate-500">
+                      <th class="text-left py-1">Desc</th>
+                      <th class="text-center">Qty</th>
+                      <th class="text-right">Unit</th>
+                      <th class="text-right">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <tr>
+                      <td class="py-1">Industrial Hydraulic Pump Kit</td>
+                      <td class="text-center">2</td>
+                      <td class="text-right">$4,500.00</td>
+                      <td class="text-right font-medium">$9,000.00</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1">High-Pressure Valve Assembly</td>
+                      <td class="text-center">5</td>
+                      <td class="text-right">$850.00</td>
+                      <td class="text-right font-medium">$4,250.00</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1">Express Courier Freight</td>
+                      <td class="text-center">1</td>
+                      <td class="text-right">$1,000.00</td>
+                      <td class="text-right font-medium">$1,000.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="text-right space-y-0.5 text-[9px]">
+                  <div>Subtotal: $14,250.00</div>
+                  <div>Sales Tax (0% B2B): $0.00</div>
+                  <div class="font-bold text-sm font-sans text-slate-900 pt-1 border-t">Total: $14,250.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Extracted Data & Validation (7 cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            <!-- Business Policy Alert Banner -->
+            <div class="p-4 bg-amber-500/10 border border-amber-500/25 rounded-2xl flex items-start gap-3">
+              <span class="text-lg">⚠️</span>
+              <div class="text-xs">
+                <span class="font-bold text-amber-400">Approval Policy Flag:</span>
+                <p class="text-slate-300 mt-0.5">Invoice amount ($14,250.00) exceeds standard delegation limit of $10,000.00. Requires Finance Manager sign-off.</p>
+              </div>
+            </div>
+
+            <!-- Header Fields Form -->
+            <div class="bg-[#111827] rounded-2xl p-5 border border-slate-800 shadow-sm space-y-4">
+              <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Extracted Invoice Header</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-semibold">Vendor Name</label>
+                  <input type="text" value="Acme Industrial Ltd." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-semibold">Invoice Number</label>
+                  <input type="text" value="INV-2026-9041" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 uppercase font-semibold">Purchase Order (PO)</label>
+                  <input type="text" value="PO-88210" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1">
+                </div>
+              </div>
+
+              <!-- Financial Summary Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2">
+                <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-semibold">Subtotal</span>
+                  <p class="text-sm font-bold text-white mt-1">$14,250.00</p>
+                </div>
+                <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-semibold">Tax Rate</span>
+                  <p class="text-sm font-bold text-white mt-1">0.0% (Exempt)</p>
+                </div>
+                <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-semibold">Total Amount</span>
+                  <p class="text-sm font-bold text-emerald-400 mt-1">$14,250.00</p>
+                </div>
+                <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+                  <span class="text-[10px] text-slate-400 uppercase font-semibold">Math Verification</span>
+                  <p class="text-sm font-bold text-emerald-400 mt-1">Balanced ✓</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Line Items Table -->
+            <div class="bg-[#111827] rounded-2xl p-5 border border-slate-800 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Line Items (3)</h2>
+                <span class="text-xs text-emerald-400 font-semibold">PO Match Verified (100%)</span>
+              </div>
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-900 text-slate-400 text-[10px] uppercase">
+                  <tr>
+                    <th class="p-2.5 rounded-l-lg">Description</th>
+                    <th class="p-2.5 text-center">Qty</th>
+                    <th class="p-2.5 text-right">Unit Price</th>
+                    <th class="p-2.5 text-right rounded-r-lg">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800">
+                  <tr>
+                    <td class="p-2.5 text-white">Industrial Hydraulic Pump Kit</td>
+                    <td class="p-2.5 text-center">2</td>
+                    <td class="p-2.5 text-right font-mono">$4,500.00</td>
+                    <td class="p-2.5 text-right font-mono text-white font-semibold">$9,000.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 text-white">High-Pressure Valve Assembly</td>
+                    <td class="p-2.5 text-center">5</td>
+                    <td class="p-2.5 text-right font-mono">$850.00</td>
+                    <td class="p-2.5 text-right font-mono text-white font-semibold">$4,250.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2.5 text-white">Express Courier Freight</td>
+                    <td class="p-2.5 text-center">1</td>
+                    <td class="p-2.5 text-right font-mono">$1,000.00</td>
+                    <td class="p-2.5 text-right font-mono text-white font-semibold">$1,000.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Comment Box -->
+            <div class="bg-[#111827] rounded-2xl p-4 border border-slate-800 shadow-sm space-y-2">
+              <label class="text-[10px] text-slate-400 uppercase font-semibold">Approval Comment / Review Note</label>
+              <input type="text" id="review-comment" placeholder="e.g. Verified with warehouse manager, expedited freight authorized under PO-88210" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: EXCEPTIONS & APPROVALS ================= -->
+      <section id="tab-exceptions" class="hidden space-y-6">
+        <div>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Action Required</h1>
+          <p class="text-xs text-slate-400 mt-1">Invoices flagged for discrepancies or requiring manager approval before payment can be released.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3">
+          <!-- Card 1 -->
+          <div class="bg-[#111827] rounded-2xl p-4 border border-rose-500/30 shadow-md flex items-center justify-between hover:border-rose-500/50 transition">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center font-bold text-base mt-0.5">⚠️</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-xs font-bold text-indigo-400">INV-2026-9043</span>
+                  <span class="text-white font-semibold text-xs">Global Logistics Express</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30">Total Amount Discrepancy ($12.00)</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">Sum of extracted items ($878.00) does not match invoice total ($890.00).</p>
+                <div class="flex items-center gap-4 text-[11px] text-slate-500 mt-2">
+                  <span>Received: 2 hours ago</span>
+                  <span>Assigned: Sarah Jenkins</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="openWorkbench('INV-2026-9043')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow transition">Review & Fix</button>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-[#111827] rounded-2xl p-4 border border-amber-500/30 shadow-md flex items-center justify-between hover:border-amber-500/50 transition">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-base mt-0.5">💰</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-xs font-bold text-indigo-400">INV-2026-9041</span>
+                  <span class="text-white font-semibold text-xs">Acme Industrial Ltd.</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">Approval Required (> $10,000)</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">Invoice amount is $14,250.00. Requires Finance Manager sign-off.</p>
+                <div class="flex items-center gap-4 text-[11px] text-slate-500 mt-2">
+                  <span>Received: 4 hours ago</span>
+                  <span>Role: Finance Manager</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="openWorkbench('INV-2026-9041')" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-semibold shadow transition">Approve</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: AUDIT TRAIL ================= -->
+      <section id="tab-audit" class="hidden space-y-6">
+        <div>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Compliance & Audit Trail</h1>
+          <p class="text-xs text-slate-400 mt-1">Chronological record of invoice approvals, adjustments, and system verifications.</p>
+        </div>
+
+        <div class="bg-[#111827] rounded-2xl p-6 border border-slate-800 shadow-sm">
+          <div class="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-800">
+            <!-- Event 1 -->
+            <div class="relative">
+              <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-slate-900"></span>
+              <div class="text-xs">
+                <span class="font-bold text-white">Invoice Automatically Approved</span>
+                <span class="text-[10px] text-slate-400 ml-2">10 mins ago</span>
+                <p class="text-slate-300 mt-0.5">INV-2026-9042 matched PO-44102 and passed all tax checks. Released for payment.</p>
+                <div class="mt-1 text-[10px] text-slate-500">Action by: Automated Verification System</div>
+              </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="relative">
+              <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-amber-500 border-2 border-slate-900"></span>
+              <div class="text-xs">
+                <span class="font-bold text-white">Manager Approval Requested</span>
+                <span class="text-[10px] text-slate-400 ml-2">4 hours ago</span>
+                <p class="text-slate-300 mt-0.5">INV-2026-9041 ($14,250.00) routed to Michael Chang (Finance Manager).</p>
+                <div class="mt-1 text-[10px] text-slate-500">Reason: High-value invoice exceeding $10,000 threshold</div>
+              </div>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="relative">
+              <span class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-blue-500 border-2 border-slate-900"></span>
+              <div class="text-xs">
+                <span class="font-bold text-white">Invoice Uploaded & Archived</span>
+                <span class="text-[10px] text-slate-400 ml-2">4 hours ago</span>
+                <p class="text-slate-300 mt-0.5">Acme_Invoice_9041.pdf received and stored in secure digital archive.</p>
+                <div class="mt-1 text-[10px] text-slate-500">Uploaded by: Sarah Jenkins (AP Specialist)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= CLIENT JAVASCRIPT ================= -->
+  <script>
+    const pageTitles = {
+      dashboard: "Executive Dashboard",
+      upload: "Upload Invoices",
+      exceptions: "Exceptions & Approvals",
+      workbench: "Review Workbench",
+      audit: "Audit & Compliance"
+    };
+
+    function switchTab(tabId) {
+      const tabs = ['dashboard', 'upload', 'exceptions', 'workbench', 'audit'];
+      tabs.forEach(t => {
+        const section = document.getElementById('tab-' + t);
+        const navBtn = document.getElementById('nav-' + t);
+        if (t === tabId) {
+          section.classList.remove('hidden');
+          navBtn.className = "nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-white bg-indigo-600 shadow-md shadow-indigo-600/20";
+        } else {
+          section.classList.add('hidden');
+          navBtn.className = "nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs transition-all text-slate-400 hover:text-white hover:bg-slate-800/60";
+        }
+      });
+      document.getElementById('top-title').innerText = pageTitles[tabId] || "Accounts Payable";
+    }
+
+    function toggleUserDropdown() {
+      const menu = document.getElementById('user-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function setUser(persona) {
+      const avatar = document.getElementById('user-avatar');
+      const name = document.getElementById('user-display-name');
+      const role = document.getElementById('user-role-badge');
+      if (persona === 'sarah') {
+        avatar.innerText = 'SJ';
+        avatar.className = 'w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center font-bold text-xs text-white shadow';
+        name.innerText = 'Sarah Jenkins';
+        role.innerText = 'AP Specialist';
+      } else if (persona === 'michael') {
+        avatar.innerText = 'MC';
+        avatar.className = 'w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-500 flex items-center justify-center font-bold text-xs text-white shadow';
+        name.innerText = 'Michael Chang';
+        role.innerText = 'Finance Manager';
+      } else if (persona === 'dave') {
+        avatar.innerText = 'DM';
+        avatar.className = 'w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center font-bold text-xs text-white shadow';
+        name.innerText = 'Dave Miller';
+        role.innerText = 'Internal Auditor';
+      }
+      toggleUserDropdown();
+    }
+
+    function openWorkbench(invoiceId) {
+      switchTab('workbench');
+    }
+
+    function approveInvoice() {
+      alert('✓ Invoice INV-2026-9041 Approved!\nReleased for payment processing.');
+      switchTab('dashboard');
+    }
+
+    function rejectInvoice() {
+      const comment = document.getElementById('review-comment').value;
+      if (!comment) {
+        alert('Please enter a note explaining the reason for rejection.');
+        return;
+      }
+      alert('✕ Invoice Rejected with note:\n"' + comment + '"\nVendor notified.');
+      switchTab('dashboard');
+    }
+
+    function simulateUpload() {
+      const card = document.getElementById('upload-progress-card');
+      const bar = document.getElementById('upload-bar');
+      const pct = document.getElementById('upload-pct');
+      const status = document.getElementById('upload-status-text');
+
+      card.classList.remove('hidden');
+      bar.style.width = '30%';
+      pct.innerText = '30%';
+      status.innerText = 'Checking for duplicate invoices...';
+
+      setTimeout(() => {
+        bar.style.width = '70%';
+        pct.innerText = '70%';
+        status.innerText = 'Extracting vendor details and line items...';
+      }, 700);
+
+      setTimeout(() => {
+        bar.style.width = '100%';
+        pct.innerText = '100%';
+        status.innerText = 'Extraction complete! High confidence match (98.2%).';
+        setTimeout(() => {
+          switchTab('workbench');
+        }, 600);
+      }, 1500);
+    }
+
+    // Document Preview Zoom Controls
+    let currentZoom = 1.0;
+    function zoomIn() {
+      if (currentZoom < 1.7) {
+        currentZoom = Math.round((currentZoom + 0.15) * 100) / 100;
+        applyZoom();
+      }
+    }
+    function zoomOut() {
+      if (currentZoom > 0.65) {
+        currentZoom = Math.round((currentZoom - 0.15) * 100) / 100;
+        applyZoom();
+      }
+    }
+    function resetZoom() {
+      currentZoom = 1.0;
+      applyZoom();
+    }
+    function applyZoom() {
+      const el = document.getElementById('invoice-document-sheet');
+      const label = document.getElementById('zoom-level-label');
+      if (el) {
+        el.style.transform = `scale(${currentZoom})`;
+      }
+      if (label) {
+        label.innerText = `${Math.round(currentZoom * 100)}%`;
+      }
+    }
+  </script>
+</body>
+</html>
